@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - webapp-hayya-b2b-stg-v2
 on:
   push:
     branches:
-      - b2b-latest-september
+      - main
   workflow_dispatch:
 
 jobs:
