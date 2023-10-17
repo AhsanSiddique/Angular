@@ -19,11 +19,11 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x.x'
+          node-version: '14.21.3'
 
       - name: npm install, build, and test
         run: |
-          npm install
+          npm install --force
           ng build bulk-registration --configuration=stage
 
       - name: Upload artifact for deployment job
