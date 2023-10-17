@@ -27,7 +27,7 @@ jobs:
           npm run stage
 
       - name: Zip artifact for deployment
-        run: Compress-Archive ./dist/apps/bulk-registration release.zip
+        run: Compress-Archive ./dist/apps release.zip
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
