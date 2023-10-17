@@ -6,12 +6,12 @@ name: Build and deploy Node.js app to Azure Web App - webapp-hayya-b2b-stg-v2
 on:
   push:
     branches:
-      - main
+      - stage
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -27,13 +27,13 @@ jobs:
           npm run stage
 
       - name: Zip artifact for deployment
-        run: Compress-Archive ./dist/apps/bulk-registration release.zip
+        run: zip releases.zip ./dist/apps/bulk-registration
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: release.zip
+          path: releases.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -55,4 +55,4 @@ jobs:
           app-name: 'webapp-hayya-b2b-stg-v2'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3B7B0A7F901642E1BF420107C102A509 }}
-          package: .
+          package: releases.zip
