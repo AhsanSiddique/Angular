@@ -1,0 +1,40 @@
+<div class="modalpane-wrapper">
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <img
+        src="/assets/icons/Group 6841.svg"
+        (click)="close()"
+        style="width: 74px; cursor: pointer"
+        alt="close icon"
+      />
+    </div>
+    <h4
+      class="text-center font-24"
+      style="padding: 0 50px; color: var(--hayya-primary); font-weight: 800"
+    >
+      {{ head_error_message | translate }}
+    </h4>
+    <ng-container *ngIf="content_mode === 'text'">
+      <p
+        *ngIf="error_message"
+        class="text-center font-15"
+        style="padding: 20px 50px 0"
+      >
+        {{ error_message | translate }}
+      </p>
+    </ng-container>
+    <ng-container *ngIf="content_mode === 'project'">
+      <ng-content></ng-content>
+    </ng-container>
+    <div class="modalpane-footer">
+      <button
+        class="btn btn-primary btn-caret-8"
+        (click)="goToHome()"
+        style=" margin-bottom: 1.5rem"
+      >
+        {{ buttontext | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>

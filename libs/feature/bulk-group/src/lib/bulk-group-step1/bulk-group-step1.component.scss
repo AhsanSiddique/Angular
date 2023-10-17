@@ -1,0 +1,88 @@
+.p-23{
+    padding:23px !important;
+}
+::ng-deep td.dataTables_empty {
+    display: none !important;
+}
+.no-data-available{
+  text-align: center;
+}
+
+.bulk-groups {
+  .bulk-group-filter {
+    .search-btn {
+      width: 100%;
+      height: 56px;
+      margin-top: 2rem;
+    }
+  }
+}
+
+.bulk-groups .bulk-group-panel thead th:first-child {
+  // border-top-left-radius: 1rem !important;
+  background: var(--hayya-content-bg);
+  color: var(--hayya-primary);
+  padding: 19px 0px 19px 50px;
+  font-size: 0.75rem;
+  font-weight: bold !important;
+}
+
+.bulk-groups .bulk-group-panel thead th:last-child {
+  // border-top-right-radius: 1rem !important;
+  background: var(--hayya-content-bg);
+  color: var(--hayya-primary);
+  // padding: 22px 50px 26px 0;
+  padding: 19px 50px 19px 70px;
+  font-weight: bold !important;
+  font-size: 0.75rem;
+
+}
+ .bulk-groups .bulk-group-panel td:first-child {
+
+  padding: 5px 0px 5px 50px;
+  // padding: 26px 50px 22px 70px;
+    font-size: 0.75rem;
+
+}
+.bulk-groups .bulk-group-panel td:last-child {
+
+  padding: 5px 50px 5px 70px;
+    font-size: 0.75rem;
+
+}
+.bulk-group-filter{
+  .form-group{
+
+      margin-bottom: 0px !important;
+
+
+  }
+}
+.date-inner-addon {
+  position: relative;
+}
+
+/* style icon */
+.date-inner-addon .bi {
+  position: absolute;
+}
+
+/* align icon */
+.date-right-addon .bi {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  bottom: 0px;
+  cursor: pointer !important;
+}
+
+/* add padding  */
+.date-right-addon input {
+  padding-right: 30px;
+}
+
+.bulk_clearbtn{
+  color: #550065;
+  font-size: 14px !important;
+  padding: 0;
+}

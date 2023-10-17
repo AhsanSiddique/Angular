@@ -1,0 +1,35 @@
+.form-control.is-invalid {
+  border-color: #dc3545 !important;
+}
+.invalid-feedback {
+  text-align: left;
+  font-size: 12px !important;
+    font-weight: 600;
+  &.gender-error{
+    text-align: left;
+    padding-left: 32px !important;
+  }
+}
+.invalid-number-feedback{
+  text-align: right;
+  color:#dc3545;
+  margin-top: 0.25rem;
+  font-size: 80%;
+}
+[dir='rtl'] {
+  .invalid-feedback {
+    text-align: left;
+    font-size: 12px;
+    &.gender-error{
+      text-align: right;
+      padding-right: 32px !important;
+      padding-left: unset !important;
+    }
+  }
+  .invalid-number-feedback{
+    text-align: left;
+    color:#dc3545;
+    margin-top: 0.25rem;
+    font-size: 80%;
+  }
+}

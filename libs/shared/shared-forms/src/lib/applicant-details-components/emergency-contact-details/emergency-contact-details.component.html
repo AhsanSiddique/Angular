@@ -1,0 +1,53 @@
+<div class="emergency-contact-details">
+  <div *ngFor="let contact of applicant_data?.emergency_contacts; index as i">
+    <div class="row p-0 align-items-center">
+      <div class="emergency-contact__title w-100">
+        {{ 'ApplicantDetails.Contact' | translate }} {{ i + 1 }}
+      </div>
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+        <fan-id-readonly-input
+          label="FullName"
+          [id]="'fullname' + (i + 1)"
+          [value]="contact?.fullname"
+          placeholder="FullName"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 field-group">
+        <div>
+          <label for="country_code" class="disabled-label">
+            {{ 'ApplicantDetails.CountryCode' | translate }}
+          </label>
+          <!-- <input
+            [id]="'country_code' + (i + 1)"
+            type="text"
+            [value]="contact?.country_code"
+            style="background-color: #fff !important"
+            class="form-control disabled-text"
+            readonly
+            disabled
+          /> -->
+          <div id="country_code" class="form-control disabled-text">
+            <span class="flag-icon flag-icon-{{ (i === 0 ? emer1PhoneCode : emer2PhoneCode )| lowercase }}"></span>
+            <span class="mx-1"> {{ contact?.country_code }} </span>
+          </div>
+        </div>
+
+        <div>
+          <label for="mobile_number" class="disabled-label">
+            {{ 'ApplicantDetails.MobileNumber' | translate }}
+          </label>
+          <input
+            [id]="'mobile' + (i + 1)"
+            type="text"
+            [value]="contact?.mobile"
+            class="form-control disabled-text"
+            readonly
+            disabled
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

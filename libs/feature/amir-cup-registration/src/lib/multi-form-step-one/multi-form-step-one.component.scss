@@ -1,0 +1,45 @@
+.upperlabel{
+    position:absolute !important;
+    top:8px;
+    left:24px;
+    color:#950037;
+    font-size:12px;
+
+}
+.button-padding{
+
+    padding: unset !important;
+    padding-right: 1rem;
+    padding-top: 1rem;
+}
+.submitpaddingoveride{
+    padding: .375rem .75rem !important;
+}
+
+.ticket-info-actions {
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    min-width: 90px;
+  }
+
+  .disabled-btn {
+    pointer-events: none;
+    background-color: var(--hayya-primary);
+    opacity: 0.25;
+    border: none;
+  }
+}
+
+@media  screen and (max-width:992px)
+{
+    .button-padding{
+        flex: 0 0 50%;
+        max-width: 32%;
+    }
+    .buttonClassMain{
+        margin-left: 3rem!important;
+    }
+}

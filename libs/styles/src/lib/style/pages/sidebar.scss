@@ -1,0 +1,51 @@
+//sidebar
+.sidebar {
+  background-color: var(--hayya-primary);
+  height: calc(100vh) !important;
+  width: 130px;
+  color: $fifa-red;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0%;
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  .side-option {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 12px;
+    justify-content: center;
+    height: 95px;
+
+    span {
+      margin-top: 10px;
+      color: var(--hayya-secondary);
+    }
+  }
+
+  .selected {
+    .side-option {
+      background-color: var(--hayya-secondary);
+
+      svg {
+        path {
+          color: var(--hayya-primary);
+        }
+      }
+
+      span {
+        color: var(--hayya-primary);
+      }
+    }
+  }
+}
+
+//end

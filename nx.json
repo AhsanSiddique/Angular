@@ -1,0 +1,155 @@
+{
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "fan-id",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "bulk-registration": {
+      "tags": []
+    },
+    "bulk-registration-e2e": {
+      "tags": [],
+      "implicitDependencies": ["bulk-registration"]
+    },
+    "service-center": {
+      "tags": []
+    },
+    "service-center-e2e": {
+      "tags": [],
+      "implicitDependencies": ["service-center"]
+    },
+    "core": {
+      "tags": []
+    },
+    "api-interceptor": {
+      "tags": []
+    },
+    "api-server": {
+      "tags": []
+    },
+    "feature-auth": {
+      "tags": []
+    },
+    "feature-bulk-registration": {
+      "tags": []
+    },
+    "feature-bulk-upload": {
+      "tags": []
+    },
+    "feature-manual-upload": {
+      "tags": []
+    },
+    "shared-header-sidebar": {
+      "tags": []
+    },
+    "feature-account": {
+      "tags": []
+    },
+    "styles": {
+      "tags": []
+    },
+    "feature-bulk-group": {
+      "tags": []
+    },
+    "feature-all-applications": {
+      "tags": []
+    },
+    "feature-service-center": {
+      "tags": []
+    },
+    "shared-shared-components": {
+      "tags": []
+    },
+    "feature-new-customer": {
+      "tags": []
+    },
+    "shared-shared-forms": {
+      "tags": []
+    },
+    "feature-card-replacement": {
+      "tags": []
+    },
+    "feature-card-pickup": {
+      "tags": []
+    },
+    "shared-utils-date": {
+      "tags": []
+    },
+    "portal-amir-cup": {
+      "tags": []
+    },
+    "portal-amir-cup-e2e": {
+      "tags": [],
+      "implicitDependencies": ["portal-amir-cup"]
+    },
+    "feature-amir-cup": {
+      "tags": []
+    },
+    "feature-amir-cup-registration": {
+      "tags": []
+    },
+    "shared-portal-common": {
+      "tags": []
+    },
+    "feature-amir-cup-main": {
+      "tags": []
+    },
+    "shared-utils-common": {
+      "tags": []
+    },
+    "shared-utils-form": {
+      "tags": []
+    },
+    "feature-voucher-codes": {
+      "tags": []
+    },
+    "feature-knowledge-base": {
+      "tags": []
+    },
+    "feature-organization": {
+      "tags": []
+    },
+    "shared-utils-ocr": {
+      "tags": []
+    },
+    "feature-package-upload": {
+      "tags": []
+    },
+    "feature-accomadation": {
+      "tags": []
+    },
+    "libs-feature-verify-application": {
+      "tags": []
+    },
+    "feature-verify-application": {
+      "tags": []
+    },
+    "feature-printer-management": {
+      "tags": []
+    },
+    "feature-verify-accommodation": {
+      "tags": []
+    },
+    "feature-approve-application": {
+      "tags": []
+    },
+    "feature-payment": {
+      "tags": []
+    }
+  }
+}

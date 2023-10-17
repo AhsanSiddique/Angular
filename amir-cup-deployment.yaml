@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amir-cup-deploy
+  labels:
+    app: portal-amir-cup
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: portal-amir-cup
+      labels:
+        app: portal-amir-cup
+    spec:
+      nodeSelector:
+        'beta.kubernetes.io/os': linux
+      containers:
+        - name: portal-amir-cup-pod
+          image: acracdevwesteurope01.azurecr.io/mannai_mobility/fid_service-center:#{Build.BuildId}#-ac
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+  selector:
+    matchLabels:
+      app: portal-amir-cup

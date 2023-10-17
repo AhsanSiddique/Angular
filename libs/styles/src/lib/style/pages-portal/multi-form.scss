@@ -1,0 +1,367 @@
+fan-id-register-sidebar{
+	width:100%;
+}
+fan-id-register-header{
+	width: 100%;
+	margin-left: 15px;
+	display: block;
+}
+fan-id-register-footer{
+	width: 100%;
+	margin-left: 15px;
+	display: block;
+}
+.radio-py{
+  padding-left: 0px;
+  .left{
+    padding-left: 0px;
+
+  }
+  .right{
+    padding-left: 0px;
+
+  }
+}
+
+
+.mform{
+	width: 100%;
+	.info-highlight{
+		background:#F0F0F0;
+		border-radius:10px;
+		margin:auto;
+	}
+	.profileimg{
+		width:100px;
+		border:3px solid #950037;
+		border-radius:25px;
+		clear:both;
+		display:block;
+	}
+	.uploadParent{
+		border:1px dotted #333;
+		border-radius:15px;
+	}
+	.custom-file-label-new{
+		background:#F0F0F0;
+		padding:10px;
+		width:100%;
+		border-radius:10px;
+	}
+	.disabled-btn {
+		pointer-events: none !important;
+		background-color: var(--hayya-primary) !important;
+		opacity: 0.25 !important;
+		border: none !important;
+	}
+	.form-control{
+		@extend .form-control;
+		height:56px;
+		border-radius:10px;
+		padding-left: 24px;
+		// padding-top: 28px;
+		&::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+			color: #BFBFBF !important;
+			opacity: 1 !important; /* Firefox */
+		}
+		&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+			color: #BFBFBF !important;
+		}
+		&::-moz-placeholder { /* Firefox 19+ */
+			color: #BFBFBF !important;
+		}
+		&:-ms-input-placeholder { /* IE 10+ */
+			color: #BFBFBF !important;
+		}
+		&:-moz-placeholder { /* Firefox 18- */
+			color: #BFBFBF !important;
+		}
+	}
+	.custom-file-input-new{
+		width:0px!important;
+		height:0px!important;
+	}
+	.upperlabel{
+		position:absolute !important;
+		top:8px;
+		left:24px;
+		color:#950037;
+		font-size:12px;
+		font-weight: 400;
+	}
+	.top-10{
+		top:18px;
+	}
+	.right-25{
+		right:25px;
+	}
+	.right-2{
+		right:10px;
+	}
+	.top-5{
+		top:6px;
+	}
+	.top-7{
+		top:14px;
+	}
+	.phonebutton{
+		position:absolute;
+		top:5px;
+		left:5px;
+		width:180px;
+		height:45px;
+		border-top-left-radius:10px;
+		border-bottom-left-radius:10px;
+		background:#fff;
+		border:none;
+		border-right:1px solid #eee;
+		font-size:25px;
+	}
+
+	.form-section{
+		text-align: center;
+		padding-top: 30px;
+		// overflow-y:auto;
+		// overflow-x:hidden;
+		// height: calc(100vh - 141px);
+		h4{
+			font-size: 40px;
+			color: $seccolor;
+			font-weight: bold;
+		}
+		p.sub-title{
+			font-size: 20px;
+			color: $black;
+		}
+		.custom-form{
+			max-width: 420px;
+			margin: 0 auto;
+		}
+		.btn-primary{
+			padding: 10px 25px;
+			margin: 20px 0;
+		}
+	}
+	.text-primary{
+		color:#950037 !important;
+	}
+	.longbtn{
+		background: #ECECEC;
+		border-radius:10px;
+		border:none;
+
+	}
+	.redtext{
+		color:#950037 !important;
+	}
+	.green_check{
+		height:100px;
+    border-radius: 30px;
+	}
+	.middletext{
+		font-size:20px;
+	}
+	.green_text{
+		color:green;
+	}
+	.w-0{
+		width:0px !important;
+	}
+	.h-0{
+		height:0px !important;
+	}
+	.btn-primary{
+		background: $seccolor;
+		color: $white;
+		border-color: $seccolor;
+		font-size: 18px;
+		border-radius: 10px;
+		&:hover, &:focus, &:active, .active, .active:focus{
+			background-color: $basecolor !important;
+			border-color: $basecolor !important;
+			box-shadow: 0 0 0 0.2rem rgba(224,161,35,0.3) !important;
+		}
+	}
+
+	.btn-outline-primary{
+		color:$black;
+		border-color: $seccolor;
+		font-size: 18px;
+		border-radius: 10px;
+		&:hover, &:focus, &:active, .active, .active:focus{
+			border-color: $basecolor !important;
+			box-shadow: 0 0 0 0.2rem rgba(224,161,35,0.3) !important;
+		}
+	}
+	.radioform{
+		border: 1px solid #333;
+		border-radius: 6px;
+		padding: 12px;
+	}
+	.is-error{
+		border-color:#d0021b !important;
+	}
+	.error-feedback{
+		color:#d0021b;
+		padding-top:10px;
+	}
+	.ntlty_icon_display{
+		position:absolute;
+		top:28px;
+		left:23px;
+	}
+	.ntlty_text_display{
+		position:absolute;
+		top:28px;
+		left: 52px;
+		font-size: 1.09em;
+	}
+
+	.form-control:disabled, .form-control[readonly] {
+		background-color: #ffffff;
+		opacity: 1;
+	}
+
+	.cancelBtn{
+		&:hover, &:focus, &:active, .active, .active:focus{
+			background-color: #8A1539 !important;
+			border-color: #8A1539 !important;
+			box-shadow: 0 0 0 0.2rem rgba(224,161,35,0.3) !important;
+		}
+	}
+	.imgerror{
+		width: 250px;
+		position: absolute;
+		left: 20px;
+		top: 10%;
+		background: #FFEBEF;
+		padding: 20px;
+		height: 130px;
+		vertical-align: middle;
+		border-right: 4px solid #E4032F;
+		color: #E4032F;
+
+    z-index: 4;
+    @include media-breakpoint-down(sm){
+      position: relative;
+      left: 50%;
+      top: 50% !important;
+      transform: translate(-50%, -70%);
+      border-bottom: 4px solid #E4032F;
+      border-right: none;
+    }
+    &:before{
+			content: "";
+			position: absolute;
+			left: -15px;
+			top: 50%;
+			background: url(/assets/images/triangle_left.svg) no-repeat center center;
+			background-size: contain;
+			width: 20px;
+			height: 14px;
+			margin: -10px 0 0 0;
+
+      @include media-breakpoint-down(sm) {
+        left: 50%;
+        top: -15px;
+        transform: translate(-50%, 1px);
+			  background: url(/assets/images/triangle_up.svg) no-repeat center center;
+        margin: 0;
+    }
+		}
+
+	}
+	.imageerroricon{
+		width:20%;
+		float:left;
+
+	}
+	.imageerrortxt{
+		width:80%;
+		float:right;
+		text-align:justify;
+
+	}
+}
+
+.ng-select {
+	cursor: pointer;
+	.ng-has-value .ng-placeholder {
+		display: none;
+	}
+
+	.ng-option {
+		display: flex !important;
+		padding-left: 24px !important;
+	}
+}
+
+
+
+[dir='rtl'] {
+
+  fan-id-register-header{
+    margin-right: 15px;
+  }
+  fan-id-register-footer{
+    margin-right: 15px;
+  }
+
+  .phonecode-pipe{
+    right: 110px;
+    left: initial !important;
+  }
+
+
+  .phone-input-step-two {
+    padding-left: unset !important;
+    padding-right: 140px !important;
+  }
+
+  ngb-datepicker {
+    direction: ltr;
+  }
+
+
+  .mform{
+    .form-control{
+      padding-right: 24px;
+    }
+    .upperlabel{
+      right: 40px;
+      left:initial;
+    }
+
+    .right-25{
+      left:25px;
+      right:  initial;
+    }
+    .right-2{
+      left:10px;
+      right:  initial;
+    }
+    .phonebutton{
+      right: 5px;
+      left:initial;
+    }
+    .ntlty_icon_display{
+      right:23px;
+      left: initial;
+    }
+    .ntlty_text_display{
+      right: 52px;
+      left:initial;
+    }
+  }
+
+  .ng-select {
+    .ng-option {
+      padding-right: 24px !important;
+      padding-left: 0px !important;
+    }
+  }
+.radiopy{
+  padding-right: 0px;
+}
+
+}

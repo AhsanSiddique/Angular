@@ -1,0 +1,12 @@
+.dataas-img {
+  object-fit: contain !important;
+}
+
+::ng-deep td.dataTables_empty {
+  display: none !important;
+}
+
+.no-data-available{
+  text-align: center;
+  height: 150px;
+}

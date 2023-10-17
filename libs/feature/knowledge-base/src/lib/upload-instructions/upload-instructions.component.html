@@ -1,0 +1,497 @@
+<div class="modalpane-wrapper">
+  <div class="modalpane-body">
+    <div
+      class="modalpane-closebtn"
+      style="position: absolute; right: 0; top: 0; cursor: pointer"
+    >
+      <img
+        src="/assets/icons/close 001.svg"
+        style="width: 32px; position: absolute"
+        alt="close icon"
+        (click)="this.close.emit()"
+      />
+    </div>
+    <div class="modalpane-header">
+      <h4
+        class="font-25 text-center Qatar2022"
+        style="color: var(--hayya-primary); font-weight: 700"
+      >
+        Instructions
+      </h4>
+    </div>
+    <div class="header-bar">
+      <div style="position: relative; cursor: pointer">
+        <a
+          [ngClass]="{
+            'selected-instruction': selectedInstructionPill === 1
+          }"
+          (click)="selectedInstructionPill = 1"
+          >Upload Personal Photo</a
+        >
+      </div>
+      <div style="position: relative; cursor: pointer">
+        <a
+          [ngClass]="{
+            'selected-instruction': selectedInstructionPill === 2
+          }"
+          class="custom-left"
+          (click)="selectedInstructionPill = 2"
+          >Upload Passport</a
+        >
+      </div>
+    </div>
+    <div
+      class="instruction-body mt-1 pt-5"
+      *ngIf="selectedInstructionPill === 1"
+    >
+      <div class="images-panel">
+        <img src="assets/images/Instructions/G1.png" />
+        <img src="assets/images/Instructions/G5.png" />
+        <img src="assets/images/Instructions/G2.png" />
+        <img src="assets/images/Instructions/G3.png" />
+        <img src="assets/images/Instructions/G4.png" />
+      </div>
+
+      <div class="notes mt-5 p-3">
+        <p class="head">Personal Photo Standard Requirements</p>
+        <ul>
+          <li>Do not tilt the head, the head must be centered.</li>
+          <li>Do not turn the head, the head must be centered.</li>
+          <li>
+            Do not roll the head, the head must be straight to show the full
+            face.
+          </li>
+          <li>The photo should not be blurred.</li>
+          <li>The photo background should be clear.</li>
+          <li>The eyes should not be closed.</li>
+          <li>The hairstyle should not cover the eyes.</li>
+          <li>The photo should not be too dark.</li>
+          <li>The photo should not be too light.</li>
+          <li>There should not be over lighting on the face.</li>
+          <li>There should not be shadow on the face.</li>
+          <li>The background should be plain, even & uniform.</li>
+          <li>The background should not have shadows or glare.</li>
+          <li>There should not be more than one face on the photo.</li>
+          <li>The photo should not have unnaturally colored lighting.</li>
+        </ul>
+        <p class="head">Size</p>
+        <ul>
+          <li>
+            Photo must be in dimension of 40 (height) x 30 (width). Miniumum
+            resolution of 720px.
+          </li>
+
+          <li>
+            Photo must both show a close up of your face and the top of the
+            shoulders.
+          </li>
+
+          <li>Your face must take up 70% to 80% of the photo.</li>
+
+          <li>The size of the photo should not be more than 2 MB.</li>
+
+          <li>Only JPEG or JPG images must be used.</li>
+        </ul>
+
+        <p class="head">Age</p>
+        <ul>
+          <li>
+            Your application photo must be less than 12 months old from the time
+            of applying.
+          </li>
+        </ul>
+
+        <p class="head">Image Quality</p>
+        Your photo must:
+        <ul>
+          <li>Be in colour</li>
+          <li>Be taken against a plain white or light grey background</li>
+          <li>Have sharp focus and be correctly exposed</li>
+          <li>
+            Have a good colour balance, natural flesh tones and no 'red eye'
+          </li>
+          <li>
+            Have good contrast between your facial features and the background
+          </li>
+          <li>
+            There must be no shadows or glare in the image or in the background.
+          </li>
+        </ul>
+
+        <p class="head">Pose</p>
+        <ul>
+          <li>
+            The head must be centred in the image. You must look directly at the
+            camera and show your full face.
+          </li>
+          <li>Do not tilt or turn your head in any way.</li>
+        </ul>
+
+        <p class="head">Expression</p>
+        <ol>
+          <li>
+            Your expression must be neutral. Do not squint, frown, smile or use
+            any other expression.
+          </li>
+          <li>
+            Your eyes must be open and your mouth closed. There must be no hair
+            covering your eyes.
+          </li>
+        </ol>
+
+        <p class="head">Glasses</p>
+        <ul>
+          <li>Do not wear sunglasses or tinted/coloured glasses.</li>
+          <li>
+            If you normally wear glasses, your eyes must be clearly visible in
+            the photo.
+          </li>
+        </ul>
+
+        <p class="head">Head & Hair Covering</p>
+        <ul>
+          <li>
+            Do not wear a head covering or hair covering, except if you wear it
+            for religious reasons, eg do not wear a hat, cap, head-band.
+          </li>
+          <li>
+            If you wear a head covering for religious reasons, your face must be
+            clearly visible.
+          </li>
+        </ul>
+      </div>
+
+      <div class="modalpane-footer">
+        <button class="btn btn-primary btn-caret-8" (click)="this.close.emit()">
+          Close
+        </button>
+      </div>
+    </div>
+    <div
+      class="instruction-body mt-1 pt-5"
+      *ngIf="selectedInstructionPill === 2"
+    >
+      <h4
+        class="font-25 text-center Qatar2022"
+        style="color: var(--hayya-primary); font-weight: 700"
+      >
+        Instructions for uploading Passport
+      </h4>
+      <div class="notes mt-5 p-3">
+        <p class="head">Note</p>
+        <ul>
+          <li>The size of the photo should not be more than 2 MB.</li>
+          <li>Only JPEG or JPG images must be used.</li>
+          <li>
+            If your last name is blank, ensure that you provide your father's
+            name as last name
+          </li>
+        </ul>
+      </div>
+      <div class="photo-holder my-5">
+        <div class="p-left">
+          <img src="/assets/images/Instructions/P1.png" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#018837"
+            ></path>
+            <path
+              d="M13 20.5L18.5 25.5L27.5 15"
+              stroke="white"
+              stroke-width="4"
+            ></path>
+          </svg>
+        </div>
+        <div class="p-right">
+          <img src="/assets/images/Instructions/P2.png" />
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#EA3351"
+            ></path>
+            <path
+              d="M26 14L14 26"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+            <path
+              d="M26 26L14 14"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="notes mt-5 p-3">
+        <ul>
+          <li>
+            The MRZ code should be clearly visible otherwise the application
+            will be rejected.
+          </li>
+        </ul>
+      </div>
+      <div class="photo-holder my-5">
+        <div class="p-left">
+          <img src="/assets/images/Instructions/P3.png" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#018837"
+            ></path>
+            <path
+              d="M13 20.5L18.5 25.5L27.5 15"
+              stroke="white"
+              stroke-width="4"
+            ></path>
+          </svg>
+        </div>
+        <div class="p-right">
+          <img src="/assets/images/Instructions/P4.png" />
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#EA3351"
+            ></path>
+            <path
+              d="M26 14L14 26"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+            <path
+              d="M26 26L14 14"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="notes mt-5 p-3">
+        <ul>
+          <li>Please make sure to upload the document in full color.</li>
+        </ul>
+      </div>
+      <div class="photo-holder my-5">
+        <div class="p-left">
+          <img src="/assets/images/Instructions/P3.png" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#018837"
+            ></path>
+            <path
+              d="M13 20.5L18.5 25.5L27.5 15"
+              stroke="white"
+              stroke-width="4"
+            ></path>
+          </svg>
+        </div>
+        <div class="p-right">
+          <img src="/assets/images/Instructions/P5.png" />
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#EA3351"
+            ></path>
+            <path
+              d="M26 14L14 26"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+            <path
+              d="M26 26L14 14"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="notes mt-5 p-3">
+        <ul>
+          <li>No glare or stain over the scan.</li>
+
+          <li>No shadows over the scan.</li>
+        </ul>
+      </div>
+      <div class="photo-holder my-5">
+        <div class="p-left">
+          <img src="/assets/images/Instructions/P3.png" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#018837"
+            ></path>
+            <path
+              d="M13 20.5L18.5 25.5L27.5 15"
+              stroke="white"
+              stroke-width="4"
+            ></path>
+          </svg>
+        </div>
+        <div class="p-right">
+          <img src="/assets/images/Instructions/P6.png" />
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#EA3351"
+            ></path>
+            <path
+              d="M26 14L14 26"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+            <path
+              d="M26 26L14 14"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="notes mt-5 p-3">
+        <ul>
+          <li>
+            Double pages of scanned copies are not allowed. Only single page
+            should be uploaded.
+          </li>
+        </ul>
+      </div>
+      <div class="photo-holder my-5">
+        <div class="p-left">
+          <img src="/assets/images/Instructions/P7.png" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#018837"
+            ></path>
+            <path
+              d="M13 20.5L18.5 25.5L27.5 15"
+              stroke="white"
+              stroke-width="4"
+            ></path>
+          </svg>
+        </div>
+        <div class="p-right">
+          <img src="/assets/images/Instructions/P8.png" />
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M0 19.9946C5.03664 13.2754 13.7313 5.09091 19.9945 0C27.3138 5.98027 34.0158 12.6785 40 19.9946C34.0185 27.3164 27.3163 34.0185 19.9945 40C13.7313 34.9091 5.03664 26.7246 0 19.9946Z"
+              fill="#EA3351"
+            ></path>
+            <path
+              d="M26 14L14 26"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+            <path
+              d="M26 26L14 14"
+              stroke="white"
+              stroke-width="4"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+            ></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="notes mt-5 p-3">
+        <ul>
+          <li>Crop the document so that no information is missed.</li>
+        </ul>
+      </div>
+
+      <div class="modalpane-footer">
+        <button class="btn btn-primary btn-caret-8" (click)="this.close.emit()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modalpane-backdrop"></div>

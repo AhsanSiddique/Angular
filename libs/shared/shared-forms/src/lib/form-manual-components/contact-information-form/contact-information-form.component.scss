@@ -1,0 +1,13 @@
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+
+.disabled-code {
+  pointer-events: none;
+
+  ::ng-deep .ng-arrow-wrapper {
+    display: block !important;
+    opacity: 0.5;
+  }
+}

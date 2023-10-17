@@ -1,0 +1,681 @@
+<div class="row application-information">
+  <div class="col-xl-6 col-lg-8 col-md-12">
+    <div class="row">
+      <!-- <div class="col">
+        <fan-id-readonly-input
+          label="Application Type"
+          id="application_type"
+          [value]="applicant_data?.application_type"
+          placeholder="Application Type"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div> -->
+      <div class="col">
+        <fan-id-readonly-input
+          label="Application Date"
+          id="application_date"
+          [value]="applicant_data?.application_date"
+          placeholder="Application Date"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col">
+        <fan-id-readonly-input
+          label="Application Number"
+          id="application_number"
+          [value]="applicant_data?.application_number"
+          placeholder="Application Number"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label for="approval_comments" class="disabled-label">
+          <ng-container [ngSwitch]="applicant_data?.application_status_id">
+            <ng-container *ngSwitchDefault>
+              Approval Comments
+            </ng-container>
+            <ng-container *ngSwitchCase="3">
+              Rejection Comments
+            </ng-container>
+            <ng-container *ngSwitchCase="5">
+              Return for Correction Comments
+            </ng-container>
+          </ng-container>
+        </label>
+        <div class="form-control disabled-text" style="min-height: 8.8rem; overflow-y: auto;">
+          {{ applicant_data?.approval_comments }}
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row" *ngIf="applicant_data?.applicationTypeCode !== 'QRC' && applicant_data?.arrivalDate">
+      <div class="col">
+        <fan-id-readonly-input
+          label="Estimated Date Of Arrival"
+          id="arrival_date"
+          [value]="applicant_data?.arrivalDate"
+          placeholder="Estimated Date Of Arrival"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col"></div>
+    </div> -->
+  </div>
+
+  <div class="col-xl-6 col-lg-4 col-md-12">
+    <div class="row">
+      <!-- <div class="col">
+        <fan-id-readonly-input
+          label="Application Number"
+          id="application_number"
+          [value]="applicant_data?.application_number"
+          placeholder="Application Number"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div> -->
+
+      <!-- <div class="col">
+        <label for="current_country" class="disabled-label">
+          {{ 'ApplicantDetails.CountryofResidence' | translate }}
+        </label>
+        <div id="current_country" class="form-control disabled-text d-flex align-items-center">
+          <span class="flag-icon flag-icon-{{ applicant_data?.current_country_code | lowercase }}"></span>
+          <span class="mx-1"> {{ applicant_data?.current_country }} </span>
+        </div>
+      </div> -->
+      <div class="col">
+        <fan-id-readonly-input
+          label="Submission Type"
+          id="submission_type"
+          [value]="applicant_data?.submission_type"
+          placeholder="Submission Type"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col" *ngIf="isServiceCenter">
+        <fan-id-readonly-input
+          label="Fan ID Category"
+          id="fanid_category"
+          [value]="applicant_data?.fanid_category"
+          placeholder="Fan ID Category"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col" *ngIf="!isServiceCenter">
+        <fan-id-readonly-input
+          label="Organization Name"
+          id="organization_Name"
+          [value]="applicant_data?.organization_Name"
+          placeholder="Organization Name"
+        ></fan-id-readonly-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col" *ngIf="isServiceCenter">
+        <fan-id-readonly-input
+          label="Hayya Number"
+          id="hayyaNo"
+          [value]="applicant_data?.hayyaNo"
+          placeholder="Hayya Number"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col" *ngIf="!isServiceCenter">
+        <fan-id-readonly-input
+          label="Organization Group Name"
+          id="bulkGroupName"
+          [value]="applicant_data?.bulkGroupName"
+          placeholder="Organization Group Name"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col">
+        <fan-id-readonly-input
+          label="Fan ID Number"
+          id="fanid_number"
+          [value]="applicant_data?.fanid_number"
+          placeholder="Fan ID Number"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <fan-id-readonly-input
+          label="Fan ID Card Status"
+          id="fanid_card_details"
+          [value]="applicant_data?.fanid_card_details"
+          placeholder="Fan ID Card Status"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col">
+        <!-- <fan-id-readonly-input *ngIf="applicant_data?.applicationTypeCode !== 'QRC' && applicant_data?.arrivalDate"
+          label="Estimated Date Of Arrival"
+          id="arrival_date"
+          [value]="applicant_data?.arrivalDate"
+          placeholder="Estimated Date Of Arrival"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input> -->
+        <fan-id-readonly-input
+        label="Delivery Type"
+        id="delivery_type"
+        [value]="applicant_data?.delivery_type"
+        placeholder="Delivery Type"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+      </div>
+      <!-- <div class="col"></div> -->
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!isServiceCenter">
+  <div class="col">
+    <fan-id-readonly-input
+      label="Organization Category"
+      id="organizationCategory"
+      [value]="applicant_data?.organizationCategory"
+      placeholder="Organization Category"
+    ></fan-id-readonly-input>
+  </div>
+  <div class="col">
+    <fan-id-readonly-input
+      label="Category of Hayya Visit"
+      id="CustomerCategory"
+      [value]="applicant_data?.fanid_category"
+      placeholder="CustomerCategory"
+    ></fan-id-readonly-input>
+  </div>
+  <div class="col">
+    <fan-id-readonly-input
+      label="Conference List"
+      id="conferenceEvents"
+      [value]="applicant_data?.conferenceEvent_Name"
+      placeholder="Conference List"
+    ></fan-id-readonly-input>
+  </div>
+  <div class="col">
+    <fan-id-readonly-input
+      label="Hayya Number"
+      id="hayyaNo"
+      [value]="applicant_data?.hayyaNo"
+      placeholder="Hayya Number"
+    ></fan-id-readonly-input>
+  </div>
+  <!-- <div class="col"></div> -->
+</div>
+<div class="row w-100 mb-4"></div>
+
+<!-- <div class="row justify-content-between" *ngIf="isServiceCenter && eventTournamentType !== 1"> -->
+  <!-- <div class="col status-col">
+    <label for="application_status" class="disabled-text">
+      {{ 'ApplicantDetails.DocumentQualityScore' | translate }}
+    </label>
+    <div class="status-badge status-badge-approved">
+      {{ applicant_data?.document_quality_score }}%
+    </div>
+  </div>
+
+  <div class="col status-col">
+    <label for="application_status" class="disabled-text">
+      {{ 'ApplicantDetails.FaceIDScore' | translate }}
+    </label>
+    <div class="status-badge status-badge-approved">
+      {{ applicant_data?.faceid_score }}%
+    </div>
+  </div> -->
+
+  <!-- <div class="col status-col">
+    <label for="application_status" class="disabled-label">
+      {{ 'ApplicantDetails.ApplicationStatus' | translate }}
+    </label>
+    <div class="status-badge"
+    [ngClass]="{
+      'status-badge-approved': applicant_data?.application_status_id === 2,
+      'status-badge-rejected': applicant_data?.application_status_id === 3,
+      'status-badge-under-review': [1, 9].includes(applicant_data?.application_status_id),
+      'status-badge-more-info': applicant_data?.application_status_id === 4
+    }"
+    >
+      {{ applicant_data?.application_status | setApplicationStatus : applicant_data?.application_status_id }}
+    </div>
+  </div>
+  <div class="col status-col" *ngIf="applicant_data?.document_type !== 'QID'">
+    <label for="accommodation_type" class="disabled-label">
+      Accommodation Type
+    </label>
+    <div class="status-badge"
+    [ngClass]="{
+      'status-badge-approved': applicant_data?.accommodationTypeName,
+      'status-badge-rejected': !applicant_data?.accommodationTypeName
+    }"
+    >
+      {{ applicant_data?.accommodationTypeName ?? 'Pending' }}
+    </div>
+  </div>
+  <ng-container *ngIf="{ entryPermitStatus: entryPermitStatus$ | async } as vm">
+    <div class="col status-col">
+      <label for="entry-permit-status" class="disabled-label">
+        {{ 'ApplicantDetails.EntryPermit' | translate }}
+      </label>
+      <div class="status-badge"
+      [ngClass]="{
+        'status-badge-approved': vm.entryPermitStatus === 'Sent',
+        'status-badge-rejected': vm.entryPermitStatus === 'Pending',
+        'status-badge-more-info': vm.entryPermitStatus === 'N/A'
+      }"
+      >
+       {{ vm.entryPermitStatus }}
+      </div>
+    </div>
+  </ng-container> -->
+  <!-- <div class="col status-col">
+    <label for="application_status" class="disabled-text">
+      {{ 'ApplicantDetails.Ehteraz Status' | translate }}
+    </label>
+    <div class="ehteraz-status-badge"
+    [ngStyle]="ehterazStyleObject()">
+      {{ ehterazStatus?.status === false?ehterazStatus?.message:ehterazStatus?.userStatus }}
+    </div>
+  </div> -->
+
+  <!-- <div class="col view-card-col">
+    <div class="btn btn-primary btn-caret-8 card-details-btn d-none"
+      [class.card-details-btn-disabled]="!isCardPrinted(applicant_data?.card_status_id)"
+      (click)="openCard.emit()"> -->
+      <!-- <span class="d-inline-block">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24.258"
+          height="16.677"
+          viewBox="0 0 24.258 16.677"
+        >
+          <defs>
+            <style>
+              .cls-1 {
+                fill: #fff;
+              }
+            </style>
+          </defs>
+          <g id="credit-card" transform="translate(0 -80)">
+            <path
+              id="Path_3218"
+              d="M24.258 83.932v-1.279A2.653 2.653 0 0 0 21.6 80H2.653A2.653 2.653 0 0 0 0 82.653v1.279a.237.237 0 0 0 .237.237h23.784a.237.237 0 0 0 .237-.237z"
+              class="cls-1"
+            />
+            <path
+              id="Path_3219"
+              d="M0 200.237v8.1a2.653 2.653 0 0 0 2.653 2.653H21.6a2.653 2.653 0 0 0 2.653-2.653v-8.1a.237.237 0 0 0-.237-.237H.237a.237.237 0 0 0-.237.237zm6.064 6.207a.758.758 0 0 1-.758.758h-.758a.758.758 0 0 1-.758-.758v-.758a.758.758 0 0 1 .758-.758h.758a.758.758 0 0 1 .758.758z"
+              class="cls-1"
+              transform="translate(0 -114.315)"
+            />
+          </g>
+        </svg>
+      </span> -->
+      <!-- <span>
+        {{ 'ApplicantDetails.ViewCardDetails' | translate }}
+      </span>
+    </div>
+  </div>-->
+<!-- </div> -->
+
+<!-- <div class="row justify-content-between br-status" *ngIf="!isServiceCenter || eventTournamentType === 1">
+  <div class="col status-col" style="max-width: 25% !important;">
+    <label for="application_status" class="disabled-label">
+      {{ 'ApplicantDetails.ApplicationStatus' | translate }}
+    </label>
+    <div class="status-badge"
+    [ngClass]="{
+      'status-badge-approved': applicant_data?.application_status_id === 2,
+      'status-badge-rejected': applicant_data?.application_status_id === 3,
+      'status-badge-under-review': [1, 9].includes(applicant_data?.application_status_id),
+      'status-badge-more-info': applicant_data?.application_status_id === 4
+    }"
+    >
+      {{ applicant_data?.application_status | setApplicationStatus : applicant_data?.application_status_id }}
+    </div>
+  </div>
+  <ng-container *ngIf="{ entryPermitStatus: entryPermitStatus$ | async } as vm">
+    <div class="col status-col">
+      <label for="entry-permit-status" class="disabled-label">
+        {{ 'ApplicantDetails.EntryPermit' | translate }}
+      </label>
+      <div class="status-badge"
+      [ngClass]="{
+        'status-badge-approved': vm.entryPermitStatus === 'Sent',
+        'status-badge-rejected': vm.entryPermitStatus === 'Pending',
+        'status-badge-more-info': vm.entryPermitStatus === 'N/A'
+      }"
+      >
+       {{ vm.entryPermitStatus }}
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="col view-card-col">
+    <div class="btn btn-primary btn-caret-8 card-details-btn"
+    [class.card-details-btn-disabled]="!isCardPrinted(applicant_data?.card_status_id)"
+    (click)="openCard.emit()"> -->
+      <!-- <span class="d-inline-block">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24.258"
+          height="16.677"
+          viewBox="0 0 24.258 16.677"
+        >
+          <defs>
+            <style>
+              .cls-1 {
+                fill: #fff;
+              }
+            </style>
+          </defs>
+          <g id="credit-card" transform="translate(0 -80)">
+            <path
+              id="Path_3218"
+              d="M24.258 83.932v-1.279A2.653 2.653 0 0 0 21.6 80H2.653A2.653 2.653 0 0 0 0 82.653v1.279a.237.237 0 0 0 .237.237h23.784a.237.237 0 0 0 .237-.237z"
+              class="cls-1"
+            />
+            <path
+              id="Path_3219"
+              d="M0 200.237v8.1a2.653 2.653 0 0 0 2.653 2.653H21.6a2.653 2.653 0 0 0 2.653-2.653v-8.1a.237.237 0 0 0-.237-.237H.237a.237.237 0 0 0-.237.237zm6.064 6.207a.758.758 0 0 1-.758.758h-.758a.758.758 0 0 1-.758-.758v-.758a.758.758 0 0 1 .758-.758h.758a.758.758 0 0 1 .758.758z"
+              class="cls-1"
+              transform="translate(0 -114.315)"
+            />
+          </g>
+        </svg>
+      </span> -->
+      <!-- <span>
+        {{ 'ApplicantDetails.ViewCardDetails' | translate }}
+      </span>
+    </div>
+  </div>
+</div> -->
+<!-- <div class="row justify-content-between">
+  <div class="col-8">
+  <div class="col-4 status-col">
+    <label for="application_status" class="disabled-label">
+      {{ 'ApplicantDetails.ApplicationStatus' | translate }}
+    </label>
+    <div class="status-badge"
+    [ngClass]="{
+      'status-badge-approved': applicant_data?.application_status_id === 2,
+      'status-badge-rejected': applicant_data?.application_status_id === 3,
+      'status-badge-under-review': [1, 9].includes(applicant_data?.application_status_id),
+      'status-badge-more-info': applicant_data?.application_status_id === 4
+    }"
+    >
+      {{ applicant_data?.application_status | setApplicationStatus : applicant_data?.application_status_id }}
+    </div>
+  </div>
+  <div class="col-4 status-col">
+    <label for="application_status" class="disabled-label">
+      Border Status
+    </label>
+    <div class="status-badge"
+    [ngClass]="{
+      'status-badge-approved': applicant_data?.application_status_id === 2,
+      'status-badge-rejected': applicant_data?.application_status_id === 3,
+      'status-badge-under-review': [1, 9].includes(applicant_data?.application_status_id),
+      'status-badge-more-info': applicant_data?.application_status_id === 4
+    }"
+    >
+      {{ applicant_data?.application_status | setApplicationStatus : applicant_data?.application_status_id }}
+    </div>
+  </div>
+</div>
+</div> -->
+<div class="row w-100 mb-4"></div>
+<!-- <div class="row justify-content-between">
+
+  <div class="col status-col">
+    <label for="application_status" class="disabled-label">
+      Border Status
+    </label>
+    <div class="status-badge"
+    [ngClass]="{
+      'status-badge-approved': applicant_data?.application_status_id === 2,
+      'status-badge-rejected': applicant_data?.application_status_id === 3,
+      'status-badge-under-review': [1, 9].includes(applicant_data?.application_status_id),
+      'status-badge-more-info': applicant_data?.application_status_id === 4
+    }"
+    >
+      {{ applicant_data?.application_status | setApplicationStatus : applicant_data?.application_status_id }}
+    </div>
+  </div> -->
+  <!-- <div class="col status-col">
+    <label for="accommodation_type" class="disabled-label">
+      SACS Status
+    </label>
+    <div class="status-badge"
+    [ngClass]="{
+      'status-badge-approved': applicant_data?.accommodationTypeName,
+      'status-badge-rejected': !applicant_data?.accommodationTypeName
+    }"
+    >
+      {{ applicant_data?.accommodationTypeName ?? 'Pending' }}
+    </div>
+  </div> -->
+  <!-- <ng-container>
+    <div class="col status-col">
+      <label for="accommodation_type" class="disabled-label">
+        SACS Status
+      </label>
+      <h6>10-12-2022</h6>
+    </div>
+  </ng-container>
+
+
+
+</div> -->
+<table datatable [dtOptions]="dtOptions" class="border-none">
+  <thead>
+    <tr class="d-none">
+      <th>ID</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>ID</th>
+      <th>First name</th>
+      <th>Last name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="width: 120px;" class="pr-2">
+        <div class="status-col">
+          <label for="application_status" class="disabled-label">
+            {{ 'ApplicantDetails.ApplicationStatus' | translate }}
+          </label>
+        </div>
+        </td>
+        <td>
+          <div class="status-col">
+          <div class="status-badge"
+          [ngClass]="{
+            'status-badge-approved': applicant_data?.application_status_id === 2,
+            'status-badge-rejected': applicant_data?.application_status_id === 3,
+            'status-badge-under-review': [1, 9].includes(applicant_data?.application_status_id),
+            'status-badge-more-info': applicant_data?.application_status_id === 4
+          }"
+          >
+            {{ applicant_data?.application_status | setApplicationStatus : applicant_data?.application_status_id }}
+          </div>
+        </div>
+      </td>
+      <td  *ngIf="applicant_data?.document_type !== 'QID'" style="width: 142px;" class="pr-2">
+        <div class="status-col">
+        <label for="accommodation_type" class="disabled-label">
+          Accommodation Type
+        </label>
+        </div>
+        </td>
+        <td  *ngIf="applicant_data?.document_type !== 'QID'">
+        <div class="status-col">
+        <div class="status-badge"
+        [ngClass]="{
+          'status-badge-approved': applicant_data?.accommodationTypeName,
+          'status-badge-rejected': !applicant_data?.accommodationTypeName
+        }"
+        >
+          {{ applicant_data?.accommodationTypeName ?? 'Pending' }}
+        </div>
+      </div>
+    </td>
+        <ng-container *ngIf="{ entryPermitStatus: entryPermitStatus$ | async } as vm">
+
+      <td style="width: 103px" >
+          <div class="status-col">
+            <label for="entry-permit-status" class="disabled-label">
+              {{ 'ApplicantDetails.EntryPermit' | translate }}
+            </label>
+          </div>
+          </td>
+          <td>
+          <div class="status-col">
+            <div class="status-badge"
+            [ngClass]="{
+              'status-badge-approved': vm.entryPermitStatus === 'Sent',
+              'status-badge-rejected': vm.entryPermitStatus === 'Pending',
+              'status-badge-more-info': vm.entryPermitStatus === 'N/A'
+            }"
+            >
+             {{ vm.entryPermitStatus }}
+            </div>
+          </div>
+
+      </td>
+        </ng-container>
+      <td class="d-none" *ngIf="applicant_data?.document_type === 'QID'"></td>
+      <td class="d-none" *ngIf="applicant_data?.document_type === 'QID'"></td>
+    </tr>
+    <tr style="height: 0.5rem;"></tr>
+    <tr>
+      <td class="pr-2">
+        <div class="status-col">
+          <label for="application_status" class="disabled-label">
+            Border Status
+          </label>
+        </div>
+      </td>
+      <td>
+        <ng-container *ngIf="applicant_data?.document_type !== 'QID'">
+          <div class="status-col">
+            <div class="status-badge" (click)="showRefreshBorderStatusModal = true" [ngClass]="{
+                'status-badge-approved': emigration_Status === 'Inside Qatar',
+                'status-badge-rejected': emigration_Status !== 'Inside Qatar'
+              }">
+              {{ emigration_Status ?? 'No Data Available' }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="applicant_data?.document_type === 'QID'">
+          <div class="status-col">
+            <div class="status-badge status-badge-more-info">N/A</div>
+          </div>
+        </ng-container>
+      </td>
+      <ng-container *ngIf="isServiceCenter">
+        <td class="pr-2">
+          <div class="status-col">
+            <label for="accommodation_type" class="disabled-label">
+              SACS Status
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="status-col">
+            <ng-container *ngIf="{ SACSStatus: SACSstatus$ | async } as vm">
+              <div class="status-badge" [ngClass]="{
+                        'status-badge-rejected': !vm.SACSStatus || vm.SACSStatus === 'Not Applicable',
+                        'status-badge-approved': vm.SACSStatus && vm.SACSStatus !== 'Not Applicable'
+                      }">
+                {{
+                  vm.SACSStatus && vm.SACSStatus !== 'Not Applicable'
+                    ? ((vm.SACSStatus + 'Z') | date: 'dd-MM-yyyy hh:mm:ss a')
+                    : (vm.SACSStatus ?? 'Pending')
+                }}
+              </div>
+            </ng-container>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container *ngIf="entryVisaStatus">
+
+        <td style="width: 120px" >
+            <div class="status-col">
+              <label for="entry-permit-status" class="disabled-label">
+               Entry Visa Status
+              </label>
+            </div>
+            </td>
+            <td>
+            <div class="status-col">
+              <div class="status-badge"  (click)="showRefreshEntryVisaStatus = true"
+              [ngClass]="{
+                'status-badge-approved': entryVisaStatus === 'Inside Qatar',
+                'status-badge-rejected': entryVisaStatus !== 'Inside Qatar'
+              }"
+              >
+               {{entryVisaStatus}}
+              </div>
+            </div>
+
+        </td>
+          </ng-container>
+      <td class="d-none"></td>
+      <td class="d-none"></td>
+    </tr>
+<tr>
+
+      <ng-container *ngIf="entryFlag">
+
+        <td style="width: 103px" class="pr-2">
+            <div class="status-col">
+              <label for="entry-permit-status" class="disabled-label">
+               Entry Flag
+              </label>
+            </div>
+            </td>
+            <td>
+            <div class="status-col">
+              <div class="status-badge"  (click)="showRefreshEntryVisaStatus = true"
+              [ngClass]="{
+                'status-badge-approved': 'Valid' === getVisaFlag(entryFlag),
+                'status-badge-rejected': 'Invalid' === getVisaFlag(entryFlag)
+              }"
+              >
+               {{ getVisaFlag(entryFlag)}}
+              </div>
+            </div>
+
+        </td>
+          </ng-container>
+</tr>
+  </tbody>
+</table>
+
+<fan-id-common-confirm
+  *ngIf="showRefreshBorderStatusModal"
+  [title]="'Sync Border Status'"
+  [message]="'Are you sure to sync the latest border status?'"
+  [hasCloseButton]="true"
+  [footerActionType]="2"
+  [okText]="'Yes, proceed'"
+  (closeThis)="closeRefreshBorderStatusModal($event)"
+></fan-id-common-confirm>
+
+
+
+<fan-id-common-confirm
+  *ngIf="showRefreshEntryVisaStatus"
+  [title]="'Sync Entry Flag'"
+  [message]="'Are you sure to sync the latest entry flag status?'"
+  [hasCloseButton]="true"
+  [footerActionType]="2"
+  [okText]="'Yes, proceed'"
+  (closeThis)="closeRefreshEntryStatusModal($event)"
+></fan-id-common-confirm>

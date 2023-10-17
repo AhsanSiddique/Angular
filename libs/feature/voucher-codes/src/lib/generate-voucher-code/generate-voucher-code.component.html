@@ -1,0 +1,776 @@
+<div class="bulk-groups">
+    <div class="page-title pt-4 pb-4">
+      <h4 class="w-100 mb-0">Vouchers</h4>
+      <div class="generate-voucher-actions">
+        <button
+          class="btn btn-sm btn-primary"
+          (click)="openDownloadFileDialog(1)"
+          [disabled]="bulkgroupdata.length < 1"
+          *ngIf="export1Permission?.value.create || allPermission"
+        >
+          <span class="pb-1">{{ 'GenerateVoucher.ExportApplications' | translate }}</span>
+        </button>
+        <button
+          class="btn btn-sm btn-primary"
+          (click)="openDownloadFileDialog(2)"
+          [disabled]="bulkgroupdata.length < 1"
+          *ngIf="export2Permission?.value.read || allPermission"
+        >
+          <span class="pb-1">{{ 'GenerateVoucher.ExportVouchers' | translate }}</span>
+        </button>
+      </div>
+    </div>
+    <div class="row justify-content-between">
+      <div *ngIf="!isUserAgent" class="col-7">
+        <div class="voucher-code-filter p-23">
+          <form  [formGroup]="voucherCodeGenerateForm" (ngSubmit)="generateVouchers()">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-9">
+                  <label class="control-label" style="
+                  font-weight: bold;">Select Voucher Group</label>
+                </div>
+              </div>
+              <div class="common-radio radio-group row mt-3">
+                <div class="radio-btn col-2">
+                  <input type="radio" class="d-none" value="vgroupnew"
+                    id="vgroupnew" formControlName="vGroup" (click)="vgroupCheck(1)"
+                  />
+                  <label for="vgroupnew">
+                    <span class="radio"></span>
+                    <span style="font-size: 0.8rem !important">
+                      New
+                    </span>
+                  </label>
+                </div>
+                <div class="radio-btn col-2">
+                  <input type="radio" class="d-none" value="vgroupexisting"
+                    id="vgroupexisting" formControlName="vGroup" (click)="vgroupCheck(2)"
+                  />
+                  <label for="vgroupexisting">
+                    <span class="radio"></span>
+                    <span style="font-size: 0.8rem !important">
+                      Existing
+                    </span>
+                  </label>
+                  </div>
+                  <div class="col-6 col-md" [hidden]="voucherCodeGenerateForm.value.vGroup ==='vgroupexisting'">
+                    <input type="text" class="form-control"
+                      formControlName="vGroupName"
+                      placeholder="Enter Voucher Group"
+                      style="background-color: #ffff !important;"
+                      [patterns]="vGroupMaskPattern" [mask]="'S*'" [dropSpecialCharacters]="false"
+                      [ngClass]="{
+                        'is-invalid':
+                        voucherCodeGenerateForm.get('vGroupName')?.touched &&
+                        voucherCodeGenerateForm.get('vGroupName')?.invalid
+                      }"
+                      (focus)="onUniqueFieldFocus(voucherCodeGenerateForm.controls.vGroupName.value)"
+                      (blur)="onVoucherGroupNameBlur()"
+                    >
+                    <div class="invalid-feedback" *ngIf="voucherCodeGenerateForm.controls.vGroupName.hasError('notUnique')">
+                      Voucher group name is already in use
+                    </div>
+                  </div>
+              <div class="col-6 col-md"  [hidden]="voucherCodeGenerateForm.value.vGroup ==='vgroupnew'">
+                <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="Select Voucher Group"
+                formControlName="vGroupName"
+                class="form-control "
+                labelForId="vGroupName"
+                aria-describedby="vGroupName"
+                (change)="selectVoucherGroup($event)"
+                style="background-color: #ffff !important"
+              >
+                <ng-option
+                  *ngFor="let item of voucherGroupList"
+                  [value]="item.bulkGroupName"
+                >
+                  {{ item.bulkGroupName }}
+                </ng-option>
+              </ng-select>
+              </div>
+
+              </div>
+              <div class="row mt-3">
+                <div class="col-9">
+                  <label class="control-label" style="
+                  font-weight: bold;">Select Voucher Type</label>
+                </div>
+              </div>
+              <div class="common-radio radio-group row mt-3">
+                <div class="radio-btn col-2">
+                  <input type="radio" class="d-none" value="vassigned"
+                    id="vassigned" formControlName="vType" (click)="unassignedCheck(1)"
+                  />
+                  <label for="vassigned">
+                    <span class="radio"></span>
+                    <span style="font-size: 0.8rem !important">
+                      Assigned
+                    </span>
+                  </label>
+                </div>
+                <div class="radio-btn col-2">
+                  <input type="radio" class="d-none" value="vunassigned"
+                    id="vunassigned" formControlName="vType" (click)="unassignedCheck(2)"
+                  />
+                  <label for="vunassigned">
+                    <span class="radio"></span>
+                    <span style="font-size: 0.8rem !important">
+                      Unassigned
+                    </span>
+                  </label>
+                  </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-9">
+                  <label class="control-label" style="
+                  font-weight: bold;" [ngStyle]="{'color': disableRadio ? 'rgba(138, 21, 56, 0.5)':''}">
+                  Select Voucher Generation Mode</label>
+                </div>
+              </div>
+              <div class="common-radio radio-group row mt-3">
+                <div class="col-2"  [ngClass]="{'cursor-no-drop':disableRadio}">
+                  <div class="radio-btn "
+                  [ngClass]="{'pointer-events-none':disableRadio}">
+                    <input type="radio" class="d-none"
+                      id="vsinglemode" value="single"  formControlName="vgMode"
+                    />
+                    <label for="vsinglemode" >
+                      <span class="radio"></span>
+                      <span style="font-size: 0.8rem !important">
+                        Single
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-2" [ngClass]="{'cursor-no-drop':disableRadio}">
+                  <div class="radio-btn"
+                  [ngClass]="{'pointer-events-none':disableRadio}">
+                    <input type="radio" class="d-none"
+                      id="vbulkmode" value="bulk"  formControlName="vgMode"
+                      (change)="onChangeBulkMode()"
+                    />
+                    <label for="vbulkmode" >
+                      <span class="radio"></span>
+                      <span style="font-size: 0.8rem !important">
+                        Bulk
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3" *ngIf="voucherCodeGenerateForm.value.vType ==='vunassigned'">
+                <div class="col-9">
+                  <label class="control-label" style="
+                  font-weight: bold; margin-bottom: 0.35rem
+              "> <span class="title-span">{{"GenerateVoucher.NumberOfVoucherCodes" | translate}} &nbsp;</span>
+               <span
+               class="tooltip-custom"
+               > <svg width="20" height="20" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M13.4956 26.3538C9.40642 22.9942 3.93652 17.8226 0.627203 13.4966C3.93664 9.17707 9.40651 4.00571 13.4956 0.646267C18.1821 4.5091 22.4876 8.81219 26.3531 13.4965C22.4894 18.1845 18.1837 22.4901 13.4956 26.3538Z" stroke="var(--hayya-primary)"/>
+                 <path d="M13.224 9.496C13.976 9.496 14.552 8.952 14.552 8.232C14.552 7.512 13.976 6.968 13.224 6.968C12.488 6.968 11.912 7.512 11.912 8.232C11.912 8.952 12.488 9.496 13.224 9.496ZM12.088 19H14.392V10.632H12.088V19Z" fill="var(--hayya-primary)"/>
+                 </svg>
+                 <span class="tooltiptext" style="font-weight: normal;">You can generate a maximum of 20000 bulk vouchers at a time.
+                  You may add more vouchers later to the existing voucher group as needed.</span>
+                  </span>
+                  </label>
+                </div>
+                <div class="inner-addon right-addon col-6">
+                  <input type="number" min="1"
+                    oninput="if(!this.value.match('^[1-9][0-9]*$'))this.value='';" formControlName="numberofapplication"
+                    class="form-control" id="numberofapplication" aria-describedby="numberofapplication"
+                    placeholder="{{'GenerateVoucher.Enternumberofvouchercodes' | translate}}"
+                    style="background-color: #ffff !important;"
+                    max = 20000
+                    [ngClass]="{
+                      'is-invalid':
+                      voucherCodeGenerateForm.get('numberofapplication')
+                          .touched &&
+                          voucherCodeGenerateForm.get('numberofapplication')
+                          .invalid
+                    }" />
+                  <img src="/assets/icons/up-Arrow-new.svg" (click)="incrDecr('+')" class="svg-up-arrow-icon"
+                    alt="Bootstrap" />
+                  <img src="/assets/icons/down-arrow-new.svg" (click)="incrDecr('-')" class="svg-down-arrow-icon"
+                    alt="Bootstrap" />
+
+                    <div
+                    class="invalid-feedback"
+                    *ngIf="voucherCodeGenerateForm.get('numberofapplication').errors?.max"
+                  >
+                  You can only generate 20000 Vouchers at a time
+                </div>
+                <div
+                    class="invalid-feedback"
+                    *ngIf="voucherCodeGenerateForm.get('numberofapplication').errors?.required"
+                  >
+                 Enter number of vouchers
+                  </div>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-sm btn-primary btn-caret-8 w-100"
+                  [disabled]="unassignedDisable()" style="width: 177px;
+                  height: 3rem;">
+                    {{"GenerateVoucher.Generate" | translate}}
+                  </button>
+                </div>
+              </div>
+              <div class="row mt-3" *ngIf="(voucherCodeGenerateForm.value.vType ==='vassigned'
+              && voucherCodeGenerateForm.value.vgMode ==='single')">
+                <div class="col-9">
+                    <label class="control-label" style="
+                    font-weight: bold;
+                ">Email Address</label>
+                </div>
+                <div class="col-6">
+
+                    <input type="text" class="form-control"
+                      formControlName="emailId"
+                      placeholder="Enter Email Address"
+                      style="background-color: #ffff !important;"
+                      [ngClass]="{
+                        'is-invalid':
+                        voucherCodeGenerateForm.get('emailId').touched &&
+                        voucherCodeGenerateForm.get('emailId').invalid
+                      }"
+                      maxlength="60"
+
+                    >
+                    <div
+                    class="invalid-feedback"
+                    *ngIf="voucherCodeGenerateForm.get('emailId').errors?.required"
+                  >
+                 Enter email address
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="voucherCodeGenerateForm.get('emailId').errors?.pattern"
+                  >
+                  Invalid email address
+                  </div>
+              </div>
+                <div class="col-6">
+                  <button class="btn btn-sm btn-primary btn-caret-8 w-100"
+                  [disabled]="assignedSingleDisable()" style="
+                  height: 3rem;">
+                    {{"GenerateVoucher.Generate" | translate}}
+                  </button>
+                </div>
+              </div>
+              <div class="row mt-3" *ngIf="(voucherCodeGenerateForm.value.vType ==='vassigned'
+              && voucherCodeGenerateForm.value.vgMode ==='bulk')">
+                <div class="col-9">
+                    <label class="control-label" style="
+                    font-weight: bold; margin-bottom: 0.35rem
+                "> <span class="title-span">Upload Excel &nbsp;</span>
+                 <span
+                 class="tooltip-custom"
+                 > <svg width="20" height="20" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <path d="M13.4956 26.3538C9.40642 22.9942 3.93652 17.8226 0.627203 13.4966C3.93664 9.17707 9.40651 4.00571 13.4956 0.646267C18.1821 4.5091 22.4876 8.81219 26.3531 13.4965C22.4894 18.1845 18.1837 22.4901 13.4956 26.3538Z" stroke="var(--hayya-primary)"/>
+                   <path d="M13.224 9.496C13.976 9.496 14.552 8.952 14.552 8.232C14.552 7.512 13.976 6.968 13.224 6.968C12.488 6.968 11.912 7.512 11.912 8.232C11.912 8.952 12.488 9.496 13.224 9.496ZM12.088 19H14.392V10.632H12.088V19Z" fill="var(--hayya-primary)"/>
+                   </svg>
+                   <span class="tooltiptext" style="font-weight: normal;">Please go to Knowledge Base to download the bulk insert template</span>
+                   </span>
+                  </label>
+                </div>
+                <div class="col-6">
+                  <div class="download-btn-area">
+                    <div class="download-btn">
+                      <div class="dwn-text">
+                        <span *ngIf="!this.file">Upload Excel File</span>
+                        <span *ngIf="this.file">{{this.file.name}}</span>
+                      </div>
+                      <div class="upload-btn-wrapper">
+                        <button class="btn p-0 voucherxl-browse" *ngIf="!this.file">
+
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#a)" stroke="var(--hayya-primary)" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square">
+                              <path d="M1.5 9.5h22m-2 13h-18a2 2 0 0 1-2-2v-18h8l2 3h12v15a2 2 0 0 1-2 2Z"/>
+                            </g>
+                          </svg>
+                        </button>
+                        <input *ngIf="!this.file" type="file" name="myfile" class="form-control"
+                        aria-describedby="uploadzipfile" (change)="uploadfile($event)"
+                        accept=".xlsx"/>
+                        <button class="btn p-0 voucherxl-browse" (click)="fileReset()" *ngIf="this.file">
+                          <svg width="24" height="24" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M18.596 4.971c.357 0 .654.296.654.672v.348a.668.668 0 0 1-.654.672H3.404a.669.669 0 0 1-.654-.672v-.348c0-.376.297-.672.654-.672h2.673c.543 0 1.016-.385 1.138-.93l.14-.624c.217-.85.933-1.415 1.752-1.415h3.786c.81 0 1.534.565 1.743 1.37l.15.669c.122.545.594.93 1.138.93h2.672ZM17.24 17.69c.279-2.598.767-8.769.767-8.83a.682.682 0 0 0-.166-.512.666.666 0 0 0-.48-.214H4.647a.648.648 0 0 0-.48.214.723.723 0 0 0-.174.511l.048.592c.13 1.615.493 6.111.727 8.239.166 1.568 1.196 2.553 2.687 2.588 1.151.027 2.337.036 3.55.036 1.142 0 2.301-.009 3.488-.035 1.543-.027 2.572-.995 2.747-2.589Z"
+                              fill="#130F26" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-sm btn-primary btn-caret-8 w-100"
+                  [disabled]="assignedBulkDisable()" style="width: 177px;
+                  height: 3rem;">
+                    {{"GenerateVoucher.Generate" | translate}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div *ngIf="isUserAgent" class="col-7">
+        <div class="bulk-group-filter p-23">
+          <div class="bulk-group-filter" style="border: 0 !important; padding: 0px !important;">
+            <div class="form-group">
+              <label for="eventName" style="
+              font-weight: bold;
+          ">{{
+                'AllApplicantsList.EventName' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="eventname"
+                aria-describedby="eventname"
+                placeholder="eventName"
+                readonly
+                [value]="displayEventName"
+                style="background-color: #ffff !important;"
+              />
+            </div>
+          </div>
+          <form *ngIf="isUserAgent" [formGroup]="voucherSearchFilter" (ngSubmit)="filterVoucherList()">
+            <div class="form-group">
+              <div class="row" style="
+              margin-top: 1rem;
+
+          ">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-9">
+                    <label class="control-label">{{
+                      'AllApplicantsList.SelectColumn' | translate
+                    }}</label>
+                  </div>
+                  <div class="col-3" *ngIf="clearButton()">
+                    <button
+                      type="button"
+                      class="btn btn-sm float-end float-right rounded-pill"
+                      style="color: #550065; padding:0"
+                      (click)="clearFilter()"
+                    >
+                      {{ 'AllApplicantsList.Clear' | translate }}
+                    </button>
+                  </div>
+                  </div>
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  bindLabel="name"
+                  bindValue="id"
+                  placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                  formControlName="columnName"
+                  class="form-control "
+                  [ngClass]="{
+                    'is-invalid':
+                      voucherSearchFilter.get('columnName').touched &&
+                      voucherSearchFilter.get('columnName').invalid
+                  }"
+                  labelForId="columnName"
+                  aria-describedby="columnName"
+                  (change)="selectColumnChange($event)"
+                  style="background-color: #ffff !important"
+                >
+                  <ng-option
+                    *ngFor="let item of filterSelectionItems"
+                    [value]="item.id"
+                  >
+                    {{ item.name }}
+                  </ng-option>
+                </ng-select>
+
+              </div>
+            <div class="col-6" *ngIf="{filter: selectedFilterItem$ | async} as vm">
+              <div class="form-group" *ngIf="!vm.filter || vm.filter?.searchType === 1">
+                <label class="control-label"
+              >{{
+                  'AllApplicantsList.EnterText' | translate
+                }}</label>
+                <input type="text" class="form-control"
+                  formControlName="filterTxt"
+                  style="background-color: #ffff !important"
+                  placeholder="{{ 'AllApplicantsList.Enterthetextyouwant' | translate }}"
+                  [ngClass]="{
+                    'is-invalid':
+                      voucherSearchFilter.get('filterTxt').touched &&
+                      voucherSearchFilter.get('filterTxt').invalid
+                  }"
+                >
+              </div>
+              <div class="form-group" *ngIf="vsf.columnName.value === 3">
+                <label class="control-label" >{{
+                'ManualStep1.OrganizationName' | translate
+                }}</label>
+
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  bindLabel="name"
+                  bindValue="id"
+                  placeholder="{{ 'BulkGroup.OrganizationName' | translate }}"
+                  formControlName="filterTxt"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                    voucherSearchFilter.get('filterTxt').touched &&
+                    voucherSearchFilter.get('filterTxt').invalid
+                  }"
+                  labelForId="filterTxt"
+                  aria-describedby="filterTxt"
+                  (change)="statisticsFetch()"
+                  style="background-color: #ffff !important"
+                >
+                  <ng-option
+                    *ngFor="let organization of organizations"
+                    [value]="organization.id"
+                  >
+                    {{ organization.name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div class="form-group" *ngIf="vsf.columnName.value === 2">
+                <label class="control-label">{{
+                  'GenerateVoucher.Status' | translate
+                }}</label>
+
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  bindLabel="name"
+                  bindValue="value"
+                  placeholder="{{ 'GenerateVoucher.Status' | translate }}"
+                  formControlName="filterTxt"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                    voucherSearchFilter.get('filterTxt').touched &&
+                    voucherSearchFilter.get('filterTxt').invalid
+                  }"
+                  labelForId="filterTxt"
+                  aria-describedby="filterTxt"
+                  (change)="statisticsFetch()"
+                  style="background-color: #ffff !important"
+                >
+                  <ng-option
+                    *ngFor="let statname of voucherStatisticsArray"
+                    [value]="statname.value"
+                  >
+                    {{ statname.name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div class="form-group" *ngIf="vsf.columnName.value === 6">
+                <label class="control-label">Voucher Category</label>
+
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  bindLabel="name"
+                  bindValue="value"
+                  placeholder="Voucher Category"
+                  formControlName="filterTxt"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                    voucherSearchFilter.get('filterTxt').touched &&
+                    voucherSearchFilter.get('filterTxt').invalid
+                  }"
+                  labelForId="filterTxt"
+                  aria-describedby="filterTxt"
+                  (change)="statisticsFetch()"
+                  style="background-color: #ffff !important"
+                >
+                  <ng-option
+                    *ngFor="let category of voucherCategoryList$ | async"
+                    [value]="category.id"
+                  >
+                    {{ category.voucherCategory_Translation_Name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div class="form-group" *ngIf="vsf.columnName.value === 7">
+                <label class="control-label">Voucher Type</label>
+
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  [items]="voucherTypeList"
+                  bindLabel="name"
+                  bindValue="value"
+                  placeholder="Voucher Type"
+                  formControlName="filterTxt"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                    voucherSearchFilter.get('filterTxt').touched &&
+                    voucherSearchFilter.get('filterTxt').invalid
+                  }"
+                  labelForId="filterTxt"
+                  aria-describedby="filterTxt"
+                  (change)="statisticsFetch()"
+                  style="background-color: #ffff !important"
+                ></ng-select>
+              </div>
+              <div >
+                <button class="btn btn-primary btn-caret-8 search-btn"
+                [disabled]="voucherSearchFilter.invalid ||  (isFilterTextEmpty$ | async)"
+                >
+                  {{ 'AllApplicantsList.Search' | translate }}
+                </button>
+              </div>
+            </div>
+            </div>
+
+          </div>
+
+          </form>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="bulk-group-panel" style="border-radius: 1rem !important; height: 100%">
+          <table class="table" aria-describedby="statistics" style="height: 100%; margin-bottom: 0;">
+            <thead>
+              <tr>
+                <th style="font-size: 0.9rem !important">{{ 'GenerateVoucher.Status' | translate }}</th>
+                <th style ="padding: 1rem 4% !important; font-size: 0.9rem !important">{{ 'GenerateVoucher.Statistics' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="voucherStats?.accessType === 2">
+                <tr>
+                  <td>{{ 'GenerateVoucher.TVAllotted' | translate }}</td>
+                  <td style ="padding: 1rem 4% !important;">{{ voucherStats?.total_Vouchers_Allotted ?? 0 }}</td>
+                </tr>
+                <tr>
+                  <td>{{ 'GenerateVoucher.TVGenerated' | translate }}</td>
+                  <td style ="padding: 1rem 4% !important;">{{ voucherStats?.total_Vouchers_Generated ?? 0 }}</td>
+                </tr>
+                <tr>
+                  <td>{{ 'GenerateVoucher.TVApplied' | translate }}</td>
+                  <td style ="padding: 1rem 4% !important;">{{ voucherStats?.total_Vouchers_Applied ?? 0 }}</td>
+                </tr>
+                <tr>
+                  <td>{{ 'GenerateVoucher.TVRemaining' | translate }}</td>
+                  <td style ="padding: 1rem 4% !important;">{{ voucherStats?.total_Vouchers_Remaining ?? 0 }}</td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="voucherStats?.accessType === 1">
+                <tr>
+                  <td>{{ 'GenerateVoucher.TVAllotted' | translate }}</td>
+                  <td style ="padding: 1rem 4% !important;">{{ voucherStats?.total_User_Vouchers_Allotted ?? 0 }}</td>
+                </tr>
+                <tr>
+                  <td>{{ 'GenerateVoucher.TVGenerated' | translate }}</td>
+                  <td style ="padding: 1rem 4% !important;">{{ voucherStats?.total_User_Vouchers_Generated ?? 0 }}</td>
+                </tr>
+                <tr>
+                  <td>{{ 'GenerateVoucher.TVApplied' | translate }}</td>
+                  <td style ="padding: 1rem 4% !important;">{{ voucherStats?.total_User_Vouchers_Applied ?? 0 }}</td>
+                </tr>
+                <tr>
+                  <td>{{ 'GenerateVoucher.TVRemaining' | translate }}</td>
+                  <td style ="padding: 1rem 4% !important;">{{ voucherStats?.total_User_Vouchers_Remaining ?? 0 }}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="registration-details mt-4">
+          <div class="fan-card">
+            <div class="table-responsive" *ngIf="dtOptions">
+              <table
+                datatable
+                [dtOptions]="dtOptions"
+                [dtTrigger]="dtTrigger"
+                id="importdatatable"
+                class="row-border fan-id-datatable"
+                aria-describedby="voucher-table"
+                style="width: 100%;"
+              >
+                <thead>
+                  <tr>
+                    <th>Action</th>
+                    <!-- <th>{{"GenerateVoucher.SrNo" | translate}}</th> -->
+                    <th >{{"GenerateVoucher.CreatedDate" | translate}}</th>
+                    <th *ngIf="isUserAgent">{{"GenerateVoucher.OrganizationName" | translate}}</th>
+                    <th>Voucher Group Name</th>
+                    <th>{{"GenerateVoucher.VoucherStatus" | translate}}</th>
+                    <th>{{"GenerateVoucher.VoucherCode" | translate}}</th>
+                    <th>Voucher Type</th>
+                    <th>Voucher Category</th>
+                    <th>Email ID</th>
+                  </tr>
+                </thead>
+                <tbody [class.d-none]="!bulkgroupdata?.length">
+                  <ng-container>
+                    <tr *ngFor="let data of bulkgroupdata; index as i">
+                      <!-- <td>
+                        {{this.indexSave+i+1}}
+                      </td> -->
+                      <td>
+                        <!-- <a *ngIf="data?.email && (allPermission || resendPermission?.value?.allow)"
+                          class="viewdetails"
+                          href="javascript:void(0);"
+                          (click)="resendVoucher(data)"
+                          >Resend Voucher</a>
+                          <span *ngIf="!data?.email || !(allPermission || resendPermission?.value?.allow)">N/A</span> -->
+
+                          <div class="dropdown">
+                            <button [disabled]="!data?.email || !(allPermission || resendPermission?.value?.allow)"
+                              class="btn btn-secondary dropdown-toggle"
+                              type="button"
+                              id="dropdownMenuButton"
+                              data-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              {{ 'AllApplicantsList.Action' | translate }}
+                            </button>
+                            <div
+                              class="dropdown-menu"
+                              aria-labelledby="dropdownMenuButton"
+                            >
+                              <a
+                                *ngIf="data?.email && (allPermission || resendPermission?.value?.allow)"
+                                class="dropdown-item"
+                                (click)="resendVoucher(data)"
+                                >Resend Voucher</a
+                                >
+                                <a
+                                *ngIf="data?.email && (allPermission || resendPermission?.value?.allow) && data?.voucherStatus === 'Valid'"
+                                class="dropdown-item"
+                                (click)="updateEmail(data)"
+                                >Update Email ID</a
+                                >
+                            </div>
+                          </div>
+                        </td>
+                      <td style="direction: ltr;">{{ data?.voucherUserOn ? dateFM(data?.voucherUserOn) : dateFM(data?.system_CreatedOn) }}</td>
+                      <td *ngIf="isUserAgent">{{ data?.organization_Name }}</td>
+                      <td>{{data?.bulkGroupName}}</td>
+                      <td>
+                        <div
+                        style="width:200px"
+                        class="status-tag"
+                        [ngClass]="{
+                          'status-approved': data?.voucherStatus === 'Valid',
+                          'status-rejected': data?.voucherStatus !== 'Valid'
+                        }"
+                      > {{data?.voucherStatus !== 'Valid'?'Applied':data?.voucherStatus}}
+                      </div>
+                       </td>
+                      <td>{{ data?.voucherCode }}</td>
+                      <td>{{ data?.voucherCodeType === 1 ? 'Assigned' : 'Unassigned' }}</td>
+                      <td>{{ data?.voucherCategory_Name }}</td>
+                      <td>{{ data?.email ? data?.email :'N/A' }}</td>
+
+                    </tr>
+                  </ng-container>
+                </tbody>
+                <tfoot [hidden]="bulkgroupdata.length">
+                  <tr >
+                    <td colspan="5" style="border: none !important;" class="no-data-available">No Vouchers available</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <fan-id-dt-goto
+                *ngIf="bulkgroupdata?.length"
+                class="goto-page" (_go)="gotoPage($event)"
+              ></fan-id-dt-goto>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <fan-id-common-error-modal
+*ngIf="generatefailBool"
+[head_error_message] =" 'GenerateVoucher.GenerateVoucherRequestFailed'"
+[error_message]="error_message"
+buttontext="Common.Close"
+(closeThis)="closeSuccessModal()">
+</fan-id-common-error-modal>
+<fan-id-common-error-modal
+*ngIf="excelfailBool"
+[head_error_message] =" 'GenerateVoucher.DownloadFailed'"
+[error_message]="error_message"
+buttontext="Common.Close"
+(closeThis)="closeSuccessModal()">
+</fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="generateSuccess"
+  [head_success_message]="'GenerateVoucher.VGS'"
+  [success_message] = "'Your request to generate vouchers is currently being processed in the background. You shall receive an email notification once the vouchers are generated. Please come back to this page after you receive the email.'"
+  [buttontext] ="'Common.Ok'"
+  (closeThis)="closeSuccessModal()"
+></fan-id-common-success-modal>
+
+<fan-id-voucher-export-dialog
+  *ngIf="openDownloadDialogBoolean"
+  (closeThis)="openDownloadDialogBoolean = false"
+  [title]="'Common.Export' | translate"
+  [userAgent]="isUserAgent"
+  [type]="excelDownloadType"
+>
+</fan-id-voucher-export-dialog>
+
+<fan-id-voucher-excel-upload-status
+  *ngIf="generateExcelSuccess"
+  (closeThis)="closeSuccessModal()"
+  [status]="excelUploadStatus"
+></fan-id-voucher-excel-upload-status>
+
+<fan-id-common-success-modal
+  *ngIf="resendVoucherNotificationSuccess"
+  [head_success_message]="'Voucher Resend Successfully'"
+  [buttontext] ="'Common.Ok'"
+  (closeThis)="this.resendVoucherNotificationSuccess = false"
+></fan-id-common-success-modal>
+<fan-id-common-error-modal
+*ngIf="resendVoucherNotificationFailure"
+[head_error_message] =" 'Unable to Resend the Voucher'"
+[error_message]="resendVoucherNotificationErrMsg"
+buttontext="Common.Close"
+(closeThis)="this.resendVoucherNotificationFailure = false">
+</fan-id-common-error-modal>
+
+<!--Update Mobile start-->
+<fan-id-update-emailid
+*ngIf="updateEmailBoolean"
+[data]="updateEmailData"
+(closeThis) ="closeUpdateEmail(false)"
+(submitData)="closeUpdateEmail($event)">
+</fan-id-update-emailid>
+
+<fan-id-common-error-modal
+  *ngIf="updateEmailFailedBoolean"
+  head_error_message="Unable To Update Email ID"
+  [error_message]="updateEmailFailedMessage"
+  buttontext="Common.Close"
+  (closeThis)="closeUpdateEmailSuccessFailModal()"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="updateEmailSuccessBoolean"
+  head_success_message='Email ID Updated Successfully'
+  success_message = 'We were able to successfully update the assigned Email ID for this voucher'
+  buttontext="Common.Ok"
+  (closeThis)="closeUpdateEmailSuccessFailModal()"
+></fan-id-common-success-modal>

@@ -1,0 +1,106 @@
+
+
+.portal-header{
+  .info-bar{
+    height:40px;
+    background-color: $dark-gold;
+    @include application_padding('padding');
+    display: flex;
+    align-content: center;
+    align-items: center;
+    span{
+      color: $white;
+      a{
+        color: $maroon;
+        text-decoration: none;
+      }
+    }
+  }
+  .title-bar{
+    height:64px;
+    background-color: $light-gold;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    @include application_padding('padding');
+
+    a{
+
+      color: $maroon;
+      text-decoration: none;
+      padding: 0px 0px 0px 20px;
+      &:first-child{
+        padding: 0px;
+      }
+
+    }
+    .right-bar{
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+
+      .primary{
+        margin: 0px 20px;
+        font-size: 20px;
+        max-height: 38px;
+        background-color: $light-maroon;
+color: $light-gold;
+&:focus{
+  box-shadow: 0 0 0 0rem rgb(0 123 255 / 25%);
+}
+      }
+      .nav-svg{
+        margin: 0px 15px;
+      }
+
+    }
+  }
+  @include media-breakpoint-down(sm){
+    .info-bar{
+     justify-content: center;
+     a{
+       text-decoration: underline !important;
+     }
+    }
+    .title-bar{
+      height:120px;
+      a{
+
+        color: $maroon;
+        text-decoration: none;
+        padding: 0px 10px;
+        &:first-child, &:last-child{
+          padding: 0px;
+        }
+
+      }
+      .right-bar{
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .primary{
+          margin: 0px 10px;
+          font-size: 20px;
+          max-height: 38px;
+          background-color: $light-maroon;
+  color: $light-gold;
+        }
+        .nav-svg{
+          margin: 0px 10px;
+        }
+
+      }
+    }
+  }
+}
+.primary{
+background-color: $light-maroon;
+color: $light-gold;
+}

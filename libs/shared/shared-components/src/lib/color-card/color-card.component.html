@@ -1,0 +1,11 @@
+<div class="color-card-hayya" (click)="buttonClick.emit()" role="button" [style.backgroundColor]="bgColor">
+  <div class="color-card-hayya__header">
+    <div class="color-card-hayya__header-icon" #svgContainer></div>
+    <div class="color-card-hayya__header-action">
+      <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.210441 0.218624C-0.0701459 0.510122 -0.0701459 0.982735 0.210441 1.27423L4.37256 5.59821L0.21044 9.9222C-0.0701467 10.2137 -0.0701467 10.6863 0.21044 10.9778C0.491027 11.2693 0.945948 11.2693 1.22653 10.9778L5.8967 6.12602C6.17729 5.83452 6.17729 5.36191 5.8967 5.07041L1.22654 0.218624C0.945949 -0.0728746 0.491028 -0.0728747 0.210441 0.218624Z" fill="white"/>
+      </svg>
+    </div>
+  </div>
+  <div class="color-card-hayya__title" [innerHTML]="titleText"></div>
+</div>

@@ -1,0 +1,65 @@
+<div class="modalpane-wrapper">
+    <div class="modalpane-body">
+      <div class="modalpane-header">
+        <h4
+          class="font-24 text-center"
+        >
+        Update Email ID
+        </h4>
+        <div class="modalpane-closebtn">
+          <img
+            src="/assets/icons/close 001.svg"
+            style="width: 32px"
+            alt="close icon"
+            (click)="closeThis.emit('close')"
+          />
+        </div>
+      </div>
+
+    <div class="update-mobile-modal-body">
+        <form  [formGroup]="updateContactForm" (ngSubmit)="Submit()" style="min-width: 425px;">
+
+        <div class="row" >
+            <div class="col-lg-12">
+                <div class="form-group">
+                  <label for="emailId">Email ID<sup>*</sup></label>
+                  <input type="text" name="emailId" placeholder="Enter Email id"
+                   id="emailId" class="form-control" formControlName="emailId"
+                  [ngClass]="{
+                    'is-invalid':updateContactForm.get('emailId').touched &&
+                    updateContactForm.get('emailId').invalid
+                  }"
+                  [pattern]="EmailRegex"
+                  maxlength="60"/>
+                  <div
+                  class="invalid-feedback"
+                  *ngIf="updateContactForm.get('emailId').errors?.required"
+                >
+                   Email ID is required
+                </div>
+                <div
+                class="invalid-feedback"
+                *ngIf="updateContactForm.get('emailId').errors?.pattern"
+              >
+               Enter a valid Email ID
+              </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <button
+                    type="reset"
+                    class="btn btn-secondary mr-2" (click)="closeThis.emit('close')"
+                    >  <span>{{ 'Common.Cancel' | translate }}</span>
+                    </button>
+            <button type="button" class="btn btn-primary btn-caret-8" (click)="Submit()"
+            [disabled]="updateContactForm.invalid">
+            {{ 'Common.Submit' | translate }}
+            </button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+  <div class="modalpane-backdrop"></div>

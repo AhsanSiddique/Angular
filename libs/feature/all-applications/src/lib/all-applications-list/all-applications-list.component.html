@@ -1,0 +1,1247 @@
+<div class="bulk-groups">
+  <div class="page-title pt-4 pb-4">
+    <h4 class="w-100 mb-0">
+      {{ 'AllApplicantsList.AllApplications' | translate }}
+    </h4>
+    <div class="all-applications-actions">
+      <button type="button" data-toggle="modal" [disabled]="normalFilterBoolean"
+        #toggleAdvFilter data-target="#advFilterModal" class="btn btn-sm btn-secondary btn-alt">
+        <span><i class="fa fa-filter" [ngStyle]="{color:advancedFilterBoolean?'var(--hayya-accent)':''}" aria-hidden="true"></i></span>
+        <span class="pl-2 pr-2">{{ 'Filter' | translate }}</span>
+      </button>
+
+      <button
+        class="btn btn-sm btn-secondary btn-alt"
+        (click)="clearFilter()"
+      >
+        <span class="text-hide"><i class="fa fa-refresh-new" aria-hidden="true"></i></span>
+        <span>{{ 'AllApplicantsList.Refresh' | translate }}</span>
+      </button>
+
+      <button
+        *ngIf="(isServiceCenter || (!isServiceCenter && isUserAgent)) && (allPermission || exportPermission?.value?.read)  "
+        class="btn btn-sm btn-primary btn-alt"
+        (click)="showExportModal()"
+      >
+        <span>{{ 'Common.Export' | translate }}</span>
+      </button>
+
+    </div>
+
+  </div>
+  <div class="row" >
+    <div class="col-lg-12">
+      <div class="bulk-group-filter" style="border: 0 !important">
+        <form [formGroup]="allApplication" (ngSubmit)="filterColumn()">
+          <div class="row">
+            <div class="form-group col-lg">
+              <label for="eventName">{{
+                'AllApplicantsList.EventName' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="eventname"
+                aria-describedby="eventname"
+                placeholder="eventName"
+                readonly
+                [value]="displayEventName"
+              />
+            </div>
+            <div class="form-group col-lg" style="min-width: 250px;">
+              <label for="documentName">Document Name</label>
+              <!-- <ng-select [virtualScroll]="true" [clearable]="false"
+                placeholder="Document Name"
+                formControlName="doctype" class="form-control" labelForId="doctype" aria-describedby="doctype"
+                (change)="onDocTypeChange()"
+              >
+                <ng-option *ngFor="let doc of DocTypeList | async" [value]="doc.id">
+                  {{ doc.name }}
+                </ng-option>
+              </ng-select> -->
+              <ng-container *ngIf="{ DocTypeList: DocTypeList | async } as vm">
+                <div class="d-flex align-items-center" style="height: 48px;" *ngIf="!vm.DocTypeList">
+                  <span class="skeleton-box" style="width:200px; height:24px"></span>
+                </div>
+                <div class="radio-group doc-type">
+                  <div class="radio-btn" *ngFor="let doctype of vm.DocTypeList">
+                    <input type="radio" class="d-none" formControlName="doctype"
+                      id="doctype_{{ doctype.id }}" [value]="doctype.id"
+                      (change)="onDocTypeChange()"
+                    />
+                    <label for="doctype_{{ doctype.id }}">
+                      <span class="radio"></span>
+                      <span>{{ doctype.name }}</span>
+                    </label>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="form-group col-lg-3">
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">{{
+                    'AllApplicantsList.SelectColumn' | translate
+                  }}</label>
+                </div>
+                <div class="col-lg-3" *ngIf="clearButton()">
+                  <button
+                    type="button"
+                    class="btn btn-sm float-end float-right rounded-pill"
+                    style="color: #550065; padding: 0rem 0.5rem !important"
+                    (click)="clearFilter()"
+                  >
+                    {{ 'AllApplicantsList.Clear' | translate }}
+                  </button>
+                </div>
+              </div>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                formControlName="columnName"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    allApplication.get('columnName').touched &&
+                    allApplication.get('columnName').invalid
+                }"
+                labelForId="columnName"
+                aria-describedby="columnName"
+                [readonly]="advancedFilterBoolean"
+                (change)="changeColumn()"
+              >
+                <ng-container *ngFor="let column of columns">
+                  <ng-option [value]="column.id" *ngIf="!(column.id === 27 && allApplication.get('doctype')?.value === 1)">
+                    {{ column.name }}
+                  </ng-option>
+                </ng-container>
+              </ng-select>
+            </div>
+            <div class="form-group col-lg-3" *ngIf="selectedSearchColumnType === 1">
+              <label class="control-label">{{
+                'AllApplicantsList.EnterText' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="{{
+                  'AllApplicantsList.Enterthetextyouwant' | translate
+                }}"
+                formControlName="filterTxt"
+                [readonly]="advancedFilterBoolean"
+              />
+            </div>
+            <div class="form-group col-lg-3" *ngIf="selectedSearchColumnType === 2">
+              <label class="control-label">Select Date</label>
+              <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+                <input type="search" formControlName="filterTxt" name="filterTxt"
+                  placeholder="Select Date" id="filterTxt" ngbDatepicker #dt="ngbDatepicker"
+                  class="w-100 form-control" (click)="dt.toggle()"
+                  [readonly]="advancedFilterBoolean"
+                  [maxDate]="dateToday"
+                  />
+                  <svg (click)="dt.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  class="bi bi-calendar d-block d-sm-block"
+                >
+                  <path
+                    d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                    fill="#00CFB7" />
+                </svg>
+              </div>
+            </div>
+            <div class="form-group col-lg-3" *ngIf="selectedSearchColumnType === 3">
+              <label class="control-label">Select Type</label>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                placeholder="Select Type"
+                formControlName="filterTxt"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    allApplication.get('filterTxt').touched &&
+                    allApplication.get('filterTxt').invalid
+                }"
+                labelForId="filterTxt"
+                aria-describedby="filterTxt"
+                [readonly]="advancedFilterBoolean"
+              >
+                <ng-option *ngFor="let item of searchSelectItems$ | async" [value]="item.value">
+                  {{ item.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-lg mb-0 flex-column"
+              [ngClass]="isRTLLayout?'text-left pr-0':'text-right'">
+              <label class="control-label" style="visibility: hidden;" aria-hidden="true">placeholder</label>
+              <button
+                [disabled]="allApplication.invalid || spacetext() || advancedFilterBoolean || textTypeLength()"
+                class="btn btn-sm btn-primary fltrSchbtn"
+              >
+                {{ 'AllApplicantsList.Search' | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="registration-details mt-4">
+        <div class="fan-card">
+          <div class="table-responsive" *ngIf="dtOptions">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              id="importdatatable"
+              class="row-border fan-id-datatable"
+              aria-describedby="allAppsList"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">{{ 'AllApplicantsList.Action' | translate }}</th>
+                  <th scope="col">
+                    {{ 'AllApplicantsList.ApplicationDate' | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ 'AllApplicantsList.ApplicationNumber' | translate }}
+                  </th>
+                  <th scope="col">{{ 'AllApplicantsList.EntryRefNumber' | translate }}</th>
+
+                  <th scope="col">
+                    {{ 'AllApplicantsList.ApplicationStatus' | translate }}
+                  </th>
+                  <th scope="col">{{ 'AllApplicantsList.FanIDNumber' | translate }}</th>
+
+                  <th *ngIf="!isServiceCenter" scope="col">{{ 'AllApplicantsList.UserCategory' | translate }}</th>
+                  <th scope="col">{{ 'AllApplicantsList.FirstName' | translate }}</th>
+                  <th scope="col">{{ 'AllApplicantsList.LastName' | translate }}</th>
+                  <th *ngIf="isServiceCenter" scope="col">Country Code</th>
+                  <th *ngIf="isServiceCenter" scope="col">{{ 'AllApplicantsList.MobileNumber' | translate }}</th>
+                  <th scope="col">{{ 'AllApplicantsList.DocumentType' | translate }}</th>
+                  <th scope="col">{{ 'AllApplicantsList.DocumentNumber' | translate }}</th>
+                  <th scope="col">
+                    {{ 'AllApplicantsList.FanIDCardStatus' | translate }}
+                  </th>
+                  <ng-container *ngIf="!isServiceCenter">
+                    <th scope="col">{{ 'AllApplicantsList.BulkGroupName' | translate }}</th>
+                    <th scope="col">{{ 'AllApplicantsList.OrganizationName' | translate }}</th>
+                    <th scope="col">Organization Category</th>
+                    <th scope="col">Conference</th>
+                    <th scope="col">Accreditation</th>
+                  </ng-container>
+                  <ng-container *ngIf="isServiceCenter">
+                    <th scope="col">Conference</th>
+                    <th scope="col">Ticket Application Number</th>
+                    <th scope="col">Ticket Ref. Number</th>
+                    <th scope="col">Voucher Code</th>
+                    <th scope="col">Match Hospitality</th>
+                  </ng-container>
+                  <th scope="col">{{ 'AllApplicantsList.SubmissionType' | translate }}</th>
+                  <th scope="col">Hayya Visit Category</th>
+                  <th  *ngIf="isServiceCenter" scope="col">Purpose of Visit</th>
+                  <th  *ngIf="isServiceCenter" scope="col">Country of Residence</th>
+
+                  <th scope="col">{{ 'AllApplicantsList.NumberDependent' | translate }}</th>
+                  <!-- <th scope="col">{{ 'AllApplicantsList.PreferredCollectionPoint' | translate }}</th>
+                  <th *ngIf="isServiceCenter" scope="col">{{ 'AllApplicantsList.RegistrationServiceCenter' | translate }}</th> -->
+                  <th scope="col">{{ 'AllApplicantsList.Nationality' | translate }}</th>
+                  <th scope="col">Email ID</th>
+                  <th *ngIf="isServiceCenter" scope="col">Data Error Code</th>
+                  <ng-container *ngIf="isServiceCenter">
+                    <th scope="col">Accommodation Type</th>
+                    <th scope="col">Date of Accommodation Verification Check</th>
+                    <th scope="col">Visa Number</th>
+                    <th scope="col">
+                      Entry Visa Status
+                    </th>
+                    <th scope="col">
+                      Entry Flag
+                    </th>
+                  </ng-container>
+                  <ng-container *ngIf="!isServiceCenter">
+                    <th scope="col">Created By</th>
+                  </ng-container>
+                  <th scope="col">Border Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="filteredAppdata">
+                  <tr *ngFor="let data of filteredAppdata">
+                    <td>
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          {{ 'AllApplicantsList.Action' | translate }}
+                        </button>
+                        <div
+                          class="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <a
+                            class="dropdown-item"
+                            *ngIf="permission?.value?.read || allPermission"
+                            (click)="action('', data)"
+                            >{{
+                              'ApplicantListAction.ViewDetails' | translate
+                            }}</a
+                          >
+                          <a
+                            *ngIf="checkAction('Re-Submit', data) && (permission?.value?.update || allPermission)"
+                            class="dropdown-item"
+                            (click)="
+                              action('Re-Submit', data)
+                            "
+                            >{{
+                              'ApplicantListAction.ReSubmit'
+                                | translate
+                            }}</a
+                          >
+                          <a
+                            *ngIf="checkAction('Update Info', data) && (permission?.value?.update || allPermission)"
+
+                            class="dropdown-item"
+                            (click)="action('Update Info', data)"
+                            >{{
+                              'ApplicantListAction.UpdateInfo' | translate
+                            }}</a
+                          >
+                          <a
+                            *ngIf="checkAction('Re-Apply', data) && (permission?.value?.update || allPermission)"
+
+                            class="dropdown-item"
+                            (click)="action('Re-Apply', data)"
+                            >Reapply</a
+                          >
+                          <a
+                            *ngIf="checkAction('Edit', data) && (permission?.value?.update || allPermission)"
+                            class="dropdown-item"
+                            (click)="action('Update Info', data)"
+                            >{{
+                              'Common.Edit' | translate
+                            }}</a
+                          >
+                          <a
+                            *ngIf="!isServiceCenter && checkAction('Add Dependent', data) && (permission?.value?.create || allPermission)"
+                            class="dropdown-item"
+                            (click)="
+                              action('Add Dependent', data)
+                            "
+                            >{{
+                              'ApplicantListAction.AddDependent' | translate
+                            }}</a
+                          >
+                          <a
+                            *ngIf="checkAction('Delete', data) && (permission?.value?.delete || allPermission) "
+                            class="dropdown-item"
+                            (click)="deleteDraftApplication(data.fanIdNo, data?.documentIdNo)"
+                            >{{
+                              'Common.Delete' | translate
+                            }}</a
+                          >
+                          <a
+                            *ngIf="checkAction('UpdateContact', data) && (permission?.value?.update || allPermission)"
+                            class="dropdown-item"
+                            (click)="updateMobileNumber(data)"
+                            >Update Contact Details</a
+                          >
+                          <a
+                            *ngIf="checkAction('UpdateProfileImage', data) && (updatePermission?.value?.update || allPermission)"
+                            class="dropdown-item"
+                            (click)="updateProfileImage(data)"
+                            >Update Profile Image</a
+                          >
+                          <a
+                            *ngIf="checkAction('Cancel', data)
+                            && (cancelPermission?.value?.delete || allPermission)
+                            "
+                            class="dropdown-item"
+                            (click)="cancelApplication(data?.fanIdNo,data?.documentIdNo)"
+                            >Cancel Application</a
+                          >
+                          <a
+                            *ngIf="checkAction('Sync Accommodation', data)  && (syncAccomPermission?.value?.update || allPermission)"
+                            class="dropdown-item"
+                            (click)="openSyncAccommodationModal(data)"
+                            >Sync Accommodation</a
+                          >
+                          <a
+                            *ngIf="isServiceCenter && checkAction('Update Fan Category', data)
+                            && (syncAccomPermission?.value?.update || allPermission)"
+                            class="dropdown-item"
+                            (click)="openUpdateFanCategoryModal(data)"
+                            >Update Fan Category</a
+                          >
+                          <a
+                            *ngIf="isServiceCenter && checkAction('Update Email', data)
+                            && (emailPermission?.value?.update || allPermission)"
+                            class="dropdown-item"
+                            (click)="openUpdateEmailModel(data)"
+                            >Update Email</a
+                          >
+                          <a
+                            *ngIf="!isServiceCenter &&
+                              ((b2bPaymentPermission?.value?.read &&
+                                b2bPaymentPermission?.value?.create &&
+                                b2bPaymentPermission?.value?.update
+                                ) || allPermission) &&
+                              checkAction('Payment', data)
+                            "
+                            class="dropdown-item"
+                            (click)="proceedPayment(data)"
+                            >Payment</a
+                          >
+                          <a
+                            *ngIf="(resendCompletionStatusPermission?.value?.allow || allPermission) && checkAction('Resend Completion Status', data)"
+                            class="dropdown-item"
+                            (click)="resendCompletionStatus(data)"
+                            >Resend Completion Status</a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td style="direction: ltr;">{{ dateFM(data?.applicationDate) }}</td>
+                    <td>{{ data?.applicationNo }}</td>
+                    <td>{{ data?.fanIdNo }}</td>
+                    <td>
+                      <div
+                        class="p-1 status-tag"
+                        [ngClass]="{
+                          'status-approved': data?.applicationStatus === 2,
+                          'status-rejected': data?.applicationStatus === 3,
+                          'status-under-review': [1,9,12].includes(data?.applicationStatus),
+                          'status-more-info':  [4,5,13].includes(data?.applicationStatus),
+                          'status-draft': data?.applicationStatus === 0,
+                          'status-cn-approved': data?.applicationStatus === 7,
+                          'status-pending-payment': data?.applicationStatus === 10,
+                          'status-pending-ticket-verification': data?.applicationStatus === 11,
+                          'status-cancelled': [6, 14].includes(data?.applicationStatus)
+                        }"
+                      >
+                        {{ data?.applicationStatus_Name | setApplicationStatus : data?.applicationStatus }}
+                      </div>
+                    </td>
+
+                    <!-- <td *ngIf="!isServiceCenter">{{ data?.fanIdNo }}</td> -->
+                    <td>{{ data?.hayyaNo }}</td>
+
+
+                    <td *ngIf="!isServiceCenter">{{ data?.regUserCategory_Name }}</td>
+                    <td>{{ data?.firstName }}</td>
+                    <td>{{ data?.lastName }}</td>
+                    <td *ngIf="isServiceCenter">{{ data?.phoneAreaCode }}</td>
+                    <td *ngIf="isServiceCenter">{{ data?.phone }}</td>
+                    <td>{{ data?.docType_Name }}</td>
+                    <td>{{ data?.documentIdNo }}</td>
+                    <td>
+                      <div class="p-1 card-status-tag"
+                        [ngClass]="{
+                          'card-queue':data?.cardStatus === 12,
+                          'card-printed': data?.cardStatus === 2,
+                          'card-pending': (data?.printingStatus !== 2 && data?.cardStatus === 1),
+                          'card-delivery':  [3,4].includes(data?.cardStatus),
+                          'card-collected': [5,6].includes(data?.cardStatus),
+                          'card-home-delivery':data?.cardStatus === 10,
+                          'card-collection-qpr':data?.cardStatus === 11
+                        }"
+                      >
+                        <!-- {{ data?.printingStatus === 2 ? 'In the Printing Queue' : data?.cardStatus_Name }} -->
+                        {{data?.cardStatus_Name}}
+                      </div>
+                    </td>
+                    <ng-container *ngIf="!isServiceCenter">
+                      <td>{{ data?.bulkGroupName }}</td>
+                      <td>{{ data?.organization_Name }}</td>
+                      <td>{{ data?.organizationCategory_Translation_Name }}</td>
+                      <td>{{ data?.conferenceEvent_Name }}</td>
+                      <td>{{ data?.isNewRegisterationFromAccreditation ? 'Yes' : 'No' }}</td>
+                    </ng-container>
+                    <ng-container *ngIf="isServiceCenter">
+                      <td>{{ data?.conferenceEvent_Name }}</td>
+                      <td>{{ data?.ticketOrderId }}</td>
+                      <td>{{ data?.ticketNo }}</td>
+                      <td>{{ data?.voucherCode }}</td>
+                      <td>{{ data?.matchHospitality }}</td>
+                    </ng-container>
+                    <td>{{ data?.submissionType_Name }}</td>
+                    <td>{{ data?.customerCategory_Name }}</td>
+                    <td *ngIf="isServiceCenter">{{data?.purposeOfVisit_Name}}</td>
+                    <td *ngIf="isServiceCenter">{{data?.refResidentCountry_Name}}</td>
+                    <td>{{ data?.isChildApplication === false ? data?.dependentHayyaCount : 'Is A Dependent' }}</td>
+                    <!-- <td [title]="data?.serviceCenter_Name">{{ data?.serivceCenterCode }}</td>
+                    <td *ngIf="isServiceCenter" [title]="data?.regServiceCenter_Name">{{ data?.registrationServiceCenterCode }}</td> -->
+                    <td>{{ data?.nationality_Name }}</td>
+                    <td>{{ data?.email }}</td>
+                    <td *ngIf="isServiceCenter">{{ data?.moiErrorCode === null || data?.moiErrorCode === '' ? 'N/A' : data?.moiErrorCode }}</td>
+                    <ng-container *ngIf="isServiceCenter">
+                      <ng-container [ngSwitch]="data?.accommodationTypeName">
+                        <td *ngSwitchDefault>{{ data?.accommodationTypeName }}</td>
+                        <td *ngSwitchCase="null" style="color: #FF004C;">
+                          Pending
+                        </td>
+                      </ng-container>
+                      <ng-container [ngSwitch]="data?.accommodationVerificationDate">
+                        <td *ngSwitchDefault>{{ data?.accommodationVerificationDate + 'Z' | date: 'dd-MM-yyyy hh:mm:ss a' }}</td>
+                        <td *ngSwitchCase="null" style="color: #FF004C;">
+                          Pending
+                        </td>
+                      </ng-container>
+                      <td>{{ data?.visaNum }}</td>
+                      <td>
+                        <div *ngIf="data?.visaStatus !== null"
+                          class="card-status-tag"
+                          [ngClass]="{
+                            'card-queue':
+                              data?.visaStatus === 1,
+                            'card-printed':
+                              data?.visaStatus === 3,
+                            'card-pending':
+                              data?.visaStatus === 8,
+                            'card-delivery': [9].includes(
+                              data?.visaStatus
+                            ),
+                            'card-collected': ![1,3,8,9].includes(
+                              data?.visaStatus
+                            )}"
+                          >
+                            {{ data?.visaStatus_Name }}
+                         </div>
+                       </td>
+                       <td *ngIf="getVisaFlag(data?.visaUsageFlag)=='Invalid'" style="color: #FF004C;"
+                        >{{getVisaFlag(data?.visaUsageFlag)}}</td>
+                        <td *ngIf="getVisaFlag(data?.visaUsageFlag)=='Valid'" style="color: #30d595 ;"
+                          >{{getVisaFlag(data?.visaUsageFlag)}}</td>
+                          <td *ngIf="getVisaFlag(data?.visaUsageFlag)=='N/A'"
+                            >{{getVisaFlag(data?.visaUsageFlag)}}</td>
+
+                      </ng-container>
+                    <ng-container *ngIf="!isServiceCenter">
+                      <td>{{ data?.system_CreatedBy }}</td>
+                    </ng-container>
+                    <td>{{ data?.emigration_Status }}</td>
+                  </tr>
+                  <tr *ngIf="filteredAppdata.length === 0">
+                    <td colspan="10" class="no-data-available" style="border: none !important;">No data available in table</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <fan-id-dt-goto
+              *ngIf="filteredAppdata"
+              class="goto-page" (_go)="gotoPage($event)"
+            ></fan-id-dt-goto>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [ngClass]="isRTLLayout?'modal popup left fade p-0':'modal popup right fade p-0'" id="advFilterModal" tabindex="-1" role="dialog" aria-labelledby="advFilterModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header pl-0 pr-0">
+        <h5 class="modal-title">Advanced Filters</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <img
+      src="/assets/icons/closeNew.svg"
+      alt="close icon"
+    />
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" [formGroup]="allApplication">
+          <!-- <div class="col-lg-6 col-md-6 col-ms-12">
+            <div class="form-group">
+              <label>{{ 'AllApplicantsList.TicketReferenceNumber' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="{{ 'AllApplicantsList.TicketReferenceNumber' | translate }}"
+                formControlName="tktrfcno"
+              />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-ms-12">
+          <div class="form-group">
+            <label>{{ 'AllApplicantsList.VoucherCode' | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="{{ 'AllApplicantsList.VoucherCode' | translate }}"
+              formControlName="vochrcod"
+            />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-ms-12">
+        <div class="form-group">
+          <label>{{ 'AllApplicantsList.OrderId' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="{{ 'AllApplicantsList.OrderId' | translate }}"
+            formControlName="ordrid"
+          />
+      </div>
+    </div>
+        <div class="col-lg-6 col-md-6 col-ms-12">
+          <div class="form-group">
+            <label>{{ 'AllApplicantsList.RegistrationServiceCenter' | translate }}</label>
+            <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+            [placeholder]="'AllApplicantsList.RegistrationServiceCenter' | translate"
+            formControlName="regsc" class="form-control" labelForId="regsc" aria-describedby="regsc">
+            <ng-option *ngFor="let service_centre of serviceCentreList | async" [value]="service_centre.code">
+              {{ service_centre.name }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div> -->
+<!-- Hayya Number -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Hayya Number</label>
+    <input
+      type="text"
+      class="form-control"
+      style="background-color: white !important;"
+      placeholder="Hayya Number"
+      formControlName="hayyaNo"
+    />
+  </div>
+</div>
+<!-- Entry Reference No -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Entry Reference No</label>
+    <input
+      type="text"
+      class="form-control"
+      style="background-color: white !important;"
+      placeholder="Entry Reference No"
+      formControlName="fidno"
+    />
+  </div>
+</div>
+<!-- Application Number -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+      <div class="form-group">
+        <label>{{ 'AllApplicantsList.ApplicationNumber' | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'AllApplicantsList.ApplicationNumber' | translate }}"
+          formControlName="appsno"
+        />
+    </div>
+</div>
+<!-- Document Number -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+    <div class="form-group">
+      <label>{{ 'AllApplicantsList.DocumentNumber' | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="{{ 'AllApplicantsList.DocumentNumber' | translate }}"
+        formControlName="docno"
+      />
+  </div>
+</div>
+<!-- Mobile Number -->
+<div class="col-lg-6 col-md-6 col-ms-12" *ngIf="isServiceCenter">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.MobileNumber' | translate }}</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="{{ 'AllApplicantsList.MobileNumber' | translate }}"
+      formControlName="mobno"
+    />
+</div>
+</div>
+<!-- First Name -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.FirstName' | translate }}</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="{{ 'AllApplicantsList.FirstName' | translate }}"
+      formControlName="fname"
+    />
+</div>
+</div>
+<!-- Last Name -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.LastName' | translate }}</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="{{ 'AllApplicantsList.LastName' | translate }}"
+      formControlName="lname"
+    />
+</div>
+</div>
+<!-- Applicant Status -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.ApplicationStatus' | translate }}</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true" class="advDropDown"
+            style="background-color: white !important;"
+            [placeholder]="'AllApplicantsList.ApplicationStatus' | translate"
+            formControlName="appstat" class="form-control" labelForId="appstat" aria-describedby="appstat">
+            <ng-option *ngFor="let appstat of applicationStatusList$ | async" [value]="appstat.value">
+              {{ appstat.name }}
+            </ng-option>
+    </ng-select>
+</div>
+</div>
+<!-- Hayya Card Status -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.FanIDCardStatus' | translate }}</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+            style="background-color: white !important;"
+            [placeholder]="'AllApplicantsList.FanIDCardStatus' | translate"
+            formControlName="fidstat" class="form-control" labelForId="fidstat" aria-describedby="fidstat">
+            <ng-option *ngFor="let cardstat of cardStatusList" [value]="cardstat.value">
+              {{ cardstat.translation }}
+            </ng-option>
+    </ng-select>
+</div>
+</div>
+<!-- Data Error Code -->
+<div *ngIf="isServiceCenter" class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Data Error Code</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Data Error Code"
+      formControlName="derrorcode"
+    />
+</div>
+</div>
+<!-- Organization Category -->
+<div *ngIf="!isServiceCenter" class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Organization Category</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Organization Category"
+      formControlName="organizationCategory"
+    />
+  </div>
+</div>
+<!-- Accommodation Type -->
+<div class="col-lg-6 col-md-6 col-ms-12" *ngIf="isServiceCenter">
+  <div class="form-group">
+    <label>Accommodation Type</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true" style="background-color: white !important;"
+      placeholder="Accommodation Type" formControlName="accommodationType" class="form-control"
+      labelForId="accType" aria-describedby="accommodation type">
+      <ng-option *ngFor="let item of accommodationTypes$ | async" [value]="item.value">
+        {{ item.name }}
+      </ng-option>
+    </ng-select>
+  </div>
+</div>
+<!-- Nationality -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.Nationality' | translate }}</label>
+   <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+            style="background-color: white !important;"
+            [placeholder]="'AllApplicantsList.Nationality' | translate"
+            formControlName="nat" class="form-control" labelForId="nat" aria-describedby="nat">
+            <ng-option *ngFor="let country of countries | async" [value]="country.code">
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-option>
+          </ng-select>
+</div>
+</div>
+<!-- Application Date -->
+<!-- <div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.ApplicationDate' | translate }}</label>
+    <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+      <input type="search" formControlName="appdate" name="appdate"
+        [placeholder]="'AllApplicantsList.ApplicationDate' | translate" id="applicationDateBegin" ngbDatepicker #d="ngbDatepicker"
+        class="w-100 form-control" (click)="d.toggle()"
+        [maxDate]="dateToday" />
+        <svg (click)="d.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="bi bi-calendar d-block d-sm-block"
+      >
+        <path
+          d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+          fill="#00CFB7" />
+      </svg>
+    </div>
+  </div>
+</div> -->
+<!-- Application Start Date -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label for="applicationDateBegin">
+      Application Start Date
+    </label>
+    <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+      <input type="search" formControlName="applicationDateBegin" name="applicationDateBegin"
+        placeholder="Application Start Date" id="applicationDateBegin" ngbDatepicker #d="ngbDatepicker"
+        class="w-100 form-control" (click)="d.toggle()"
+        autocomplete="off"
+        [minDate]="{ day: 1, month: 3, year: 2022 }"
+        [maxDate]="dateToday"
+      />
+      <svg (click)="d.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="bi bi-calendar d-block d-sm-block"
+      >
+        <path
+          d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+          fill="#00CFB7" />
+      </svg>
+    </div>
+  </div>
+</div>
+<!-- Application End Date -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label for="applicationDateEnd" [class.is-disabled]="!adf.applicationDateBegin.value">
+      Application End Date
+    </label>
+    <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+      <input type="search" formControlName="applicationDateEnd" name="applicationDateEnd"
+        placeholder="Application End Date" id="applicationDateEnd"
+        ngbDatepicker #ed="ngbDatepicker"
+        class="w-100 form-control"
+        [class.is-disabled]="!adf.applicationDateBegin.value"
+        autocomplete="off"
+        (click)="ed.toggle()"
+        [minDate]="adf.applicationDateBegin.value"
+        [maxDate]="dateToday"
+      />
+      <svg [class.is-disabled]="!adf.applicationDateBegin.value" (click)="ed.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="bi bi-calendar d-block d-sm-block"
+      >
+        <path
+          d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+          fill="#00CFB7" />
+      </svg>
+    </div>
+  </div>
+</div>
+<!-- <div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.DocumentType' | translate }}</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+      style="background-color: white !important;"
+      [placeholder]="'AllApplicantsList.DocumentType' | translate"
+      formControlName="doctype" class="form-control" labelForId="doctype" aria-describedby="doctype"
+      dropdownPosition="top"
+    >
+      <ng-option *ngFor="let doc of DocTypeList | async" [value]="doc.id">
+        {{ doc.name }}
+      </ng-option>
+    </ng-select>
+  </div>
+</div> -->
+<!-- Created By -->
+<div *ngIf="!isServiceCenter" class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Created By</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Created By"
+      formControlName="createdBy"
+    />
+  </div>
+</div>
+<!-- Hayya Visit Category -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Hayya Visit Category</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+      style="background-color: white !important;"
+      placeholder="Hayya Visit Category"
+      formControlName="hcc" class="form-control" labelForId="hcc" aria-describedby="hcc"
+      dropdownPosition="top"
+    >
+      <ng-option *ngFor="let cate of hayyaCardCategory | async" [value]="cate.value">
+        {{ cate.name }}
+      </ng-option>
+    </ng-select>
+  </div>
+</div>
+<!-- Conference List -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Conference List</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+      style="background-color: white !important;"
+      placeholder="Conference List"
+      formControlName="refConferenceEvent_Id" class="form-control" labelForId="conference" aria-describedby="conference"
+      dropdownPosition="top"
+    >
+      <ng-option *ngFor="let conference of conferenceList$ | async" [value]="conference.confrenceId">
+        {{ conference.name_EN }}
+      </ng-option>
+    </ng-select>
+  </div>
+</div>
+<!-- Applicant Category -->
+<div *ngIf="!isServiceCenter" class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Applicant Category</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Applicant Category"
+      formControlName="regUserCategory_Name"
+    />
+</div>
+</div>
+<!-- Border Status -->
+<div class="col-lg-6 col-md-6 col-ms-12" *ngIf="allApplication.get('doctype')?.value !== 1">
+  <div class="form-group">
+    <label>Border Status</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+      style="background-color: white !important;"
+      placeholder="Border Status"
+      formControlName="emistat" class="form-control" labelForId="emistat" aria-describedby="emistat"
+    >
+      <ng-option *ngFor="let emistat of emigrationStatusList" [value]="emistat.value">
+        {{ emistat.name }}
+      </ng-option>
+    </ng-select>
+</div>
+</div>
+<!-- Purpose of Visit -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Purpose of Visit</label>
+    <input
+      type="text"
+      class="form-control"
+      style="background-color: white !important;"
+      placeholder="Purpose of Visit"
+      formControlName="purposeOfVisit"
+    />
+  </div>
+</div>
+<!-- Country of Residence -->
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Country of Residence</label>
+   <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+            style="background-color: white !important;"
+            [placeholder]="'Country of Residence'"
+            formControlName="countryOfResidence" class="form-control" labelForId="nat" aria-describedby="nat">
+            <ng-option *ngFor="let country of countries | async" [value]="country.code">
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-option>
+          </ng-select>
+</div>
+</div>
+<!-- Entry Visa Status -->
+<div *ngIf="isServiceCenter" class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Entry Visa Status</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+      style="background-color: white !important;"
+      placeholder="Entry Visa Status"
+      formControlName="visaStatus" class="form-control" labelForId="visaStatus" aria-describedby="visaStatus"
+      dropdownPosition="top"
+    >
+      <ng-option *ngFor="let item of visaStatusList$ | async" [value]="item.value">
+        {{ item.name }}
+      </ng-option>
+    </ng-select>
+  </div>
+</div>
+
+<!-- <div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Acc Verification Date</label>
+    <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+      <input type="search" formControlName="accommodationDate" name="accommodationDate"
+        placeholder="Acc Verification Date" id="accommodationDate" ngbDatepicker #ad="ngbDatepicker"
+        class="w-100 form-control" (click)="d.toggle()"
+        [maxDate]="dateToday" />
+        <svg (click)="ad.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="bi bi-calendar d-block d-sm-block"
+      >
+        <path
+          d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+          fill="#00CFB7" />
+      </svg>
+    </div>
+</div>
+</div> -->
+<!-- <div class="col-lg-6 col-md-6 col-ms-12" *ngIf="isServiceCenter">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.SubmissionType' | translate }}</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+    [placeholder]="'AllApplicantsList.SubmissionType' | translate"
+    formControlName="submitype" class="form-control" labelForId="submitype" aria-describedby="submitype">
+    <ng-option *ngFor="let channel of submissionType | async" [value]="channel.id">
+      {{ channel.name }}
+    </ng-option>
+  </ng-select>
+</div>
+</div>         -->
+<!-- <div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.PreferredCollectionPoint' | translate }}</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+            [placeholder]="'AllApplicantsList.PreferredCollectionPoint' | translate"
+            formControlName="prefcolpoint" class="form-control" labelForId="prefcolpoint" aria-describedby="prefcolpoint">
+            <ng-option *ngFor="let service_centre of serviceCentreList | async" [value]="service_centre.code">
+              {{ service_centre.name }}
+            </ng-option>
+          </ng-select>
+</div>
+</div> -->
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary m-2" data-dismiss="modal" (click)="onClearFilter()">
+        <span>{{'AllApplicantsList.Clear' | translate}}</span>
+      </button>
+      <button type="button" class="btn btn-primary m-2" data-dismiss="modal"
+        (click)="advancedSearch()">
+        <span>Apply</span>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- modals -->
+<fan-id-modal-wrapper
+  *ngIf="show_export_modal"
+  (closeThis)="show_export_modal = false"
+  [title]="'Common.Export' | translate"
+>
+  <fan-id-all-applications-export
+    (closeThis)="show_export_modal = false"
+    [isServiceCenter]="isServiceCenter"
+  ></fan-id-all-applications-export>
+</fan-id-modal-wrapper>
+
+<!--Cancel Application Start-->
+<fan-id-modal-wrapper
+  *ngIf="show_cancel_app_modal"
+  [title]="'AllApplicantsList.Ca' | translate"
+  (closeThis)="show_cancel_app_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'AllApplicantsList.Astcta' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="Cancel(false)">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="cancel_application_error"
+  [head_error_message]="'AllApplicantsList.Acf'"
+  [error_message]="cancelErrorMessage"
+  buttontext="Common.Close"
+  (closeThis)="cancel_application_error = false"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="cancel_application_success"
+  head_success_message='AllApplicantsList.Acs'
+  buttontext="Common.Ok"
+  (closeThis)="cancelApplicationSuccess()"
+></fan-id-common-success-modal>
+<!--Cancel Application End-->
+
+<!--Delete Application Start-->
+<fan-id-modal-wrapper
+  *ngIf="show_delete_draft_modal"
+  [title]="'Common.Delete' | translate"
+  (closeThis)="show_delete_draft_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'Common.AreYouSureDeleteApplication' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="deleteDraft(false)">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="delete_draft_error"
+  [head_error_message]="'AllApplicantsList.DraftDeleteFailed'"
+  [error_message]="cancelErrorMessage"
+  buttontext="Common.Close"
+  (closeThis)="delete_draft_error = false"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="delete_draft_success"
+  head_success_message='AllApplicantsList.DraftDeletedSuccessfully'
+  buttontext="Common.Ok"
+  (closeThis)="deleteDraftSuccess()"
+></fan-id-common-success-modal>
+<!--Delete Application End-->
+
+<!-- Action Validation Alert -->
+<fan-id-common-error-modal
+  *ngIf="show_action_alert"
+  [head_error_message]="'Common.Alert'"
+  [error_message]="action_alert_message"
+  buttontext="Common.Close"
+  (closeThis)="closeActionValidationAlert()"
+></fan-id-common-error-modal>
+<!-- Action Validation Alert -->
+<!--Update Mobile start-->
+<fan-id-update-mobile-number
+*ngIf="updateMobileModalBoolean"
+[countriesLoad]="countries"
+[data]="updateMobileData"
+(closeThis) ="closeUpdateMobile(false)"
+(submitData)="closeUpdateMobile($event)">
+</fan-id-update-mobile-number>
+
+<fan-id-common-error-modal
+  *ngIf="updateMobileFialedBoolean"
+  head_error_message="Unable To Update Application"
+  [error_message]="updateMobileFailedMessage"
+  buttontext="Common.Close"
+  (closeThis)="closeUpdateMobileSuccessFailModal()"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="updateMobileSuccessBoolean"
+  head_success_message='Application Updated Successfully'
+  success_message = 'We were able to successfully update your Hayya Card Application'
+  buttontext="Common.Ok"
+  (closeThis)="closeUpdateMobileSuccessFailModal()"
+></fan-id-common-success-modal>
+<!--Update Mobile end-->
+
+<!--Update Profile Pic start-->
+<fan-id-update-profile-image
+*ngIf="updateProfileImageModalBoolean"
+[data]="updateProfileImageData"
+(closeThis) ="closeUpdateProfileImage(false)"
+(submitData)="closeUpdateProfileImage($event)">
+</fan-id-update-profile-image>
+
+<fan-id-common-error-modal
+  *ngIf="updateProfileImageFialedBoolean"
+  head_error_message="Failed to Update Application"
+  [error_message]="updateProfileImageFailedMessage"
+  buttontext="Common.Close"
+  (closeThis)="closeUpdateProfileImageSuccessFailModal()"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="updateProfileImageSuccessBoolean"
+  head_success_message='Profile Image Updated Successfully'
+  success_message = 'We have successfully updated the Hayya Card Application'
+  buttontext="Common.Ok"
+  (closeThis)="closeUpdateProfileImageSuccessFailModal()"
+></fan-id-common-success-modal>
+<!--Update Profile Pic end-->
+
+<!-- #region Sync Accommodation -->
+<fan-id-common-confirm
+  *ngIf="showSyncAccommodationModal"
+  [title]="'Sync Accommodation'"
+  [message]="'Are you sure to sync accommodation?'"
+  [footerActionType]="2"
+  [okText]="'Yes, Proceed'"
+  [hasCloseButton]="true"
+  (closeThis)="closeSyncAccommodationModal($event)"
+></fan-id-common-confirm>
+<!-- #endregion Sync Accommodation -->
+
+<!--Update fan category start-->
+<fan-id-update-fan-category
+*ngIf="showUpdateFanCategoryModal"
+[data]="updateFanCategoryData"
+(closeThis) ="showUpdateFanCategoryModal = false"
+(submitData)="closeUpdateFanCategoryModal($event)">
+</fan-id-update-fan-category>
+
+<fan-id-update-email
+*ngIf="showUpdateEmailModel"
+[data]="updateEmailData"
+(closeThis) ="showUpdateEmailModel = false"
+(submitData)="closeUpdateEmailModel($event)">
+</fan-id-update-email>
+<fan-id-common-error-modal
+  *ngIf="updateFanCategoryFailedBoolean"
+  head_error_message="Unable To Update Application"
+  [error_message]="updateMobileFailedMessage"
+  buttontext="Common.Close"
+  (closeThis)="closeUpdateFanCategorySuccessFailModal()"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="updateFanCategorySuccessBoolean"
+  head_success_message='Application Updated Successfully'
+  success_message = 'We were able to successfully update your Hayya Card Application'
+  buttontext="Common.Ok"
+  (closeThis)="closeUpdateFanCategorySuccessFailModal()"
+></fan-id-common-success-modal>
+<fan-id-common-success-modal
+  *ngIf="updateFanEmailid"
+  head_success_message='Email ID has been updated successfully'
+  success_message = ''
+  buttontext="Common.Ok"
+  (closeThis)="closeUpdateFanCategorySuccessFailModal()"
+></fan-id-common-success-modal>
+<fan-id-common-error-modal
+  *ngIf="updateFanEmailidFailed"
+  head_error_message="Unable To Update Email ID"
+  [error_message]="updateFanEmailIdFailedMessage"
+  buttontext="Common.Close"
+  (closeThis)="closeUpdateFanCategorySuccessFailModal()"
+></fan-id-common-error-modal>
+
+<!--Update fan category end-->
+
+<!-- resend completion status -->
+<fan-id-common-success-modal
+  *ngIf="resendCompletionStatusSuccess"
+  head_success_message='Resent Completion Status Successfully'
+  success_message = ''
+  buttontext="Common.Ok"
+  (closeThis)="resendCompletionStatusSuccess = false"
+></fan-id-common-success-modal>
+
+<fan-id-common-error-modal
+  *ngIf="resendCompletionStatusError"
+  head_error_message="Unable To Resend Completion Status"
+  [error_message]="resendCompletionStatusError"
+  buttontext="Common.Close"
+  (closeThis)="resendCompletionStatusError = false"
+></fan-id-common-error-modal>

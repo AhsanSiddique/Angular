@@ -1,0 +1,3 @@
+let l:bm_file_version = 1
+let l:bm_sessions = {'default': {'/media/anoop/data/workspace/sectorqube/fid_service-center/libs/styles/src/lib/style/pages/common.scss': [{'sign_idx': 9504, 'line_nr': 2061, 'content': ''},{'sign_idx': 9503, 'line_nr': 1726, 'content': '  &.ng-select-searchable .ng-select-container .ng-value-container .ng-input {'},{'sign_idx': 9505, 'line_nr': 2432, 'content': '//ng-select end'},],'/media/anoop/data/workspace/sectorqube/fid_service-center/libs/styles/src/lib/style/pages/multi-form.scss': [{'sign_idx': 9506, 'line_nr': 816, 'content': '	padding: 20px;'},],}}
+let l:bm_current_session = 'default'

@@ -1,0 +1,23 @@
+<div class="modalpane-wrapper">
+
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <h4 class="font-25 text-center" style="color: var(--hayya-primary); font-weight: 900">
+        {{ Header | translate }}
+      </h4>
+    </div>
+    <h6 class="text-center">
+      {{ Body | translate }} {{FanId}}
+    </h6>
+
+    <div class="modalpane-footer">
+      <button *ngIf="buttonText===''" class="btn btn-primary btn-caret-8" (click)="closeThis.emit()">
+        {{ 'Common.Close' | translate }}
+      </button>
+      <button *ngIf="buttonText!==''" class="btn btn-primary btn-sm px-4" (click)="closeThis.emit()">
+        {{ buttonText | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>

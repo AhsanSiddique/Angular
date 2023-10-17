@@ -1,0 +1,231 @@
+<div class="card-import-status container-fluid">
+  <form class="form-row" [formGroup]="importForm">
+    <div class="col-12">
+      <div class="form-group">
+        <label for="importfile"
+          >{{ translateKey + '.UploadExcel' | translate }}</label
+        >
+        <div class="file-control">
+          <label
+            for="importfile"
+            class="file-upload"
+            [ngClass]="{
+              'is-invalid':
+                importfile.dirty &&
+                importfile.invalid,
+              'is-valid': importfile.valid
+            }"
+          >
+            <div class="upload-ico">
+              <svg
+                *ngIf="!importfile?.value"
+                id="upload_1_"
+                data-name="upload (1)"
+                xmlns="http://www.w3.org/2000/svg"
+                width="22.953"
+                height="22.953"
+                viewBox="0 0 29.953 29.953"
+              >
+                <path
+                  id="Path_3060"
+                  data-name="Path 3060"
+                  d="M86.283,8.179v20.9a.878.878,0,0,1-.878.878h-24.7a.878.878,0,0,1-.878-.878V.878A.878.878,0,0,1,60.708,0H78a.877.877,0,0,1,.616.253l7.407,7.3A.878.878,0,0,1,86.283,8.179Z"
+                  transform="translate(-56.33 0)"
+                  fill="#ece6e6"
+                />
+                <path
+                  id="Path_3061"
+                  data-name="Path 3061"
+                  d="M298.88,7.554l-7.407-7.3A.877.877,0,0,0,290.857,0h-4.942V29.953h12.349a.878.878,0,0,0,.878-.878V8.179A.878.878,0,0,0,298.88,7.554Z"
+                  transform="translate(-269.188 0)"
+                  fill="#eceae7"
+                />
+                <path
+                  id="Path_3062"
+                  data-name="Path 3062"
+                  d="M364.552,8.179v.878h-6.53a2.635,2.635,0,0,1-2.632-2.633V0h.878a.877.877,0,0,1,.616.253l7.407,7.3A.878.878,0,0,1,364.552,8.179Z"
+                  transform="translate(-334.599 0)"
+                  fill="#e7dfdd"
+                />
+                <path
+                  id="Path_3063"
+                  data-name="Path 3063"
+                  d="M18.464,132.2v9.214a4.633,4.633,0,0,1-4.628,4.628H4.628A4.633,4.633,0,0,1,0,141.412V132.2a4.633,4.633,0,0,1,4.628-4.628h9.208A4.633,4.633,0,0,1,18.464,132.2Z"
+                  transform="translate(0 -120.107)"
+                  fill="#f14d4e"
+                />
+                <path
+                  id="Path_3065"
+                  data-name="Path 3065"
+                  d="M103.486,201.09l-2.7-2.7a.877.877,0,0,0-1.241,0l-2.7,2.7a.878.878,0,1,0,1.241,1.241l1.207-1.207V207.5a.878.878,0,0,0,1.755,0v-6.373l1.207,1.207a.878.878,0,0,0,1.241-1.241Z"
+                  transform="translate(-90.928 -186.537)"
+                  fill="#f4f1f1"
+                />
+              </svg>
+              <svg
+                *ngIf="importfile?.value"
+                width="22.859"
+                height="22.859"
+                viewBox="0 0 29.859 29.859"
+              >
+                <g
+                  id="Group_5716"
+                  data-name="Group 5716"
+                  transform="translate(-335 -623)"
+                >
+                  <path
+                    id="Path_3060"
+                    data-name="Path 3060"
+                    d="M86.2,8.154V28.984a.875.875,0,0,1-.875.875H60.7a.875.875,0,0,1-.875-.875V.875A.875.875,0,0,1,60.7,0H77.941a.875.875,0,0,1,.614.252L85.939,7.53a.875.875,0,0,1,.261.623Z"
+                    transform="translate(278.659 623)"
+                    fill="#f4f1f1"
+                  />
+                  <path
+                    id="Path_3061"
+                    data-name="Path 3061"
+                    d="M298.839,7.53,291.456.252A.874.874,0,0,0,290.841,0h-4.926V29.859h12.31a.875.875,0,0,0,.875-.875V8.154A.876.876,0,0,0,298.839,7.53Z"
+                    transform="translate(65.759 623)"
+                    fill="#eceae7"
+                  />
+                  <path
+                    id="Path_3062"
+                    data-name="Path 3062"
+                    d="M364.523,8.154v.875h-6.51A2.627,2.627,0,0,1,355.39,6.4V0h.875a.875.875,0,0,1,.614.252l7.384,7.278a.875.875,0,0,1,.261.623Z"
+                    transform="translate(0.336 623)"
+                    fill="#e7dfdd"
+                  />
+                  <g
+                    id="Group_5715"
+                    data-name="Group 5715"
+                    transform="translate(335 630.44)"
+                  >
+                    <path
+                      id="Path_3063"
+                      data-name="Path 3063"
+                      d="M18.407,132.184v9.185a4.619,4.619,0,0,1-4.614,4.614H4.614A4.619,4.619,0,0,1,0,141.368v-9.185a4.619,4.619,0,0,1,4.614-4.614h9.179A4.619,4.619,0,0,1,18.407,132.184Z"
+                      transform="translate(0 -127.57)"
+                      fill="#30d595"
+                    />
+                    <path
+                      id="Path_687"
+                      data-name="Path 687"
+                      d="M12.585,23.538a.841.841,0,1,0-1.278,1.094l2.232,2.6.639-.547-.64.549a.843.843,0,0,0,1.189.091.873.873,0,0,0,.066-.063l7.471-6.953a.841.841,0,1,0-1.146-1.232l-6.872,6.4-1.661-1.937Z"
+                      transform="translate(-7.615 -13.987)"
+                      fill="#fff"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="upload-filename">
+              {{
+                !importfile?.value
+                  ? (translateKey + '.ImportExcel' | translate)
+                  : f.file?.value?.name
+              }}
+            </div>
+            <div class="upload-link" *ngIf="!importfile?.value">
+              <span>{{ "Common.Browse" | translate }}</span>
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              formControlName="importfile"
+              id="importfile"
+              aria-describedby="importfile"
+              class="form-control"
+              (change)="uploadfile($event)"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              required
+            />
+          </label>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              importfile.errors?.required
+            "
+          >
+            {{ translateKey + '.ImportExcel' | translate }}
+          </div>
+          <div class="invalid-feedback"
+            *ngIf="
+              importfile.errors?.filetype
+            "
+          >
+            {{ translateKey + '.ImportValidExcel' | translate }}
+          </div>
+          <div
+            *ngIf="importfile?.value"
+            class="delete-ico"
+            (click)="importfile.reset()"
+          >
+            <svg
+              width="11.562"
+              height="15.913"
+              viewBox="0 0 11.562 15.913"
+            >
+              <g
+                id="interface_6_"
+                data-name="interface (6)"
+                transform="translate(-70.007)"
+              >
+                <g
+                  id="Group_2158"
+                  data-name="Group 2158"
+                  transform="translate(70.007)"
+                >
+                  <g
+                    id="Group_2157"
+                    data-name="Group 2157"
+                    transform="translate(0)"
+                  >
+                    <path
+                      id="Path_804"
+                      data-name="Path 804"
+                      d="M81.05,1.6H78.207V.519A.519.519,0,0,0,77.688,0h-3.8a.519.519,0,0,0-.519.519V1.6H70.526a.519.519,0,0,0-.519.519v1.6a.519.519,0,0,0,.519.519H81.05a.519.519,0,0,0,.519-.519v-1.6A.519.519,0,0,0,81.05,1.6Zm-3.88,0H74.406V1.038h2.763Z"
+                      transform="translate(-70.007)"
+                      fill="#081c3b"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="Group_2160"
+                  data-name="Group 2160"
+                  transform="translate(70.728 5.268)"
+                >
+                  <g
+                    id="Group_2159"
+                    data-name="Group 2159"
+                    transform="translate(0)"
+                  >
+                    <path
+                      id="Path_805"
+                      data-name="Path 805"
+                      d="M93.192,169.5l.43,10.148a.519.519,0,0,0,.518.5h8.223a.519.519,0,0,0,.518-.5l.43-10.148Zm3.492,8.535a.519.519,0,1,1-1.038,0v-6.425a.519.519,0,0,1,1.038,0Zm2.087,0a.519.519,0,1,1-1.038,0v-6.425a.519.519,0,0,1,1.038,0Zm2.087,0a.519.519,0,1,1-1.038,0v-6.425a.519.519,0,0,1,1.038,0Z"
+                      transform="translate(-93.192 -169.497)"
+                      fill="#081c3b"
+                    />
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="form-row card-import-status-actions">
+    <button type="button" class="btn btn-sm btn-primary"
+      (click)="importExcel()"
+      [disabled]="importForm.invalid"
+    >
+      <span>{{ 'Common.Process' | translate }}</span>
+    </button>
+    <button type="button" class="btn btn-sm btn-cancel"
+      (click)="closeThis.emit({action: 'close'})"
+    >
+      <span>{{ 'Common.Close' | translate }}</span>
+    </button>
+  </div>
+</div>

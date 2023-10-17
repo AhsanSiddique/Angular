@@ -1,0 +1,124 @@
+<div class="loader">
+  <div class="loader-content">
+    <div class="submission-paneClose" >
+      <img
+      src="/assets/icons/close 001.svg"
+      style="width: 32px"
+      alt="close icon"
+      (click)="closeThis.emit('close')"
+    />
+  </div>
+    <div class="submitPane">
+
+      <div class="paneBody" *ngIf="status">
+        <div class="paneHeader">
+          <h4 class="font-24" style="color: var(--hayya-primary); font-weight: 900">{{ 'SubmissionStatus.SubmissionStatus' | translate }}</h4>
+
+      </div>
+      <table>
+        <tr class="submit-head">
+          <td>Document Type</td>
+          <td>Records Successful</td>
+          <td>Records Failed</td>
+          <td>Records in Pending State</td>
+        </tr>
+        <tr class="submit-row">
+          <td class="submit-start">QID</td>
+          <td>{{status?.qid?.succesRecords}}</td>
+          <td>{{status?.qid?.failedRecords}}</td>
+          <td>{{status?.qid?.pendingRecords}}</td>
+        </tr>
+        <tr class="submit-row">
+          <td class="submit-start">Passport</td>
+          <td>{{status?.passport?.succesRecords}}</td>
+          <td>{{status?.passport?.failedRecords}}</td>
+          <td>{{status?.passport?.pendingRecords}}</td>
+        </tr>
+        <tr class="submit-row" *ngIf="(status.nondoc.pendingRecords + status.nondoc.failedRecords) > 0">
+          <td class="submit-start">Document Type Missing</td>
+          <td>0</td>
+          <td>{{status?.nondoc?.failedRecords}}</td>
+          <td>{{status?.nondoc?.pendingRecords}}</td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr class="submit-head">
+          <td>Nationality Type</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="submit-row">
+          <td class="submit-start ">Arab Nationality</td>
+          <td>{{status?.arab?.succesRecords}}</td>
+          <td>{{status?.arab?.failedRecords}}</td>
+          <td>{{status?.arab?.pendingRecords}}</td>
+        </tr>
+        <tr class="submit-row">
+          <td class="submit-start">Non Arab Nationality</td>
+          <td>{{status?.nonarab?.succesRecords}}</td>
+          <td>{{status?.nonarab?.failedRecords}}</td>
+          <td>{{status?.nonarab?.pendingRecords}}</td>
+        </tr>
+        <tr class="submit-row" *ngIf="status.nonnat.pendingRecords + status.nonnat.failedRecords > 0">
+          <td class="submit-start">Nationality Type Missing</td>
+          <td>0</td>
+          <td>{{status?.nonnat?.failedRecords}}</td>
+          <td>{{status?.nonnat?.pendingRecords}}</td>
+        </tr>
+        <!-- <tr class="submit-head" *ngIf="(status.nonnat.pendingRecords + status.nonnat.failedRecords > 0) || (status.nondoc.pendingRecords + status.nondoc.failedRecords > 0)">
+          <td>Others Selected</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        -->
+
+      </table>
+        <!-- <dl class="data-center">
+          <dt>
+            <div class="">{{ 'Common.RecordsSuccessfull' | translate }}:</div>
+          </dt>
+          <dd>
+            <span class="text-success">{{ status.succesRecords }}</span>
+          </dd>
+        </dl>
+        <dl class="data-center">
+          <dt>
+            <div class="">{{ 'Common.RecordsFailed' | translate }}:</div>
+          </dt>
+          <dd>
+            <span class="text-danger">{{ status.failedRecords }}</span>
+          </dd>
+        </dl>
+        <dl class="data-center" *ngIf="status?.pendingRecords">
+          <dt>
+            <div class="">{{ 'Common.PendingRecords' | translate }}:</div>
+          </dt>
+          <dd>
+            <span class="text-danger">{{ status.pendingRecords }}</span>
+          </dd>
+        </dl> -->
+      </div>
+      <div class="paneFooter">
+        <button
+          class="btn btn-primary btn-sm btn-failed"
+          (click)="closeThis.emit()"
+          *ngIf="status.pendingRecords !== 0 || status.failedRecords !== 0"
+        >
+          {{ 'SubmissionStatus.ViewPendingRecords' | translate }}
+        </button>
+
+        <button
+        class="btn btn-primary btn-sm btn-failed"
+        (click)="backtoHme.emit()"
+        *ngIf="status.pendingRecords === 0 && status.failedRecords === 0"
+      >
+        {{ 'Common.GotoHome' | translate }}
+      </button>
+      </div>
+    </div>
+  </div>
+  <div class="loader-backdrop"></div>
+</div>

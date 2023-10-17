@@ -1,0 +1,48 @@
+:host{
+    position: relative;
+    display: block;
+  }
+.faq-container{
+    margin: 0 1rem 0 5.25rem;
+    // min-width: 680px;
+    // max-width: fit-content;
+    .faq{
+        .faqitemssection{
+           .accordion{
+                .card{
+                    .card-header{
+                        border-bottom-width: thick;
+                        .button{
+                            min-width: 680px;
+                            max-width: fit-content;
+                        }
+                        &.card-header-color{
+                            color:var(--hayya-primary);
+                            background-color:var(--hayya-content-bg);
+                        }
+                        h6{
+                            line-height: 1.7rem;
+                            cursor: pointer;
+                        }
+
+                    }
+                    .collapse{
+                        .card-body{
+                            background-color:rgba(0,0,0,.03);
+                            border: var(--hayya-primary);
+                            border-width: 1px;
+                            border-style: solid;
+                        }
+                    }
+                }
+           }
+        }
+    }
+}
+
+img{
+    &.change-color{
+        // filter: invert(13%) sepia(69%) saturate(2969%) hue-rotate(324deg) brightness(94%) contrast(98%);
+    }
+}
+

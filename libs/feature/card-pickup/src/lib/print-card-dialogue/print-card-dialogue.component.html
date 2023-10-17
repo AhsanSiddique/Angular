@@ -1,0 +1,342 @@
+<div class="loader">
+  <div class="loader-content" [ngStyle]="{height:reprintBool?'650px':'570px'}">
+    <div class="submitPane">
+      <div class="paneHeader">
+        <h4 class="font-20 text-center">
+          <!-- {{ 'CardPickup.CardPrintingList' | translate }} -->
+          {{reprintBool?'Reprint':'Print'}} Card
+        </h4>
+        <div class="modalpane-closebtn" (click)="closefunction()">
+          <img
+            src="/assets/icons/close 001.svg"
+            style="width: 32px"
+            alt="close icon"
+            (click)="closefunction()"
+          />
+        </div>
+      </div>
+      <div class="card-replacement-paneBody">
+        <div class="row" style="margin-bottom: 10px" *ngIf="reprintBool">
+          <div class="col-lg-12">
+            <form [formGroup]="reprintForm" (ngSubmit)="filterColumn()">
+              <div class="row">
+                <div class="form-group col-lg-5">
+                      <label class="control-label">Select Reprint Reason<sup>*</sup></label>
+                      <ng-select
+                              [virtualScroll]="true"
+                              [clearable]="false"
+                              bindLabel="name"
+                              bindValue="id"
+                              placeholder="Select Reprint Reason"
+                              formControlName="reprintReason"
+                              class="form-control mt-0"
+                              labelForId="reprintReason"
+                              aria-describedby="reprintReason"
+                              (change)="ReasonSelection($event,i,data.id)"
+                              [dropdownPosition] = "'auto'"
+                              [ngClass]="{
+                                'is-invalid':
+                                  reprintForm.get('reprintReason').touched &&
+                                  reprintForm.get('reprintReason').invalid
+                              }"
+                            >
+                            <div style="position:fixed">
+                              <ng-option *ngFor="let reason of REASONS" [value]="reason.reasonId">
+                                {{ reason.label }}
+                              </ng-option>
+                            </div>
+                            </ng-select>
+                </div>
+                <div class="form-group col-lg-7">
+                  <label class="control-label">Description</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter the description"
+                    formControlName="description"
+                  />
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <form [formGroup]="proxyForm" >
+              <div class="row">
+                <div class="form-group terms-check  col-5" style="margin-top:-15px">
+                  <div class="radio-group">
+                    <div class="radio-btn">
+
+                      <input
+                        type="checkbox"
+                        class="d-none"
+                        formControlName="proxyEnabled"
+                        id="terms"
+                        (change)="selectProxy($event)"
+
+                      />  <label for="terms" class="border-0">
+                        <span style="color: var(--hayya-primary);
+                        font-size: 0.8rem !important; font-weight: 600;padding-right: 10px;">
+                          Proxy Collection
+                          </span>
+
+                        <span class="pr-2 radio"></span>
+
+                      </label>
+
+                    </div>
+                  </div>
+                </div>
+
+                 <div class="form-group col-7"
+                  *ngIf="this.proxyForm.get('proxyEnabled').value == true"
+                 >
+                  <label class="control-label">Proxy Details</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter the Name and Mobile Number of the Proxy"
+                    formControlName="proxyDescription"
+                    required
+                    maxlength="75"
+                    pattern="[a-zA-Z0-9 ]*"
+                    [ngClass]="{
+                      'is-invalid':
+                      this.proxyForm.get('proxyDescription').touched &&
+                      this.proxyForm.get('proxyDescription').invalid,
+                      hasValue: this.proxyForm.get('proxyDescription').value
+                    }"
+                  />
+                  <div
+                  class="invalid-feedback"
+                  *ngIf="this.proxyForm.get('proxyDescription').errors?.required"
+                >
+                  Proxy Name and Mobile Number is required
+                </div>
+                  <div
+                        class="invalid-feedback"
+                        *ngIf="this.proxyForm.get('proxyDescription').errors?.pattern"
+                      >
+                       No special characters allowed
+                      </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        <!-- <div class="row" *ngIf="event==='AmirCup2021' || event ==='Amircup2021'">
+          <div class="col-lg-12">
+            <div class="registration-details">
+              <img src="/assets/icons/Path 3394.svg"
+              *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==0"
+              (click)="prevItem()" alt="Previous Icon" class="printCardPrevious"/>
+              <div class="printCardPrevious" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                  <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(-13921.842 -3556.444) rotate(180)"/>
+              </svg>
+              </div>
+              <div class="amir-card">
+                <div class="amir-left">
+                  <div class="name">
+                    <span>{{ cardPrintDetail.name }} </span>
+                  </div>
+                  <div class="amir-bot">
+                    <div class="stadium-details">
+                      <div>
+                        <span class="header">GATE</span>
+                        <span class="body">{{ cardPrintDetail.gateNumber }}</span>
+                      </div>
+                      <div>
+                        <span class="header">BLOCK</span>
+                        <span class="body">{{ cardPrintDetail.blockNumber }}</span>
+                      </div>
+                      <div>
+                        <span class="header">ROW</span>
+                        <span class="body">{{ cardPrintDetail.rowNumber }}</span>
+                      </div>
+                      <div>
+                        <span class="header">SEAT</span>
+                        <span class="body">{{ cardPrintDetail.seatNumber }}</span>
+                      </div>
+
+                    </div>
+                    <img style ="background-color: white;" class="bar" src="{{'data:image/jpg;base64,' + cardPrintDetail.barcode}}" alt="Bar Code"/>
+
+                  </div>
+
+                </div>
+                <div class="amir-right">
+                  <img [src]="cardPrintDetail.profileImg" alt="Profile Image" />
+                  <span class="document">QID {{ cardPrintDetail.QID }}</span>
+                  <span class="normal">Lost / Stolen Card</span>
+                  <span class="normal">+974 8008052</span>
+                </div>
+
+              </div>
+
+            <img src="/assets/icons/Path 3393.svg"
+            *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==this.cardPrintDatailsArray.length-1"
+            (click)="nextItem()" alt="Next Icon" class="printCardNext"/>
+            <div class="printCardNext" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===this.cardPrintDatailsArray.length-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+              <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(13947.135 3601.373)"/>
+              </svg>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="event != 'AmirCup2021' && event != 'Amircup2021' && event != 'testevent' && event !='FAC21'">
+          <div class="col-lg-12">
+            <div class="registration-details">
+              <img src="/assets/icons/Path 3394.svg"
+              (click)="prevItem()" *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==0" alt="Previous Icon" class="printCardPrevious"/>
+              <div class="printCardPrevious" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                  <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(-13921.842 -3556.444) rotate(180)"/>
+              </svg>
+              </div>
+              <div class="stad-card">
+                <div class="stad-left">
+                  <img [src]="cardPrintDetail.profileImg" alt="Profile Image" />
+                </div>
+                <div class="stad-right">
+                  <div class="name">
+                    <span>{{ cardPrintDetail.name }} </span>
+                  </div>
+                  <div class="id">
+                    <span class="header">ID NUMBER</span>
+                    <span class="body">{{ cardPrintDetail.QID }}</span>
+                  </div>
+                  <div class="id">
+                    <span class="header">VALID THRU</span>
+                    <span class="body">{{ cardPrintDetail.valid }}</span>
+                  </div>
+                  <div class="stadlink">
+                    <img style ="background-color: white;" src="{{'data:image/jpg;base64,' + cardPrintDetail.barcode}}" alt="Bar Code"/>
+                    <span>Stad-Link</span>
+                  </div>
+                </div>
+              </div>
+
+            <img src="/assets/icons/Path 3393.svg"
+            *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==this.cardPrintDatailsArray.length-1"
+            (click)="nextItem()" alt="Next Icon" class="printCardNext"/>
+            <div class="printCardNext" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===this.cardPrintDatailsArray.length-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+              <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(13947.135 3601.373)"/>
+              </svg>
+            </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="registration-details">
+              <img src="/assets/icons/Path 3394.svg"
+              (click)="prevItem()" *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==0" alt="Previous Icon" class="printCardPrevious"/>
+              <div class="printCardPrevious" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                  <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(-13921.842 -3556.444) rotate(180)"/>
+              </svg>
+              </div>
+              <div class="arab-side">
+              <div class="arab-card">
+                <div class="card-top">
+              <div class="card-bar">
+                <div class="stad-left">
+                  <img [src]="cardPrintDetail.profileImg | secureImage | async" alt="Profile Image" />
+                  <div class="bot">
+                    <div class="info">
+                      <span>SUPPORT:</span>
+                      <span>CALL: +974 800 2022</span>
+                      <span>Email: info@hayya.qa</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="stad-right">
+                  <div class="name">
+                    <span>{{ cardPrintDetail.firstName }} </span>
+                    <br>
+                    <span>{{cardPrintDetail.lastName}}</span>
+                  </div>
+                  <div class="second-row">
+                    <!-- <img class="img-qa" src="/assets/arab-card/qa.png" alt="arab card"> -->
+                    <div class="side">
+                      <div class="id">
+                        <span class="header">QID / PASSPORT NO.</span>
+                        <span class="body">{{ cardPrintDetail.QID }}</span>
+                      </div>
+                      <div class="country">
+                        <span class="header">NATIONALITY</span>
+                        <span class="body">{{cardPrintDetail.nationality}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-bottom">SPP 2022187 06/22</div>
+                  <img class="img-bottom img-bottom__left" src="/assets/arab-card/qa.png" alt="arab cup bottom">
+                  <img class="img-bottom img-bottom__right" src="/assets/arab-card/qr.png" alt="arab cup bottom">
+                </div>
+              </div>
+              <!-- <div class="bot">
+                <div class="info">
+                  <span>SUPPORT:</span>
+                  <span>CALL: +974 800 2022</span>
+                  <span>Email: info@hayya.qa</span>
+                </div>
+                <img class="img-bottom" src="/assets/arab-card/bottom.png" alt="arab cup bottom">
+              </div> -->
+
+              </div>
+
+              <img class="img-side" src="/assets/arab-card/side.png" alt="img-side">
+
+              </div>
+
+            </div>
+
+            <img src="/assets/icons/Path 3393.svg"
+            *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==this.cardPrintDatailsArray.length-1"
+            (click)="nextItem()" alt="Next Icon" class="printCardNext"/>
+            <div class="printCardNext" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===this.cardPrintDatailsArray.length-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+              <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(13947.135 3601.373)"/>
+              </svg>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="paneFooter mt-3">
+            <button *ngIf="!direct" type="button" class="btn btn-secondary"
+            (click)="closeThis.emit('close')">
+          <span>Back</span>
+        </button>
+        <button
+          class="btn btn-primary btn-sm btn-failed ml-3 mr-3"
+          (click)="printCardFunction(cardPrintDetail.fanIdNo)"
+          [disabled]="(reprintBool && reprintForm.invalid) || proxyForm.invalid">
+          {{reprintBool?'Reprint':'Print'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="direct" class="loader-backdrop"></div>
+<fan-id-common-error-modal
+*ngIf="error_dialog_open"
+[head_error_message] =" 'CardPickup.CardPrintingRequestFailed'"
+[error_message]="error_message"
+buttontext="Common.Close"
+(closeThis)="closeErrorModel($event)">
+</fan-id-common-error-modal>
+<fan-id-common-dialogue
+  *ngIf="showCommonDialogue"
+  [Body]="common.body"
+  [Header]="common.header"
+  [FanId] = "common.fanId"
+  (closeThis)="closeCommonDialogue($event)"
+>
+</fan-id-common-dialogue>

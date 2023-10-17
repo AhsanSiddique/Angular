@@ -1,0 +1,203 @@
+<div class="loader">
+    <div
+      class="loader-content"
+      style="height: 345px;"
+    >
+      <div class="submitPane">
+        <form [formGroup]="cardStatusChangeForm" (ngSubmit)="submit()">
+          <div class="paneHeader">
+            <h4 class="font-20 text-center">
+              {{ 'CardPickup.UpdateStat' | translate }}
+            </h4>
+          </div>
+          <div
+            class="card-replacement-paneBody"
+            style="height:175px"
+          >
+            <div class="row col-lg-12" style="margin:0">
+              <div class="form-group">
+                <label class="control-label" style="margin: 0 .75rem .5rem .75rem;">{{
+                  'UpdateStatsModal.ChooseStatus' | translate
+                }}</label>
+                <div class="radio-group">
+                    
+                  <div
+                  class="radio-btn"
+                  style="width: 240px;"
+                >
+                  <input
+                    type="radio"
+                    class="d-none"
+                    formControlName="selectedStatus"
+                    id="stat-1"
+                    value="4"
+                    (change)="onSelect()"
+                    
+                  />
+                  <label
+                    for="stat-1"
+                    class= "rfc-dialog"
+                    [class.disableSelectReadyForCollection]="cardStatus==4"
+                  >
+                    <span class="radio">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14.425"
+                        height="10.954"
+                        viewBox="0 0 14.425 10.954"
+                      >
+                        <path
+                          d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                          transform="translate(-11.104 -18.854)"
+                        />
+                      </svg>
+                    </span>
+                    <span>
+                      {{
+                        'UpdateStatsModal.ReadyForCollection'
+                          | translate
+                      }}
+                    </span>
+                  </label>
+                </div>
+                  <div
+                    class="radio-btn"
+                    style="width: 240px;"
+                  >
+                    <input
+                      type="radio"
+                      class="d-none"
+                      formControlName="selectedStatus"
+                      id="stat-2"
+                      value="5"
+                      (change)="onSelect()"
+                    />
+                    <label
+                      for="stat-2"
+                      class="cbf-dialog"
+                    >
+                      <span class="radio">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14.425"
+                          height="10.954"
+                          viewBox="0 0 14.425 10.954"
+                        >
+                          <path
+                            d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                            transform="translate(-11.104 -18.854)"
+                          />
+                        </svg>
+                      </span>
+                      <span>
+                        {{
+                          'UpdateStatsModal.CollectedByFan'
+                            | translate
+                        }}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="radio-group">
+                    
+                  <div
+                  class="radio-btn"
+                  style="width: 240px;"
+                >
+                  <input
+                    type="radio"
+                    class="d-none"
+                    formControlName="selectedStatus"
+                    id="stat-3"
+                    value="10"
+                    (change)="onSelect()"
+                    
+                  />
+                  <label
+                    for="stat-3"
+                    class= "rfc-dialog"
+                  >
+                    <span class="radio">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14.425"
+                        height="10.954"
+                        viewBox="0 0 14.425 10.954"
+                      >
+                        <path
+                          d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                          transform="translate(-11.104 -18.854)"
+                        />
+                      </svg>
+                    </span>
+                    <span>
+                      {{
+                        'UpdateStatsModal.HomeDelivery'
+                          | translate
+                      }}
+                    </span>
+                  </label>
+                </div>
+                  <div
+                    class="radio-btn"
+                    style="width: 240px;"
+                  >
+                    <input
+                      type="radio"
+                      class="d-none"
+                      formControlName="selectedStatus"
+                      id="stat-4"
+                      value="11"
+                      (change)="onSelect()"
+                    />
+                    <label
+                      for="stat-4"
+                      class="cbf-dialog"
+                    >
+                      <span class="radio">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14.425"
+                          height="10.954"
+                          viewBox="0 0 14.425 10.954"
+                        >
+                          <path
+                            d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                            transform="translate(-11.104 -18.854)"
+                          />
+                        </svg>
+                      </span>
+                      <span>
+                        {{
+                          'UpdateStatsModal.ReadyForCollectionQPR'
+                            | translate
+                        }}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paneFooter">
+            <button
+              class="btn btn-primary btn-sm btn-failed"
+              style="margin: 0 12.5px"
+              [disabled]="cardStatusChangeForm.invalid"
+            >
+              {{ 'CardReplacement.Submit' | translate }}
+            </button>
+            <button
+              class="btn btn-sm btn-light btn-canceled"
+              style="margin: 0 12.5px"
+              (click)="closeThis.emit()"
+            >
+              {{ 'CardReplacement.Close' | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modalpane-backdrop"></div>
+  

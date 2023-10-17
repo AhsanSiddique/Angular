@@ -1,0 +1,270 @@
+<div class="loader" *ngIf="['submit', 'hwm-submit', 'save'].includes(type)">
+  <div
+    class="loader-content"
+    style="height: fit-content; width: 400px;"
+  >
+    <div class="submitPane" *ngIf="type === 'submit'">
+      <div class="paneHeader">
+        <h4 class="font-24 text-center" style="color: var(--hayya-primary); font-weight: 900">
+          {{ 'SubmitAndCardDetails.SubmitApplication' | translate }}
+        </h4>
+        <div class="paneClose" (click)="closeThis.emit('false')">
+          <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon"
+          (click)="closeThis.emit('false')"
+        />
+        </div>
+      </div>
+      <div class="card-detail-paneBody" style="padding: 0px 55px 8px;">
+        <p style="white-space: pre-line;">
+          {{
+            'SubmitAndCardDetails.AreyousureResubmit'
+              | translate
+          }}
+        </p>
+      </div>
+      <div class="paneFooter">
+        <button
+          class="btn btn-primary btn-sm btn-failed mb-4"
+          (click)="closeThis.emit('true')"
+        >
+          {{ 'SubmitAndCardDetails.Continue' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="submitPane" *ngIf="type === 'hwm-submit'">
+      <div class="paneHeader">
+        <h4 class="font-24 text-center" style="color: var(--hayya-primary); font-weight: 900">
+          {{ 'SubmitAndCardDetails.SubmitApplication' | translate }}
+        </h4>
+        <div class="paneClose" (click)="closeThis.emit('false')">
+          <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon"
+          (click)="closeThis.emit('false')"
+        />
+        </div>
+      </div>
+      <div class="card-detail-paneBody" style="padding: 0px 55px 8px;">
+        <p style="color: red">
+          Are you sure you want to update the application for this nationality?
+        </p>
+      </div>
+      <div class="paneFooter">
+        <button
+          class="btn btn-secondary btn-sm w-25 mb-4 mr-4"
+          (click)="closeThis.emit('false')"
+        >
+          No
+        </button>
+        <button
+          class="btn btn-primary btn-sm w-25 mb-4"
+          (click)="closeThis.emit('true')"
+        >
+          Yes
+        </button>
+      </div>
+    </div>
+
+    <div class="submitPane" *ngIf="type === 'save'">
+      <div class="paneHeader">
+           <h4 class="font-24 text-center" style="color: var(--hayya-primary); font-weight: 900">
+            {{ 'SubmitAndCardDetails.SaveApplication' | translate }}
+          </h4>
+        <div class="paneClose" (click)="closeThis.emit('false')">
+          <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon"
+          (click)="closeThis.emit('false')"
+        />
+        </div>
+      </div>
+      <div class="card-detail-paneBody" style="padding: 0px 55px 8px;">
+        <p style="white-space: pre-line;">
+          {{
+            'SubmitAndCardDetails.AreyousureSave'
+              | translate
+          }}
+        </p>
+      </div>
+
+      <div class="paneFooter">
+        <button
+          class="btn btn-primary btn-sm btn-failed mb-4"
+          (click)="closeThis.emit('true')"
+        >
+          {{ 'SubmitAndCardDetails.Continue' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="loader-backdrop"></div>
+</div>
+<div class="loader" *ngIf="type === 'cardDetail'">
+  <div
+    class="loader-content"
+    style="height: fit-content; width: 850px;"
+  >
+  <div class="submitPane">
+    <div class="paneHeader" style="padding: 0;">
+      <!-- <h4 class="font-24">
+        {{ 'SubmitAndCardDetails.CardDetail' | translate }}
+      </h4> -->
+      <div class="paneClose">
+        <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon"
+          (click)="closeThis.emit('close')"
+        />
+      </div>
+    </div>
+      <table id="view-details-table"
+        class="fan-id-datatable w-100"
+        style="border : none !important;"
+        aria-describedby="application history"
+      >
+        <thead>
+          <tr>
+            <th>
+              {{ 'SubmitAndCardDetails.Date' | translate }}
+            </th>
+            <th>
+              {{ 'SubmitAndCardDetails.srlNo' | translate }}
+            </th>
+            <th>
+              {{ 'SubmitAndCardDetails.CardStatus' | translate }}
+            </th>
+            <th>
+              {{ 'SubmitAndCardDetails.Terminal' | translate }}
+            </th>
+            <th>
+              {{ 'SubmitAndCardDetails.UserName' | translate }}
+            </th>
+            <th>
+              {{ 'SubmitAndCardDetails.Reason' | translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container>
+            <tr *ngFor="let card of cardDetails">
+              <td>
+                <div>
+                  {{ card.system_CreatedOn + 'Z' | date: 'dd-MM-yyyy' }}
+                </div>
+                <div>
+                  {{ card.system_CreatedOn + 'Z' | date: 'hh:mm:ss a' }}
+                </div>
+              </td>
+              <td>
+                <div class="card-detail-number">
+                  <span><strong>{{ card.cardSerialNo }}</strong></span>
+                  <span>{{ !card.status?'': card.cardStatus_Name }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="card-detail-action">
+                  <div class="card-detail-status-change" *ngIf="card.isCardActive">
+                    <h6
+                      style="
+                        color: #30d595 !important;
+                        font-size: 13px;
+                      "
+                    >
+                      {{ 'SubmitAndCardDetails.Enabled' | translate }} &nbsp;
+                    </h6>
+                  </div>
+                  <div class="card-detail-status-change" *ngIf="!card.isCardActive">
+                    <h6
+                      style="
+                        color: #999fa8 !important ;
+                        font-size: 13px;
+                      "
+                    >
+                      {{ 'SubmitAndCardDetails.Disabled' | translate }} &nbsp;
+                    </h6>
+                  </div>
+                  <div class="card-detail-staus-switch"
+                    *ngIf="status_switch_visible">
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        [checked]="card.isCardActive"
+                        (change)="checkStatus(card.id)"
+                        [disabled]="i > 0"
+                      />
+                      <span class="slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </td>
+              <td [title]="card.terminal">{{ card.refSerivceCenter_Code }}</td>
+              <td>{{ card.system_CreatedBy }}</td>
+              <td style="white-space: pre-wrap;">{{ card.reason }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    <!-- </div> -->
+    <!-- <div
+      class="card-detail-paneBody"
+      [class.card-toggle-loading]="card_toggle_loading"
+    >
+      <div class="card-detail-header">
+        <p>{{ 'SubmitAndCardDetails.srlNo' | translate }}</p>
+        <p>{{ 'SubmitAndCardDetails.CardStatus' | translate }}</p>
+        <p>Date</p>
+        <p>Terminal</p>
+        <p>User Name</p>
+        <p>Reason</p>
+
+      </div>
+
+      <div class="card-detail-list">
+        <div *ngFor="let card of cardDetails; index as i" class="card-detail-item" >
+          <div class="card-detail-number">
+            <span>{{ card.cardSerialNo }}</span>
+            <span>{{ !card.status?'': card.cardStatus_Name }}</span>
+          </div>
+          <div class="card-detail-action">
+            <div class="card-detail-status-change" *ngIf="card.status">
+              <h6
+                style="
+                  color: #30d595 !important;
+                  font-size: 13px;
+                "
+              >
+                {{ 'SubmitAndCardDetails.Enabled' | translate }}
+              </h6>
+            </div>
+            <div class="card-detail-status-change" *ngIf="!card.status">
+              <h6
+                style="
+                  color: #999fa8 !important ;
+                  font-size: 13px;
+                "
+              >
+                {{ 'SubmitAndCardDetails.Disabled' | translate }}
+              </h6>
+            </div>
+            <div class="card-detail-staus-switch"
+              *ngIf="status_switch_visible">
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  [checked]="card.status"
+                  (change)="checkStatus(card.id)"
+                  [disabled]="i > 0"
+                />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <p>Date</p>
+        <p>Terminal</p>
+        <p>User Name</p>
+        <p>Reason</p>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+<!-- <div class="loader-backdrop"></div> -->
+
+</div>
+<div class="loader-backdrop"></div>
+

@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+.invalid-feedback:after {
+  content: '*';
+}

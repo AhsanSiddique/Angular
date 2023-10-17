@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+$fifa-red:var(--hayya-primary);
+$fifa-bg:var(--hayya-content-bg);
+$fifa-selected-bg: #C8C6AD;
+@import './global.scss';
+@import './font.scss';
+@import '~bootstrap/dist/css/bootstrap.css';
+//@import './pages/RTL.scss';
+@import './pages/error.scss';
+@import './pages/login.scss';
+@import './pages/common.scss';
+@import './pages/dashboard.scss';
+@import './pages/registration.scss';
+@import './pages/header.scss';
+@import './pages/sidebar.scss';
+@import './components/dropdown.scss';
+@import './pages/form-manual.scss';
+@import './components/cancel.scss';
+@import './components/delivery.scss';
+@import './pages/applicant-details.scss';

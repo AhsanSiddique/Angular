@@ -1,0 +1,56 @@
+<form autocomplete="off" class="row m-0 p-0 application-form" [formGroup]="formGroup">
+  <div class="form-row mx-0" style="position: relative">
+    <div class="form-group">
+      <label class="mb-3">Accommodation Type<sup>*</sup></label>
+      <div class="radio-group">
+        <div class="radio-btn" *ngFor="let accommodation_type of accommodationTypes">
+          <input type="radio" class="d-none" formControlName="accommodation_type"
+            id="accommodation_type_{{ accommodation_type.code }}" [value]="accommodation_type.code"
+          />
+          <label for="accommodation_type_{{ accommodation_type.code }}">
+            <span class="radio"></span>
+            <span>
+              {{ accommodation_type.name }}
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="invalid-feedback accommodation-type-error" *ngIf="f.accommodation_type.touched && f.accommodation_type.invalid">
+      Select Accommodation Type
+    </div>
+  </div>
+  <ng-container *ngIf="f.accommodation_type.value === 2">
+    <!-- accommodation_name text field -->
+    <div class="form-row mx-0 w-100">
+      <div class="form-group col-6">
+        <label class="mb-3">Accommodation Name<sup>*</sup></label>
+        <input type="text" class="form-control" formControlName="accommodation_name" placeholder="Enter Accommodation Name"
+          [class.is-invalid]="f.accommodation_name.touched && f.accommodation_name.invalid"
+        />
+        <div class="invalid-feedback accommodation-name-error" *ngIf="f.accommodation_name.touched && f.accommodation_name.invalid">
+          <ng-container *ngIf="f.accommodation_name.errors as error">
+            <ng-container *ngIf="error?.required">Enter Accommodation Name </ng-container>
+            <ng-container *ngIf="error?.maxlength || error?.pattern as qe">
+              <ng-container *ngIf="qe.requiredLength">
+                Maximum {{qe.requiredLength}} characters allowed
+              </ng-container>
+              <ng-container *ngIf="qe.requiredPattern">
+                Invalid characters
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</form>
+
+<ng-container *ngIf="verifyGuestError$ | async as err">
+  <fan-id-common-error-modal
+    head_error_message="Error"
+    [error_message]="err"
+    buttontext="Common.Ok"
+    (closeThis)="verifyGuestError$.next('')"
+  ></fan-id-common-error-modal>
+</ng-container>

@@ -1,0 +1,360 @@
+<form autocomplete="off" class="row personal-information align-items-center" [formGroup]="formGroup">
+    <div
+      class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="ticket_reference_number">
+        {{ translateKey + '.TicketReferenceNumber' | translate }}
+      </label>
+      <input type="text" mask="0*" maxlength="15"
+        formControlName="ticket_reference_number" name="ticket_reference_number" placeholder="{{
+          translateKey + '.EnterTicketReferenceNumber' | translate
+        }}" id="ticket_reference_number" class="form-control" [ngClass]="{
+          'is-invalid':
+            (pf.ticket_reference_number.touched &&
+            pf.ticket_reference_number.invalid)
+        }"
+        [class.disabled-input]="pf.ticket_reference_number.disabled"
+        (blur)="tickeRefBlur()"
+        (focus)="tickeRefFocus($event)"
+        />
+        <span class="invalid-feedback"
+          *ngIf="
+          pf.ticket_reference_number.hasError('notValidTicket') &&
+          pf.ticket_reference_number.touched"
+        >
+          {{ 'ErrorMessage.InvalidTicketNumber' | translate }}
+        </span>
+      <fan-id-form-field-error [field_control]="pf.ticket_reference_number"></fan-id-form-field-error>
+    </div>
+<!-- {{pf.ticket_reference_number.errors | json}} -->
+    <div class="w-100"></div>
+
+    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 fields-combo">
+      <div>
+        <label for="title">{{ translateKey + '.Title' | translate }}</label>
+        <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false" bindLabel="title" bindValue="title"
+          [placeholder]="translateKey + '.Title' | translate" formControlName="title" class="form-control" [ngClass]="{
+            'is-invalid': pf.title.touched && pf.title.invalid
+          }" labelForId="title" aria-describedby="title">
+          <ng-option *ngFor="let title of (metadata$ | async)?.titles" [value]="title.code">
+            {{ title.name }}
+          </ng-option>
+        </ng-select>
+      </div> -->
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+        <label for="firstname">{{
+          translateKey + '.FirstName' | translate
+          }}</label>
+        <input type="text" [patterns]="nameMaskPattern" [mask]="'S*'" [dropSpecialCharacters]="false" formControlName="firstname" name="firstname"
+          [placeholder]="translateKey + '.EnterFirstName' | translate" id="firstname" class="form-control" [ngClass]="{
+            'is-invalid': pf.firstname.touched && pf.firstname.invalid
+          }" />
+        <fan-id-form-field-error [field_control]="pf.firstname"></fan-id-form-field-error>
+      </div>
+    <!-- </div> -->
+
+    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="secondname">{{
+        translateKey + '.SecondName' | translate
+        }}</label>
+      <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="secondname" name="secondname"
+        [placeholder]="translateKey + '.EnterSecondName' | translate" id="secondname" class="form-control" [ngClass]="{
+          'is-invalid': pf.secondname.touched && pf.secondname.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.secondname"></fan-id-form-field-error>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="thirdname">{{ translateKey + '.ThirdName' | translate }}</label>
+      <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="thirdname" name="thirdname"
+        [placeholder]="translateKey + '.EnterThirdName' | translate" id="thirdname" class="form-control" [ngClass]="{
+          'is-invalid': pf.thirdname.touched && pf.thirdname.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.thirdname"></fan-id-form-field-error>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="fourthname">{{
+        translateKey + '.FourthName' | translate
+        }}</label>
+      <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="fourthname" name="fourthname"
+        [placeholder]="translateKey + '.EnterFourthName' | translate" id="fourthname" class="form-control" [ngClass]="{
+          'is-invalid': pf.fourthname.touched && pf.fourthname.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.fourthname"></fan-id-form-field-error>
+    </div> -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="lastname">{{ translateKey + '.LastName' | translate }}</label>
+      <input type="text" [patterns]="nameMaskPattern" [mask]="'S*'" [dropSpecialCharacters]="false" formControlName="lastname" name="lastname"
+        [placeholder]="translateKey + '.EnterLastName' | translate" id="lastname" class="form-control" [ngClass]="{
+          'is-invalid': pf.lastname.touched && pf.lastname.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.lastname"></fan-id-form-field-error>
+    </div>
+
+    <!-- arab names start -->
+    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngIf="isNationalityArab">
+      <label for="firstname_ar">الاسم الاول</label>
+      <input type="text" [patterns]="arabMaskPattern" [mask]="'0* 0*'" [dropSpecialCharacters]="false"
+        formControlName="firstname_ar" name="firstname_ar" placeholder="الاسم الاول" id="firstname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': pf.firstname_ar.touched && pf.firstname_ar.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.firstname_ar"></fan-id-form-field-error>
+    </div> -->
+
+    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngIf="isNationalityArab">
+      <label for="secondname_ar">اسم الاوسط الاول</label>
+      <input type="text" [patterns]="arabMaskPattern" [mask]="'0* 0*'" [dropSpecialCharacters]="false"
+        formControlName="secondname_ar" name="secondname_ar" placeholder="اسم الاوسط الاول" id="secondname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': pf.secondname_ar.touched && pf.secondname_ar.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.secondname_ar"></fan-id-form-field-error>
+    </div> -->
+
+    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngIf="isNationalityArab">
+      <label for="thirdname_ar">الاسم الاوسط الثاني</label>
+      <input type="text" [patterns]="arabMaskPattern" [mask]="'0* 0*'" [dropSpecialCharacters]="false"
+        formControlName="thirdname_ar" name="thirdname_ar" placeholder="الاسم الاوسط الثاني" id="thirdname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': pf.thirdname_ar.touched && pf.thirdname_ar.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.thirdname_ar"></fan-id-form-field-error>
+    </div> -->
+
+    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngIf="isNationalityArab">
+      <label for="fourthname_ar">اسم الاوسط الثالث </label>
+      <input type="text" [patterns]="arabMaskPattern" [mask]="'0* 0*'" [dropSpecialCharacters]="false"
+        formControlName="fourthname_ar" name="fourthname_ar" placeholder="اسم الاوسط الثالث " id="fourthname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': pf.fourthname_ar.touched && pf.fourthname_ar.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.fourthname_ar"></fan-id-form-field-error>
+    </div> -->
+
+    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngIf="isNationalityArab">
+      <label for="lastname_ar">اسم الاوسط الرابع </label>
+      <input type="text" [patterns]="arabMaskPattern" [mask]="'0* 0*'" [dropSpecialCharacters]="false"
+        formControlName="lastname_ar" name="lastname_ar" placeholder="اسم الاوسط الرابع " id="lastname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': pf.lastname_ar.touched && pf.lastname_ar.invalid
+        }" />
+      <fan-id-form-field-error [field_control]="pf.lastname_ar"></fan-id-form-field-error>
+    </div> -->
+
+    <!-- arab names end -->
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="document_number">
+        {{
+        translateKey +
+        '.' +
+        (document_number_label) +
+        'Number' | translate
+        }}
+      </label>
+      <input type="text" [mask]="document_type?.value === 3 ? 'A*' : '0{11}'" formControlName="document_number"
+        name="document_number" placeholder="{{
+          translateKey +
+            '.Enter' +
+            (document_number_label) +
+            'Number' | translate
+        }}" id="document_number" class="form-control" [ngClass]="{
+          'is-invalid': pf.document_number.touched && pf.document_number.invalid
+        }"
+        (blur)="docRefBlur()"
+        (focus)="docRefFocus($event)"/>
+        <span   class="invalid-feedback"
+        *ngIf="
+            pf.document_number.hasError('notValidDoc') &&
+          pf.document_number.touched
+        "
+      >
+        {{ 'ErrorMessage.DocumentNumberInUse' | translate }}
+      </span>
+      <fan-id-form-field-error [field_control]="pf.document_number"></fan-id-form-field-error>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="document_expiry">
+        {{ translateKey + '.ExpiryDate' | translate }}
+      </label>
+      <div class="date-inner-addon date-right-addon" id="datepicker" data-date-format="mm-dd-yyyy">
+        <input type="text" formControlName="document_expiry" name="document_expiry"
+          [placeholder]="translateKey + '.EnterExpiryDate' | translate" id="document_expiry" ngbDatepicker
+          #d="ngbDatepicker" [minDate]="minDate" [maxDate]="maxEXPDate" class="w-100 form-control" [class.is-invalid]="
+            pf.document_expiry.touched && pf.document_expiry.invalid
+          " readonly />
+        <svg (click)="d.toggle()" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+          class="bi bi-calendar d-block d-sm-block" viewBox="0 0 16 16">
+          <path
+            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+        </svg>
+      </div>
+      <fan-id-form-field-error [field_control]="pf.document_expiry"></fan-id-form-field-error>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="issuing_country">{{
+        translateKey + '.IssuingCountry' | translate
+        }}</label>
+
+      <ng-select
+        [items]="(metadata$ | async)?.countries"
+        bindLabel="name"
+        bindValue="code"
+        [virtualScroll]="true"
+        [clearable]="false"
+        [placeholder]="translateKey + '.SelectIssuingCountry' | translate"
+        formControlName="issuing_country"
+        class="form-control" [ngClass]="{
+          'is-invalid': pf.issuing_country.touched && pf.issuing_country.invalid
+        }" labelForId="issuing_country" aria-describedby="issuing_country"
+        [searchFn]="nationalitySearchFn"
+        >
+          <ng-template ng-label-tmp let-country="item">
+            <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+            <span class="mx-1">
+              {{ country.name }}
+            </span>
+          </ng-template>
+          <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+            <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+            <span class="mx-1">
+              {{ country.name }}
+            </span>
+          </ng-template>
+      </ng-select>
+      <div class="invalid-feedback" *ngIf="pf.issuing_country.touched && pf.issuing_country.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="dateofbirth">
+        {{ translateKey + '.DateofBirth' | translate }}
+      </label>
+      <div class="date-inner-addon date-right-addon" id="datepicker2" data-date-format="mm-dd-yyyy">
+        <input type="text" formControlName="dateofbirth" name="dateofbirth"
+          [placeholder]="translateKey + '.EnterDateofBirth' | translate" ngbDatepicker #dob="ngbDatepicker"
+          [maxDate]="maxDate" [minDate]="minDOBDate" id="dateofbirth" class="form-control w-100"
+          [class.is-invalid]="pf.dateofbirth.touched && pf.dateofbirth.invalid" readonly />
+        <svg (click)="dob.toggle()" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+          class="bi bi-calendar d-block d-sm-block" viewBox="0 0 16 16">
+          <path
+            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+        </svg>
+      </div>
+      <div class="invalid-feedback d-block" *ngIf="pf.dateofbirth.touched && pf.dateofbirth.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 form-group gender-check">
+      <label>{{ translateKey + '.Gender' | translate }}</label>
+      <div class="radio-group">
+        <div class="radio-btn">
+          <input type="radio" class="d-none" formControlName="gender" id="male" value="MALE" />
+          <label for="male">
+            <span class="radio">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14.425" height="10.954" viewBox="0 0 14.425 10.954">
+                <path
+                  d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                  transform="translate(-11.104 -18.854)" />
+              </svg>
+            </span>
+            <span>{{ translateKey + '.Male' | translate }}</span>
+          </label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" class="d-none" formControlName="gender" id="female" value="FEMALE" />
+          <label for="female">
+            <span class="radio">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14.425" height="10.954" viewBox="0 0 14.425 10.954">
+                <path
+                  d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                  transform="translate(-11.104 -18.854)" />
+              </svg>
+            </span>
+            <span>{{ translateKey + '.Female' | translate }}</span>
+          </label>
+        </div>
+        <!-- <div class="radio-btn">
+          <input type="radio" class="d-none" formControlName="gender" id="unspecified" value="OTHER" />
+          <label for="unspecified">
+            <span class="radio">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14.425" height="10.954" viewBox="0 0 14.425 10.954">
+                <path
+                  d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                  transform="translate(-11.104 -18.854)" />
+              </svg>
+            </span>
+            <span>{{ translateKey + '.Unspecified' | translate }}</span>
+          </label>
+        </div> -->
+      </div>
+      <!-- <fan-id-form-field-error [field_control]="pf.gender"></fan-id-form-field-error> -->
+      <div class="invalid-feedback d-block gender-error" *ngIf="pf.gender.touched && pf.gender.errors">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 fields-combo">
+      <div>
+        <label for="phonecode">{{
+          translateKey + '.CountryCode' | translate
+          }}</label>
+
+        <ng-select [virtualScroll]="true" [clearable]="false"
+          placeholder="e.g(+974)" formControlName="phonecode" class="form-control phonecode" [ngClass]="{
+            'is-invalid': pf.phonecode.touched && pf.phonecode.invalid
+          }" labelForId="phonecode" aria-describedby="phonecode"
+          (change)="onPhoneCodeChange()"
+        >
+          <ng-option *ngFor="let phonecode of (metadata$ | async)?.phonecodes" [value]="phonecode.dialingCode">
+            <span class="flag-icon flag-icon-{{ phonecode.code | lowercase }}"></span>
+            <span class="mx-1"> {{ phonecode.dialingCode }} </span>
+          </ng-option>
+        </ng-select>
+      </div>
+      <div>
+        <label for="mobile">{{
+          translateKey + '.MobileNumber' | translate
+          }}</label>
+        <input type="text" mask="0*" formControlName="mobile" name="mobile"
+          [placeholder]="translateKey + '.EnterMobileNumber' | translate" id="mobile" class="form-control" [ngClass]="{
+            'is-invalid': pf.mobile.touched && pf.mobile.invalid
+          }"
+          (blur)="phoneRefBlur()"
+          (focus)="phoneRefFocus()"/>
+          <span   class="invalid-feedback"
+          *ngIf="
+              pf.mobile.hasError('notValidPhone') &&
+            pf.mobile.touched
+          "
+        >
+        {{ 'ErrorMessage.PhoneInUse' | translate }}
+      </span>
+        <fan-id-form-field-error [field_control]="pf.mobile"></fan-id-form-field-error>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="email">{{ translateKey + '.EmailAddress' | translate }}</label>
+      <input type="email" email formControlName="email" name="email"
+        [placeholder]="translateKey + '.EnterEmailAddress' | translate" id="email" class="form-control" [ngClass]="{
+          'is-invalid': pf.email.touched && pf.email.invalid
+        }"
+        (blur)="emailRefBlur()"
+          (focus)="emailRefFocus($event)"/>
+          <span   class="invalid-feedback"
+          *ngIf="
+              pf.email.hasError('notValidEmail') &&
+            pf.email.touched
+          "
+          maxlength="60"
+        >
+        {{ 'ErrorMessage.EmailInUse' | translate }}
+      </span>
+      <fan-id-form-field-error [field_control]="pf.email"></fan-id-form-field-error>
+    </div>
+  </form>

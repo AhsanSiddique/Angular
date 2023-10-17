@@ -1,0 +1,31 @@
+<div class="card-history__container">
+  <div class="page-title pt-4 pb-4">
+    <fan-id-back-arrow></fan-id-back-arrow>
+    <h4 class="mb-0 w-100">
+      View Card Details
+    </h4>
+  </div>
+  <main>
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Card Details</a>
+        <img *ngIf="active === 1" src="/assets/icons/Union.svg" alt="Bootstrap" />
+        <ng-template ngbNavContent>
+          <section>
+            <fan-id-card-details-table [applicationId]="applicationId"></fan-id-card-details-table>
+          </section>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Card History</a>
+        <img *ngIf="active === 2" src="/assets/icons/Union.svg" alt="Bootstrap" />
+        <ng-template ngbNavContent>
+          <section>
+            <fan-id-card-action-list [applicationId]="applicationId"></fan-id-card-action-list>
+          </section>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </main>
+</div>

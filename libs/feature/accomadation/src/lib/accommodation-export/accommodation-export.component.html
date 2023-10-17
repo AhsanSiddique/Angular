@@ -1,0 +1,73 @@
+<div class="accommodation-export container-fluid">
+    <form class="form-row" [formGroup]="exportForm">
+      <div class="col-6 my-2">
+        <label for="dateBegin">
+         {{startFieldName}}
+        </label>
+        <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+          <input type="search" formControlName="dateBegin" name="dateBegin"
+            [minDate]="{ day: 1, month: 3, year: 2022 }"
+            placeholder="Start Date" id="dateBegin" ngbDatepicker #d="ngbDatepicker"
+            class="w-100 form-control" [class.is-invalid]="
+              ef.dateBegin.touched && ef.dateBegin.invalid
+            " (click)="d.toggle()"
+            autocomplete="off"
+            [maxDate]="dateToday"
+          />
+          <svg (click)="d.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-calendar d-block d-sm-block"
+        >
+          <path
+            d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+            fill="#00CFB7" />
+        </svg>
+
+        </div>
+        <fan-id-form-field-error [field_control]="ef.dateBegin"></fan-id-form-field-error>
+      </div>
+      <div class="col-6 my-2">
+        <label for="dateEnd">
+            {{endFieldName}}
+        </label>
+        <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+          <input type="search" formControlName="dateEnd" name="dateEnd"
+            placeholder="End Date" id="dateEnd"
+            ngbDatepicker #ed="ngbDatepicker" [minDate]="ef.dateBegin.value"
+            class="w-100 form-control" [class.is-invalid]="
+              ef.dateEnd.touched && ef.dateEnd.invalid
+            "
+            [class.is-disabled]="!ef.dateBegin.value"
+            autocomplete="off"
+            [maxDate]="dateToday"
+          />
+          <svg [class.is-disabled]="!ef.dateBegin.value" (click)="ed.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-calendar d-block d-sm-block"
+        >
+          <path
+            d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+            fill="#00CFB7" />
+        </svg>
+
+
+
+
+
+        </div>
+        <fan-id-form-field-error [field_control]="ef.dateEnd"></fan-id-form-field-error>
+      </div>
+
+    </form>
+    <div class="row accommodation-export-actions" style="gap:1rem;">
+      <button type="button" class="btn btn-secondary"
+        (click)="closeThis.emit('close')"
+      >
+        <span>{{closeBtnTxt}}</span>
+      </button>
+      <button type="submit" class="btn btn-primary  btn-caret-8"
+        (click)="generateExcel()"
+        [disabled]="exportForm.invalid"
+      >
+        <span>{{downloadBtnTxt}}</span>
+      </button>
+    </div>
+  </div>

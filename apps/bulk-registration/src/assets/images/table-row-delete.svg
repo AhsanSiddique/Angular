@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="11.562" height="15.913" viewBox="0 0 11.562 15.913">
+  <g id="interface_6_" data-name="interface (6)" transform="translate(-70.007)">
+    <g id="Group_2158" data-name="Group 2158" transform="translate(70.007)">
+      <g id="Group_2157" data-name="Group 2157" transform="translate(0)">
+        <path id="Path_804" data-name="Path 804" d="M81.05,1.6H78.207V.519A.519.519,0,0,0,77.688,0h-3.8a.519.519,0,0,0-.519.519V1.6H70.526a.519.519,0,0,0-.519.519v1.6a.519.519,0,0,0,.519.519H81.05a.519.519,0,0,0,.519-.519v-1.6A.519.519,0,0,0,81.05,1.6Zm-3.88,0H74.406V1.038h2.763Z" transform="translate(-70.007)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Group_2160" data-name="Group 2160" transform="translate(70.728 5.268)">
+      <g id="Group_2159" data-name="Group 2159" transform="translate(0)">
+        <path id="Path_805" data-name="Path 805" d="M93.192,169.5l.43,10.148a.519.519,0,0,0,.518.5h8.223a.519.519,0,0,0,.518-.5l.43-10.148Zm3.492,8.535a.519.519,0,1,1-1.038,0v-6.425a.519.519,0,0,1,1.038,0Zm2.087,0a.519.519,0,1,1-1.038,0v-6.425a.519.519,0,0,1,1.038,0Zm2.087,0a.519.519,0,1,1-1.038,0v-6.425a.519.519,0,0,1,1.038,0Z" transform="translate(-93.192 -169.497)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

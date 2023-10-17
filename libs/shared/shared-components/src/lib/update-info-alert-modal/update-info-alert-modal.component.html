@@ -1,0 +1,49 @@
+<div class="modalpane-wrapper">
+
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <h4 class="font-24 text-center" style="color: var(--hayya-primary); font-weight: 900">
+        {{ 'Common.Alert' | translate }}
+      </h4>
+    </div>
+    <ng-container *ngIf="_type === 'update'">
+      <h6 class="text-center">
+        {{ 'UpdateInfoAlert.line1' | translate }}
+      </h6>
+      <p class="text-center">
+        {{ 'UpdateInfoAlert.line2' | translate }}
+      </p>
+      <p class="text-center">
+        {{ 'UpdateInfoAlert.line3' | translate }}
+      </p>
+      <p class="text-center">
+        {{ 'UpdateInfoAlert.line4' | translate }}
+      </p>
+      <p class="text-center">
+        {{ 'UpdateInfoAlert.line5' | translate }}
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="_type === 'resubmit'">
+      <h6 class="text-center">
+        Are you sure you want to resubmit the application?
+      </h6>
+      <p class="text-center">
+        Please be aware that Resubmit will not allow you to edit any data from your application prior to resubmitting it.
+      </p>
+      <p class="text-center">
+        If you wish to update any of your application data prior to resubmission, please use the Update Info feature under the Action menu.
+      </p>
+    </ng-container>
+
+    <div class="modalpane-footer">
+      <button class="btn btn-secondary" (click)="closeThis.emit('cancel')">
+        <span>{{ 'Common.Cancel' | translate }}</span>
+      </button>
+      <button class="btn btn-primary btn-caret-8" (click)="closeThis.emit('proceed')">
+        {{ 'Common.Proceed' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>

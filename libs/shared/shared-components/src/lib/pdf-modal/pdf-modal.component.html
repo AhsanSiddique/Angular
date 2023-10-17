@@ -1,0 +1,89 @@
+<div class="modalpane-wrapper">
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <div class="modalpane-closebtn">
+        <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon" (click)="closeThis.emit('close')" />
+      </div>
+    </div>
+    <div class="pdf-container">
+      <pdf-viewer
+        [src]="pdfSrc"
+        [rotation]="pdf_rotate"
+        [original-size]="false"
+        [show-all]="true"
+        [fit-to-page]="false"
+        [zoom]="pdf_zoom"
+        [zoom-scale]="'page-width'"
+        [stick-to-page]="false"
+        [render-text]="true"
+        [external-link-target]="'blank'"
+        [autoresize]="true"
+        [show-borders]="false"
+        (after-load-complete)="callBackFn($event)"
+        (error)="onError($event)"
+      ></pdf-viewer>
+    </div>
+    <div class="pdf-actions">
+      <button *ngIf="isDownloadable" class="btn btn-link d-flex" (click)="downloadPdf()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489 489" width="24" height="24" xml:space="preserve"><path d="M329.2 327.2c-4.5 0-8.1 3.4-8.6 7.9-3.9 38.6-36.5 68.7-76.2 68.7-39.6 0-72.2-30.1-76.2-68.7-.5-4.4-4.1-7.9-8.6-7.9h-104c-21.8 0-39.5 17.7-39.5 39.5v82.8c0 21.8 17.7 39.5 39.5 39.5h377.8c21.8 0 39.5-17.7 39.5-39.5v-82.7c0-21.8-17.7-39.5-39.5-39.5H329.2v-.1z" fill="var(--hayya-primary)"/><path d="m303.5 198.6-30.9 30.9V28.1C272.6 12.6 260 0 244.5 0c-15.5 0-28.1 12.6-28.1 28.1v201.4l-30.9-30.9c-9.5-9.5-24.7-11.9-35.9-4.4-15.3 10.2-16.8 31.1-4.5 43.4l82.8 82.8c9.2 9.2 24.1 9.2 33.3 0l82.8-82.8c12.3-12.3 10.8-33.2-4.5-43.4-11.3-7.6-26.5-5.2-36 4.4z" fill="var(--hayya-primary)"/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/></svg>
+      </button>
+      <button class="btn btn-link d-flex" (click)="zoomIn()">
+        <span>Zoom In</span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512"
+            xml:space="preserve">
+            <path fill="var(--hayya-primary)"
+              d="m497.938 430.063-112-112c-.313-.313-.637-.607-.955-.909C404.636 285.403 416 248.006 416 208 416 93.313 322.695 0 208 0S0 93.313 0 208s93.305 208 208 208c40.007 0 77.404-11.364 109.154-31.018.302.319.596.643.909.955l112 112C439.43 507.313 451.719 512 464 512c12.281 0 24.57-4.688 33.938-14.063 18.75-18.734 18.75-49.14 0-67.874zM64 208c0-79.406 64.602-144 144-144s144 64.594 144 144-64.602 144-144 144S64 287.406 64 208z" />
+            <path fill="var(--hayya-primary)"
+              d="M272 176h-32v-32c0-17.672-14.328-32-32-32s-32 14.328-32 32v32h-32c-17.672 0-32 14.328-32 32s14.328 32 32 32h32v32c0 17.672 14.328 32 32 32s32-14.328 32-32v-32h32c17.672 0 32-14.328 32-32s-14.328-32-32-32z" />
+          </svg>
+        </span>
+      </button>
+      <button class="btn btn-link d-flex" (click)="zoomOut()">
+        <span>Zoom Out</span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512"
+            xml:space="preserve">
+            <path fill="var(--hayya-primary)"
+              d="m497.938 430.063-112-112c-.367-.367-.805-.613-1.18-.965C404.438 285.332 416 248.035 416 208 416 93.313 322.695 0 208 0S0 93.313 0 208s93.305 208 208 208c40.035 0 77.332-11.563 109.098-31.242.354.375.598.813.965 1.18l112 112C439.43 507.313 451.719 512 464 512c12.281 0 24.57-4.688 33.938-14.063 18.75-18.734 18.75-49.14 0-67.874zM64 208c0-79.406 64.602-144 144-144s144 64.594 144 144-64.602 144-144 144S64 287.406 64 208z" />
+            <path fill="var(--hayya-primary)"
+              d="M272 176H144c-17.672 0-32 14.328-32 32s14.328 32 32 32h128c17.672 0 32-14.328 32-32s-14.328-32-32-32z" />
+          </svg>
+        </span>
+      </button>
+      <button class="btn btn-link d-flex mr-auto" (click)="rotateClockWise()">
+        <span>Rotate</span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 492"
+            style="transform: rotate(180deg) rotateY(180deg);"
+            xml:space="preserve">
+            <path fill="var(--hayya-primary)" d="M464.9 284.408c.053 0 .105.004.157.004h.055l-.212-.004z" />
+            <path fill="var(--hayya-primary)"
+              d="M484.004 292.48c-5.063-5.086-11.821-8.025-18.947-8.068H330.468c-14.824 0-26.676 12.3-26.676 27.12v22.78c0 7.156 2.7 13.9 7.788 18.992 5.088 5.092 11.784 7.896 18.94 7.896l39.052.008c-32.06 34.332-76.68 53.864-123.672 53.864-93.22 0-169.072-75.844-169.072-169.072s75.84-169.072 169.064-169.072c69.796 0 133.336 43.82 158.108 109.04 5.632 14.816 20.068 24.776 35.916 24.776 4.66 0 9.248-.848 13.632-2.52 19.8-7.516 29.784-29.748 22.26-49.544C439.772 63.84 347.376.112 245.888.112 110.308.112 0 110.416 0 246s110.236 245.888 245.816 245.888c62.584 0 123.272-24.632 169.364-67.872v21.788c0 14.824 12.208 26.812 27.032 26.812h22.78c14.824 0 27.008-11.988 27.008-26.812v-134.18c0-7.18-2.884-14.06-7.996-19.144z" />
+          </svg>
+        </span>
+      </button>
+      <button class="btn btn-link d-flex" (click)="rotateAntiClockWise()">
+        <span>Rotate</span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 492"
+            style="transform: rotate(180deg);"
+            xml:space="preserve">
+            <path fill="var(--hayya-primary)" d="M464.9 284.408c.053 0 .105.004.157.004h.055l-.212-.004z" />
+            <path fill="var(--hayya-primary)"
+              d="M484.004 292.48c-5.063-5.086-11.821-8.025-18.947-8.068H330.468c-14.824 0-26.676 12.3-26.676 27.12v22.78c0 7.156 2.7 13.9 7.788 18.992 5.088 5.092 11.784 7.896 18.94 7.896l39.052.008c-32.06 34.332-76.68 53.864-123.672 53.864-93.22 0-169.072-75.844-169.072-169.072s75.84-169.072 169.064-169.072c69.796 0 133.336 43.82 158.108 109.04 5.632 14.816 20.068 24.776 35.916 24.776 4.66 0 9.248-.848 13.632-2.52 19.8-7.516 29.784-29.748 22.26-49.544C439.772 63.84 347.376.112 245.888.112 110.308.112 0 110.416 0 246s110.236 245.888 245.816 245.888c62.584 0 123.272-24.632 169.364-67.872v21.788c0 14.824 12.208 26.812 27.032 26.812h22.78c14.824 0 27.008-11.988 27.008-26.812v-134.18c0-7.18-2.884-14.06-7.996-19.144z" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>
+<ngx-spinner
+  name="pdf-viewer"
+  bdColor="rgba(0,0,0,0.5)"
+  size="default"
+  color="rgba(246,240,240,0.79)"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+></ngx-spinner>

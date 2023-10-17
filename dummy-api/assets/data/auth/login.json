@@ -1,0 +1,5 @@
+{
+    "userName": "Test User",
+    "accessToken": "sample jwt token",
+    "refreshToken": "sample refresh token"
+}

@@ -1,0 +1,20 @@
+<div class="preferred-collection-details">
+  <div class="row">
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Accommodation Type"
+        id="accommodation_type"
+        [value]="applicant_data?.accommodationTypeSelected_Name ?? 'NA'"
+        placeholder="Accommodation Type"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Accommodation Name"
+        id="accommodation_name"
+        [value]="applicant_data?.accommodationTypeSelected === 2 ? applicant_data?.hotelAccommodationAddress : 'NA'"
+        placeholder="Accommodation Name"
+      ></fan-id-readonly-input>
+    </div>
+  </div>
+</div>

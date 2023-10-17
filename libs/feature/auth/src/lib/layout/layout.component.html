@@ -1,0 +1,82 @@
+<div class="login" [attr.dir]="isRTLLayout ? 'rtl' : 'ltr'" *ngIf="!pageData.IsCenterAlign">
+
+  <div class="header-bar">
+    <!-- <img src="assets/images/Fifa_Logo.png" alt="Fifa logo"/> -->
+
+
+  </div>
+  <div class="row pt-4 body-login-layout " >
+    <div class="login-title col-center col-left-align flex-column col-6 Qatar2022" style="padding-top: 50px;">
+      <div class="">
+        <span class="login-text"
+          >{{ pageData.page + '.Title' | translate }}
+        </span>
+        <br *ngIf="!pageData.layoutVertical" />
+        <span class="login-text">{{
+          pageData.page + '.Subtitle' | translate
+        }}</span>
+        <br *ngIf="pageData.page + '.Subtitle2' | translate">
+        <span class="login-text"  *ngIf="pageData.page + '.Subtitle2' | translate">{{
+          pageData.page + '.Subtitle2' | translate
+        }}</span>
+        <br>
+        <span class="login-info">{{pageData.page +'.InfoText'|translate}}</span>
+      </div>
+      <!-- <div class="kasheda"> <img src="assets/images/kasheda.png" alt="Fifa logo"/></div> -->
+    </div>
+    <div class="login-body flex-center col-6">
+      <div class="login-form" [ngStyle]="{'width':(pageData.page ==='SignUp'|| pageData.page ==='OrgSignup')?'100%':'400px'}">
+        <div class="title Qatar2022">
+          <span class="form-header" *ngIf="pageData.isHeader === true">{{
+            pageData.page + '.Header' | translate
+          }}</span>
+          <span class="form-header" *ngIf="!pageData.isHeader === true"> </span>
+
+          <!-- <fan-id-language *ngIf="pageData.includeLangSelector"></fan-id-language> -->
+        </div>
+        <div class="info" *ngIf="pageData.isInfo === true">
+          <span class="form-info Qatar2022">{{
+            pageData.page + '.Info' | translate
+          }}</span>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+  <!-- <div class="world-cup-branding"></div> -->
+
+  </div>
+</div>
+<div class="login isaligncenter" [attr.dir]="isRTLLayout ? 'rtl' : 'ltr'" *ngIf="pageData.IsCenterAlign">
+
+  <div class="header-bar" style="padding-bottom:0px; padding-left: 25px;">
+    <!-- <img src="assets/images/Fifa_Logo.png" alt="Fifa logo"/> -->
+
+
+  </div>
+  <div class="row body-login-layout ac" >
+    <div class="login-body flex-center col-6">
+      <div class="login-form" [ngStyle]="{'width':(pageData.page ==='SignUp'|| pageData.page ==='OrgSignup')?'100%':'400px'}">
+        <div class="title Qatar2022">
+          <span class="form-header" *ngIf="pageData.isHeader === true">{{
+            pageData.page + '.Header' | translate
+          }}</span>
+          <span class="form-header" *ngIf="!pageData.isHeader === true"> </span>
+
+          <!-- <fan-id-language *ngIf="pageData.includeLangSelector"></fan-id-language> -->
+        </div>
+        <div class="info" *ngIf="pageData.isInfo === true">
+          <span class="form-info Qatar2022">{{
+            pageData.page + '.Info' | translate
+          }}</span>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <!-- <div style="position: fixed;bottom: 20px; padding-left: 35px;">
+    <img style="height:100px;" src="/assets/images/Dashboard-bg.png" alt="Fifa Banner"/>
+
+  </div> -->
+</div>

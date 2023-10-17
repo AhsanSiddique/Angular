@@ -1,0 +1,173 @@
+<div class="organization-users">
+  <div class="page-title pt-4 pb-4">
+    <button class="btn btn-sm back pl-0">
+      <a routerLink="/main/organization/all" class="back-ico" title="Back">
+        <svg width="29" height="24" viewBox="0 0 29 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m11.356.496 2.259 2.25-7.54 7.615H29v3.206H6.075l7.54 7.615-2.26 2.25L0 11.964 11.356.496Z" fill="var(--hayya-primary)"/></svg>
+        <span class="sr-only">Back</span></a>
+    </button>    <h4 class="w-100 mb-0">{{"Organization.Users" | translate}}</h4>
+    <div class="organization-btn-actions">
+      <button
+        class="btn btn-sm btn-primary"
+        (click)="export()"
+        [disabled]="organizationUserList.length < 1"
+        *ngIf="exportPermission?.value?.allow || allPermission"
+      >
+        <span class="pb-1">Export</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="fan-card">
+        <div class="table-responsive" *ngIf="dtOptions">
+          <table
+            datatable
+            [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger"
+            id="organizationuserdatatable"
+            class="row-border fan-id-datatable"
+            aria-describedby="organizationuser-table"
+          >
+            <thead>
+              <tr>
+                <th scope="col"> {{ "Organization.Action" | translate }} </th>
+                <th scope="col"> {{ "Organization.OrganizationName" | translate }} </th>
+                <th scope="col"> {{ "Organization.FirstName" | translate }} </th>
+                <th scope="col"> {{ "Organization.LastName" | translate }} </th>
+                <!-- <th scope="col"> {{ "Organization.UserName" | translate }} </th> -->
+                <th scope="col"> {{ "Organization.Email" | translate }} </th>
+                <!-- <th scope="col"> {{ "Organization.CountryCode" | translate }} </th>
+                <th scope="col"> {{ "Organization.MobileNumber" | translate }} </th> -->
+                <th scope="col"> {{ "Organization.UserType" | translate }} </th>
+                <th scope="col"> {{ "Organization.ActivationStatus" | translate }} </th>
+                <th scope="col">Access Type</th>
+                <th scope="col">Permitted Application Count </th>
+                <th scope="col">Permitted Voucher Count</th>
+
+                <!-- <th scope="col"> {{ "Organization.ResendOrganizationInvite" | translate }} </th> -->
+
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let data of organizationUserList; index as i">
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        {{ 'ApplicantDetails.Action' | translate }}
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                      <a
+                      class="dropdown-item"
+                      style="cursor: pointer;"
+                      *ngIf="data?.activated !== true && (permission?.value?.update || allPermission)"
+
+                      (click)="resendUserInvite(data)"
+                      >{{ 'Organization.ResendOrganizationInvite' | translate }}</a
+                    >
+
+                        <a
+                        *ngIf="data?.activated == true && (updatePermission?.value?.allow || allPermission)"
+                        class="dropdown-item"
+                        style="cursor: pointer;"
+                        (click)="editUserMaxCounts(data)"
+                        >Update User</a
+                      >
+                      </div>
+                    </div>
+                  </td>
+                  <td> {{ data?.organizationName }} </td>
+                  <td> {{ data?.firstName }} </td>
+                  <td> {{ data?.lastName }} </td>
+                  <!-- <td> {{ data?.userName }} </td> -->
+                  <td> {{ data?.email }} </td>
+                  <!-- <td> {{ data?.dialingCode }} </td>
+                  <td> {{ data?.mobilePhone }} </td> -->
+                  <td>
+                    <span *ngIf="data.brAccessGroupName =='B2B_Super_User'">Super Admin</span>
+                    <span *ngIf="data.brAccessGroupName =='B2B_Org_Admin'">Organization Admin</span>
+                    <span *ngIf="data.brAccessGroupName =='B2B_Company_Rep'">Organization Representative</span>
+                    <span *ngIf="data.brAccessGroupName =='B2B_Super_User_Read_Only'">Super Admin Read Only</span>
+                    <span *ngIf="data.brAccessGroupName =='B2B_Org_Admin_Read_Only'">Organization Admin Read Only</span>
+                  </td>
+                  <td>
+                    <div
+                    class="p-1 status-tag"
+                    [ngClass]="{
+                      'status-approved': data?.activated === true,
+                      'status-rejected': data?.activated === false
+                    }"
+                    >
+                    {{data?.activated?'Active':'Inactive'}}
+                    </div>
+                  </td>
+                  <td> {{ data?.accessTypeName }} </td>
+                  <td> {{ data?.maxApplicantCount }} </td>
+                  <td> {{ data?.maxVoucherCount }} </td>
+                  <!-- <td>
+                  <span
+                  *ngIf="!(permission?.value?.update || allPermission)"
+                  >NA</span>
+                </td> -->
+                </tr>
+              </ng-container>
+            </tbody>
+            <tr *ngIf="!organizationUserList.length">
+              <td [attr.colspan]="dtOptions?.columns?.length" style="border-top:none" class="no-data-available">
+                {{ "Common.NoData" | translate }}
+              </td>
+            </tr>
+          </table>
+          <fan-id-dt-goto
+            *ngIf="organizationUserList?.length"
+            class="goto-page" (_go)="gotoPage($event)"
+          ></fan-id-dt-goto>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<fan-id-common-confirm
+  *ngIf="resend_password_link_confirm"
+  (closeThis)="closeResendPasswordLinkConfirm($event)"
+></fan-id-common-confirm>
+
+<fan-id-common-error-modal
+  *ngIf="resend_password_link_error"
+  head_error_message="Organization.ResentFailed"
+  buttontext="Common.Close"
+  (closeThis)="resend_password_link_error = false"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="resend_password_link_success"
+  head_success_message='Organization.ResendInvite'
+  buttontext="Common.Close"
+  (closeThis)="resend_password_link_success = false"
+></fan-id-common-success-modal>
+<fan-id-manage-count
+  *ngIf="showManagePopUp"
+  (closeThis)="showManagePopUp = false"
+  (_success)="showSuccessUserInfo()"
+  [organizationId]="selectedData"
+></fan-id-manage-count>
+
+<fan-id-common-success-modal
+  *ngIf="showSuccessMessageUserInvite"
+  head_success_message='User Details Updated Successfully'
+  buttontext="Common.Close"
+  success_message=""
+  (closeThis)="closeSuccess()"
+></fan-id-common-success-modal>

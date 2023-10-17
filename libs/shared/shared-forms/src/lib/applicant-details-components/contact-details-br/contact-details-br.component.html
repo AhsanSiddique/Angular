@@ -1,0 +1,54 @@
+<div class="preferred-collection-details">
+  <div class="row">
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 field-group">
+      <div>
+        <label for="country_code" class="disabled-label">
+          {{ 'ApplicantDetails.CountryCode' | translate }}
+        </label>
+        <div id="country_code" class="form-control disabled-text d-flex align-items-center">
+          <span class="flag-icon flag-icon-{{ applicant_data?.phoneCountryCode | lowercase }}"></span>
+          <span class="mx-1"> {{ applicant_data?.country_code }} </span>
+        </div>
+      </div>
+
+      <div>
+        <label for="mobile_number" class="disabled-label">
+          {{ 'ApplicantDetails.MobileNumber' | translate }}
+        </label>
+        <input
+          id="mobile"
+          type="text"
+          [value]="applicant_data?.mobile"
+          class="form-control disabled-text"
+          readonly
+          disabled
+        />
+      </div>
+    </div>
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 field-group">
+      <div>
+        <label for="emergencyContactOnePhoneAreaCode" class="disabled-label">
+          {{ 'ApplicantDetails.CountryCode' | translate }}
+        </label>
+        <div id="emergencyContactOnePhoneAreaCode" class="form-control disabled-text d-flex align-items-center">
+          <span class="flag-icon flag-icon-{{ applicant_data?.emergencyContactOnePhoneCountryCode | lowercase }}"></span>
+          <span class="mx-1"> {{ applicant_data?.emergencyContactOnePhoneAreaCode }} </span>
+        </div>
+      </div>
+
+      <div>
+        <label for="emergencyContactOnePhone" class="disabled-label">
+          Emergency Number
+        </label>
+        <input
+          id="emergencyContactOnePhone"
+          type="text"
+          [value]="applicant_data?.emergencyContactOnePhone"
+          class="form-control disabled-text"
+          readonly
+          disabled
+        />
+      </div>
+    </div>
+  </div>
+</div>

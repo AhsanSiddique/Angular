@@ -1,0 +1,589 @@
+<div class="bulk-groups">
+  <div class="page-title pt-4 pb-4">
+    <h4 class="w-100 mb-0">{{ 'BulkGroup.BulkGroups' | translate }}</h4>
+  </div>
+  <div class="row justify-content-between">
+    <!-- first column ref -->
+    <!-- <div class="col-lg-3">
+      <div class="bulk-group-filter" style="border: 0 !important">
+        <div class="form-group">
+          <label for="eventName">{{
+            'AllApplicantsList.EventName' | translate
+          }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="eventname"
+            aria-describedby="eventname"
+            placeholder="eventName"
+            readonly
+            [value]="displayEventName"
+          />
+        </div>
+      </div>
+    </div> -->
+    <div class="col-7">
+      <div class="bulk-group-filter p-23" *ngIf="!isUserAgent" style="
+      height: 100%;
+      width: 634px;
+  " >
+        <div class="bulk-group-filter" style="border: 0 !important; padding: 0px !important;">
+          <div class="form-group">
+            <label for="eventname" style="
+            font-weight: bold;
+        ">{{
+              'AllApplicantsList.EventName' | translate
+            }}</label>
+            <input
+              type="text"
+              class="form-control"
+              id="eventname"
+              aria-describedby="eventname"
+              placeholder="eventName"
+              readonly
+              [value]="displayEventName"
+              style="background-color: #ffff !important;"
+            />
+          </div>
+        </div>
+        <form [formGroup]="bulkgroupfilter" (ngSubmit)="filterbulkgroup()">
+          <div class="form-group ">
+            <!-- New changes -->
+            <div class="row" style="
+            margin-top: 1rem;
+        ">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-9">
+                    <label class="control-label" style="
+                    font-weight: bold !important;
+                ">{{
+                      'BulkGroup.OrganizationName' | translate
+                    }}</label>
+                  </div>
+                  <div class="col-3" *ngIf="clearButton()">
+                    <button
+                      type="button"
+                      class="btn btn-sm float-end float-right rounded-pill bulk_clearbtn"
+                      (click)="clearFilter()"
+                    >
+                      {{ 'AllApplicantsList.Clear' | translate }}
+                    </button>
+                  </div>
+                </div>
+                <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="{{ 'BulkGroup.OrganizationName' | translate }}"
+                formControlName="organizationname"
+                class="form-control readonly-select"
+                [ngClass]="{
+                  'is-invalid':
+                    bulkgroupfilter.get('organizationname').touched &&
+                    bulkgroupfilter.get('organizationname').invalid
+                }"
+                labelForId="organizationname"
+                aria-describedby="organizationname"
+                style="background-color: #ffff !important;"
+              >
+                <ng-option
+                  *ngFor="let organization of organizations"
+                  [value]="organization.id"
+                >
+                  {{ organization.name }}
+                </ng-option>
+              </ng-select>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="control-label" style="
+                  font-weight: bold;
+              ">{{
+                    'ManualStep1.BulkGroupName' | translate
+                  }}</label>
+
+                  <input type="text" class="form-control"
+                    formControlName="bulkgroupname"
+                    placeholder="{{ 'BulkGroup.BulkGroupName' | translate }}"
+                    [ngClass]="{
+                      'is-invalid':
+                        bulkgroupfilter.get('bulkgroupname').touched &&
+                        bulkgroupfilter.get('bulkgroupname').invalid
+                    }"
+                    style="background-color: #ffff !important;"
+                  >
+                </div>
+                <div >
+                  <button class="btn btn-primary btn-caret-8 search-btn" >
+                    {{ 'AllApplicantsList.Search' | translate }}
+                  </button>
+                </div>
+              </div>
+
+
+            </div>
+            <!-- End here -->
+          </div>
+        </form>
+      </div>
+
+      <div class="bulk-group-filter p-23" *ngIf="isUserAgent" style="width: 634px; height: 100%;">
+        <div class="bulk-group-filter" style="border: 0 !important; padding: 0px !important;">
+          <div class="form-group">
+            <label for="eventname" style="
+            font-weight: bold;
+        ">{{
+              'AllApplicantsList.EventName' | translate
+            }}</label>
+            <input
+              type="text"
+              class="form-control"
+              id="eventname"
+              aria-describedby="eventname"
+              placeholder="eventName"
+              readonly
+              [value]="displayEventName"
+              style="background-color: #ffff !important;"
+            />
+          </div>
+        </div>
+        <form [formGroup]="bulkgroupfilter" (ngSubmit)="filterbulkgroup()">
+          <div class="form-group">
+            <div class="row" style="
+            margin-top: 1rem;
+
+        ">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-9">
+                    <label class="control-label" style="font-weight: bold;">{{
+                      'AllApplicantsList.SelectColumn' | translate
+                    }}</label>
+                  </div>
+                  <div class="col-3" *ngIf="bulkgroupfilter.touched">
+                    <button
+                      type="button"
+                      class="btn btn-sm float-end float-right rounded-pill bulk_clearbtn"
+                      (click)="clearFilter()"
+                    >
+                      {{ 'AllApplicantsList.Clear' | translate }}
+                    </button>
+                  </div>
+                </div>
+                <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                formControlName="columnName"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    bulkgroupfilter.get('columnName').touched &&
+                    bulkgroupfilter.get('columnName').invalid
+                }"
+                labelForId="columnName"
+                aria-describedby="columnName"
+                (change)="columnChange($event)"
+                style="background-color: #ffff !important;"
+              >
+                <ng-option
+                  *ngFor="let column of filterColumns"
+                  [value]="column"
+                >
+                  {{ column.name }}
+                </ng-option>
+              </ng-select>
+              </div>
+              <!-- second column -->
+              <div class="col-6">
+                <div class="form-group"
+                *ngIf="bulkgroupfilter.get('columnName')?.value?.dataKey ==='name'">
+                  <label class="control-label" style="
+                  font-weight: bold;
+              ">{{
+                   'ManualStep1.OrganizationName' | translate
+                  }}</label>
+
+                  <ng-select style="background-color: #ffff !important"
+                    [virtualScroll]="false"
+                    [clearable]="false"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="{{ 'BulkGroup.OrganizationName' | translate }}"
+                    formControlName="filterTxt"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                      bulkgroupfilter.get('filterTxt').touched &&
+                      bulkgroupfilter.get('filterTxt').invalid
+                    }"
+                    labelForId="filterTxt"
+                    aria-describedby="filterTxt"
+
+                  >
+                    <ng-option
+                      *ngFor="let organization of organizationList"
+                      [value]="organization.name"
+                    >
+                      {{ organization.name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+                <div class="form-group"
+                *ngIf="bulkgroupfilter.get('columnName')?.value?.type !== 'select' && bulkgroupfilter.get('columnName')?.value?.dataKey !=='name' &&
+                bulkgroupfilter.get('columnName')?.value?.dataKey !=='System_CreatedOn'&&
+                bulkgroupfilter.get('columnName')?.value?.dataKey !=='submissionType_Name'">
+                  <label class="control-label" style="
+                  font-weight: bold;
+              ">{{
+                    'AllApplicantsList.EnterText' | translate
+                  }}</label>
+                  <input type="text" class="form-control"
+                    formControlName="filterTxt"
+                    placeholder="{{ 'AllApplicantsList.Enterthetextyouwant' | translate }}"
+                    [ngClass]="{
+                      'is-invalid':
+                        bulkgroupfilter.get('filterTxt').touched &&
+                        bulkgroupfilter.get('filterTxt').invalid
+                    }"
+                    style="background-color: #ffff !important" >
+                </div>
+                <div class="form-group"
+                *ngIf="bulkgroupfilter.get('columnName')?.value?.dataKey ==='System_CreatedOn'">
+                  <label class="control-label" style="font-weight: bold;">
+                    Select Date
+                  </label>
+                  <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+                    <input type="search" formControlName="filterTxt" name="filterTxt"
+                      placeholder="Select Date" id="filterTxt" ngbDatepicker #dt="ngbDatepicker"
+                      class="w-100 form-control" (click)="dt.toggle()"
+                      style="background-color: #ffff !important;"
+                      [maxDate]="dateToday"
+                      />
+                      <svg (click)="dt.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      class="bi bi-calendar d-block d-sm-block"
+                    >
+                      <path
+                        d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                        fill="#00CFB7" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="form-group"
+                *ngIf="bulkgroupfilter.get('columnName')?.value?.dataKey ==='submissionType_Name'">
+                  <label class="control-label" style="
+                  font-weight: bold;
+              ">Submission Type</label>
+
+                  <ng-select style="background-color: #ffff !important"
+                    [virtualScroll]="false"
+                    [clearable]="false"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="Submission Type"
+                    formControlName="filterTxt"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                      bulkgroupfilter.get('filterTxt').touched &&
+                      bulkgroupfilter.get('filterTxt').invalid
+                    }"
+                    labelForId="filterTxt"
+                    aria-describedby="filterTxt"
+
+                  >
+                    <ng-option
+                      *ngFor="let type of submissionType | async"
+                      [value]="type.name"
+                    >
+                      {{ type.name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+                <div class="form-group" *ngIf="bulkgroupfilter.get('columnName')?.value?.type === 'select'">
+                  <label class="control-label" style="font-weight: bold;">Select Option</label>
+                  <ng-select style="background-color: #ffff !important" [virtualScroll]="false" [clearable]="false"
+                    placeholder="Select Option" formControlName="filterTxt" class="form-control" [ngClass]="{
+                                      'is-invalid':
+                                      bulkgroupfilter.get('filterTxt').touched &&
+                                      bulkgroupfilter.get('filterTxt').invalid
+                                    }" labelForId="filterTxt" aria-describedby="filterTxt">
+                    <ng-option *ngFor="let item of bulkgroupfilter.get('columnName')?.value?.itemList | async" [value]="item.value">
+                      {{ item.name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+                <div >
+                  <button class="btn btn-primary btn-caret-8 search-btn"
+                    [disabled]="searchdisable()" >
+                    {{ 'AllApplicantsList.Search' | translate }}
+                  </button>
+                </div>
+              </div>
+
+              <!-- <div class="col-12 mb-0">
+                <button class="btn btn-primary btn-caret-8 search-btn"
+                  [disabled]="searchdisable()" style="width: 100%;">
+                  {{ 'AllApplicantsList.Search' | translate }}
+                </button>
+              </div> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-4" style="min-width: 438px;">
+      <div class="bulk-group-panel" style="border-radius: 1rem !important; height: 100%">
+        <table class="table" aria-describedby="statistics" style="height: 100%; margin-bottom: 0;">
+          <thead>
+            <tr>
+              <th style="font-size: 0.9rem !important">{{ 'BulkGroup.Status' | translate }}</th>
+              <th style="font-size: 0.9rem !important">{{ 'BulkGroup.Statistics' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ 'BulkGroup.TotalApplied' | translate }}</td>
+              <td>{{ applicationStats?.total_Applied ?? 0 }}</td>
+            </tr>
+            <tr>
+              <td>{{ 'BulkGroup.Approved' | translate }}</td>
+              <td>{{ (applicationStats?.approved ?? 0) + (applicationStats?.conditionalApproval ?? 0) }}</td>
+            </tr>
+            <tr>
+              <td>{{ 'BulkGroup.Pending' | translate }}</td>
+              <td>{{ applicationStats?.pending ?? 0 }}</td>
+            </tr>
+            <tr>
+              <td>{{ 'BulkGroup.Declined' | translate }}</td>
+              <td>{{ applicationStats?.declined ?? 0 }}</td>
+            </tr>
+            <tr>
+              <td>Draft</td>
+              <td>{{ applicationStats?.draft ?? 0 }}</td>
+            </tr>
+            <tr>
+              <td>Data Error</td>
+              <td>{{ applicationStats?.dataError ?? 0 }}</td>
+            </tr>
+            <tr>
+              <td>Cancelled</td>
+              <td>{{ applicationStats?.cancelled ?? 0 }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="registration-details mt-4">
+        <div class="fan-card">
+          <div class="table-responsive" *ngIf="dtOptions">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              id="importdatatable"
+              class="row-border fan-id-datatable"
+              style="margin: 0"
+              aria-describedby="organization group table"
+            >
+              <thead>
+                <tr>
+                  <th>{{ 'BulkGroup.Action' | translate }}</th>
+
+                  <th>{{ 'BulkGroup.CreationDate' | translate }}</th>
+                  <th>{{ 'BulkGroup.BulkGroupName' | translate }}</th>
+                  <th *ngIf="isUserAgent">{{ 'BulkGroup.OrganizationName' | translate }}</th>
+                  <th>Organization Category</th>
+                  <th>
+                    {{ 'BulkGroup.SubmissionType' | translate }}
+                  </th>
+                  <th>
+                    Package Import Status
+                  </th>
+                  <th>
+                    {{ 'BulkGroup.SubmittedApplications' | translate }}
+                  </th>
+                  <th>{{ 'BulkGroup.DraftApplications' | translate }}</th>
+                  <th *ngIf="isUserAgent">{{ 'BulkGroup.OrganizationEmail' | translate }}</th>
+                  <th *ngIf="isUserAgent">{{ 'BulkGroup.CountryCode' | translate }}</th>
+                  <th *ngIf="isUserAgent">{{ 'BulkGroup.OrganizationTelephone' | translate }}</th>
+                  <th *ngIf="isUserAgent">Organization Admin Name</th>
+                  <th>Category of Hayya Visit</th>
+                  <th>Conference</th>
+
+                </tr>
+              </thead>
+              <!-- <thead class="filterArea">
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-uploadstatus" /></div>
+                                    </th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-fisrtName" /></div>
+                                    </th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-lastname" /></div>
+                                    </th>
+                                    <th></th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-idtype" /></div>
+                                    </th>
+                                    <th></th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-expirydate" /></div>
+                                    </th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-email" /></div>
+                                    </th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-countrycode" /></div>
+                                    </th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-contactno" /></div>
+                                    </th>
+                                    <th>
+                                        <div class="filterList"><input type="text" style="width:100%;" placeholder="Search" name="search-gender" /></div>
+                                    </th>
+                                </tr>
+                            </thead> -->
+              <tbody [class.d-none]="bulkgroupdata?.length === 0">
+                <ng-container *ngIf="bulkgroupdata">
+                  <ng-container *ngFor="let data of bulkgroupdata" >
+                    <tr *ngIf="!(data.draftCount === 0 && data.submittedToLiferayCount === 0)">
+                      <td>
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            {{ 'ApplicantDetails.Action' | translate }}
+                          </button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <a
+
+                              [routerLink]="'/main/bulk-groups/step-2'"
+                              [queryParams]="{bulkGroupName: data?.bulkGroupName, organizationId: data?.id, organizationName: data?.name}"
+                              class="dropdown-item"
+                              href="javascript:void(0)"
+                              >{{
+                                'AllApplicantsList.ViewDetails' | translate
+                              }}</a
+                            >
+                            <a
+                              *ngIf="(data?.submissionType === 2) && data?.draftCount > 0  && (allPermission || permission.value.create || permission.value.update)"
+                              href="javascript:void(0)"
+                              (click)="redirectToManualStep2(data)"
+                              class="dropdown-item"
+                              >{{ 'Common.Continue' | translate }}</a
+                            >
+                            <a
+                              *ngIf="([1, 11].includes(data?.submissionType)) && data?.bgJobStatus === 2 && data?.draftCount > 0  && (allPermission || permission.value.create || permission.value.update)"
+                              href="javascript:void(0)"
+                              (click)="redirectToPackageExcel(data)"
+                              class="dropdown-item"
+                              >{{ 'Common.Continue' | translate }}</a
+                            >
+                            <a
+                              *ngIf="data?.submissionType === 9 && data?.bgJobStatus === 2 && data?.draftCount > 0 && (allPermission || permission.value.create || permission.value.update)"
+                              href="javascript:void(0)"
+                              (click)="redirectToPackage(data)"
+                              class="dropdown-item"
+                              >{{ 'Common.Continue' | translate }}</a
+                            >
+                            <a
+                            *ngIf="allPermission || permission.value.create"
+                              href="javascript:void(0)"
+                              (click)="redirectForAddApplication(data)"
+                              class="dropdown-item"
+                              >Add Applications</a
+                            >
+                            <a
+                            *ngIf="allPermission || permission.value.update"
+                              href="javascript:void(0)"
+                              (click)="showUpdateAccommodationModal(data)"
+                              class="dropdown-item"
+                              >Update Accommodation Details</a
+                            >
+                            <!-- *ngIf="data?.totalPaymentApplicationCount > 0" -->
+                            <!--  -->
+                            <a
+                            *ngIf="data?.totalPaymentApplicationCount > 0"
+                            [routerLink]="'/main/bulk-groups/bulk-payment'"
+                            [queryParams]="{bulkGroupName: data?.bulkGroupName, organizationId: data?.id, organizationName: data?.name}"
+                            class="dropdown-item"
+                            href="javascript:void(0)"
+                            > Group Payment</a
+                          >
+                          </div>
+                        </div>
+                      </td>
+                      <td style="direction: ltr;">{{ data?.bulkGroup_System_CreatedOn | date:'dd-MM-yyyy hh:mm:ss a':'+0600' }}</td>
+                      <td>{{ data?.bulkGroupName }}</td>
+                      <td *ngIf="isUserAgent">{{ data?.name }}</td>
+                      <td>{{ data?.organizationCategory_Translation_Name }}</td>
+                      <td>{{ data?.submissionType_Name }}</td>
+                      <td>
+                        <div
+                          class="p-1 status-tag"
+                          [ngClass]="{
+                            'status-approved': data?.bgJobStatus === 2,
+                            'status-rejected': !data?.bgJobStatus,
+                            'status-under-review': data?.bgJobStatus === 1
+                          }"
+                        >
+                          {{ data?.bgJobStatus_Name ?? 'N/A' }}
+                        </div>
+                      </td>
+                      <td>{{ data?.submittedToLiferayCount }}</td>
+                      <td>{{ data?.draftCount }}</td>
+                      <td *ngIf="isUserAgent">{{ data?.email }}</td>
+                      <td *ngIf="isUserAgent">{{ data?.phoneAreaCode }}</td>
+                      <td *ngIf="isUserAgent">{{ data?.phoneNumber }}</td>
+                      <td *ngIf="isUserAgent">{{ data?.contactName }}</td>
+                      <td>{{data?.customerCategory_Name}}</td>
+                      <td>{{data?.conferenceEvent_Name}}</td>
+
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+              <tfoot [hidden]="bulkgroupdata?.length">
+                <tr [hidden]="(dtProcessing$ | async) === true">
+                  <td colspan="10" style="border: none !important;" class="text-center">No data available</td>
+                </tr>
+                <tr [hidden]="(dtProcessing$ | async) === false">
+                  <td colspan="10" style="border: none !important;" class="text-center">Processing...</td>
+                </tr>
+              </tfoot>
+            </table>
+            <fan-id-dt-goto
+              *ngIf="bulkgroupdata?.length"
+              class="goto-page" (_go)="gotoPage($event)"
+            ></fan-id-dt-goto>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<fan-id-bulk-group-update-accommodation
+  *ngIf="show_update_accommodation_modal"
+  [bulkgroup_data]="selected_bulkgroup_data"
+  (_close)="closeUpdateAccommodationModal($event)"
+></fan-id-bulk-group-update-accommodation>

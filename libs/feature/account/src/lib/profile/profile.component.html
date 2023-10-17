@@ -1,0 +1,292 @@
+<div class="div-box margin-div">
+  <div class="page-title">
+    <fan-id-back-arrow></fan-id-back-arrow>
+    <h4 class="w-100 mb-0">{{ 'Profile.EditProfile' | translate }}</h4>
+  </div>
+</div>
+<div class="Edit-Profile">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <form [formGroup]="profileForm">
+          <div class="sr-only">
+            <input type="hidden" formControlName="userName" />
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstname"
+                  >{{ 'Profile.FirstName' | translate }}<sup>*</sup></label
+                >
+                <input
+                  type="text"
+                  class="text-area fl-name form-control"
+                  formControlName="firstName"
+                  name="firstName"
+                  id="firstName"
+                  [ngClass]="{
+                    'is-invalid':
+                      profileForm.get('firstName').touched &&
+                      profileForm.get('firstName').invalid,
+                    hasValue: this.profileForm.get('firstName').value
+                  }"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="profileForm.get('firstName').errors?.required"
+                >
+                  {{ 'Profile.FirstNameRequired' | translate }}
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="profileForm.get('firstName').errors?.pattern"
+                >
+                  {{ 'Profile.FirstNamePattern' | translate }}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastname">
+                  {{ 'Profile.LastName' | translate }}<sup>*</sup></label
+                >
+                <input
+                  type="text"
+                  class="text-area fl-name form-control"
+                  formControlName="lastName"
+                  name="lastname"
+                  id="lastname"
+                  [ngClass]="{
+                    'is-invalid':
+                      profileForm.get('lastName').touched &&
+                      profileForm.get('lastName').invalid,
+                    hasValue: this.profileForm.get('lastName').value
+                  }"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="profileForm.get('lastName').errors?.required"
+                >
+                  {{ 'Profile.LastNameRequired' | translate }}
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="profileForm.get('lastName').errors?.pattern"
+                >
+                  {{ 'Profile.LastNamePattern' | translate }}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="read-only" for="email">
+                  {{ 'Profile.Email' | translate }}<sup>*</sup></label
+                >
+                <input
+                  type="text"
+                  class="text-area read-only"
+                  readonly
+                  aria-readonly="true"
+                  formControlName="email"
+                />
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <div class="form-group">
+                <label class="read-only" for="mobilenumber">
+                  {{ 'Profile.MobileNumber' | translate }}<sup>*</sup></label
+                >
+                <div class="row">
+                  <div class="col-md-12">
+                    <input
+                      type="text"
+                      class="text-area-mobilenumber read-only"
+                      readonly
+                      aria-readonly="true"
+                      formControlName="mobileNo"
+                    />
+                    <div class="countrycode read-only">
+                      <div>
+                        <span
+                          class="flag-icon flag-icon-{{
+                            phoneCountryCode?.value | lowercase
+                          }}"
+                        ></span>
+                      </div>
+                      <div>{{ phoneAreaCode?.value }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="col-md-6" *ngIf="!isServiceCenter">
+              <div class="form-group">
+                <label class="read-only" for="organizationname"
+                  >{{ 'Profile.OrganizationName' | translate
+                  }}<sup>*</sup></label
+                >
+                <input
+                  type="text"
+                  class="text-area read-only"
+                  readonly
+                  formControlName="organizationName"
+                />
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="!isServiceCenter">
+              <div class="form-group">
+                <label class="read-only" for="organizationId"
+                  >{{ 'Profile.OrganizationId' | translate }}</label
+                >
+                <input
+                  type="text"
+                  class="text-area read-only"
+                  readonly
+                  formControlName="organizationId"
+                />
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="!isServiceCenter">
+              <div class="form-group">
+                <label class="read-only" for="organizationemail"
+                  >{{ 'Profile.PrimaryContactEmail' | translate }}</label
+                >
+                <input
+                  type="text"
+                  class="text-area read-only"
+                  readonly
+                  formControlName="organizationemail"
+                />
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="!isServiceCenter">
+              <div class="form-group">
+                <label class="read-only" for="organizationphoneNumber">
+                  {{ 'Profile.PrimaryContactPhone' | translate }}</label
+                >
+                <div class="row">
+                  <div class="col-md-12">
+                    <input
+                      type="text"
+                      class="text-area-mobilenumber read-only"
+                      readonly
+                      aria-readonly="true"
+                      formControlName="organizationphoneNumber"
+                    />
+                    <div class="countrycode read-only">
+                      <div>
+                        <span
+                          class="flag-icon flag-icon-{{
+                            OrgphoneFlagcode | lowercase
+                          }}"
+                        ></span>
+                      </div>
+                      <div>{{ this.profileForm.controls.organizationphoneAreaCode.value }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-6" *ngIf="!isServiceCenter && this.profileForm.get('organizationAddress').value.trim() !==''">
+              <div class="form-group">
+                <label class="read-only" for="organizationAddress"
+                  >{{ 'Profile.OrganizationAddress' | translate }}</label
+                >
+                <textarea class="profile-org-aadress read-only" id="organizationAddress" rows="4"
+                readonly
+                  formControlName="organizationAddress"></textarea>
+              </div>
+            </div> -->
+          </div>
+          <div class="footer text-right d-flex">
+            <button
+              type="button"
+              class="btn btn-secondary mr-2"
+              (click)="cancel()"
+            >
+             <span> {{ 'Common.Cancel' | translate }}</span>
+            </button>
+            <button
+              type="submit"
+              [disabled]="!editValid"
+              class="btn btn-primary btn-sm btn-submit"
+              (click)="showConfirmModal()"
+            >
+              {{ 'Common.Save' | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<fan-id-common-error-modal
+  *ngIf="update_error"
+  head_error_message="CommonError.UpdateFailed"
+  [error_message]="update_error"
+  buttontext="Common.Close"
+  (closeThis)="closeUpdateError()"
+>
+</fan-id-common-error-modal>
+
+<fan-id-modal-wrapper
+  *ngIf="show_cancel_modal"
+  [title]="'Common.Alert' | translate"
+  (closeThis)="closeCancelModal()"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+    <p>{{ 'Common.AllChangesDoneLost' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="cancel(false)">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+
+<!-- Confirmation Modal start-->
+<fan-id-modal-wrapper
+  *ngIf="show_confirmation_modal"
+  [title]="'Common.Alert' | translate"
+  (closeThis)="closeConfirmModal()"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'Common.AreYouSureConfirmProcess' | translate }}</p>
+    <div class="row">
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary btn-caret-8" (click)="cancel(false)">
+          {{ 'Common.Close' | translate }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button
+          type="button"
+          class="btn btn-primary btn-caret-8"
+          (click)="closeConfirmModal()"
+        >
+          {{ 'Common.YesProceed' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</fan-id-modal-wrapper>
+<!-- Confirming Modal End -->
+
+<fan-id-modal-wrapper
+  *ngIf="show_update_success_modal"
+  [title]="'Common.Success' | translate"
+  (closeThis)="closeSuccessModal()"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'Profile.ProfileUpdatedSuccessfully' | translate }}</p>
+    <button
+      type="button"
+      class="btn btn-primary px-4"
+      (click)="redirectToDashboard()"
+    >
+      {{ 'Common.GotoHome' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>

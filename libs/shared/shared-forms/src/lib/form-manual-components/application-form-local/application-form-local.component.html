@@ -1,0 +1,144 @@
+<form autocomplete="off" class="row m-0 p-0 application-form" [formGroup]="formGroup">
+  <!-- <div class="form-row mr-0 ml-0" style="position: relative">
+    <div class="form-group">
+      <label>{{ translateKey + '.SelectApplicationType' | translate }}</label>
+      <div class="radio-group">
+        <div class="radio-btn" *ngFor="let application_type of (metadata$ | async)?.application_types">
+          <input type="radio" class="d-none" formControlName="application_type"
+            id="application_type_{{ application_type.code }}" [value]="application_type.code"
+            (change)="onApplicationTypeSelect(application_type.code)" />
+          <label for="application_type_{{ application_type.code }}">
+            <span class="radio">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14.425" height="10.954" viewBox="0 0 14.425 10.954">
+                <path
+                  d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                  transform="translate(-11.104 -18.854)" />
+              </svg>
+            </span>
+            <span>
+              {{ application_type.name }}
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="invalid-feedback application-type-error" *ngIf="application_type.touched && application_type.invalid">
+      {{ 'Common.EnterTheDetails' | translate }}
+    </div>
+  </div>
+
+  <div *ngIf="af.application_type.value === 'GCC'" class="form-row mr-0 ml-0 mt-3 w-100 gcc-countries">
+    <div class="form-group w-100">
+      <label>{{
+        translateKey + '.SelectCountryofResidency' | translate
+        }}</label>
+      <div class="radio-group">
+        <div>
+          <div class="radio-btn" *ngFor="let gcc_country of (metadata$ | async)?.gcc_countries">
+            <input type="radio" class="d-none" formControlName="gcc_country" id="gcc_country_{{ gcc_country.id }}"
+              [value]="gcc_country.code" (change)="onGCCSelect(gcc_country.code)" />
+            <label for="gcc_country_{{ gcc_country.id }}">
+              <span class="radio">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14.425" height="10.954" viewBox="0 0 14.425 10.954">
+                  <path
+                    d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                    transform="translate(-11.104 -18.854)" />
+                </svg>
+              </span>
+              <span class="country-name">
+                {{ gcc_country.name }}
+              </span>
+              <span class="flag-icon flag-icon-{{ gcc_country.code | lowercase }}"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 mb-4"></div> -->
+
+  <div class="form-row mr-0 ml-0 application-form-select-1">
+    <div class="form-group col d-flex flex-column" >
+      <label for="fancategory">
+        {{ translateKey + '.FanIDCategory' | translate }}
+      </label>
+      <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false" [readonly]="true"
+        [placeholder]="translateKey + '.SelectFanIDCategory' | translate" formControlName="fan_category"
+        class="form-control" [ngClass]="{
+          'is-invalid': fan_category.touched && fan_category.invalid
+        }" labelForId="fancategory" aria-describedby="fancategory">
+        <ng-option *ngFor="let category of (metadata$ | async)?.fancategories" [value]="category.code">
+          {{ category.name }}
+        </ng-option>
+      </ng-select>
+      <div class="invalid-feedback" *ngIf="fan_category.touched && fan_category.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+    <div class="form-group col d-flex flex-column">
+      <label for="nationality">
+        {{ translateKey + '.Nationality' | translate }}
+      </label>
+      <ng-select
+        [items]="(metadata$ | async)?.countries"
+        bindLabel="name"
+        bindValue="code"
+        [virtualScroll]="true" [clearable]="false"
+        [placeholder]="translateKey + '.SelectNationality' | translate" formControlName="nationality"
+        class="form-control" [ngClass]="{
+          'is-invalid': nationality.touched && nationality.invalid
+        }" labelForId="nationality" aria-describedby="nationality"
+        [searchFn]="nationalitySearchFn"
+      >
+        <ng-template ng-label-tmp let-country="item">
+          <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+          <span class="mx-1">
+            {{ country.name }}
+          </span>
+        </ng-template>
+        <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+          <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+          <span class="mx-1">
+            {{ country.name }}
+          </span>
+        </ng-template>
+      </ng-select>
+      <div class="invalid-feedback" *ngIf="nationality.touched && nationality.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+    <!-- <div class="form-group col d-flex flex-column">
+      <label for="currentcountry">
+        {{ translateKey + '.CurrentCountryofResidence' | translate }}
+      </label>
+      <ng-select
+        [items]="(metadata$ | async)?.countries"
+        bindLabel="name"
+        bindValue="code"
+        [virtualScroll]="true" [clearable]="false"
+        [placeholder]="
+          translateKey + '.SelectCurrentCountryofResidence' | translate
+        " formControlName="current_country" class="form-control" [ngClass]="{
+          'is-invalid': current_country.touched && current_country.invalid
+        }" labelForId="currentcountry" aria-describedby="currentcountry"
+        [searchFn]="nationalitySearchFn"
+      >
+        <ng-template ng-label-tmp let-country="item">
+          <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+          <span class="mx-1">
+            {{ country.name }}
+          </span>
+        </ng-template>
+        <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+          <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+          <span class="mx-1">
+            {{ country.name }}
+          </span>
+        </ng-template>
+      </ng-select>
+      <div class="invalid-feedback" *ngIf="current_country.touched && current_country.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div> -->
+  </div>
+</form>

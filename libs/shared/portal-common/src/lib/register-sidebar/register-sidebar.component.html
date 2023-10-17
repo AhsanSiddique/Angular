@@ -1,0 +1,100 @@
+
+<div class="menu-section">
+	<h4 >{{'Register.start' | translate}}</h4>
+	<p class="sub-title">{{'Register.LetsBegin' | translate}}</p>
+	<ul class="reset menu d-none d-md-block">
+		<li [ngClass]="firstLinkStyle" (click)="onClickLink(1)">
+			<a>
+				<span>01</span>
+				<img *ngIf="!firstlinkused"src="assets/images/icons/01.png" alt="Icon">
+				<img *ngIf="firstlinkused" src="assets/images/icons/01_used.svg" alt="Icon">
+				<span>{{'Profile.ticketInfo' | translate}}</span>
+			</a>
+		</li>
+		<li [ngClass]="secondLinkStyle" (click)="onClickLink(2)">
+			<a>
+				<span>02</span>
+				<img *ngIf="!secondlinkused && secondLinkStyle !== 'active'"src="assets/images/icons/02.png" alt="Icon">
+				<img *ngIf="secondlinkused" src="assets/images/icons/02_used.svg" alt="Icon">
+				<img *ngIf="secondLinkStyle == 'active'" src="assets/images/icons/02_active.svg" alt="Icon">
+				<span>{{'Profile.prdetails' | translate}}</span>
+			</a>
+		</li>
+		<li [ngClass]="thirdLinkStyle" (click)="onClickLink(3)">
+			<a>
+				<span>03</span>
+				<img *ngIf="!thirdlinkused && thirdLinkStyle !== 'active'"src="assets/images/icons/03.png" alt="Icon">
+				<img *ngIf="thirdlinkused" src="assets/images/icons/03_used.svg" alt="Icon">
+				<img *ngIf="thirdLinkStyle == 'active'" src="assets/images/icons/03_active.svg" alt="Icon">
+				<span>{{'Register.ApplicationSummary' |translate}}</span>
+			</a>
+		</li>
+		<li *ngIf="mformdata?.isChild == 'false'" [ngClass]="fourthLinkStyle" (click)="onClickLink(4)">
+			<a>
+				<span>04</span>
+				<img *ngIf="!fourthlinkused && fourthLinkStyle !== 'active'" src="assets/images/icons/04.png" alt="Icon" style="opacity: 0.5;">
+				<img *ngIf="fourthlinkused" src="assets/images/icons/04_used.svg" alt="Icon">
+				<img *ngIf="fourthLinkStyle == 'active'" src="assets/images/icons/04_active.svg" alt="Icon">
+				<span>{{'Register.OTPVerification' | translate}}</span>
+			</a>
+		</li>
+	</ul>
+   <div class="carousal">
+    <ul class="reset menu d-md-none">
+      <li [ngClass]="firstLinkStyle" (click)="onClickLink(1)">
+        <a class="tile">
+          <div class="tile-head">
+          <span>01</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.22499 7.37142H12.2073C12.4266 7.37142 12.6061 7.19205 12.6061 6.97282C12.6061 6.75359 12.4266 6.57422 12.2073 6.57422H6.22499C6.00564 6.57422 5.82617 6.75359 5.82617 6.97282C5.82617 7.19205 6.00564 7.37142 6.22499 7.37142Z" fill="#950037" stroke="#950037" stroke-width="0.4"/>
+            <path d="M6.22548 10.1605H12.2078C12.4271 10.1605 12.6066 9.98112 12.6066 9.76189C12.6066 9.54265 12.4271 9.36328 12.2078 9.36328H6.22548C6.00613 9.36328 5.82666 9.54265 5.82666 9.76189C5.82666 9.98112 6.00613 10.1605 6.22548 10.1605Z" fill="#950037" stroke="#950037" stroke-width="0.4"/>
+            <path d="M10.612 12.1523H6.22499C6.00564 12.1523 5.82617 12.3317 5.82617 12.5509C5.82617 12.7702 6.00564 12.9495 6.22499 12.9495H10.612C10.8314 12.9495 11.0108 12.7702 11.0108 12.5509C11.0108 12.3317 10.8314 12.1523 10.612 12.1523Z" fill="#950037" stroke="#950037" stroke-width="0.4"/>
+            <path d="M9.41555 14.9453H6.22499C6.00564 14.9453 5.82617 15.1247 5.82617 15.3439C5.82617 15.5631 6.00564 15.7425 6.22499 15.7425H9.41555C9.6349 15.7425 9.81437 15.5631 9.81437 15.3439C9.81437 15.1247 9.6349 14.9453 9.41555 14.9453Z" fill="#950037" stroke="#950037" stroke-width="0.4"/>
+            <path d="M17.9901 13.0093V7.10992C17.9901 6.79104 17.8705 6.49209 17.6312 6.27285L14.7198 3.34312C14.5005 3.10396 14.2014 2.98438 13.8624 2.98438H5.02849C4.37044 2.98438 3.83203 3.52249 3.83203 4.18019V19.7257C3.83203 20.3834 4.37044 20.9215 5.02849 20.9215H15.2383C15.2582 20.9215 15.2782 20.9215 15.2782 20.9215C15.318 20.9215 15.338 20.9215 15.3779 20.9215C17.7907 20.9215 19.7649 18.9484 19.7649 16.5369C19.7848 15.082 19.0869 13.8065 17.9901 13.0093ZM14.4008 4.14033L16.8336 6.57181H14.7996C14.5802 6.57181 14.4008 6.39243 14.4008 6.1732V4.14033ZM5.02849 20.1243C4.80914 20.1243 4.62967 19.945 4.62967 19.7257V4.18019C4.62967 3.96095 4.80914 3.78158 5.02849 3.78158H13.6031V6.1732C13.6031 6.8309 14.1415 7.36901 14.7996 7.36901H17.1925V12.5309C16.6342 12.2918 16.0359 12.1523 15.3978 12.1523C12.985 12.1523 11.0108 14.1253 11.0108 16.5369C11.0108 18.0117 11.7486 19.3271 12.8852 20.1243H5.02849ZM15.3978 20.1243C13.4237 20.1243 11.8084 18.51 11.8084 16.5369C11.8084 14.5638 13.4237 12.9495 15.3978 12.9495C17.372 12.9495 18.9872 14.5638 18.9872 16.5369C18.9872 18.51 17.372 20.1243 15.3978 20.1243Z" fill="#950037" stroke="#950037" stroke-width="0.4"/>
+            <path d="M15.3988 16.1367C15.1795 16.1367 15 16.3161 15 16.5353V18.5283C15 18.7476 15.1795 18.9269 15.3988 18.9269C15.6182 18.9269 15.7976 18.7476 15.7976 18.5283V16.5353C15.7976 16.3161 15.6182 16.1367 15.3988 16.1367Z" fill="#950037" stroke="#950037" stroke-width="0.4"/>
+            <path d="M15.3988 14.9417C15.6191 14.9417 15.7976 14.7633 15.7976 14.5431C15.7976 14.323 15.6191 14.1445 15.3988 14.1445C15.1786 14.1445 15 14.323 15 14.5431C15 14.7633 15.1786 14.9417 15.3988 14.9417Z" fill="#950037" stroke="#950037" stroke-width="0.4"/>
+            <path d="M17.9901 13.0093V7.10992C17.9901 6.79104 17.8705 6.49209 17.6312 6.27285L14.7198 3.34312C14.5005 3.10396 14.2014 2.98438 13.8624 2.98438H5.02849C4.37044 2.98438 3.83203 3.52249 3.83203 4.18019V19.7257C3.83203 20.3834 4.37044 20.9215 5.02849 20.9215H15.2383C15.2582 20.9215 15.2782 20.9215 15.2782 20.9215C15.318 20.9215 15.338 20.9215 15.3779 20.9215C17.7907 20.9215 19.7649 18.9484 19.7649 16.5369C19.7848 15.082 19.0869 13.8065 17.9901 13.0093ZM14.4008 4.14033L16.8336 6.57181H14.7996C14.5802 6.57181 14.4008 6.39243 14.4008 6.1732V4.14033ZM5.02849 20.1243C4.80914 20.1243 4.62967 19.945 4.62967 19.7257V4.18019C4.62967 3.96095 4.80914 3.78158 5.02849 3.78158H13.6031V6.1732C13.6031 6.8309 14.1415 7.36901 14.7996 7.36901H17.1925V12.5309C16.6342 12.2918 16.0359 12.1523 15.3978 12.1523C12.985 12.1523 11.0108 14.1253 11.0108 16.5369C11.0108 18.0117 11.7486 19.3271 12.8852 20.1243H5.02849ZM15.3978 20.1243C13.4237 20.1243 11.8084 18.51 11.8084 16.5369C11.8084 14.5638 13.4237 12.9495 15.3978 12.9495C17.372 12.9495 18.9872 14.5638 18.9872 16.5369C18.9872 18.51 17.372 20.1243 15.3978 20.1243Z" fill="#950037" stroke="#950037" stroke-width="0.4"/>
+            </svg>
+
+          </div>
+          <span class="tile-content">{{'Profile.ticketInfo' | translate}}</span>
+        </a>
+      </li>
+      <li [ngClass]="secondLinkStyle" (click)="onClickLink(2)">
+        <a class="tile">
+          <div class="tile-head">
+            <span>02</span>
+            <img *ngIf="!secondlinkused && secondLinkStyle !== 'active'"src="assets/images/icons/02.png" alt="Icon">
+            <img *ngIf="secondlinkused || secondLinkStyle == 'active'" src="assets/images/icons/02_used.svg" alt="Icon">
+          </div>
+          <span class="tile-content">{{'Profile.prdetails' | translate}}</span>
+        </a>
+
+      </li>
+      <li [ngClass]="thirdLinkStyle" (click)="onClickLink(3)">
+        <a class="tile">
+          <div class="tile-head">
+            <span>03</span>
+            <img *ngIf="!thirdlinkused && thirdLinkStyle !== 'active'"src="assets/images/icons/03.png" alt="Icon">
+            <img *ngIf="thirdlinkused || thirdLinkStyle == 'active'" src="assets/images/icons/03_used.png" alt="Icon">
+          </div>
+          <span class="tile-content">{{'Register.ApplicationSummary' |translate}}</span>
+        </a>
+
+      </li>
+      <li [ngClass]="fourthLinkStyle" (click)="onClickLink(4)">
+        <a class="tile">
+          <div class="tile-head">
+            <span>04</span>
+            <img *ngIf="!fourthlinkused && fourthLinkStyle !== 'active'" src="assets/images/icons/04.png" alt="Icon" style="filter: brightness(0.75);">
+            <img *ngIf="fourthlinkused || fourthLinkStyle == 'active'" src="assets/images/icons/04_used.svg" alt="Icon">
+            <!-- <img *ngIf="f" src="assets/images/icons/04_active.svg" alt="Icon"> -->
+          </div>
+          <span class="tile-content">{{'Register.OTPVerification' | translate}}</span>
+        </a>
+
+      </li>
+    </ul>
+  </div>
+
+</div>

@@ -1,0 +1,83 @@
+<form autocomplete="off" [formGroup]="formGroup">
+  <div class="form-group terms-check">
+    <div class="radio-group">
+      <div class="radio-btn">
+        <input
+          type="checkbox"
+          class="d-none"
+          formControlName="check"
+          id="terms"
+        />
+        <label for="terms" class="border-0">
+          <span class="radio"></span>
+          <span>
+            I have read and accept the Hayya 
+            <a
+              target="_blank"
+              [href]="eventType === 1 ?'https://ac21.qa/terms-of-use' : 'https://www.qatar2022.qa/en/terms-of-use'"
+            >
+              {{ translateKey + '.Terms&Conditions' | translate }}
+            </a>
+            , the 
+            <a
+              target="_blank"
+              [href]="eventType === 1 ?'https://ac21.qa/privacy-policy' : 'https://www.qatar2022.qa/en/privacy'"
+            >
+              Privacy
+            </a>
+            & 
+            <a
+              target="_blank"
+              href="https://www.qatar2022.qa/en/cookie-policy"
+            >
+            Cookie Policies
+            </a>
+            *
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group terms-check">
+    <div class="radio-group">
+      <div class="radio-btn">
+        <input
+          type="checkbox"
+          class="d-none"
+          formControlName="confirm"
+          id="terms_confirm"
+        />
+        <label for="terms_confirm" class="border-0">
+          <span class="radio"></span>
+          <span>
+            I hereby confirm that all documents and information used in the Hayya Card application are true to the best of my knowledge. I acknowledge that my request might be rejected or detained in the case that I submit incorrect information or forged documents*
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group terms-check" *ngIf="eventType === 2">
+    <div class="radio-group">
+      <div class="radio-btn">
+        <input
+          type="checkbox"
+          class="d-none"
+          formControlName="email_updates"
+          id="email_updates"
+        />
+        <label for="email_updates" class="border-0">
+          <span class="radio"></span>
+          <span>
+            Please tick this box if you would like to receive regular email updates on the Hayya application as well as upcoming tournaments, events and activities
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+</form>
+
+<fan-id-terms-and-conditions
+  *ngIf="show_terms_and_condition"
+  (closeThis)="close($event)"
+  [tnc]="tnc"
+></fan-id-terms-and-conditions>

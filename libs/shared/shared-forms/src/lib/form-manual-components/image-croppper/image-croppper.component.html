@@ -1,0 +1,40 @@
+<div class="loader">
+  <div class="loader-content">
+    <div class="submitPane">
+      <div class="paneHeader">
+        <h4 class="font-24 text-center mb-0">
+          {{ 'Common.ImageCropHeader' | translate }}
+        </h4>
+      </div>
+      <div class="card-replacement-paneBody image-cropper-body">
+
+        <image-cropper class ="image-cropper"
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="config.maintainAspectRatio"
+          [aspectRatio]="config.aspectRatio" format="jpeg" (imageCropped)="imageCropped($event)"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"
+          [imageBase64]="ImagePath"
+          [transform]="transform"
+          backgroundColor="var(--hayya-content-bg)"
+          style="max-height: 370px;
+          --cropper-outline-color: rgb(238 238 229 / 30%);
+          --cropper-overlay-color: var(--hayya-content-bg);"
+        >
+        </image-cropper>
+        <!-- <label for="customRange2">Example range</label>
+        <input type="range" class="custom-range" min="0" max="5" id="customRange2"> -->
+      </div>
+      <div class="zoom-class mb-2 text-center">
+        <button class="btn btn-sm btn-zoom" (click)="zoomOut()">-</button>
+        <label style="color: black;">{{ 'Common.Zoom' | translate }}</label>
+        <button class="btn btn-sm btn-zoom" (click)="zoomIn()">+</button>
+      </div>
+      <div class="paneFooter">
+        <button class="btn btn-primary  btn-caret-8" (click)="closeCropper()">
+          {{ 'Common.Continue' | translate }}
+        </button>
+
+      </div>
+    </div>
+  </div>
+  <div class="modalpane-backdrop"></div>

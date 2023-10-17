@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+
+.invalid-feedback:after,
+.invalid-feedback span:after {
+  content: '*';
+}
+
+.validate-btn {
+  height: 3rem;
+  min-width: 150px;
+}
+
+input {
+  text-overflow: ellipsis;
+  
+  &::placeholder {
+    text-overflow: ellipsis;
+  }
+}
+
+.readonly-input-text {
+  pointer-events: none;
+  color: rgba(69, 69, 69, 0.5) !important;
+}

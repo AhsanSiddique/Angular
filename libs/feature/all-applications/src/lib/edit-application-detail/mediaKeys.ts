@@ -1,0 +1,21 @@
+export const MediaKeys = [
+  "mediaAccreditationSubcategory",
+  "mediaDateArrival",
+  "mediaDateDeparture",
+  "mediaFifaAccreditationNumber",
+  "mediaFunction",
+  "mediaLanguage",
+  "mediaOrganizartionCountry",
+  "mediaOrganization",
+  "mediaOrganizationAddress",
+  "mediaOrganizationCode",
+  "mediaOrganizationEmail",
+  "mediaOrganizationPhone",
+  "mediaOrganizationWebsite",
+  "mediaPublished",
+  "mediaReach",
+  "mediaRole",
+  "mediaType",
+  "mediaUserType",
+  "mediaVenues"
+]

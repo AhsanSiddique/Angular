@@ -1,0 +1,29 @@
+<div class="kb">
+    <!-- <div class="ml-4 mr-4"> -->
+      <div class="row">
+        <main>
+           
+<div class="d-flex">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs wmc" orientation="vertical">
+      <li class = 'ml-4' [ngbNavItem]="i+1" *ngFor="let navitem of this.categoryNames;index as i"  (click) ="actveClick(i,navitem)">
+        <a class="p-0" ngbNavLink>{{navitem.name}}</a>
+        <div class="crop">
+          <img *ngIf="active === i+1" src="/assets/icons/kbfaq-underlineselected.svg" alt="Bootstrap" />
+          <img class="change-my-color" *ngIf="active !== i+1" src="/assets/icons/kbfaq-underlinenonselected.svg" alt="Bootstrap" />
+        </div>
+        <ng-template ngbNavContent>
+            <section>
+                <fan-id-video-hub-items
+                [data]="this.FAQcontent"></fan-id-video-hub-items>
+            </section>
+        </ng-template>
+      </li>
+    </ul>
+  
+    <div [ngbNavOutlet]="nav" class="ms-4"></div>
+  </div>
+        </main>
+        
+    <!-- </div> -->
+</div>
+

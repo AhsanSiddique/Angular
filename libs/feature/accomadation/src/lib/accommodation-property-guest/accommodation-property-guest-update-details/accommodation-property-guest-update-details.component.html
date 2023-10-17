@@ -1,0 +1,145 @@
+<div class="modalpane-wrapper" >
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <h4
+        class="font-24 text-center"
+      >
+      Update Guest Details
+      </h4>
+      <div class="modalpane-closebtn">
+        <img
+          src="/assets/icons/close 001.svg"
+          style="width: 32px"
+          alt="close icon"
+          (click)="_close.emit()"
+        />
+      </div>
+    </div>
+    <div class="guest-update-details ">
+      <form autocomplete="off" class="row" [formGroup]="updateForm">
+        <div class="col-6">  <div class="form-group">
+          <label for="guestName">
+            Guest Name<sup>*</sup>
+          </label>
+          <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S* S* S*'" [dropSpecialCharacters]="false" formControlName="guestName"
+            name="guestName" placeholder="Guest Name" id="guestName"
+            class="form-control"
+            maxlength="40"
+
+            [class.is-invalid]="guestName.touched && guestName.invalid"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="guestName.errors?.required">
+              Guest Name is required
+            </span>
+            <span *ngIf="documentNo.errors?.maxlength as error">
+              Maximum of {{ error.requiredLength }} characters are allowed
+            </span>
+          </span>
+        </div></div>
+        <div class="col-6">
+          <div class="form-group">
+          <label for="guest_country">Guest Country<sup>*</sup></label>
+          <ng-select [items]="(countries$ | async)!" bindLabel="name" bindValue="code" [virtualScroll]="true"
+            [placeholder]="'Select Country'" formControlName="country"
+            class="form-control" [class.is-invalid]="country.touched && country.invalid" labelForId="guest_country"
+            aria-describedby="guest_country" [searchFn]="nationalitySearchFn"
+          >
+            <ng-template ng-label-tmp let-country="item">
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-template>
+            <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-template>
+          </ng-select>
+          <span class="invalid-feedback">
+            <span *ngIf="country.errors?.required">
+              Country is required
+            </span>
+          </span>
+        </div></div>
+        <div class="col-6">  <div class="form-group">
+          <label for="document_number">
+            Guest Document Number<sup>*</sup>
+          </label>
+          <input type="text" [mask]="documentMask" formControlName="documentNo"
+            name="document_number" placeholder="Guest Document Number" id="document_number"
+            class="form-control"
+            [class.is-invalid]="documentNo.touched && documentNo.invalid"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="documentNo.errors?.required">
+              Document Number is required
+            </span>
+            <span *ngIf="documentNo.errors?.maxlength as error">
+              Maximum of {{ error.requiredLength }} characters are allowed
+            </span>
+          </span>
+        </div>  </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="emailId">Guest Email ID<sup>*</sup></label>
+            <input type="text" name="emailId" placeholder="Enter Guest Email ID"
+             id="emailId" class="form-control" formControlName="emailId"
+            [ngClass]="{
+              'is-invalid':emailId.touched &&
+              emailId.invalid
+            }"
+            [pattern]="EmailRegex"
+            maxlength="60"/>
+            <div
+            class="invalid-feedback"
+            *ngIf="emailId.errors?.required"
+          >
+          Guest Email ID is required
+          </div>
+          <div
+          class="invalid-feedback"
+          *ngIf="emailId.errors?.pattern"
+        >
+         Enter a valid Guest Email ID
+        </div>
+            </div>
+        </div>
+
+
+        <div class="form-group mb-0 d-flex justify-content-between mt-4" style="    width: 100%;
+        justify-content: center !important;
+    ">
+          <button type="reset" class="btn btn-secondary mr-2" (click)="_close.emit()">
+            <span>{{ 'Common.Cancel' | translate }}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-caret-8"
+            [disabled]="updateForm.invalid"
+            (click)="submitForm()"
+          >
+            {{ 'Common.Submit' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>
+
+<fan-id-common-error-modal
+  *ngIf="updateError"
+  head_error_message="Unable to update the details"
+  [error_message]="errorMessage"
+  buttontext="Common.Close"
+  (closeThis)="_close.emit()"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="updateSuccess"
+  head_success_message="Guest Details Updated Successfully"
+  buttontext="Common.Ok"
+  (closeThis)="_close.emit(true)"
+></fan-id-common-success-modal>

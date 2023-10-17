@@ -1,0 +1,89 @@
+<div class="loader">
+    <div class="loader-content">
+        <!-- <div class="submission-paneClose" >
+            <img
+            src="/assets/icons/close 001.svg"
+            style="width: 32px"
+            alt="close icon"
+            (click)="closeThis.emit('close')"
+          />
+        </div> -->
+        <div class="submitPane">
+
+            <div class="paneBody" *ngIf="status">
+                <div class="paneHeader">
+                    <h4 class="font-24" style="color: var(--hayya-primary); font-weight: 900">Print Status</h4>
+
+                </div>
+              <div class="row">
+                  <div class="col-6">
+                    <p><strong>Total Print Success : {{status.succesRecords}}</strong></p>
+                  </div>
+                  <div class="col-6">
+                    <p><strong>Total Print Failed : {{status.failedRecords}}</strong></p>
+                  </div>
+              </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                      <div class="registration-details">
+                        <div class="fan-card mb-0 tableSroll">
+                          <div class="table-responsive">
+                            <table
+                              id="importdatatable"
+                              class="row-border fan-id-datatable w-100"
+                              style="width:300px"
+                              aria-describedby="printStatusList"
+                            >
+                              <thead style="border: 0.5px solid rgba(85, 0, 101, 0.5) !important;">
+                                <tr>
+
+                                  <th scope="col">
+                                    Hayya Card Number
+                                  </th>
+                                  <th scope="col">
+                                    Print Status
+                                  </th>
+                                  <th scope="col">
+                                    Reason
+                                  </th>
+                                  <th scope="col">
+                                    Printer Name
+                                  </th>
+                                  <th scope="col">
+                                    Terminal Name
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <ng-container *ngIf = "cardPrintList.length">
+                                  <tr *ngFor="let data of cardPrintList; let i = index">
+
+                                    <td>{{data?.hayyaCardNo}}</td>
+                                    <td [ngStyle]="{color:data?.failedStatus?'red':'green'}">
+                                        <strong>
+                                            {{data?.failedStatus?'Failed':'Success'}}
+                                        </strong>
+                                    </td>
+                                    <td style="max-width: 233px;white-space: pre-wrap;">
+                                      {{data?.failureReason}}
+                                    </td>
+                                    <td>{{status?.printerName}}</td>
+                                    <td>{{status?.terminalName}}</td>
+                                    </tr>
+                                </ng-container>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="paneFooter">
+                <button class="btn btn-primary btn-caret-8" (click)="closeThis.emit()">Ok</button>
+            </div>
+        </div>
+    </div>
+    <div class="loader-backdrop"></div>
+</div>
+

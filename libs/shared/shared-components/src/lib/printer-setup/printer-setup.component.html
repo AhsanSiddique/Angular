@@ -1,0 +1,117 @@
+<ngx-spinner [name]="spinner_name" bdColor="rgba(0,0,0,0.9)" size="default" color="rgba(246,240,240,0.79)"
+  type="ball-clip-rotate" [fullScreen]="true"
+>
+<p class="Qatar2022" style="color: rgba(246,240,240,0.79); font-size: 1.5rem;">Fetching Printer Details...</p>
+</ngx-spinner>
+
+<ng-container *ngIf="currentModal === 'DOWNLOAD_OR_SELECT_PRINTER'">
+  <ng-container *ngTemplateOutlet="downloadOrSelectPrinterModal"></ng-container>
+</ng-container>
+<ng-container *ngIf="currentModal === 'SELECT_PRINTER'">
+  <ng-container *ngTemplateOutlet="selectPrinterModal"></ng-container>
+</ng-container>
+
+<ng-template #downloadOrSelectPrinterModal>
+  <div class="download-select-modal modalpane-wrapper">
+    <div class="modalpane-body">
+      <div class="modalpane-header">
+        <h4 class="font-24 text-center" style="color: var(--hayya-primary); font-weight: 900">Alert</h4>
+      </div>
+      <div class="download-select-modal__container">
+        <div class="download-select-modal__message">
+          <p>
+            The system was unable to fetch your computers MAC Address.
+            Please ensure the Software is running on your system.
+            You can download and install the software by clicking "<strong>Download and Logout</strong>".
+          </p>
+          <p>
+            To manually select the printer and proceed,
+            please click "<strong>Select Printer</strong>" and select the Printer or Printer Pool.
+          </p>
+          Kindly note that if the software is not running on your system, you will have to do this each time you login.
+        </div>
+        <div class="download-select-modal__actions">
+          <button class="btn btn-primary btn-caret-8" (click)="downloadPrinterSetup()">
+            Download and Log Out
+          </button>
+          <button class="btn btn-primary btn-caret-8" (click)="showSelectPrinterModal()">
+            Select Printer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modalpane-backdrop"></div>
+</ng-template>
+
+<ng-template #selectPrinterModal>
+  <div class="select-printer-modal modalpane-wrapper">
+    <div class="modalpane-body">
+      <div class="modalpane-header">
+        <h4 class="font-24 text-center" style="color: var(--hayya-primary); font-weight: 900">Select Printer</h4>
+      </div>
+      <div class="select-printer-modal__container" [class.mac-found]="selectPrinterModalConfig.macFound">
+        <div class="form-row" *ngIf="selectPrinterModalConfig.macFound">
+          <div class="col-12 text-center">
+            We were not able to find a Printer or Printer Pool associated to your computer.
+            Please select manually from below.
+            Alternatively please contact the Supervisor to assign a Printer or Printer Pool to your system.
+          </div>
+        </div>
+        <form class="select-printer-modal__form form-row" [formGroup]="selectPrinterForm">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="PrinterType">
+                Printer Type
+              </label>
+              <div class="common-radio radio-group row col">
+                <div class="radio-btn ">
+                  <input type="radio" class="d-none" [value]="EPrinterType.Printer" id="printerSingle" formControlName="printerType"
+                    (click)="selectPrinterType(EPrinterType.Printer)" />
+                  <label for="printerSingle">
+                    <span class="radio"></span>
+                    <span style="font-size: 0.8rem !important">
+                      Printer
+                    </span>
+                  </label>
+                </div>
+                <div class="radio-btn">
+                  <input type="radio" class="d-none" [value]="EPrinterType.PrinterPool" id="printerPool" formControlName="printerType"
+                    (click)="selectPrinterType(EPrinterType.PrinterPool)" />
+                  <label for="printerPool">
+                    <span class="radio"></span>
+                    <span style="font-size: 0.8rem !important">
+                      Printer Pool
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="printer">{{ printerDropdownLabel }}</label>
+              <ng-select [virtualScroll]="false" [clearable]="false" placeholder="Select Printer" formControlName="printer"
+                class="form-control" [class.is-invalid]="spf.printer.touched && spf.printer.invalid" labelForId="printer"
+                aria-describedby="printer" [items]="(spf.printerType.value === EPrinterType.Printer ? printerList$ : printerPoolList$) | async"
+                [bindLabel]="(spf.printerType.value === EPrinterType.Printer ? 'printer_Name' : 'printerSC_Name')"
+              ></ng-select>
+              <div class="invalid-feedback" *ngIf="spf.printer.errors?.required">
+                Printer required
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="select-printer-modal__actions">
+          <button class="btn btn-secondary" (click)="backToDownloadOrSelectModal()" [hidden]="selectPrinterModalConfig.macFound">
+            <span>Back</span>
+          </button>
+          <button class="btn btn-primary btn-caret-8" (click)="submitSelectPrinterForm()" [disabled]="selectPrinterForm.invalid">
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modalpane-backdrop"></div>
+</ng-template>

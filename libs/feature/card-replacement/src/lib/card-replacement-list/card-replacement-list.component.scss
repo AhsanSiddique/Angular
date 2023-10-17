@@ -1,0 +1,14 @@
+.card-replace-list-clear-btn {
+  padding: 0.5rem 2rem;
+  margin-top: 0.5rem;
+  height: 3rem;
+}
+.card-replacement-dependendts-column {
+  text-align: start;
+}
+::ng-deep td.dataTables_empty {
+  display: none !important;
+}
+.no-data-available{
+  text-align: center;
+}

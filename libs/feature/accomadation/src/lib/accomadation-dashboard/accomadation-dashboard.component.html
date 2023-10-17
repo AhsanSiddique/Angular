@@ -1,0 +1,382 @@
+
+<div class="dashboard bulk-groups m-0" >
+  <div style="visibility: hidden;">
+    <h4 class="w-100 mb-0" style="visibility: hidden;">
+    </h4>
+    <div class="accommodation-actions">
+
+      <button class="btn btn-sm btn-secondary btn-alt"
+        (click)="filterStat()">
+        <span><i class="fa fa-filter" [ngStyle]="{color:filteredStatsBoolean?'var(--hayya-accent)':''}"  aria-hidden="true"></i></span>
+        <span class="pl-2 pr-2">{{ 'Filter' | translate }}</span>
+      </button>
+      <button
+        class="btn btn-sm btn-secondary btn-alt"
+        (click)="getFilter()"
+      >
+        <span class="text-hide"><i class="fa fa-refresh-new" aria-hidden="true"></i></span>
+        <span>Clear</span>
+      </button>
+      <button
+        class="btn btn-sm btn-primary btn-alt"
+        (click) = "showExportModal()"
+      >
+        <span>{{ 'Common.Export' | translate }}</span>
+      </button>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="bulk-group-filter">
+        <form [formGroup]="dashStatFilterForm" (ngSubmit)="getDatedStat()">
+          <div class="row">
+            <div class="form-group col-lg-3"
+            >
+              <label for="eventName">{{
+                'AllApplicantsList.EventName' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="eventname"
+                aria-describedby="eventname"
+                placeholder="eventName"
+                readonly
+                [value]="event"
+              />
+            </div>
+            <div class="form-group col-lg-3"
+            >
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">Start Date</label>
+                </div>
+                <div class="col-lg-3" *ngIf="clearButton()">
+                  <button
+                    type="button"
+                    class="btn btn-sm float-end float-right rounded-pill"
+                    style="color: #550065; padding: 0rem 0.5rem !important"
+                    (click)="getFilter()"
+                  >
+                    {{ 'AllApplicantsList.Clear' | translate }}
+                  </button>
+                </div>
+              </div>
+              <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+                <input type="search" formControlName="dateBegin" name="dateBegin"
+                  placeholder="Select Date" id="dateBegin" ngbDatepicker #dts="ngbDatepicker"
+                  class="w-100 form-control" (click)="dts.toggle()"
+                  [minDate]="{ day: 1, month: 3, year: 2022 }"
+                  [maxDate]="dateToday"
+                  />
+                  <svg (click)="dts.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  class="bi bi-calendar d-block d-sm-block"
+                >
+                  <path
+                    d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                    fill="#00CFB7" />
+                </svg>
+              </div>
+            </div>
+            <div class="form-group col-lg-3">
+              <label class="control-label">End Date</label>
+              <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+                <input type="search" formControlName="dateEnd" name="dateEnd"
+                  placeholder="Select Date" id="dateEnd" ngbDatepicker #dt="ngbDatepicker"
+                  class="w-100 form-control" (click)="dt.toggle()"
+                  [maxDate]="dateToday"
+                  [minDate]="dashStatFilterForm.controls.dateBegin.value"
+                  [class.is-disabled]="!dashStatFilterForm.controls.dateBegin.value"
+                  />
+                  <svg
+                  [class.is-disabled]="!dashStatFilterForm.controls.dateBegin.value"
+                  (click)="dt.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  class="bi bi-calendar d-block d-sm-block"
+                >
+                  <path
+                    d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                    fill="#00CFB7" />
+                </svg>
+              </div>
+            </div>
+            <div class="form-group mb-0 col-lg-3 flex-column text-right">
+              <label class="control-label" style="visibility: hidden;" aria-hidden="true">placeholder</label>
+              <button
+                [disabled]="dashStatFilterForm.invalid"
+                class="btn btn-sm btn-primary btn-caret-8 fltrSchbtn ml-auto"
+              >
+                {{ 'AllApplicantsList.Search' | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-12">
+              <div class="accommodation-statistics__wrapper">
+              </div>
+              <div class="accommodation-statistics">
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbpink">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                        </svg>
+
+                        <span class="number">{{ statisticsData?.totalApplicationCount ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                        Total Number of Applications
+                    </h5>
+                  </div>
+                </div>
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbred">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                        <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                        <g clip-path="url(#clip0_3265_7304)">
+                        <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                        <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                        <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                        <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                        <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                        <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                        <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                        <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                        <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                        <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_3265_7304">
+                        <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
+
+                        <span class="number">{{ statisticsData?.totalConditionalApproval ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                        Total Number of Conditionally Approved
+                    </h5>
+                  </div>
+                </div>
+
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbblue">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                        </svg>
+                        <span class="number">{{ statisticsData?.totalApproved_Accommodation ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                        Total Number of Accommodation Verified
+                    </h5>
+                  </div>
+                </div>
+
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbpink">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                        </svg>
+
+                        <span class="number">{{ statisticsData?.totalAccommodationCancelled ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                        Total Number of Accommodation Cancelled
+                    </h5>
+                  </div>
+                </div>
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbpink">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                        </svg>
+
+                        <span class="number">{{ statisticsData?.totalQAA ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                      Total Number of QAA Applications
+                    </h5>
+                  </div>
+                </div>
+                <div class="accommodation-statistics__box">
+                    <div class="dashboard-statistics-div dbred">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                          <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                          <g clip-path="url(#clip0_3265_7304)">
+                          <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                          <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_3265_7304">
+                          <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                          </clipPath>
+                          </defs>
+                          </svg>
+
+                          <span class="number">{{ statisticsData?.totalSITA ?? 0 }}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        Total Number of SITA Applications
+                      </h5>
+                    </div>
+                  </div>
+
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbblue">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                        </svg>
+                        <span class="number">{{ statisticsData?.totalFriendAndFamily ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                      Total Applications Verified Against Guest
+                    </h5>
+                  </div>
+                </div>
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbpink">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                        </svg>
+
+                        <span class="number">{{ statisticsData?.totalAAHostCount ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                      Total Number of Hosts
+                    </h5>
+                  </div>
+                </div>
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbpink">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                        </svg>
+
+                        <span class="number">{{ statisticsData?.totalAAPropertyCount ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                      Total Number of Properties
+                    </h5>
+                  </div>
+                </div>
+
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbred">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                        <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                        <g clip-path="url(#clip0_3265_7304)">
+                        <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                        <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                        <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                        <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                        <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                        <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                        <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                        <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                        <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                        <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_3265_7304">
+                        <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
+                        <span class="number">{{ statisticsData?.totalAAGuestCount ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                      Total Number of Guests Registration
+                    </h5>
+                  </div>
+                </div>
+
+                <div class="accommodation-statistics__box">
+                  <div class="dashboard-statistics-div dbblue">
+
+                    <div class="body-statistics">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                        </svg>
+                        <span class="number">{{ statisticsData?.totalOtherAccommodation ?? 0 }}</span>
+                    </div>
+                    <h5 class="title-statistics">
+                      Total Other Platforms Booking
+                    </h5>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+</div>
+
+<fan-id-modal-wrapper
+  *ngIf="filterBoolean || show_export_modal"
+  (closeThis)="filterBoolean = false; show_export_modal = false"
+  [title]="filterBoolean?'Filter':'Export'"
+  [customStyle] = 'true'
+>
+  <fan-id-accommodation-export
+    *ngIf="filterBoolean"
+    (closeThis)="filterBoolean = false"
+    (dashFilterDate)="getDatedStat($event)"
+    [type]="7"
+    [startFieldName]="'Start Date'"
+    [endFieldName]="'End Date'"
+    [downloadBtnTxt]="'Search'"
+    [closeBtnTxt]="'Cancel'"
+    ></fan-id-accommodation-export>
+    <fan-id-accommodation-export
+    *ngIf="show_export_modal"
+    (closeThis)="show_export_modal = false"
+    [type]="6"
+    [tName]="'Accommodation_Statistics'"
+    [startFieldName]="'Start Date'"
+    [endFieldName]="'End Date'"
+    [apiName] = "'/api/Accommodation/generateExcelAccommodationStatistics'"
+    ></fan-id-accommodation-export>
+</fan-id-modal-wrapper>

@@ -1,0 +1,106 @@
+@import '../applicant-details-common.scss';
+
+:host {
+  display: block;
+}
+
+.integration-status-info {
+  .row > .col {
+    margin-bottom: 1rem;
+  }
+}
+
+.status-badge {
+  border-radius: 1.3rem;
+  border: 1px solid #081c3b;
+  background-color: #f7f9fe;
+  color: #081c3b;
+  padding: 0.05rem 0.6rem;
+  width: max-content;
+  // transform: scale(0.8);
+  // margin-top: 0.2rem;
+  // margin: 0.2rem -0.6rem;
+
+  &-approved {
+    border-color: $successColor;
+    color: $successColor;
+    background-color: rgba($successColor, 0.05);
+    // margin-left: -1rem;
+  }
+
+  &-rejected {
+    $rejectColor: #f34a4b;
+    border-color: $rejectColor;
+    color: $rejectColor;
+    background-color: rgba($rejectColor, 0.05);
+    // margin-left: -1rem;
+  }
+
+  &-under-review {
+    $underReviewColor: #d1bd0f;
+    border-color: $underReviewColor;
+    color: $underReviewColor;
+    background-color: rgba($underReviewColor, 0.05);
+    // margin-left: -1rem;
+  }
+
+  &-more-info {
+    $moreInfoColor: #6a7bff;
+    border-color: $moreInfoColor;
+    color: $moreInfoColor;
+    background-color: rgba($moreInfoColor, 0.05);
+    // margin-left: -1rem;
+  }
+  &-else{
+    // margin-left: -1rem;
+  }
+}
+
+.card-status-tag {
+  // padding: 1px 8px;
+  // border-radius: 100px;
+  // height: 28px;
+  padding: 0.25rem !important;
+  text-align: center !important;
+  height: 31px;
+  min-width: 185px;
+  border-radius: 1rem;
+  box-sizing: border-box;
+
+  &.card-pending {
+    color: #ff004c;
+    background: rgba(234, 51, 81, 0.3);
+    border: 1px solid #ea3351;
+  }
+  &.card-collected {
+    background: rgba(48, 213, 149, 0.05);
+    color: #30d595;
+    border: 1px solid #30d595;
+  }
+  &.card-printed {
+    color: #01a693;
+    background: rgba(94, 204, 184, 0.34);
+    border: 1px solid #5eccb8;
+  }
+  &.card-delivery {
+    background: rgba(126, 34, 57, 0.3);
+    color: var(--hayya-primary);
+    border: 1px solid #7e2239;
+  }
+  &.card-queue {
+    background: rgba(174, 209, 235, 0.45);
+    color: #4388f2;
+    border: 1px solid #aed1eb;
+    // text-align: center !important;
+  }
+  &.card-home-delivery {
+    color: #eb5628;
+    background: rgba(235, 86, 40, 0.3);
+    border: 1px solid #eb5628;
+  }
+  &.card-collection-qpr {
+    color: #550065;
+    background: rgba(77, 10, 97, 0.3);
+    border: 1px solid rgba(77, 10, 97, 0.3);
+  }
+}

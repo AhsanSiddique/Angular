@@ -1,0 +1,50 @@
+<div class="mform">
+	<div class="form-section">
+		<h4>{{'Profile.ticketInfo' | translate}}</h4>
+		<p class="sub-title">{{ 'MFPOne.sub-title'| translate }}</p>
+		<form class="custom-form">
+      <div class="input-group mb-2">
+				<div class="col-12 col-md-12 pl-0 pr-0">
+					<ng-select (change)="onSelectChange($event)" [(ngModel)]="selectedApptype" #ischildselect [searchable]="false" placeholder="{{'MFPOne.selectApptype' | translate}}" class="form-control flex pt-3" [ngClass]="{ 'align-items-end': multiformdata.isChild, 'align-items-center': !multiformdata.isChild }" name="Application Type" [clearable]="false" labelForId="" aria-describedby="">
+						<ng-option *ngFor="let apt of apptypes" [value]="apt.value">
+							<span>
+								{{ apt.translation | translate }}
+							</span>
+						</ng-option>
+					</ng-select>
+					<img class="position-absolute top-7 right-2" style="cursor: pointer;" src="assets/images/caret_down.svg" alt="" (click)="openSelect(ischildselect)">
+				</div>
+
+			</div>
+			<div class="input-group mb-2">
+				<input (focus)="cleartcktError()" name="RefTicketNo" type="text" class="form-control" [ngStyle]="{ 'padding-top' : multiformdata.RefTicketNo ? '28px' :'' }" [ngClass]="ticketError?'is-error was-validated':'no-error'" placeholder="{{ 'MFPOne.Eytn' | translate }}" [(ngModel)]="multiformdata.RefTicketNo">
+			</div>
+			<div *ngIf="ticketError" class="error-feedback mb-2">
+				{{ 'MFPOne.errormsg' | translate }}
+			</div>
+
+			<div class="input-group" *ngIf="multiformdata.isChild == 'true'">
+				<input (focus)="clearAppError()" class="form-control" type="text" name="refParentApplicationNo" [(ngModel)]="multiformdata.refParentApplicationNo" placeholder="{{ 'MFPOne.parentapptext' | translate }}">
+			</div>
+			<div *ngIf="appNumError" class="error-feedback mt-2">
+				{{ 'MFPOne.errormsg_2' | translate }}
+			</div>
+
+			<div class="row justify-content-center mt-5 mb-4">
+				<re-captcha (resolved)="resolved($event)" siteKey="{{siteKey}}"></re-captcha>
+			</div>
+			<div class="row ticket-info-actions">
+				<div class="col-12 col-md-3 order-2 order-md-1">
+					<button type="button" routerLink="/home" class="btn btn-outline-primary btn-block cancelBtn">
+						{{ 'Chpsswd.cancel' | translate }}
+					</button>
+				</div>
+				<div class="col-12 col-md-3 order-1 order-md-2">
+					<button (click)="onNext()" [disabled]="checkDisabled()" [class.disabled-btn]="checkDisabled()" type="button" class="btn btn-primary btn-block submit-btn-color submitpaddingoveride">
+						{{ 'Common.next' | translate }}
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

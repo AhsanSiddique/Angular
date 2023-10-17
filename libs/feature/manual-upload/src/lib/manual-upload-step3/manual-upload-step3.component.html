@@ -1,0 +1,480 @@
+<div class="bulk-registration">
+  <div class="page-title">
+    <a class="back-ico btn btn-sm" fanIdBack
+      ><svg width="16" height="16" viewBox="0 0 21 21.946">
+        <g id="arrow-right" transform="translate(1.5 2.121)">
+          <line
+            id="Line_249"
+            data-name="Line 249"
+            x1="18"
+            transform="translate(0 9.001)"
+            fill="none"
+            stroke="#081c3b"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+          />
+          <path
+            id="Path_928"
+            data-name="Path 928"
+            d="M20.851,5,12,13.851,20.851,22.7"
+            transform="translate(-12 -5)"
+            fill="none"
+            stroke="#081c3b"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+          />
+        </g>
+      </svg>
+      <span class="sr-only">Back</span></a
+    >
+    <h4 class="w-100 mb-0">
+      {{ 'ManualStep3.ManualRegistrationBulkImport' | translate }}
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="registration-details">
+        <div class="fan-card">
+          <div class="table-responsive">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              id="importdatatable"
+              class="row-border fan-id-datatable"
+            >
+              <thead>
+                <tr>
+                  <th style="width: 5% !important">
+                    <div class="roundcheck">
+                      <input
+                        type="checkbox"
+                        id="checkAll"
+                        #checkAllmem
+                        (change)="checkAll($event)"
+                      />
+                      <label for="checkAll"></label>
+                    </div>
+                  </th>
+                  <th>{{ 'ManualStep3.Action' | translate }}</th>
+                  <th>{{ 'ManualStep3.ImportStatus' | translate }}</th>
+                  <th>{{ 'ManualStep3.FirstName' | translate }}</th>
+                  <th>{{ 'ManualStep3.LastName' | translate }}</th>
+                  <th>{{ 'ManualStep3.ProfilePicture' | translate }}</th>
+                  <th>{{ 'ManualStep3.DocumentType' | translate }}</th>
+                  <th>{{ 'ManualStep3.QID/PassportPhoto' | translate }}</th>
+                  <th>{{ 'ManualStep3.ExpiryDate' | translate }}</th>
+                  <th>{{ 'ManualStep3.EmailAddress' | translate }}</th>
+                  <th>{{ 'ManualStep3.CountryCode' | translate }}</th>
+                  <th>{{ 'ManualStep3.MobileNumber' | translate }}</th>
+                  <th>{{ 'ManualStep3.Gender' | translate }}</th>
+                </tr>
+              </thead>
+              <thead class="filterArea">
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-uploadstatus"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-fisrtName"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-lastname"
+                      />
+                    </div>
+                  </th>
+                  <th></th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-idtype"
+                      />
+                    </div>
+                  </th>
+                  <th></th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-expirydate"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-email"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-countrycode"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-contactno"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="{{ 'ManualStep3.Search' | translate }}"
+                        name="search-gender"
+                      />
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="loading" style="height: 150px;">
+                  <td colspan="100" style="text-align: center; vertical-align: middle;">Loading...</td>
+                </tr>
+                <tr *ngFor="let data of importeddata">
+                  <td>
+                    <div class="roundcheck">
+                      <input
+                        type="checkbox"
+                        [attr.id]="data?.id"
+                        (change)="selectMember(data?.id, $event)"
+                        #checkboxes
+                      />
+                      <label [attr.for]="data?.id"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        {{ 'ManualStep3.Action' | translate }}
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <a
+                          class="dropdown-item row-edit-ico"
+                          href="javascript:void(0)"
+                          (click)="editApplicationDraft(data?.id)"
+                          >{{ 'ManualStep3.Edit' | translate }}</a
+                        >
+                        <a
+                          class="dropdown-item row-delete-ico"
+                          href="javascript:void(0)"
+                          (click)="deleteApplicationDraft(data?.id, data?.system_RowVersion)"
+                          >{{ 'ManualStep3.Delete' | translate }}</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span
+                      class="status-tag"
+                      [ngClass]="{
+                        'status-success': data?.uploadstatus === 'Success',
+                        'status-failed': data?.uploadstatus === 'Failed'
+                      }"
+                      >{{ data?.uploadstatus }}</span
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                      ><span
+                        class="imported-data"
+                        *ngFor="let error of data?.errorlist"
+                        [attr.data-message]="error.errormessage"
+                        [ngClass]="{
+                          haserror: error.haserrorin === 'firstname'
+                        }"
+                        ><i class="error-ico"></i>{{ data?.firstname }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                      ><span class="imported-data">{{ data?.firstName }}</span>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                      ><span
+                        class="imported-data"
+                        *ngFor="let error of data?.errorlist"
+                        [attr.data-message]="error.errormessage"
+                        [ngClass]="{
+                          haserror: error.haserrorin === 'lastname'
+                        }"
+                        ><i class="error-ico"></i>{{ data?.lastname }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                      ><span class="imported-data">{{ data?.lastName }}</span>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <div class="text-center">
+                      <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                        ><span
+                          class="imported-data"
+                          *ngFor="let error of data?.errorlist"
+                          [attr.data-message]="error.errormessage"
+                          [ngClass]="{
+                            haserror: error.haserrorin === 'profilepic'
+                          }"
+                          ><i class="error-ico"></i
+                          ><img
+                            [src]="data?.profilepic"
+                            class="dataas-img profile-pic"
+                        /></span>
+                      </ng-container>
+                      <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                        ><span class="imported-data"
+                          ><img
+                            [src]="data?.profilePic"
+                            class="dataas-img profile-pic"
+                            alt="profile image"
+                        /></span>
+                      </ng-container>
+                    </div>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                      ><span
+                        class="imported-data"
+                        *ngFor="let error of data?.errorlist"
+                        [attr.data-message]="error.errormessage"
+                        [ngClass]="{ haserror: error.haserrorin === 'idtype' }"
+                        ><i class="error-ico"></i>{{ data?.idtype }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                      ><span class="imported-data">{{ data?.docType_Name }}</span>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <div class="text-center">
+                      <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                        ><span
+                          class="imported-data"
+                          *ngFor="let error of data?.errorlist"
+                          [attr.data-message]="error.errormessage"
+                          [ngClass]="{
+                            haserror: error.haserrorin === 'document'
+                          }"
+                          ><i class="error-ico"></i
+                          ><img
+                            [src]="data?.document"
+                            class="dataas-img docment"
+                        /></span>
+                      </ng-container>
+                      <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                        ><span class="imported-data"
+                          ><img
+                            [src]="data?.docImageFront"
+                            class="dataas-img docment"
+                            alt="document image"
+                        /></span>
+                      </ng-container>
+                    </div>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                      ><span
+                        class="imported-data"
+                        *ngFor="let error of data?.errorlist"
+                        [attr.data-message]="error.errormessage"
+                        [ngClass]="{
+                          haserror: error.haserrorin === 'expirydate'
+                        }"
+                        ><i class="error-ico"></i>{{ data?.expirydate }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                      ><span class="imported-data text-center">{{
+                        data?.docExpiryDate | dateformatpipe
+                      }}</span>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                      ><span
+                        class="imported-data"
+                        *ngFor="let error of data?.errorlist"
+                        [attr.data-message]="error.errormessage"
+                        [ngClass]="{ haserror: error.haserrorin === 'email' }"
+                        ><i class="error-ico"></i>{{ data?.email }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                      ><span class="imported-data">{{ data?.email }}</span>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <span [attr.class]="'tel' + data?.phoneAreaCode"
+                      >+ {{ data?.phoneAreaCode }}</span
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                      ><span
+                        class="imported-data"
+                        *ngFor="let error of data?.errorlist"
+                        [attr.data-message]="error.errormessage"
+                        [ngClass]="{
+                          haserror: error.haserrorin === 'contactno'
+                        }"
+                        ><i class="error-ico"></i>{{ data?.contactno }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                      ><span class="imported-data">{{ data?.phone }}</span>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data?.uploadstatus === 'Failed'"
+                      ><span
+                        class="imported-data"
+                        *ngFor="let error of data?.errorlist"
+                        [attr.data-message]="error.errormessage"
+                        [ngClass]="{ haserror: error.haserrorin === 'gender' }"
+                        ><i class="error-ico"></i>{{ data?.gender }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data?.uploadstatus === 'Success'"
+                      ><span class="imported-data">{{ data?.gender_Name }}</span>
+                    </ng-container>
+                  </td>
+                </tr>
+                <tr *ngIf="!importeddata?.length && !loading">
+                  <td colspan="100" class="no-data-available">No data available in table</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="importeddata?.length" class="fan-card-footer tableBtn-foot">
+            <div class="d-flex">
+              <div class="w-100">
+                <!-- <button
+                  type="submit"
+                  class="btn btn-dark btn-sm min-w-150p w-auto"
+                  [disabled]="importListTemp.length === 0"
+                >
+                  <i class="delete-btn-ico"></i
+                  >{{ 'ManualStep3.DeleteSelectedItems' | translate }}
+                </button> -->
+              </div>
+              <div class="w-100 submitbtnPane">
+                <a
+                  (click)="show_cancel_modal = true"
+                  class="btn btn-sm btn-cancel"
+                >
+                  {{ 'ManualStep3.Cancel' | translate }}
+                </a>
+                <button
+                  class="btn btn-primary btn-sm btn-submit"
+                  [disabled]="importListTemp.length === 0"
+                  (click)="onSubmit()"
+                >
+                  {{ 'ManualStep3.Submit' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <fan-id-modal-wrapper
+    *ngIf="show_cancel_modal"
+    [title]="'Common.Alert' | translate"
+    (closeThis)="show_cancel_modal = false"
+  >
+    <div class="cancel-modal-body">
+      <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+      <p>{{ 'Common.AllChangesDoneLost' | translate }}</p>
+      <button type="button" class="btn btn-primary btn-caret-8" (click)="cancel()">
+        {{ 'Common.YesProceed' | translate }}
+      </button>
+    </div>
+  </fan-id-modal-wrapper>
+</div>
+<fan-id-processing
+  *ngIf="processing"
+  [data]="processingdata"
+></fan-id-processing>
+<fan-id-submission-status
+  *ngIf="submittedStatus"
+  [status]="subStatus"
+  (closeThis)="close($event)"
+>
+</fan-id-submission-status>
+
+<fan-id-common-error-modal
+*ngIf="submittedError"
+head_error_message='RegisterError.SubmissionFailed'
+[error_message]="submittedError"
+(closeThis)="closeSubmitError()">
+</fan-id-common-error-modal>
+
+<fan-id-modal-wrapper
+  *ngIf="show_delete_modal"
+  [title]="'Common.Alert' | translate"
+  (closeThis)="show_delete_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'Common.AreYouSureDeleteApplication' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="deleteApplicationDraft(delete_payload.id, delete_payload.system_RowVersion,false)">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+
+

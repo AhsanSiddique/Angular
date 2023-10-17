@@ -1,0 +1,888 @@
+<div class="bulk-groups">
+  <div class="page-title pt-4 pb-4">
+    <h4 class="w-100 mb-0">
+      {{ 'CardPickup.CardPick-up' | translate }}
+    </h4>
+
+    <div class="cardpickup-actions">
+      <button type="button" data-toggle="modal" [disabled]="normalFilterBoolean"
+      #toggleAdvFilter data-target="#advFilterModal" class="btn btn-sm btn-secondary btn-alt">
+      <span><i class="fa fa-filter" [ngStyle]="{color:advancedFilterBoolean?'var(--hayya-accent)':''}" aria-hidden="true"></i></span>
+      <span class="pl-2 pr-2">{{ 'Filter' | translate }}</span>
+      </button>
+      <button
+        class="btn btn-sm btn-secondary btn-alt"
+        (click)="clearFilter()"
+      >
+        <span class="text-hide"><i class="fa fa-refresh-new" aria-hidden="true"></i></span>
+        <span>{{ 'AllApplicantsList.Refresh' | translate }}</span>
+      </button>
+
+      <!-- <button
+        class="btn btn-sm btn-primary"
+        (click)="showImportStatusModal()"
+      >
+        <i class="fa fa-file-import" aria-hidden="true"></i>
+        <span>{{ 'CardPickup.ImportStatus' | translate }}</span>
+      </button> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="bulk-group-filter">
+        <form [formGroup]="CardPickup" (ngSubmit)="filterColumn()">
+          <div class="row">
+            <div class="form-group col-lg">
+              <label for="eventType">{{
+                'AllApplicantsList.EventName' | translate
+              }}</label>
+              <input
+              type="text"
+              class="form-control"
+              id="eventname"
+              aria-describedby="eventname"
+              placeholder="eventName"
+              readonly
+              [value]="displayEventName"
+            />
+              <!-- <ng-select [virtualScroll]="true" [clearable]="false"
+              placeholder="Event Name"
+              formControlName="eventType" class="form-control" labelForId="eventType" aria-describedby="eventType"
+              (change)="onEventTypeChange()"
+            >
+              <ng-option *ngFor="let doc of EventTypeList" [value]="doc.id">
+                {{ doc.name }}
+              </ng-option>
+            </ng-select> -->
+            </div>
+            <div class="form-group col-lg" style="min-width: 250px;">
+              <label for="documentName">Document Name</label>
+              <!-- <ng-select [virtualScroll]="true" [clearable]="false"
+                placeholder="Document Name"
+                formControlName="doctype" class="form-control" labelForId="doctype" aria-describedby="doctype"
+                (change)="onDocTypeChange()"
+              >
+                <ng-option *ngFor="let doc of DocTypeList | async" [value]="doc.id">
+                  {{ doc.name }}
+                </ng-option>
+              </ng-select> -->
+              <ng-container *ngIf="{ DocTypeList: DocTypeList | async } as vm">
+                <div class="d-flex align-items-center" style="height: 48px;" *ngIf="!vm.DocTypeList">
+                  <span class="skeleton-box" style="width:200px; height:24px"></span>
+                </div>
+                <div class="radio-group doc-type">
+                  <div class="radio-btn" *ngFor="let doctype of vm.DocTypeList">
+                    <input type="radio" class="d-none" formControlName="doctype"
+                      id="doctype_{{ doctype.id }}" [value]="doctype.id"
+                      (change)="onDocTypeChange()"
+                    />
+                    <label for="doctype_{{ doctype.id }}">
+                      <span class="radio"></span>
+                      <span>{{ doctype.name }}</span>
+                    </label>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="form-group col-lg-3">
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">{{
+                    'CardPickup.SelectColumn' | translate
+                  }}</label>
+                </div>
+                <div class="col-lg-3" *ngIf="clearButton()">
+                  <button
+                    type="button"
+                    class="btn btn-sm float-end float-right rounded-pill"
+                    style="color: #550065; padding: 0rem 0.5rem !important"
+                    (click)="clearFilter()"
+                  >
+                    {{ 'AllApplicantsList.Clear' | translate }}
+                  </button>
+                </div>
+              </div>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="{{ 'CardPickup.SelectColumn' | translate }}"
+                formControlName="columnName"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    CardPickup.get('columnName').touched &&
+                    CardPickup.get('columnName').invalid
+                }"
+                labelForId="columnName"
+                [readonly]="advancedFilterBoolean"
+                aria-describedby="columnName"
+                (change)="changeColumn()"
+              >
+                <ng-option *ngFor="let column of columns" [value]="column.id">
+                  {{ column.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-lg-3" *ngIf="selectedSearchColumnType === 1 || selectedSearchColumnType === 2">
+              <label class="control-label">{{
+                'CardPickup.EnterText' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="{{ 'CardPickup.Enterthetextyouwant' | translate }}"
+                formControlName="filterTxt"
+                [readonly]="advancedFilterBoolean"
+                [ngClass]="{
+                  'is-invalid':
+                    CardPickup.get('filterTxt').touched &&
+                    CardPickup.get('filterTxt').invalid
+                }"
+              />
+            </div>
+            <div class="form-group col-lg-3" *ngIf="selectedSearchColumnType === 3">
+              <label class="control-label">Select Type</label>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                placeholder="Select Type"
+                formControlName="filterTxt"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                  CardPickup.get('filterTxt').touched &&
+                  CardPickup.get('filterTxt').invalid
+                }"
+                labelForId="filterTxt"
+                aria-describedby="filterTxt"
+                [readonly]="advancedFilterBoolean"
+              >
+                <ng-option *ngFor="let item of searchSelectItems$ | async" [value]="item.value">
+                  {{ item.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group mb-0 col-lg flex-column">
+              <label class="control-label" style="visibility: hidden;" aria-hidden="true">placeholder</label>
+              <!-- <button
+                (click)="clearFilter()"
+                type="button"
+                class="btn btn-sm btn-secondary col-lg-4 col-md-2 col-sm-3 clear-button"
+              >
+                <span>{{ 'CardPickup.Clear' | translate }}</span>
+              </button> -->
+              <button
+                [disabled]="CardPickup.invalid || spacetext() || advancedFilterBoolean || textTypeLength()"
+                class="btn btn-sm btn-primary searchButton mt-0"
+              >
+                {{ 'CardPickup.Search' | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="registration-details mt-4">
+        <div class="fan-card">
+          <div class="table-responsive" *ngIf="dtOptions" >
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              id="importdatatable"
+              class="row-border fan-id-datatable"
+              aria-describedby="cardPickupTable"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">{{ 'CardPickup.Actions' | translate }}</th>
+                  <th scope="col">Print Hayya Card</th>
+                  <th scope="col">Print Match Pass</th>
+
+                  <th scope="col">
+                    {{ 'CardPickup.ApplicationDate' | translate }}
+                  </th>
+
+                  <th scope="col">
+                    {{ 'CardPickup.FanIDCardStatus' | translate }}
+                  </th>
+                  <th scope="col">{{ 'CardPickup.FanIDNumber' | translate }}</th>
+                 <th scope="col">{{ 'CardPickup.FirstName' | translate }}</th>
+                  <th scope="col">{{ 'CardPickup.LastName' | translate }}</th>
+                  <!-- <th scope="col">{{ 'CardPickup.MobileNumber' | translate }}</th> -->
+                  <th scope="col">
+                    {{ 'CardPickup.ApplicationStatus' | translate }}
+                  </th>
+                  <!-- <th scope="col">
+                    {{ 'CardPickup.PrintorIssueCard' | translate }}
+                  </th>
+                  <th [hidden]="showCancelPrint" scope="col"> {{ 'Cancel Print' | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ 'CardPickup.UpdateStat' | translate }}
+                  </th> -->
+                  <th scope="col">{{ 'CardPickup.DocumentNumber' | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ 'CardPickup.ApplicationNumber' | translate }}
+                  </th>
+                  <!-- <th scope="col">Ticket Application Number</th>
+                  <th scope="col">{{ 'CardPickup.TicketReferenceNumber' | translate }}</th>
+                  <th scope="col">{{ 'CardPickup.VoucherCode' | translate }}</th>
+                  <th scope="col">{{ 'CardPickup.SubmissionType' | translate }}</th> -->
+                  <th scope="col">
+                    {{ 'CardPickup.PrinterName' | translate }}
+                  </th>
+                </tr>
+              </thead>
+               <tbody>
+                <ng-container *ngIf="filteredAppdata">
+                  <tr *ngFor="let data of filteredAppdata">
+                    <td>
+                      <a
+                        [routerLink]="'/main/card-pickup/view-details'"
+                        [queryParams]="{fanid: data?.fanIdNo, id: data?.id}"
+                        href="javascript:"
+                        class="viewdetails"
+                        >{{ 'CardPickup.ViewDetails' | translate }}</a
+                      >
+                      <!-- <div class="dropdown">
+                        <button
+                          class="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          {{ 'AllApplicantsList.Action' | translate }}
+                        </button>
+                        <div
+                          class="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <a
+                            class="dropdown-item"
+                            [routerLink]="'/main/card-pickup/view-details'"
+                            [queryParams]="{fanid: data?.fanIdNo, id: data?.id}"
+                            >View Details</a
+                          >
+                          <a
+                            class="dropdown-item"
+                            [hidden]= 'data?.cardStatus !== 1 || data?.printingStatus ===2'
+                            (click)="showPrintList(data?.fanIdNo)"
+                            >{{ 'CardPickup.PrintCard' | translate }}</a
+                          >-->
+                           <!-- <a
+                            class="dropdown-item"
+                            *ngIf= "showCancelPrint"
+                            (click)="cancelPrint(data?.id)"
+                            >{{ 'CardPickup.Cp' | translate }}</a
+                          >  -->
+                           <!--<a
+                            class="dropdown-item"
+                            [hidden]= 'data?.cardStatus == 1'
+                            (click)="rePrintCard(data?.fanIdNo,data?.id)"
+                            >Reprint Card</a
+                          >
+                        </div>
+                    </div> -->
+                    </td>
+                    <td>
+                      <div class="form-group mt-0 mb-0 col-lg-4 text-center">
+                        <button *ngIf='data?.cardStatus === 1 || data?.cardStatus === 12'
+                          class="btn btn-sm btn-primary btn-caret-8"
+                          style="width: 200px;font-size: 0.8rem;
+                          font-weight: normal"
+                          [disabled]= 'data?.cardStatus === 12 || data?.applicationStatus == 7'
+                          (click)="showPrintList(data?.fanIdNo)"
+                        >
+                          Print Hayya Card
+                        </button>
+                        <button *ngIf='(data?.cardStatus !== 1 && data?.cardStatus !== 12)'
+                          class="btn btn-sm btn-secondary"
+                          style="width: 200px;font-size: 0.8rem;
+                          font-weight: normal"
+                          (click)="rePrintCard(data?.fanIdNo,data?.id)"
+                        >
+                        <span>Reprint Hayya Card</span>
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group mt-0 mb-0 col-lg-4 text-center">
+                        <button
+                          class="btn btn-sm btn-primary btn-caret-8"
+                          style="font-size: 0.8rem;
+                          font-weight: normal"
+
+                          (click)="printMatchPass(data)"
+                        >
+                          Print Match Pass
+                        </button>
+                      </div>
+                    </td>
+                    <td>{{ dateFM(data?.applicationDate) }}</td>
+                    <td>
+                      <div class="card-status-tag"
+                        [ngClass]="{
+                          'card-queue':data?.cardStatus === 12,
+                          'card-printed': data?.cardStatus === 2,
+                          'card-pending': (data?.printingStatus !== 2 && data?.cardStatus === 1),
+                          'card-delivery':  [3,4].includes(data?.cardStatus),
+                          'card-collected': [5,6].includes(data?.cardStatus),
+                          'card-home-delivery':data?.cardStatus === 10,
+                          'card-collection-qpr':data?.cardStatus === 11
+                        }"
+                      >
+                        {{data?.cardStatus_Name }}
+                      </div>
+                    </td>
+
+                    <td>{{ data?.fanIdNo }}</td>
+
+                    <td>{{ data?.firstName }}</td>
+                    <td>{{ data?.lastName }}</td>
+                    <!-- <td>{{ data?.phone }}</td> -->
+                    <td>
+                      <div
+                        class="status-tag"
+                        [ngClass]="{
+                          'status-approved': data?.applicationStatus === 2,
+                          'status-rejected': data?.applicationStatus === 3,
+                          'status-under-review': data?.applicationStatus === 1,
+                          'status-more-info': data?.applicationStatus === 4,
+                          'status-draft': data?.applicationStatus === 0,
+                          'status-cn-approved': data?.applicationStatus === 7
+                        }"
+                      >
+                        {{ data?.applicationStatus_Name }}
+                      </div>
+
+                    </td>
+
+                    <!-- <td>
+                      <div class="form-group mt-0 mb-0 col-lg-4 text-center">
+                        <button
+                          class="btn btn-sm btn-primary btn-caret-8"
+                          style="width: 100px;font-size: 0.8rem;
+                          font-weight: normal"
+                          [disabled]= 'data?.cardStatus !== 1 || data?.printingStatus ===2'
+                          (click)="showPrintList(data?.fanIdNo)"
+                        >
+                          {{ 'CardPickup.PrintCard' | translate }}
+                        </button>
+                      </div>
+                    </td>
+                    <td style="text-align: center;">
+                      <div class="form-group mt-0 mb-0 col-lg-4 text-center"  *ngIf="showCancelPrint">
+                        <button
+                          class="btn btn-sm btn-primary btn-caret-8"
+                          styel="font-size: 0.8rem;
+                          font-weight: normal"
+                          [disabled]= 'data?.printingStatus !== 2'
+                          (click)="cancelPrint(data?.id)"
+                        >
+                          {{ 'CardPickup.Cp' | translate }}
+                        </button>
+                      </div>
+                      <span *ngIf="!showCancelPrint" >-</span>
+                    </td>
+                    <td>
+                      <div class="form-group mt-0 mb-0 col-lg-4 text-center">
+                        <button
+                          class="btn btn-sm btn-primary btn-caret-8"
+                          styel="font-size: 0.8rem;
+                          font-weight: normal"
+                          [disabled]= 'data?.cardStatus == 1'
+                          (click)="updateCardStatus(data?.fanIdNo,data?.cardStatus)"
+                        >
+                          {{ 'CardPickup.UpdateStat' | translate }}
+                        </button>
+                      </div>
+                    </td> -->
+                    <td>{{ data?.documentIdNo }}</td>
+                    <td>{{ data?.applicationNo }}</td>
+                    <!-- <td>{{ data?.ticketOrderId }}</td>
+                    <td>{{ data?.ticketNo }}</td>
+                    <td>{{ data?.voucherCode }}</td>
+                    <td>{{ data?.submissionType_Name }}</td> -->
+                    <td>{{ data?.printer_Name }}</td>
+                  </tr>
+                  <tr *ngIf="filteredAppdata.length === 0">
+                    <td colspan="10" class="no-data-available">No data available in table</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <fan-id-dt-goto
+              *ngIf="filteredAppdata"
+              class="goto-page" (_go)="gotoPage($event)"
+            ></fan-id-dt-goto>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--#region advanced filter area-->
+<div class="modal popup right fade p-0" id="advFilterModal" tabindex="-1" role="dialog" aria-labelledby="advFilterModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header pl-0 pr-0">
+        <h5 class="modal-title">Advanced Filters</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <img
+      src="/assets/icons/closeNew.svg"
+      alt="close icon"
+    />
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" [formGroup]="CardPickup">
+
+<!-- <div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.ApplicationStatus' | translate }}</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true" class="advDropDown"
+            style="background-color: white !important;"
+            [placeholder]="'AllApplicantsList.ApplicationStatus' | translate"
+            formControlName="appstat" class="form-control" labelForId="appstat" aria-describedby="appstat">
+            <ng-option *ngFor="let appstat of ApplicationStatusNameList" [value]="appstat.value">
+              {{ appstat.translation }}
+            </ng-option>
+    </ng-select>
+</div>
+</div> -->
+       <div class="col-lg-6 col-md-6 col-ms-12">
+        <div class="form-group">
+          <label>{{ 'AllApplicantsList.FanIDNumber' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            style="background-color: white !important;"
+            placeholder="{{ 'AllApplicantsList.FanIDNumber' | translate }}"
+            formControlName="fidno"
+          />
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-ms-12">
+      <div class="form-group">
+        <label>{{ 'AllApplicantsList.FirstName' | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'AllApplicantsList.FirstName' | translate }}"
+          formControlName="fname"
+        />
+    </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-ms-12">
+      <div class="form-group">
+        <label>{{ 'AllApplicantsList.LastName' | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'AllApplicantsList.LastName' | translate }}"
+          formControlName="lname"
+        />
+    </div>
+    </div>
+
+<!-- <div class="col-lg-6 col-md-6 col-ms-12" *ngIf="isServiceCenter">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.MobileNumber' | translate }}</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="{{ 'AllApplicantsList.MobileNumber' | translate }}"
+      formControlName="mobno"
+    />
+</div>
+</div> -->
+
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.FanIDCardStatus' | translate }}</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+            style="background-color: white !important;"
+            [placeholder]="'AllApplicantsList.FanIDCardStatus' | translate"
+            formControlName="fidstat" class="form-control" labelForId="fidstat" aria-describedby="fidstat">
+            <ng-option *ngFor="let cardstat of cardStatusList" [value]="cardstat.value">
+              {{ cardstat.translation }}
+            </ng-option>
+    </ng-select>
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.DocumentNumber' | translate }}</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="{{ 'AllApplicantsList.DocumentNumber' | translate }}"
+      formControlName="docno"
+    />
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.ApplicationNumber' | translate }}</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="{{ 'AllApplicantsList.ApplicationNumber' | translate }}"
+      formControlName="appsno"
+    />
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Printer Name</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Printer Name"
+      formControlName="prntrname"
+    />
+</div>
+</div>
+<!-- <div *ngIf="isServiceCenter" class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Data Error Code</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Data Error Code"
+      formControlName="derrorcode"
+    />
+</div>
+</div>
+<div *ngIf="!isServiceCenter" class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>Organization Category</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Organization Category"
+      formControlName="organizationCategory"
+    />
+  </div>
+</div>
+<div class="col-lg-6 col-md-6 col-ms-12" *ngIf="isServiceCenter">
+  <div class="form-group">
+    <label>Accommodation Type</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true" style="background-color: white !important;"
+      placeholder="Accommodation Type" formControlName="accommodationType" class="form-control"
+      labelForId="accType" aria-describedby="accommodation type">
+      <ng-option *ngFor="let item of accommodationTypes$ | async" [value]="item.value">
+        {{ item.name }}
+      </ng-option>
+    </ng-select>
+  </div>
+</div>
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.Nationality' | translate }}</label>
+   <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+            style="background-color: white !important;"
+            [placeholder]="'AllApplicantsList.Nationality' | translate"
+            formControlName="nat" class="form-control" labelForId="nat" aria-describedby="nat">
+            <ng-option *ngFor="let country of countries | async" [value]="country.code">
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-option>
+          </ng-select>
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.ApplicationDate' | translate }}</label>
+    <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+      <input type="search" formControlName="appdate" name="appdate"
+        [placeholder]="'AllApplicantsList.ApplicationDate' | translate" id="applicationDateBegin" ngbDatepicker #d="ngbDatepicker"
+        class="w-100 form-control" (click)="d.toggle()"
+        [maxDate]="dateToday" />
+        <svg (click)="d.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="bi bi-calendar d-block d-sm-block"
+      >
+        <path
+          d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+          fill="#00CFB7" />
+      </svg>
+    </div>
+</div>
+</div> -->
+<!-- <div class="col-lg-6 col-md-6 col-ms-12">
+  <div class="form-group">
+    <label>{{ 'AllApplicantsList.DocumentType' | translate }}</label>
+    <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+      style="background-color: white !important;"
+      [placeholder]="'AllApplicantsList.DocumentType' | translate"
+      formControlName="doctype" class="form-control" labelForId="doctype" aria-describedby="doctype"
+      dropdownPosition="top"
+    >
+      <ng-option *ngFor="let doc of DocTypeList | async" [value]="doc.id">
+        {{ doc.name }}
+      </ng-option>
+    </ng-select>
+  </div>
+</div> -->
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary m-2"
+        style="width: 140px;" data-dismiss="modal" (click)="onClearFilter()">
+      <span>{{'AllApplicantsList.Clear' | translate}}</span>
+    </button>
+    <button type="button" class="btn btn-primary btn-caret-8 m-2"
+      style ="width: 140px;" data-dismiss="modal" (click)="advancedSearch()">
+      <span>Apply</span>
+    </button>
+    </div>
+  </div>
+</div>
+</div>
+
+<fan-id-card-replacement-dialog
+  *ngIf="replacement_dialog_open"
+  (closeThis)="closeReplacementDialog($event)"
+>
+</fan-id-card-replacement-dialog>
+<fan-id-common-dialogue
+  *ngIf="showCommonDialogue"
+  [Body]="common.body"
+  [Header]="common.header"
+  [FanId] = "common.fanId"
+  (closeThis)="closeCommonDialogue($event)"
+>
+</fan-id-common-dialogue>
+<fan-id-print-card-list-dialogue
+  *ngIf="showPrintListDialogue"
+  (closeThis)="closePrintList()"
+  (showPrint)="printCard($event)"
+  (showIssue)="deliverCard()"
+  [Id] = "this.fanIdnumber"
+></fan-id-print-card-list-dialogue>
+
+<fan-id-common-error-modal
+*ngIf="error_dialog_open"
+[head_error_message] =" 'CardReplacement.CardReplacementRequestFailed'"
+[error_message]="error_message"
+buttontext="Common.Close"
+(closeThis)="closeErrorModel($event)">
+</fan-id-common-error-modal>
+
+<fan-id-update-status-modal
+  *ngIf="updateStatusModalOpen"
+  [fanid] = "fanIdnumber"
+  [cardStatus] = "updateCardStatusId"
+  (closeThis)="closeUpdateStatusDialog($event)"
+>
+</fan-id-update-status-modal>
+<fan-id-common-error-modal
+*ngIf="error_dialog_open_update_status_failed"
+[head_error_message] =" 'UpdateStatsModal.UpdateStatusFailed'"
+[error_message]="error_message"
+buttontext="Common.Close"
+(closeThis)="this.error_dialog_open_update_status_failed = false">
+</fan-id-common-error-modal>
+
+<fan-id-modal-wrapper
+  *ngIf="show_import_status_modal"
+  (closeThis)="show_import_status_modal = false"
+  [title]="'CardPickup.FanIDStatusUpdate' | translate"
+>
+  <fan-id-card-import-status
+  (closeThis)="onCardImportStatusClose($event)"
+  >
+  </fan-id-card-import-status>
+</fan-id-modal-wrapper>
+
+<fan-id-modal-wrapper
+  *ngIf="import_status === 'success'"
+  (closeThis)="import_status = null"
+  [title]="'CardPickup.FanIDStatusUpdate' | translate"
+>
+  <div class="card-import-status">
+    <div class="card-import-status-item">
+      <span>{{ 'Common.RecordsSuccessfull' | translate }}:</span>
+      <span class="text-success">{{ import_status_data?.totatlSuccess ?? 0 }}</span>
+    </div>
+    <div class="card-import-status-item">
+      <span>{{ 'Common.RecordsFailed' | translate }}:</span>
+      <span class="text-danger">{{ import_status_data?.totatlFailed ?? 0 }}</span>
+    </div>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="import_status === 'fail'"
+  [head_error_message] ="'CardPickup.ImportStatusFailed'"
+  [error_message]="import_status_error"
+  buttontext="Common.Close"
+  (closeThis)="this.import_status = null"
+></fan-id-common-error-modal>
+
+<!--Cancel Printing Start-->
+<fan-id-modal-wrapper
+  *ngIf="show_print_cancel_modal"
+  [title]="'CardPickup.Cp' | translate"
+  (closeThis)="show_print_cancel_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'CardPickup.Astcp' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="cancelPrintingQueue(false)">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="print_cancel_error"
+  [head_error_message]="'CardPickup.Cpf'"
+  [error_message]="printCancelErrorMessage"
+  buttontext="Common.Close"
+  (closeThis)="print_cancel_error = false"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="print_cancel_success"
+  head_success_message='CardPickup.Pcs'
+  buttontext="Common.Ok"
+  (closeThis)="cancelPrintSuccess()"
+></fan-id-common-success-modal>
+<!--Cancel Printing End-->
+<!--Print preview direct-->
+<fan-id-print-card-dialogue
+  *ngIf="showDirectPrintPreview"
+  [cardsToPrint]="cardPrintList"
+  [userData] = "cardPrintList"
+  [direct] = "this.directPrint"
+  [reprintBool] = "this.reprintBool"
+  (closeThis)="closePrintCardDialogue()"
+  (showIssue)="showIssueInitiateDialog($event)"
+  (showPrint)="showPrintedInitiateDialog($event)"
+></fan-id-print-card-dialogue>
+
+<!--single success new 04-08-2022-->
+<fan-id-common-success-modal
+  *ngIf="singleSuccessPopup"
+  head_success_message='Print Initiated Successfully'
+  [success_message] = "this.printSingleSuccessMessage"
+  buttontext="Common.Ok"
+  (closeThis)="closeSuccessSinglePopup()"
+></fan-id-common-success-modal>
+<!--single failed new 04-08-2022-->
+<fan-id-common-error-modal
+  *ngIf="singleFailedPopup"
+  head_error_message="Print Failed"
+  [error_message]="this.printSingleFailedMessage"
+  buttontext="Common.Close"
+  (closeThis)="singleFailedClose()"
+></fan-id-common-error-modal>
+
+<!--multiple success list-->
+<fan-id-card-pickup-print-status
+*ngIf="showMultiplePrintList"
+[status]="subStatus"
+(closeThis)="closeMultipleSubmissionStatus($event)"
+>
+</fan-id-card-pickup-print-status>
+<div [ngClass]="showMatchPass?'d-block':'d-none'">
+
+<div #matchPass class="matchpass" id="matchPass" >
+<div class="matchpass-top" style="width:100%; height: 50%;">
+  <img style="width:100%;" src="/assets/matchpass/matchpass-top.jpg">
+
+</div>
+<div class="matchpass-bottom" style="width:100%;; height:50%; display: flex;" >
+  <div class="matchpass-bottom-left" style="width:50% ;">
+    <div style="display:flex; flex-direction:column;">
+      <img style="width: 100%;height: 100%;margin-left: -9.5px;" src="/assets/matchpass/matchpass-bottoml.png">
+      <div class="content">
+        <div class="matchpass-content" style="height: 200mm;border: 1px solid var(--hayya-primary);margin:0 40px;border-top-right-radius: 30px;">
+          <div style="display:flex; height: 50%; ">
+            <img [src]="printMatchPassImage"  (load)="openPdf()" class="" style="width:50%;">
+            <div style="width: 50%;padding-top: 40px;border-top-right-radius: 30px;display: flex;flex-direction: column;align-content: center;align-items: center; border-bottom: 1px solid var(--hayya-primary);"
+            [class.bgColor-blue]="printMatchPassData?.fanIdTypeName =='Organizer'"
+            [class.bgColor-green]="printMatchPassData?.fanIdTypeName !='Organizer'"
+
+            >
+            <!-- [class.bgColor-green]="printMatchPassData?.fanIdTypeName =='Fan'"
+            [class.bgColor-black]="printMatchPassData?.fanIdTypeName=='VIP' || printMatchPassData?.fanIdTypeName=='VVIP'"  -->
+              <qrcode margin="2" style="border-radius: 20px;" elementType="img"  [qrdata]="printMatchPassData?.fanIdNo" cssClass="qr" [width]="230" allowEmptyString="true" [errorCorrectionLevel]="'M'"></qrcode>
+              <div style="width: 100%;height: 40px;font-size: 24px;text-align: center;padding: 20px; font-weight:500;border-top: 1px solid #fbf2f240;margin-top: 40px;"   class="color-Maroon Qatar2022"
+              [class.bgColor-blue]="printMatchPassData?.fanIdTypeName =='Organizer'"
+              [class.bgColor-green]="printMatchPassData?.fanIdTypeName !='Organizer'"
+              [class.color-Maroon]="printMatchPassData?.fanIdTypeName !='Organizer'"
+              [class.color-white]="printMatchPassData?.fanIdTypeName =='Organizer'"
+              >
+              <!-- [class.bgColor-green]="printMatchPassData?.fanIdTypeName =='Fan'"
+              [class.bgColor-black]="printMatchPassData?.fanIdTypeName=='VIP' || printMatchPassData?.fanIdTypeName=='VVIP'"
+              [class.color-Maroon]="printMatchPassData?.fanIdTypeName =='Fan'"
+              [class.color-white]="printMatchPassData?.fanIdTypeName=='VIP' || printMatchPassData?.fanIdTypeName=='VVIP' || printMatchPassData?.fanIdTypeName =='Organizer'"  -->
+              <span *ngIf="printMatchPassData?.fanIdTypeName !='Organizer'">Fan</span>
+              <span *ngIf="printMatchPassData?.fanIdTypeName =='Organizer'">{{printMatchPassData?.fanIdTypeName}}</span>
+            </div>
+
+            </div>
+
+          </div>
+          <div style="display:flex; flex-direction: column; height: 50%; ">
+            <div class="mp-name Qatar2022">
+                <span>{{printMatchPassData?.firstName}}</span> &nbsp; <span>{{printMatchPassData?.lastName}}</span>
+            </div>
+            <div class="mp-block1 " style="height: 35%;">
+              <div class="block-left color-Maroon" style="    border-right: 1px solid var(--hayya-primary);">
+                <span class="Qatar2022 color-Maroon" style="font-size:24px;">Hayya Card Status</span>
+                <span>{{printMatchPassData?.applicationStatus_Name}}</span>
+              </div>
+              <div class="block-left color-Maroon">
+                <span class="Qatar2022 color-Maroon" style="font-size:24px; font-weight: 500;">Hayya Card No</span>
+                <span>{{printMatchPassData?.fanIdNo}}</span>
+
+              </div>
+
+            </div>
+            <div class="mp-block2 " style="height: 35%;">
+              <div class="block-left color-Maroon" style="    border-right: 1px solid var(--hayya-primary);">
+                <span class="Qatar2022 color-Maroon" style="font-size:24px;">Nationality</span>
+                <span>{{printMatchPassData?.nationality_Name}}</span>
+              </div>
+              <div class="block-left color-Maroon">
+                <span class="Qatar2022 color-Maroon" style="font-size:24px;">QID/Passport</span>
+                <span>{{printMatchPassData?.documentIdNo}}</span>
+
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="matchpass-bottom-right"  style="width:50% ; position: relative;">
+    <span style="
+    padding: 7px;
+    position: absolute;
+    background-color: transparent;
+    color: #00000021;
+    ">{{id}}</span>
+    <img style="width: 100%;height: 100%;margin-left: -9.5px;" src="/assets/matchpass/matchpass-bottomr.jpg">
+
+  </div>
+</div>
+</div>
+
+</div>

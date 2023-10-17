@@ -1,0 +1,244 @@
+<div class="edit-application container-fluid">
+    <header class="row">
+      <div class="title col-lg-5 d-flex align-items-center">
+        <button class="btn btn-sm back pl-0">
+          <a href="javascript:void(0)" class="back-ico" fanIdBack title="Back"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 21 21.946"
+            >
+              <g id="arrow-right" transform="translate(1.5 2.121)">
+                <line
+                  id="Line_249"
+                  data-name="Line 249"
+                  x1="18"
+                  transform="translate(0 9.001)"
+                  fill="none"
+                  stroke="#081c3b"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                />
+                <path
+                  id="Path_928"
+                  data-name="Path 928"
+                  d="M20.851,5,12,13.851,20.851,22.7"
+                  transform="translate(-12 -5)"
+                  fill="none"
+                  stroke="#081c3b"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                />
+              </g>
+            </svg>
+            <span class="sr-only">Back</span></a
+          >
+        </button>
+        <div>
+          <h4 class="mb-0">
+            {{ translateKey + ( +submitReasonType === 2 ? '.ResubmitApplication' : '.EditApplication') | translate }}
+          </h4>
+        </div>
+      </div>
+
+      <div
+        class="actions-container col-lg-7 d-flex align-items-center justify-content-end"
+      >
+        <button
+          type="button"
+          class="btn btn-light custom-btn"
+          (click)="clearData()"
+          [hidden]="+submitReasonType === 2"
+          [disabled]="+submitReasonType === 2"
+        >
+          <span class="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <g>
+                <path
+                  fill="#081c3b"
+                  d="M21 33h-7.586l8.293-8.293a1 1 0 0 0 0-1.414l-8-8a1 1 0 0 0-1.414 0l-12 12a1 1 0 0 0 0 1.414l6 6A1 1 0 0 0 7 35h14a1 1 0 1 0 0-2zm-8-15.586L19.586 24 13.8 29.785 7.214 23.2z"
+                  transform="translate(-1136 -206) translate(1137 193)"
+                />
+                <path
+                  fill="none"
+                  d="M0 0H24V24H0z"
+                  transform="translate(-1136 -206) translate(1136 206)"
+                />
+              </g>
+            </svg>
+          </span>
+          <span class="text">
+            {{ translateKey + '.ClearData' | translate }}
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <main class="row">
+      <fan-id-fieldset-wrapper
+        [title]="translateKey + '.ApplicationInformation' | translate"
+      >
+        <fan-id-application-form-local
+          [formGroup]="applicationForm"
+          [translateKey]="translateKey"
+          [metadata$]="metadata$"
+        ></fan-id-application-form-local>
+      </fan-id-fieldset-wrapper>
+
+      <fan-id-fieldset-wrapper
+        [title]="translateKey + '.DocumentInformation' | translate"
+      >
+        <fan-id-upload-document-form-local
+          [formGroup]="uploadDocumentForm"
+          [translateKey]="translateKey"
+          [application_type]="application_type"
+          [isServiceCentre]="isServiceCenter"
+          [disable_form]="+submitReasonType === 2"
+        ></fan-id-upload-document-form-local>
+      </fan-id-fieldset-wrapper>
+
+      <fan-id-fieldset-wrapper
+        [title]="translateKey + '.PersonalInformation' | translate"
+      >
+        <fan-id-personal-information-form-local
+          [formGroup]="personalInfoForm"
+          [translateKey]="translateKey"
+          [application_type]="application_type"
+          [fan_category]="fan_category"
+          [nationality]="nationality"
+          [metadata$]="metadata$"
+          form_type="edit-application"
+          [document_type]="document_type"
+          ></fan-id-personal-information-form-local>
+
+        <!-- <div class="w-100 my-4" *ngIf="isServiceCenter">
+          <h4 class="emergency-title">
+            {{ translateKey + '.EmergencyContactDetails' | translate }}
+          </h4>
+        </div>
+        <fan-id-emergency-contact-form
+          [formGroup]="emergencyContactForm"
+          [translateKey]="translateKey"
+          *ngIf="isServiceCenter"
+          [metadata$]="metadata$"
+          ></fan-id-emergency-contact-form>
+
+        <div class="w-100 my-4" [hidden]="!isServiceCenter">
+          <h4 class="emergency-title">
+            {{ translateKey + '.PreferredCollectionPoint' | translate }}
+          </h4>
+        </div>
+        <fan-id-preferred-collection-point
+          *ngIf="isServiceCenter"
+          [translateKey]="translateKey"
+          [formGroup]="preferredCollectionForm"
+          [metadata$]="metadata$"
+          ></fan-id-preferred-collection-point> -->
+      </fan-id-fieldset-wrapper>
+
+      <!-- <fan-id-fieldset-wrapper
+        [title]="translateKey + '.DeliveryInformation' | translate"
+        *ngIf="!isServiceCenter"
+      >
+        <fan-id-delivery-information-form
+          [translateKey]="translateKey"
+          [formGroup]="deliveryInfoForm"
+        ></fan-id-delivery-information-form>
+      </fan-id-fieldset-wrapper> -->
+
+      <fan-id-fieldset-wrapper
+        [title]="'TermsAndConditions.Terms&Conditions' | translate"
+      >
+        <fan-id-terms-conditions-form
+          [formGroup]="termsForm"
+          [translateKey]="translateKey"
+        ></fan-id-terms-conditions-form>
+      </fan-id-fieldset-wrapper>
+    </main>
+    <div class="row mt-5 footer-actions">
+      <div class="col d-flex justify-content-end">
+        <div class="footer-actions-primary">
+          <button
+            type="button"
+            class="btn btn-light cancel-btn"
+            (click)="show_cancel_modal = true"
+          >
+            {{ translateKey + '.Cancel' | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger submit-btn"
+            (click)="submitForm()"
+          >
+            {{ translateKey + '.Submit' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <fan-id-modal-wrapper
+      *ngIf="show_cancel_modal"
+      [title]="'Common.Alert' | translate"
+      (closeThis)="show_cancel_modal = false"
+    >
+      <div class="cancel-modal-body">
+        <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+        <p>{{ 'Common.AllChangesDoneLost' | translate }}</p>
+        <button type="button" class="btn btn-primary btn-caret-8" (click)="cancel()">
+          {{ 'Common.YesProceed' | translate }}
+        </button>
+      </div>
+    </fan-id-modal-wrapper>
+  </div>
+
+  <fan-id-submit-and-card-detail
+    *ngIf="confirm_submit_open"
+    [type]="'submit'"
+    (closeThis)="closedialog($event)"
+  ></fan-id-submit-and-card-detail>
+
+  <fan-id-common-error-modal
+  *ngIf="applicant_error"
+  head_error_message='CommonError.Error'
+  [error_message]="applicant_error"
+  (closeThis)="redirectToList()">
+  </fan-id-common-error-modal>
+
+  <fan-id-common-error-modal
+  *ngIf="register_error"
+  head_error_message='RegisterError.SubmissionFailed'
+  [error_message]="register_error"
+  (closeThis)="onRegisterError($event)">
+  </fan-id-common-error-modal>
+
+  <fan-id-common-error-modal
+  *ngIf="ocr_error"
+  head_error_message='RegisterError.DocumentVerificationFailed'
+  [error_message]="ocr_error"
+  buttontext="Common.Close"
+  (closeThis)="closeOCRError()">
+  </fan-id-common-error-modal>
+
+  <fan-id-common-success-modal
+  *ngIf="resubmit_success"
+  head_success_message='RegisterSuccess.ResubmitSuccessTitle'
+  success_message="RegisterSuccess.ResubmitSuccessMessage"
+  (closeThis)="redirectToList()">
+  </fan-id-common-success-modal>
+
+<ngx-spinner
+  name="upload-info-image"
+  bdColor="rgba(0,0,0,0.5)"
+  size="default"
+  color="rgba(246,240,240,0.79)"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+></ngx-spinner>

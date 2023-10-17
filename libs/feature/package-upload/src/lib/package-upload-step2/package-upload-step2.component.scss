@@ -1,0 +1,90 @@
+.status-success {
+  padding: 1px 20px;
+}
+
+.status-failed {
+  padding: 1px 27px;
+}
+
+.tableBtn-foot {
+  position: relative;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  padding: 30px 0px;
+  z-index: 0;
+  height: 150px;
+}
+
+.rtol {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+img {
+  object-fit: cover !important;
+}
+
+th {
+  font-weight: bold !important;
+}
+
+.btn-green {
+  background: #00CFB7;
+  height: 48px;
+  width: 48px;
+  border-radius: 0px;
+}
+
+.tri-up {
+  border-color: transparent transparent white transparent;
+  border-style: solid;
+  border-width: 0px 8px 8px 8px;
+  height: 0px;
+  width: 0px;
+}
+
+.ac {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.rotate-1 {
+  transform: rotate(180deg);
+  transition: .5s;
+}
+
+:host {
+  display: block;
+}
+
+.form-note {
+  background-color: transparent;
+  padding: 0rem 1rem;
+  color: var(--hayya-primary);
+  font-size: 12px;
+}
+
+p.form-note-title {
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+
+ol {
+  padding-inline: unset;
+  list-style-position: inside;
+}
+
+li {
+  font-size: 14px;
+  margin-bottom: 0.8rem;
+  list-style-position: outside;
+  margin-left: 1rem;
+}
+
+p.form-note-item {
+  margin-bottom: 0;
+}

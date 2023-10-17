@@ -1,0 +1,58 @@
+<button class="btn btn-sm btn-dark view-history" (click)="open()">
+  <!-- <i class="fa fa-refresh" aria-hidden="true"></i> -->
+  <span>{{ 'ApplicationHistory.ViewApplicationHistory' | translate }}</span>
+</button>
+
+<fan-id-modal-wrapper
+  *ngIf="_open"
+  [title]="'ApplicationHistory.ApplicationHistory' | translate"
+  (closeThis)="close()"
+>
+  <div class="application-history-container">
+    <table id="application-history-table"
+    class="fan-id-datatable w-100"
+    style="border-bottom: 1px solid #eaeaea !important;
+    border-right: 1px solid #eaeaea !important;"
+    aria-describedby="application history"
+  >
+    <thead>
+      <tr>
+        <th>
+          {{ 'ApplicationHistory.Date' | translate }}
+        </th>
+        <th>
+          {{ 'ApplicationHistory.Action' | translate }}
+        </th>
+        <th>
+          {{ 'ApplicationHistory.ServiceCenter' | translate }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="applicationHistoryList?.length && !loading">
+        <tr *ngFor="let data of applicationHistoryList">
+          <td>{{ data?.system_CreatedOn + 'Z' | date: 'dd-MM-yyyy hh:mm:ss a' }}</td>
+          <td>
+            <div
+              class="status-tag"
+              [ngClass]="{
+                'status-rejected': data?.actionType === 3,
+                'status-approved': data?.actionType === 2,
+                'status-under-review': data?.actionType === 1,
+                'status-more-info': data?.actionType === 4
+              }"
+            >{{ data?.actionType_Name }}</div>
+          </td>
+          <td>{{ data?.customerCardApplicationAction_RefSerivceCenter_Code_Name }}</td>
+        </tr>
+      </ng-container>
+      <tr *ngIf="loading">
+        <td colspan="3" class="text-center">Loading...</td>
+      </tr>
+      <tr *ngIf="!applicationHistoryList?.length && !loading">
+        <td colspan="3" class="text-center">No Data</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</fan-id-modal-wrapper>

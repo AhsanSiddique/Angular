@@ -1,0 +1,53 @@
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .right-top-bar {
+    display: flex;
+  }
+}
+
+.align-right {
+  display: flex;
+  align-items: center;
+  color: var(--hayya-primary);
+
+  img {
+    width: 120px;
+    height: 100px;
+    padding-left: 15px;
+    padding-right: initial;
+  }
+}
+
+:host-context([dir='rtl']) {
+  .align-right {
+    img {
+      padding-left: initial;
+      padding-right: 15px;
+    }
+  }
+}
+
+
+.fix-header
+{
+  position: absolute;
+  top: 0;
+  width: calc(100vw - 150px);
+  z-index: 2;
+}
+
+:host-context([dir='rtl']) {
+.title-event {
+  font-size: 22px;
+}
+}
+
+.bottom-header{
+  @media screen {
+    display: block;   }
+
+       @media print {
+    display: none;   }
+}

@@ -1,0 +1,61 @@
+@import '../common-modal.scss';
+
+.download-select-modal {
+  width: 650px;
+  
+  .modalpane-body {
+    padding: 1.5rem 4rem;
+  }
+
+  &__container {
+    padding: 2rem 0 1rem 0;
+    display: grid;
+    gap: 3rem;
+  }
+
+  &__message {
+    text-align: center;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      width: 250px;
+      transform: scale(0.9);
+
+      &:first-child {
+        transform-origin: left;
+      }
+
+      &:last-child {
+        transform-origin: right;
+      }
+    }
+  }
+}
+
+.select-printer-modal {
+  width: 800px;
+  
+  .modalpane-body {
+    padding: 1.5rem 4rem;
+  }
+
+  &__container {
+    padding: 3rem 0 1rem 0;
+    display: grid;
+    gap: 2rem;
+
+    &.mac-found {
+      padding: 1rem 0 1rem 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

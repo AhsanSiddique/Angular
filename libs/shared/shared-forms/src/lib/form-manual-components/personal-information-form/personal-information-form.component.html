@@ -1,0 +1,318 @@
+<form autocomplete="off" class="row personal-information align-items-center" [formGroup]="formGroup">
+  <ng-container *ngIf="{ personalTitleConfig: accreditationPersonalTitleConfig$ | async } as vm">
+    <ng-container *ngIf="vm.personalTitleConfig.hasServiceRule">
+      <!-- Personal Title -->
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+        <label for="personal_title">Personal Title<sup *ngIf="vm.personalTitleConfig.required">*</sup></label>
+        <ng-select
+          [items]="(metadata$ | async)?.titles"
+          bindLabel="name"
+          bindValue="code"
+          [virtualScroll]="true" [clearable]="false"
+          [multiple]="false" [closeOnSelect]="true"
+          placeholder="Select Title" formControlName="title"
+          class="form-control" [ngClass]="{
+            'is-invalid': (pf.title.touched || isExcel) && pf.title.invalid
+          }" labelForId="personal_title" aria-describedby="personal_title"
+        >
+        </ng-select>
+        <div class="invalid-feedback" *ngIf="(pf.title.touched || isExcel )  && pf.title.invalid"
+          style="padding: 0 15px;"
+        >
+          {{ 'Common.EnterTheDetails' | translate }}
+        </div>
+      </div>
+      <!-- Personal Title English -->
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="pf.title?.value === 'OTHR'">
+        <label for="titleEN">Personal Title English<sup>*</sup></label>
+        <input type="text" [patterns]="titleEnMask" [mask]="'0*'" [dropSpecialCharacters]="false"
+          formControlName="titleEN" name="titleEN"
+          placeholder="Enter Title" id="titleEN" class="form-control" [ngClass]="{
+            'is-invalid': (pf.titleEN.touched || isExcel)  && pf.titleEN.invalid,
+            'readonly-input-text': (pf.titleEN.disabled)
+          }" />
+        <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.titleEN"></fan-id-form-field-error>
+      </div>
+      <!-- Personal Title Arabic -->
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="pf.title?.value === 'OTHR'">
+        <label for="titleAR">Personal Title Arabic<sup>*</sup></label>
+        <input type="text" [patterns]="titleArMask" [mask]="'0*'" [dropSpecialCharacters]="false"
+          formControlName="titleAR" name="titleAR"
+          placeholder="Enter Title" id="titleAR" class="form-control" [ngClass]="{
+            'is-invalid': (pf.titleAR.touched || isExcel)  && pf.titleAR.invalid,
+            'readonly-input-text': (pf.titleAR.disabled)
+          }" />
+        <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.titleAR"></fan-id-form-field-error>
+      </div>
+    </ng-container>
+  </ng-container>
+  <!-- #region english names -->
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+    <div>
+      <label for="firstname">{{
+        translateKey + '.FirstName' | translate
+        }}<sup>*</sup></label>
+      <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="firstname" name="firstname"
+        [placeholder]="translateKey + '.EnterFirstName' | translate" id="firstname" class="form-control" [ngClass]="{
+          'is-invalid': (pf.firstname.touched || isExcel )  && pf.firstname.invalid,
+          'readonly-input-text': (pf.firstname.disabled || document_type?.value === 1)
+        }" />
+      <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.firstname"></fan-id-form-field-error>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+    <label for="secondname">{{
+      translateKey + '.SecondName' | translate
+      }}</label>
+    <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="secondname" name="secondname"
+      [placeholder]="translateKey + '.EnterSecondName' | translate" id="secondname" class="form-control" [ngClass]="{
+        'is-invalid': (pf.secondname.touched || isExcel )  && pf.secondname.invalid,
+        'readonly-input-text': (pf.secondname.disabled || document_type?.value === 1 || !pf.firstname.value)
+      }" (change)="onNameChange($event, 'secondname')"/>
+    <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.secondname"></fan-id-form-field-error>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+    <label for="thirdname">{{ translateKey + '.ThirdName' | translate }}</label>
+    <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="thirdname" name="thirdname"
+      [placeholder]="translateKey + '.EnterThirdName' | translate" id="thirdname" class="form-control" [ngClass]="{
+        'is-invalid': (pf.thirdname.touched || isExcel )  && pf.thirdname.invalid,
+        'readonly-input-text': (pf.thirdname.disabled || document_type?.value === 1 || !pf.secondname.value)
+      }" (change)="onNameChange($event, 'thirdname')"/>
+    <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.thirdname"></fan-id-form-field-error>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+    <label for="fourthname">{{
+      translateKey + '.FourthName' | translate
+      }}</label>
+    <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="fourthname" name="fourthname"
+      [placeholder]="translateKey + '.EnterFourthName' | translate" id="fourthname" class="form-control" [ngClass]="{
+        'is-invalid': (pf.fourthname.touched || isExcel )  && pf.fourthname.invalid,
+        'readonly-input-text': (pf.fourthname.disabled || document_type?.value === 1 || !pf.thirdname.value)
+      }" />
+    <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.fourthname"></fan-id-form-field-error>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+    <label for="lastname">{{ translateKey + '.LastName' | translate }}<sup>*</sup></label>
+    <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="lastname" name="lastname"
+      [placeholder]="translateKey + '.EnterLastName' | translate" id="lastname" class="form-control" [ngClass]="{
+        'is-invalid': (pf.lastname.touched || isExcel )  && pf.lastname.invalid,
+        'readonly-input-text': (pf.lastname.disabled || document_type?.value === 1)
+      }" />
+    <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.lastname"></fan-id-form-field-error>
+  </div>
+
+  <!-- #endregion english names -->
+
+  <!-- #region arab names -->
+
+  <ng-container *ngIf="isNationalityArab || isNationalityTravelDocumentArabic">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+      <label for="firstname_ar">الاسم الأول العربي<sup *ngIf="!isVIP">*</sup></label>
+      <input type="text"
+        formControlName="firstname_ar" name="firstname_ar" placeholder="الاسم الأول العربي" id="firstname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': (pf.firstname_ar.touched || isExcel )  && pf.firstname_ar.invalid,
+          'readonly-input-text': pf.firstname_ar.disabled
+        }" />
+      <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.firstname_ar"></fan-id-form-field-error>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+      <label for="secondname_ar">الاسم الثاني العربي</label>
+      <input type="text"
+        formControlName="secondname_ar" name="secondname_ar" placeholder="الاسم الثاني العربي" id="secondname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': (pf.secondname_ar.touched || isExcel )  && pf.secondname_ar.invalid,
+          'readonly-input-text': pf.secondname_ar.disabled || !pf.firstname_ar.value
+        }" (change)="onNameChange($event, 'secondname_ar')"/>
+      <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.secondname_ar"></fan-id-form-field-error>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+      <label for="thirdname_ar">الاسم الثالث العربي</label>
+      <input type="text"
+        formControlName="thirdname_ar" name="thirdname_ar" placeholder="الاسم الثالث العربي" id="thirdname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': (pf.thirdname_ar.touched || isExcel )  && pf.thirdname_ar.invalid,
+          'readonly-input-text': pf.thirdname_ar.disabled || !pf.secondname_ar.value
+        }" (change)="onNameChange($event, 'thirdname_ar')"/>
+      <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.thirdname_ar"></fan-id-form-field-error>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+      <label for="fourthname_ar">الاسم الرابع العربي</label>
+      <input type="text"
+        formControlName="fourthname_ar" name="fourthname_ar" placeholder="الاسم الرابع العربي" id="fourthname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': (pf.fourthname_ar.touched || isExcel )  && pf.fourthname_ar.invalid,
+          'readonly-input-text': pf.fourthname_ar.disabled || !pf.thirdname_ar.value
+        }" />
+      <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.fourthname_ar"></fan-id-form-field-error>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+      <label for="lastname_ar">الاسم الأخير العربي<sup *ngIf="!isVIP">*</sup></label>
+      <input type="text"
+        formControlName="lastname_ar" name="lastname_ar" placeholder="الاسم الأخير العربي" id="lastname_ar"
+        class="form-control" [ngClass]="{
+          'is-invalid': (pf.lastname_ar.touched || isExcel )  && pf.lastname_ar.invalid,
+          'readonly-input-text': pf.lastname_ar.disabled
+        }" />
+      <fan-id-form-field-error [isExcel]="isExcel"  [field_control]="pf.lastname_ar"></fan-id-form-field-error>
+    </div>
+  </ng-container>
+
+  <!-- #endregion arab names -->
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+    <label for="gender">{{
+      translateKey + '.Gender' | translate
+      }}<sup>*</sup></label>
+
+    <ng-select
+      [items]="(metadata$ | async)?.genders"
+      bindLabel="name"
+      bindValue="code"
+      [virtualScroll]="true" [clearable]="false"
+      [multiple]="false" [closeOnSelect]="true"
+      [placeholder]="'PersonalInformation.SelectGender' | translate" formControlName="gender"
+      class="form-control" [ngClass]="{
+        'is-invalid': (pf.gender.touched || isExcel) && pf.gender.invalid
+      }" labelForId="gender" aria-describedby="gender"
+      [readonly]="document_type?.value === 1"
+    >
+    </ng-select>
+    <div class="invalid-feedback" *ngIf="(pf.gender.touched || isExcel )  && pf.gender.invalid"
+      style="padding: 0 15px;"
+    >
+      {{ 'Common.EnterTheDetails' | translate }}
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="!_formExtras.manualUpload">
+    <label for="email"
+      [class.pointer-none]="editApp || isDependent"
+    >{{ translateKey + '.EmailAddress' | translate }}<sup>*</sup></label>
+    <input type="email" email formControlName="email" name="email"
+      [placeholder]="translateKey + '.EnterEmailAddress' | translate" id="email" class="form-control" [ngClass]="{
+        'is-invalid': (pf.email.touched || isExcel )  && pf.email.invalid,
+        'readonly-input-text': editApp || isDependent
+      }"
+      maxlength="60"
+      (blur)="onEmailBlur()"
+      (focus)="onUniqueFieldFocus(pf.email)"
+    />
+
+      <div class="invalid-feedback"
+        *ngIf="(pf.email.touched || isExcel)  && pf.email.hasError('notUnique')"
+        style="padding: 0 15px;"
+      >
+        {{ 'ErrorMessage.EmailInUse' | translate }}
+      </div>
+    <fan-id-form-field-error *ngIf="!pf.email.hasError('notUnique')" [isExcel]="isExcel"  [field_control]="pf.email"></fan-id-form-field-error>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 fields-combo" *ngIf="isServiceCenter">
+    <label for="mobile"
+    [class.pointer-none]="isDependent || pf.phonecode.disabled || editApp"
+    >{{ translateKey + '.MobileNumber' | translate }}<sup>*</sup></label>
+    <div class="input-group">
+      <ng-select [virtualScroll]="true" [clearable]="false" [items]="(metadata$ | async)?.phonecodes"
+        bindValue="dialingCode" bindLabel="dialingCode"
+        [title]="tooltips.phonecode"
+        placeholder="e.g(+974)" formControlName="phonecode" class="form-control input-group-prepend" [ngClass]="{
+          'is-invalid': !mobilefocus && (pf.mobile.touched || isExcel) && pf.mobile.invalid,
+          'disabled-code': isDependent || pf.phonecode.disabled || editApp
+        }" labelForId="phonecode" aria-describedby="phonecode"
+        (change)="onPhoneCodeChange()"
+      >
+
+      <ng-template ng-label-tmp let-item="item">
+        <span
+          title="{{item.name}}: {{item.dialingCode}}"
+          class="flag-icon flag-icon-{{ item.code | lowercase }}"></span>
+      </ng-template>
+
+      <ng-template ng-option-tmp let-item="item"
+        style="min-width: 150px;"
+      >
+        <span class="flag-icon flag-icon-{{ item.code | lowercase }}"></span>
+        <span class="mx-1"> {{ item.name }} </span>
+        <span class="mx-1"> {{ item.dialingCode }} </span>
+      </ng-template>
+      </ng-select>
+
+      <input type="text" mask="0*" formControlName="mobile" name="mobile"
+        [placeholder]="translateKey + '.EnterMobileNumber' | translate" id="mobile" class="form-control" [ngClass]="{
+          'is-invalid': (pf.mobile.touched || isExcel) && pf.mobile.invalid,
+          'readonly-input-text': isDependent || pf.mobile.disabled || editApp
+        }" (focus)="mobilefocus = true" (blur)="mobilefocus = false"
+      />
+      <!-- (blur)onPhoneNumberBlur()" -->
+      <!-- (focus)"onUniqueFieldFocus(pf.mobile)" -->
+      <div class="invalid-feedback"
+        *ngIf="(pf.mobile.touched || isExcel ) && pf.mobile.hasError('notUnique')">
+        {{ 'ErrorMessage.PhoneInUse' | translate }}
+      </div>
+      <fan-id-form-field-error [isExcel]="isExcel" [field_control]="pf.mobile"></fan-id-form-field-error>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="isServiceCenter && document_type?.value !== 1">
+    <div>
+      <label for="contactname">{{
+        'PersonalInformation.EmergencyContactName' | translate
+        }}<sup>*</sup></label>
+      <input type="text" [patterns]="nameMaskPattern" [mask]="'S* S*'" [dropSpecialCharacters]="false" formControlName="contactname" name="contactname"
+        [placeholder]="'PersonalInformation.EmergencyContactName' | translate" id="contactname" class="form-control" [ngClass]="{
+          'is-invalid': (pf.contactname.touched || isExcel )  && pf.contactname.invalid,
+          'readonly-input-text': pf.contactname.disabled
+        }" />
+      <fan-id-form-field-error [isExcel]="isExcel" [field_control]="pf.contactname"></fan-id-form-field-error>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 fields-combo" *ngIf="isServiceCenter && document_type?.value !== 1">
+    <label for="contactnumber">{{
+      'PersonalInformation.EmergencyContact' | translate
+      }}<sup>*</sup></label>
+    <div class="input-group">
+      <ng-select [virtualScroll]="true" [clearable]="false" [items]="(metadata$ | async)?.phonecodes"
+        bindValue="dialingCode" bindLabel="dialingCode"
+        [title]="tooltips.contactcode"
+        placeholder="e.g(+974)" formControlName="contactcode" class="form-control input-group-prepend" [ngClass]="{
+          'is-invalid': !emobilefocus && (pf.contactnumber.touched || isExcel) && pf.contactnumber.invalid,
+          'disabled-code': pf.contactcode.disabled
+        }" labelForId="contactcode" aria-describedby="contactcode"
+        (change)="onContactCodeChange()"
+      >
+        <ng-template ng-label-tmp let-item="item">
+          <span class="flag-icon flag-icon-{{ item.code | lowercase }}"></span>
+        </ng-template>
+
+        <ng-template ng-option-tmp let-item="item"
+          style="min-width: 150px;"
+        >
+          <span class="flag-icon flag-icon-{{ item.code | lowercase }}"></span>
+          <span class="mx-1"> {{ item.name }} </span>
+          <span class="mx-1"> {{ item.dialingCode }} </span>
+        </ng-template>
+      </ng-select>
+
+      <input type="text" mask="0*" formControlName="contactnumber" name="contactnumber"
+        [placeholder]="'PersonalInformation.EmergencyContact' | translate" id="contactnumber" class="form-control" [ngClass]="{
+          'is-invalid': ((pf.contactnumber.touched || isExcel ) && pf.contactnumber.invalid) ||
+          (formGroup.hasError('invalidContactNumber') && pf.contactnumber.valid),
+          'readonly-input-text': pf.contactnumber.disabled
+        }" (focus)="emobilefocus = true" (blur)="emobilefocus = false" />
+      <fan-id-form-field-error [isExcel]="isExcel" [field_control]="pf.contactnumber"></fan-id-form-field-error>
+      <div class="invalid-feedback" style="bottom: -2.25rem;" *ngIf="formGroup.hasError('invalidContactNumber') && pf.contactnumber.valid">
+        {{ 'ErrorMessage.NotSameContact' | translate }}
+      </div>
+    </div>
+  </div>
+</form>

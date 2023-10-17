@@ -1,0 +1,33 @@
+<div class="modalpane-wrapper">
+
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <div class="modalpane-closebtn" *ngIf="hasCloseButton">
+        <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon" (click)="closeThis.emit('no')" />
+      </div>
+      <h4 class="font-24 text-center" style="color: var(--hayya-primary); font-weight: bold">
+        {{ title }}
+      </h4>
+    </div>
+    <p class="text-center">
+      {{ message }}
+    </p>
+
+    <div class="modalpane-footer">
+      <ng-container *ngIf="footerActionType === 1">
+        <button class="btn btn-secondary" (click)="closeThis.emit('no')">
+          <span>No</span>
+        </button>
+        <button class="btn btn-primary btn-caret-8" (click)="closeThis.emit('yes')">
+          Yes
+        </button>
+      </ng-container>
+      <ng-container *ngIf="footerActionType === 2">
+        <button class="btn btn-primary btn-caret-8" (click)="closeThis.emit('yes')">
+          {{ okText }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>

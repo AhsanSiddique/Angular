@@ -1,0 +1,10 @@
+@import '../common-modal.scss';
+
+.modalpane-wrapper {
+  max-width: 655px;
+  z-index: 100;
+
+  .modalpane-footer {
+    margin-top: 2rem;
+  }
+}

@@ -1,0 +1,304 @@
+<ng-container *ngIf="{
+  config: accreditationFieldsConfig$ | async,
+  belongings: belongingList$ | async,
+  venues: venueList$ | async,
+  zones: zoneList$ | async,
+  organizations: organizationList$ | async,
+  categories: categoryList$ | async
+} as vm">
+  <form autocomplete="off" class="row personal-information align-items-center accreditation-information" [formGroup]="formGroup">
+    <!-- conference_categories -->
+    <ng-container *ngIf="vm.config?.conference_categories as config">
+      <ng-container *ngIf="config?.hasServiceRule">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_categories">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <ng-select
+            [items]="(categoryList$ | async)!"
+            bindLabel="enDesc"
+            bindValue="code"
+            [virtualScroll]="true" [clearable]="false"
+            [multiple]="config.selectionType === 'Multi Selection'" [closeOnSelect]="true"
+            [placeholder]="config.placeholder" formControlName="conference_categories"
+            class="form-control" [ngClass]="{
+              'is-invalid': (acf.conference_categories.touched || isExcel) && acf.conference_categories.invalid
+            }" labelForId="conference_categories" aria-describedby="conference_categories"
+            (change)="onConferenceCategoryChange($event)"
+          >
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="(acf.conference_categories.touched || isExcel )  && acf.conference_categories.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_functions -->
+    <ng-container *ngIf="vm.config?.conference_functions as config">
+      <ng-container *ngIf="config?.hasServiceRule">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_functions">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <ng-select
+            [items]="(categoryFunctionList$ | async)!"
+            bindLabel="enDesc"
+            bindValue="code"
+            [virtualScroll]="true" [clearable]="false"
+            [multiple]="config.selectionType === 'Multi Selection'" [closeOnSelect]="true"
+            [placeholder]="config.placeholder" formControlName="conference_functions"
+            class="form-control" [ngClass]="{
+              'is-invalid': (acf.conference_functions.touched || isExcel) && acf.conference_functions.invalid
+            }" labelForId="conference_functions" aria-describedby="conference_functions"
+          >
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="(acf.conference_functions.touched || isExcel )  && acf.conference_functions.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_function -->
+    <ng-container *ngIf="vm.config?.conference_function as config">
+      <ng-container *ngIf="config?.hasServiceRule">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_function">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <input type="text" formControlName="conference_function" name="conference_function"
+            [patterns]="englishNamePattern" [mask]="'0*'" [dropSpecialCharacters]="false"
+            [placeholder]="config.placeholder" id="conference_function" class="form-control" [ngClass]="{
+              'is-invalid': acf.conference_function.touched && acf.conference_function.invalid
+            }"
+          />
+          <div class="invalid-feedback" *ngIf="(acf.conference_function.touched || isExcel )  && acf.conference_function.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_functionAr -->
+    <ng-container *ngIf="vm.config?.conference_functionAr as config">
+      <ng-container *ngIf="config?.hasServiceRule">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_functionAr">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <input type="text" formControlName="conference_functionAr" name="conference_functionAr"
+            [patterns]="arabicNamePattern" [mask]="'0*'" [dropSpecialCharacters]="false"
+            [placeholder]="config.placeholder" id="conference_functionAr" class="form-control" [ngClass]="{
+              'is-invalid': acf.conference_functionAr.touched && acf.conference_functionAr.invalid
+            }"
+          />
+          <div class="invalid-feedback" *ngIf="(acf.conference_functionAr.touched || isExcel )  && acf.conference_functionAr.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_organizations -->
+    <ng-container *ngIf="vm.config?.conference_organizations as config">
+      <ng-container *ngIf="config?.hasServiceRule">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_organizations">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <ng-select
+            [items]="(organizationList$ | async)!"
+            bindLabel="englishName"
+            bindValue="id"
+            [virtualScroll]="true" [clearable]="false"
+            [multiple]="config.selectionType === 'Multi Selection'" [closeOnSelect]="true"
+            [placeholder]="config.placeholder" formControlName="conference_organizations"
+            class="form-control" [ngClass]="{
+              'is-invalid': (acf.conference_organizations.touched || isExcel) && acf.conference_organizations.invalid
+            }" labelForId="conference_organizations" aria-describedby="conference_organizations"
+          >
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="(acf.conference_organizations.touched || isExcel )  && acf.conference_organizations.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_organization -->
+    <ng-container *ngIf="vm.config?.conference_organization as config">
+      <ng-container *ngIf="config?.hasServiceRule">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_organization">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <input type="text" formControlName="conference_organization" name="conference_organization"
+            [patterns]="englishNamePattern" [mask]="'0*'" [dropSpecialCharacters]="false"
+            [placeholder]="config.placeholder" id="conference_organization" class="form-control" [ngClass]="{
+              'is-invalid': acf.conference_organization.touched && acf.conference_organization.invalid
+            }"
+          />
+          <div class="invalid-feedback" *ngIf="(acf.conference_organization.touched || isExcel )  && acf.conference_organization.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_organizationAr -->
+    <ng-container *ngIf="vm.config?.conference_organizationAr as config">
+      <ng-container *ngIf="config?.hasServiceRule">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_organizationAr">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <input type="text" formControlName="conference_organizationAr" name="conference_organizationAr"
+            [patterns]="arabicNamePattern" [mask]="'0*'" [dropSpecialCharacters]="false"
+            [placeholder]="config.placeholder" id="conference_organizationAr" class="form-control" [ngClass]="{
+              'is-invalid': acf.conference_organizationAr.touched && acf.conference_organizationAr.invalid
+            }"
+          />
+          <div class="invalid-feedback" *ngIf="(acf.conference_organizationAr.touched || isExcel )  && acf.conference_organizationAr.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_zones -->
+    <ng-container *ngIf="vm.config?.conference_zones as config">
+      <ng-container *ngIf="config?.hasServiceRule && vm.zones?.length > 0">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_zones">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <ng-select
+            [items]="vm.zones"
+            bindLabel="enDesc"
+            bindValue="id"
+            [virtualScroll]="true" [clearable]="false"
+            [multiple]="config.selectionType === 'Multi Selection'" [closeOnSelect]="config.selectionType !== 'Multi Selection'"
+            [placeholder]="config.placeholder" formControlName="conference_zones"
+            class="form-control" [ngClass]="{
+              'is-invalid': (acf.conference_zones.touched || isExcel) && acf.conference_zones.invalid
+            }" labelForId="conference_zones" aria-describedby="conference_zones"
+          >
+            <ng-container *ngIf="config.selectionType === 'Multi Selection'">
+              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                <div class="d-flex align-items-center">
+                  <input id="cz-item-{{index}}" type="checkbox" name="cz-item-{{index}}" [(ngModel)]="item$.selected"
+                    [ngModelOptions]="{standalone: true}" />
+                  <span class="mb-0 px-1" for="cz-item-{{index}}">{{ item.enDesc }}</span>
+                </div>
+              </ng-template>
+            </ng-container>
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="(acf.conference_zones.touched || isExcel )  && acf.conference_zones.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_belongings -->
+    <ng-container *ngIf="vm.config?.conference_belongings as config">
+      <ng-container *ngIf="config?.hasServiceRule && vm.belongings?.length > 0">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_belongings">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <ng-select
+            [items]="vm.belongings"
+            bindLabel="enDesc"
+            bindValue="id"
+            [virtualScroll]="true" [clearable]="false"
+            [multiple]="config.selectionType === 'Multi Selection'" [closeOnSelect]="config.selectionType !== 'Multi Selection'"
+            [placeholder]="config.placeholder" formControlName="conference_belongings"
+            class="form-control" [ngClass]="{
+              'is-invalid': (acf.conference_belongings.touched || isExcel) && acf.conference_belongings.invalid
+            }" labelForId="conference_belongings" aria-describedby="conference_belongings"
+          >
+            <ng-container *ngIf="config.selectionType === 'Multi Selection'">
+              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                <div class="d-flex align-items-center">
+                  <input id="cb-item-{{index}}" type="checkbox" name="cb-item-{{index}}" [(ngModel)]="item$.selected"
+                    [ngModelOptions]="{standalone: true}" />
+                  <span class="mb-0 px-1" for="cb-item-{{index}}">{{ item.enDesc }}</span>
+                </div>
+              </ng-template>
+            </ng-container>
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="(acf.conference_belongings.touched || isExcel )  && acf.conference_belongings.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_venues -->
+    <ng-container *ngIf="vm.config?.conference_venues as config">
+      <ng-container *ngIf="config?.hasServiceRule && vm.venues?.length > 0">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_venues">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <ng-select
+            [items]="vm.venues"
+            bindLabel="enDesc"
+            bindValue="id"
+            [virtualScroll]="true" [clearable]="false"
+            [multiple]="config.selectionType === 'Multi Selection'" [closeOnSelect]="config.selectionType !== 'Multi Selection'"
+            [placeholder]="config.placeholder" formControlName="conference_venues"
+            class="form-control" [ngClass]="{
+              'is-invalid': (acf.conference_venues.touched || isExcel) && acf.conference_venues.invalid
+            }" labelForId="conference_venues" aria-describedby="conference_venues"
+          >
+            <ng-container *ngIf="config.selectionType === 'Multi Selection'">
+              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                <div class="d-flex align-items-center">
+                  <input id="cv-item-{{index}}" type="checkbox" name="cv-item-{{index}}" [(ngModel)]="item$.selected"
+                    [ngModelOptions]="{standalone: true}" />
+                  <span class="mb-0 px-1" for="cv-item-{{index}}">{{ item.enDesc }}</span>
+                </div>
+              </ng-template>
+            </ng-container>
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="(acf.conference_venues.touched || isExcel )  && acf.conference_venues.invalid"
+            style="padding: 0 15px;"
+          >
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <!-- conference_representing_country -->
+    <ng-container *ngIf="vm.config?.conference_representing_country as config">
+      <ng-container *ngIf="config?.hasServiceRule">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="conference_representing_country">{{ config.label }}<sup *ngIf="config.required">*</sup></label>
+          <ng-select
+            [items]="(metadata$ | async)?.countries"
+            bindLabel="name"
+            bindValue="code"
+            [virtualScroll]="true"
+            [clearable]="false"
+            [placeholder]="config.placeholder"
+            formControlName="conference_representing_country"
+            class="form-control" [ngClass]="{
+              'is-invalid': (acf.conference_representing_country.touched || isExcel )  && acf.conference_representing_country.invalid
+            }" labelForId="conference_representing_country" aria-describedby="conference_representing_country"
+            [searchFn]="nationalitySearchFn"
+          >
+            <ng-template ng-label-tmp let-country="item" >
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-template>
+            <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-template>
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="(acf.conference_representing_country.touched || isExcel )  && acf.conference_representing_country.invalid">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </form>
+  <!-- <div class="w-100">{{ acf.conference_belongings.value | json }}</div>
+  <div class="w-100">{{ vm.config.conference_belongings | json }}</div> -->
+</ng-container>

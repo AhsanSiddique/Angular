@@ -1,0 +1,48 @@
+<div class="loader">
+  <div class="loader-content">
+    <div class="submission-paneClose">
+      <img
+        src="/assets/icons/close 001.svg"
+        style="width: 32px"
+        alt="close icon"
+        (click)="closeThis.emit()"
+      />
+    </div>
+    <div class="submitPane">
+      <div class="paneBody">
+        <div class="paneHeader">
+          <h4 class="font-24 Qatar2022" style="color: var(--hayya-primary); font-weight: 900">
+            Voucher Generation Status
+          </h4>
+        </div>
+        <!-- <div class="row data-center">
+          <div col-md-6>Total:</div>
+          <div col-md-6>
+            <span class="text">{{ status.totalCount }}</span>
+          </div>
+        </div> -->
+        <div class="row data-center">
+          <div col-md-6 >Records Successful:</div>
+          <div col-md-6>
+            <span>{{ status.totatlSuccess }}</span>
+          </div>
+        </div>
+        <div class="row data-center">
+          <div col-md-6>Records Failed:</div>
+          <div col-md-6>
+            <span>{{ status.totatlFailed }}</span>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+          <button class="btn btn-sm btn-primary" (click)="exportFailedRecords()"  *ngIf="status?.totatlFailed > 0">
+            <span class="pb-1">Export Failed Records</span>
+          </button>
+          <button style="width: 47% !important" class="btn btn-sm btn-primary" (click)="closeThis.emit()"  *ngIf="status?.totatlFailed === 0">
+            <span class="pb-1">Close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="loader-backdrop"></div>
+</div>

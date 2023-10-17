@@ -1,0 +1,53 @@
+:host {
+  --primary-color: var(--hayya-primary);
+  display: block;
+  width: 100%;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  .fieldset-title {
+    position: relative;
+
+    &-index {
+      display: grid;
+      place-content: center;
+      place-items: center;
+      position: absolute;
+      left: 0;
+      transform: translateX(calc(-50% - 1rem));
+
+      span {
+        position: absolute;
+        color: #fff;
+        font-size: 1.25rem;
+        // transform: translate(-1px, 2px);
+      }
+    }
+
+    &-text {
+      padding: 1rem 2rem;
+      background-color: #fff;
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+  }
+
+  .title-disabled {
+    opacity: 0.5;
+  }
+
+  section {
+    padding: 2rem;
+    position: relative;
+  }
+
+  &.section-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

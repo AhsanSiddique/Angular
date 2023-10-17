@@ -1,0 +1,101 @@
+<div class="loader">
+  <div class="loader-content">
+    <div class="submission-paneClose">
+      <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon" (click)="closeThis.emit('close')" />
+    </div>
+    <div class="submitPane">
+      <div class="paneBody">
+        <h4 class="font-24" style="color: var(--hayya-primary); font-weight: 800">Add User</h4>
+        <div class="paneHeader">
+          <form [formGroup]="form">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group col d-flex flex-column px-0">
+                  <label for="userRole">
+                    User Role
+                  </label>
+                  <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+                    placeholder="Select User Role" formControlName="userRole" class="form-control" labelForId="userRole"
+                    aria-describedby="userRole" [ngClass]="{
+                                        'is-invalid':
+                                        form.get('userRole').touched &&
+                                        form.get('userRole').invalid
+                                      }" placeholder="Select a User Role">
+                    <ng-option *ngFor="let role of populatedList" [value]="role.id">
+                      {{ role.name }}
+                    </ng-option>
+                  </ng-select>
+                  <span class="invalid-feedback">Please Select a User Role</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="read-only" for="email">Email ID</label>
+                  <input type="text" class="text-area fl-name form-control" formControlName="email" name="email"
+                    id="email" [ngClass]="{
+                          'is-invalid':
+                            form.get('email').touched &&
+                            form.get('email').invalid,
+                          hasValue: this.form.get('email').value
+                        }" [placeholder]="'Enter the Email ID'" />
+
+                  <div class="invalid-feedback" *ngIf="form.get('email').errors?.required">
+                    Email ID is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <label class="control-label">Select Access Type</label>
+                <div class="common-radio radio-group row">
+                  <div class="col-2">
+                    <div class="radio-btn">
+                      <input type="radio" class="d-none"
+                        id="newAccessTypeFull" [value]="2" formControlName="newAccessType"
+                      />
+                      <label for="newAccessTypeFull" >
+                        <span class="radio"></span>
+                        <span style="font-size: 0.8rem !important">
+                          Full
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="radio-btn">
+                      <input type="radio" class="d-none"
+                        id="newAccessTypeLimited" [value]="1" formControlName="newAccessType"
+                      />
+                      <label for="newAccessTypeLimited">
+                        <span class="radio"></span>
+                        <span style="font-size: 0.8rem !important">
+                          Limited
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="login-validation" *ngIf="showOrgError">
+              <span>{{showOrgError}}</span>
+            </div>
+            <div class="mt-4">
+              <button type="button" class="btn btn-secondary mr-2"
+                (click)="closeThis.emit('close')" style="width: 25%">
+                <span> {{ 'Common.Cancel' | translate }}</span>
+              </button>
+              <button type="submit" class="btn btn-primary btn-sm btn-submit ml-1" style="width: 25%"
+                [disabled]="!form.valid" (click)="inviteOrganizationUser()">
+                {{ 'Common.Submit' | translate }}
+              </button>
+            </div>
+            <br />
+            <div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="loader-backdrop"></div>
+</div>

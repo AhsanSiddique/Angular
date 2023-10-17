@@ -1,0 +1,69 @@
+<form [formGroup]="formGroup" autocomplete="off" class="emergency-contact-form">
+  <div formArrayName="emergency_contacts">
+    <div *ngFor="let control of efControls; index as i">
+      <div [formGroupName]="i" class="row p-0 align-items-center">
+        <div class="emergency-contact__title w-100">
+          {{ translateKey + '.Contact' | translate }} {{ i + 1 }}
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+          <label [for]="'fullname' + (i + 1)">{{
+            translateKey + '.FullName' | translate
+            }}<sup *ngIf="i === 0 && !isVIP">*</sup></label>
+          <input type="text" [mask]="'S* S* S* S* S*'" [dropSpecialCharacters]="false" formControlName="fullname"
+            [name]="'fullname' + (i + 1)" [placeholder]="translateKey + '.EnterFullName' | translate"
+            [id]="'fullname' + (i + 1)" class="form-control" [ngClass]="{
+              'is-invalid':
+                control.controls.fullname?.touched &&
+                control.controls.fullname?.invalid
+            }" />
+          <!-- <div class="invalid-feedback" *ngIf="
+              control.controls.fullname?.touched &&
+              control.controls.fullname?.invalid
+            ">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div> -->
+          <fan-id-form-field-error [field_control]="control.controls.fullname"></fan-id-form-field-error>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 fields-combo">
+          <div>
+            <label [for]="'country_code' + (i + 1)">{{
+              translateKey + '.CountryCode' | translate
+              }}<sup *ngIf="i === 0 && !isVIP">*</sup></label>
+
+            <ng-select [virtualScroll]="true" [clearable]="false" placeholder="e.g(+974)" formControlName="country_code"
+              class="form-control phonecode" [ngClass]="{
+                'is-invalid':
+                  control.controls.country_code?.touched &&
+                  control.controls.country_code?.invalid
+              }" [labelForId]="'country_code' + (i + 1)" aria-describedby="country_code">
+              <ng-option *ngFor="let phonecode of (metadata$ | async)?.phonecodes" [value]="phonecode.dialingCode">
+                <span class="flag-icon flag-icon-{{ phonecode.code | lowercase }}"></span>
+                <span class="mx-1"> {{ phonecode.dialingCode }} </span>
+              </ng-option>
+            </ng-select>
+          </div>
+          <div>
+            <label [for]="'mobile' + (i + 1)">{{
+              translateKey + '.MobileNumber' | translate
+              }}<sup *ngIf="i === 0 && !isVIP">*</sup></label>
+            <input type="text" mask="0*" formControlName="mobile" [name]="'mobile' + (i + 1)"
+              [placeholder]="translateKey + '.MobileNumber' | translate" [id]="'mobile' + (i + 1)" class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (control.controls.mobile?.touched &&
+                  control.controls.mobile?.invalid) ||
+                  ((_mobile?.value && control.controls.mobile?.value) && ((_phonecode?.value ?? '') + _mobile?.value) === (control.controls.country_code?.value ?? '') + control.controls.mobile?.value)
+              }" />
+            <fan-id-form-field-error [field_control]="control.controls.mobile"></fan-id-form-field-error>
+            <div class="invalid-feedback" *ngIf="
+              ((_mobile?.value && control.controls.mobile?.value) && ((_phonecode?.value ?? '') + _mobile?.value) === (control.controls.country_code?.value ?? '') + control.controls.mobile?.value)
+            ">
+            {{ 'ErrorMessage.EnterValidDetails' | translate }}
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

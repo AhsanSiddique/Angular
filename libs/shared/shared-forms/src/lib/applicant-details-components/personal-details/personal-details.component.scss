@@ -1,0 +1,25 @@
+@import '../applicant-details-common.scss';
+
+:host {
+  display: block;
+}
+
+.personal-information {
+  .row > .col {
+    margin-bottom: 1rem;
+  }
+
+  .field-group {
+    display: grid;
+    grid-template-columns: 90px auto;
+    column-gap: 1rem;
+  }
+
+  ng-select {
+    &.country-code {
+      .ng-arrow-wrapper {
+        display: none;
+      }
+    }
+  }
+}

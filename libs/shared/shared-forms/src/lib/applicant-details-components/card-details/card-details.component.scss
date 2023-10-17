@@ -1,0 +1,11 @@
+@import '../applicant-details-common.scss';
+
+:host {
+  display: block;
+}
+
+.card-detail-info {
+  .row > .col {
+    margin-bottom: 1rem;
+  }
+}

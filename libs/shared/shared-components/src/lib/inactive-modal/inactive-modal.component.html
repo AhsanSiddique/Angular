@@ -1,0 +1,25 @@
+
+<div class="modalpane-wrapper">
+
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <h4 class="font-25 text-center Qatar2022" style="color: var(--hayya-primary); font-weight: 700">
+        Session Expired!
+      </h4>
+    </div>
+    <h6 class="text-center">
+Your session is about to expire due to inactivity.
+<!-- <br>Please click continue to stay logged in. -->
+    </h6>
+
+    <div class="modalpane-footer">
+      <button class="btn btn-secondary " (click)="closeLogout()">
+        <span>Sign Out</span>
+      </button>
+      <button class="ml-2 btn btn-primary btn-caret-8" (click)="continue()">
+        Stay Signed In
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>

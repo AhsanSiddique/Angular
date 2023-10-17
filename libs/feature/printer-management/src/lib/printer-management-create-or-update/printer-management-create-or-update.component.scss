@@ -1,0 +1,9 @@
+.Edit-Profile .card {
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}

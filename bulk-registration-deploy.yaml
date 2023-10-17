@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: sc-fanid-dev
+  name: bulkregistration
+  labels:
+    app: bulkregistration
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: bulkregistration
+      labels:
+        app: bulkregistration
+    spec:
+      securityContext:
+        runAsUser: 101
+        fsGroup: 101
+      nodeSelector:
+        'beta.kubernetes.io/os': linux
+      containers:
+        - name: bulkregistration-pod
+          image: devweregistry.azurecr.io/mannai_mobility/fid_service-center:#{Build.BuildId}#-br
+          resources:
+            limits:
+              cpu: 1
+              memory: 800M
+            requests:
+              cpu: .1
+              memory: 150M
+          ports:
+          - containerPort: 80
+          - containerPort: 8443
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8443
+              scheme: HTTPS
+            periodSeconds: 5
+            timeoutSeconds: 1
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8443
+              scheme: HTTPS
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /
+              port: 8443
+              scheme: HTTPS
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          env:
+            - name: "env"
+              value: "dev"
+          securityContext:
+            allowPrivilegeEscalation: false
+  selector:
+    matchLabels:
+      app: bulkregistration

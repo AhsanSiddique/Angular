@@ -1,0 +1,212 @@
+<form autocomplete="off" class="row m-0 p-0 application-form" [formGroup]="formGroup">
+  <ng-container *ngIf="isServiceCentre">
+    <div class="form-row mx-0" style="position: relative">
+      <div class="form-group">
+        <label class="mb-3">{{ 'ApplicationInformation.ResidentType' | translate }}<sup>*</sup></label>
+        <div class="radio-group">
+          <div class="radio-btn" *ngFor="let application_type of (metadata$ | async)?.application_types">
+            <input type="radio" class="d-none" formControlName="application_type"
+              id="application_type_{{ application_type.code }}" [value]="application_type.code"
+            />
+            <label for="application_type_{{ application_type.code }}"
+              [class.radio-disabled]="application_type.code === 'QRC' && disableQRC"
+            >
+              <span class="radio"></span>
+              <span>
+                {{ application_type.name }}
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="invalid-feedback application-type-error" *ngIf="(application_type.touched || isExcel) && application_type.invalid">
+        {{ 'ApplicationInformation.PleaseSelectResidentType' | translate }}
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="{
+    metadata: metadata$ | async,
+    t: selectedFanCategory$ | async,
+    conferenceProfileList: conferenceProfileList$ | async,
+    conferenceProfileListLoading: conferenceProfileListLoading$ | async
+  } as vm">
+    <ng-container *ngIf="!isServiceCentre">
+      <div class="row br-fields w-100">
+        <!-- Category of Hayya Visit -->
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="fancategory">
+            Category of Hayya Visit<sup>*</sup>
+          </label>
+          <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+            [placeholder]="'Category of Hayya Visit'" formControlName="fan_category"
+            class="form-control" [ngClass]="{
+              'is-invalid': (fan_category.touched || isExcel) && fan_category.invalid
+            }" labelForId="fancategory" aria-describedby="fancategory">
+            <ng-option *ngFor="let category of hayyaVisitCategories$ | async" [value]="category.code">
+              {{ category.name }}
+            </ng-option>
+          </ng-select>
+          <div class="invalid-feedback" style="right: 0" *ngIf="(fan_category.touched || isExcel)  && fan_category.invalid">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+        <ng-container *ngIf="!b2bVisaType || b2bVisaType === 'CONFERENCE'">
+          <!-- Conference List -->
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+            <label for="conference_name">Conference List<sup>*</sup></label>
+            <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+              placeholder="Conference List" formControlName="conference_name"
+              class="form-control" [ngClass]="{
+                'is-invalid': (conference_name.touched || isExcel) && conference_name.invalid
+              }" labelForId="conference_name" aria-describedby="conference_name"
+            >
+              <ng-option *ngFor="let event of conferenceEventList$ | async" [value]="event.confrenceId">
+                {{ event.name_EN }}
+              </ng-option>
+            </ng-select>
+            <div class="invalid-feedback" style="right: 0" *ngIf="(conference_name.touched || isExcel)  && conference_name.invalid">
+              {{ 'Common.EnterTheDetails' | translate }}
+            </div>
+          </div>
+          <!-- Applicant Category -->
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="conferenceType !== 'PUBLIC'">
+            <label for="usercategory">
+              Applicant Category<sup>*</sup>
+            </label>
+            <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+              [placeholder]="'Applicant Category'" formControlName="user_category"
+              class="form-control" [ngClass]="{
+                'is-invalid': (user_category.touched || isExcel) && user_category.invalid
+              }" labelForId="usercategory" aria-describedby="usercategory">
+              <ng-option *ngFor="let category of hayyaCategories$ | async" [value]="category.code">
+                {{ category.name }}
+              </ng-option>
+            </ng-select>
+            <div class="invalid-feedback" style="right: 0" *ngIf="(user_category.touched || isExcel)  && user_category.invalid">
+              {{ 'Common.EnterTheDetails' | translate }}
+            </div>
+          </div>
+          <!-- Conference Profile -->
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="conferenceType === 'PUBLIC'">
+            <label for="conferenceProfile">Conference Profile<sup>*</sup></label>
+            <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+              placeholder="Conference Profile" formControlName="conference_profile"
+              class="form-control" [ngClass]="{
+                'is-invalid': (conference_profile.touched || isExcel) && conference_profile.invalid
+              }" labelForId="conferenceProfile" aria-describedby="conferenceProfile"
+              [loading]="vm.conferenceProfileListLoading"
+              bindLabel="profileEnName" [items]="vm.conferenceProfileList"
+              (change)="onConferenceProfileChange($event)"
+            >
+            </ng-select>
+            <div class="invalid-feedback" style="right: 0" *ngIf="(conference_profile.touched || isExcel)  && conference_profile.invalid">
+              {{ 'Common.EnterTheDetails' | translate }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="b2bVisaType === 'VISA' && !vm.t?.purposeOfVisitExcluded">
+          <!-- Purpose of Visit -->
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+            <label for="purpose_visit">Purpose of Visit<sup>*</sup></label>
+            <ng-select
+              [items]="vm.metadata?.purpose_of_visit || []"
+              bindLabel="name"
+              bindValue="code"
+              [virtualScroll]="true"
+              [clearable]="false"
+              [searchable]="true"
+              [placeholder]="'Select Purpose of Visit'" formControlName="purpose_visit"
+              class="form-control" [ngClass]="{
+                'is-invalid': (purpose_visit.touched || isExcel) && purpose_visit.invalid
+              }" labelForId="purpose_visit" aria-describedby="purpose_visit"
+            >
+            </ng-select>
+            <div class="invalid-feedback" style="right: 0" *ngIf="(purpose_visit.touched || isExcel) && purpose_visit.invalid">
+              {{ 'Common.EnterTheDetails' | translate }}
+            </div>
+          </div>
+          <!-- other purpose of visit -->
+          <ng-container *ngIf="purpose_visit.value === 'OTE'">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+              <label for="purpose_visit_other">Other Purpose of Visit<sup>*</sup></label>
+              <input type="text" formControlName="purpose_visit_other" name="purpose_visit_other"
+                [placeholder]="'Other Purpose of Visit'" id="purpose_visit_other" class="form-control" [ngClass]="{
+                  'is-invalid': (purpose_visit_other.touched || isExcel) && purpose_visit_other.invalid
+                }" />
+              <div class="invalid-feedback" *ngIf="(purpose_visit_other.touched || isExcel)  && purpose_visit_other.invalid">
+                {{ 'Common.EnterTheDetails' | translate }}
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="vm.selectedApplicantCategory?.accreditationRequired">
+          <label for="accreditation">
+            Does this Applicant Require Accreditation<sup>*</sup>
+          </label>
+          <div class="radio-group">
+            <div class="radio-btn">
+              <input type="radio" class="d-none" formControlName="accreditation"
+                id="accreditation_yes" [value]="'YES'"
+              />
+              <label for="accreditation_yes">
+                <span class="radio"></span>
+                <span>
+                  Yes
+                </span>
+              </label>
+            </div>
+            <div class="radio-btn">
+              <input type="radio" class="d-none" formControlName="accreditation"
+                id="accreditation_no" [value]="'NO'"
+              />
+              <label for="accreditation_no">
+                <span class="radio"></span>
+                <span>
+                  No
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="invalid-feedback" style="right: 0" *ngIf="(accreditation.touched || isExcel)  && accreditation.invalid">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+          *ngIf="vm.selectedApplicantCategory?.accreditationRequired && accreditation.value === 'YES'"
+        >
+          <label for="applicant_title">
+            Title of the Applicant<sup>*</sup>
+          </label>
+          <input type="text" formControlName="applicant_title" name="applicant_title"
+          [placeholder]="'Enter Title'" id="applicant_title" class="form-control" [ngClass]="{
+            'is-invalid': (applicant_title.touched || isExcel) && applicant_title.invalid
+          }" />
+          <div class="invalid-feedback" style="right: 0" *ngIf="(applicant_title.touched || isExcel) && applicant_title.invalid">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
+          *ngIf="vm.selectedApplicantCategory?.accreditationRequired && accreditation.value === 'YES'"
+        >
+          <label for="accreditation_category">
+            Accreditation Category<sup>*</sup>
+          </label>
+          <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+            [placeholder]="'Accreditation Category'" formControlName="accreditation_category"
+            class="form-control" [ngClass]="{
+              'is-invalid': (accreditation_category.touched || isExcel) && accreditation_category.invalid
+            }" labelForId="accreditation_category" aria-describedby="accreditation_category"
+          >
+            <ng-option *ngFor="let category of hayyaCategories" [value]="category.code">
+              {{ category.name }}
+            </ng-option>
+          </ng-select>
+          <div class="invalid-feedback" style="right: 0" *ngIf="(accreditation_category.touched || isExcel)  && accreditation_category.invalid">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div> -->
+      </div>
+    </ng-container>
+  </ng-container>
+</form>

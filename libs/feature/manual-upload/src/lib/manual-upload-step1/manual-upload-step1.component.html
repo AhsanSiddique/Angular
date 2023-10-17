@@ -1,0 +1,242 @@
+<div class="bulk-registration margin-div">
+  <div class="page-title">
+    <fan-id-back-arrow></fan-id-back-arrow>
+    <h4 class="w-100 mb-0">
+      New Registration - Manual Registration
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="registration-card margin-div">
+        <form class="" [formGroup]="manualRegistrationForm" (ngSubmit)="onSubmit()" autocomplete="off">
+          <fan-id-fieldset-wrapper
+            [title]="'Organization Information'"
+            titleIndex="01"
+            [sectionValid]="section1Valid$ | async"
+          >
+            <div class="row">
+              <!-- <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="eventname" style="pointer-events: none;">{{
+                    'ManualStep1.EventName' | translate
+                    }}</label>
+                  <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false" bindLabel="name"
+                    bindValue="name" placeholder="{{ 'ManualStep1.Chooseyourevent' | translate }}"
+                    formControlName="eventname" class="form-control readonly-select" [ngClass]="{
+                      'is-invalid':
+                        manualRegistrationForm.get('eventname').touched &&
+                        manualRegistrationForm.get('eventname').invalid
+                    }" labelForId="eventname" aria-describedby="eventname">
+                    <ng-option *ngFor="let event of events" [value]="event.code">
+                      {{ event.name }}
+                    </ng-option>
+                  </ng-select>
+                  <span class="invalid-feedback">{{
+                    'ManualStep1.Chooseyourevent' | translate
+                    }}</span>
+                </div>
+              </div> -->
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="organizationname" style="pointer-events: none;">{{
+                    'ManualStep1.OrganizationName' | translate
+                    }}</label>
+                  <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+                    bindLabel="name" bindValue="id" placeholder="{{
+                      'ManualStep1.Chooseyourorganizationname' | translate
+                    }}" formControlName="organizationname" class="form-control readonly-select" [ngClass]="{
+                      'is-invalid':
+                        manualRegistrationForm.get('organizationname').touched &&
+                        manualRegistrationForm.get('organizationname').invalid
+                    }" labelForId="organizationname" aria-describedby="organizationname">
+                    <ng-option *ngFor="let organization of organizations" [value]="organization.id">
+                      {{ organization.name }}
+                    </ng-option>
+                  </ng-select>
+                  <span class="invalid-feedback">{{
+                    'ManualStep1.Chooseyourorganizationname' | translate
+                    }}</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="bulkgroupname">{{
+                    'ManualStep1.BulkGroupName' | translate
+                    }}<sup>*</sup></label>
+                  <input type="text" formControlName="bulkgroupname" class="form-control" id="bulkgroupname"
+                    aria-describedby="bulkgroupname" placeholder="{{
+                      'ManualStep1.Enteryourbulkgroupname' | translate
+                    }}" [ngClass]="{
+                      'is-invalid':
+                        manualRegistrationForm.get('bulkgroupname').touched &&
+                        manualRegistrationForm.get('bulkgroupname').invalid
+                    }" required
+                    (focus)="onUniqueFieldFocus(bulkgroupname)"
+                  />
+                  <span class="invalid-feedback" *ngIf="
+                      manualRegistrationForm.controls.bulkgroupname.errors
+                        ?.required
+                    ">{{ 'ManualStep1.Enteryourbulkgroupname' | translate }}</span>
+                  <span class="invalid-feedback" *ngIf="
+                      manualRegistrationForm.controls.bulkgroupname.errors
+                        ?.pattern
+                    ">Special characters are not allowed</span>
+                  <span class="invalid-feedback" *ngIf="
+                      !manualRegistrationForm.controls.bulkgroupname.errors
+                        ?.pattern &&
+                      manualRegistrationForm.controls.bulkgroupname.errors
+                        ?.maxlength
+                    ">Name cannot exceeds {{ manualRegistrationForm.controls.bulkgroupname.errors.maxlength.requiredLength }} characters</span>
+                    <span class="invalid-feedback" *ngIf="
+                      bulkgroupname.hasError('notUnique')
+                    ">{{ 'ErrorMessage.BulkNameInUse' | translate}}</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group" >
+                  <label for="bulkgroupname"
+                    >Organization Group Accommodation Details<sup>*</sup></label
+                  >
+                  <textarea name="accodetails"
+                    style="height: 8rem !important; background-color: white !important; resize: none; padding: 0.75rem !important;"
+                    rows="5"
+                    class="form-control accodetails"
+                    id="accodetails"
+                    formControlName="accodetails"
+                    aria-describedby="accodetails"
+                    [ngClass]="{
+                      'is-invalid':
+                        (manualRegistrationForm.get('accodetails').touched &&
+                        manualRegistrationForm.get('accodetails').invalid)
+                    }"
+                    required
+                    placeholder="Please indicate where this group will be staying in Qatar"
+                  >
+                  </textarea>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="
+                    manualRegistrationForm.get('accodetails').errors?.required
+                    "
+                  >
+                    Please indicate where this group will be staying in Qatar
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="
+                    manualRegistrationForm.get('accodetails').errors?.maxLines
+                    "
+                  >
+                    Maximum of {{manualRegistrationForm.get('accodetails').errors?.maxLines}} lines are allowed
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="
+                    manualRegistrationForm.get('accodetails').errors?.maxlength
+                    "
+                  >
+                    Maximum of {{manualRegistrationForm.get('accodetails').errors?.maxlength.requiredLength}} characters are allowed
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fan-id-fieldset-wrapper>
+          <fan-id-fieldset-wrapper
+            [title]="'Application Information'"
+            titleIndex="02"
+            [sectionValid]="section2Valid$ | async"
+            *ngIf="{ b2bVisaType: b2bVisaType$ | async } as vm"
+          >
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group col d-flex flex-column px-0">
+                  <label for="hayyaVisitCategory">
+                    Category of Hayya Visit<sup>*</sup>
+                  </label>
+                  <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="true"
+                    placeholder="Select Category of Hayya Visit" formControlName="hayyaVisitCategory" class="form-control"
+                    labelForId="hayyaVisitCategory" aria-describedby="hayyaVisitCategory"
+                    [class.is-invalid]="f.hayyaVisitCategory.touched && f.hayyaVisitCategory.invalid"
+                  >
+                    <ng-option *ngFor="let category of hayyaVisitCategories$ | async" [value]="category.code">
+                      {{ category.name }}
+                    </ng-option>
+                  </ng-select>
+                  <span class="invalid-feedback">Choose category</span>
+                </div>
+              </div>
+              <ng-container *ngIf="vm.b2bVisaType === 'CONFERENCE'">
+                <!-- conference id -->
+                <div class="col-lg-6">
+                  <div class="form-group col d-flex flex-column px-0">
+                    <label for="conferenceId">
+                      Conference List<sup>*</sup>
+                    </label>
+                    <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="true"
+                      placeholder="Select Conference" formControlName="conferenceId" class="form-control"
+                      labelForId="conferenceId" aria-describedby="conferenceId"
+                      [class.is-invalid]="f.conferenceId.touched && f.conferenceId.invalid"
+                      (change)="categoryChange()"
+                    >
+                      <ng-option *ngFor="let category of conferenceEventList$ | async" [value]="category.confrenceId">
+                        {{ category.name_EN }}
+                      </ng-option>
+                    </ng-select>
+                    <span class="invalid-feedback">Choose category</span>
+                  </div>
+                </div>
+                <!-- applicant category -->
+                <!-- <div class="col-lg-6">
+                  <div class="form-group col d-flex flex-column px-0">
+                    <label for="usercategory">
+                      Applicant Category<sup>*</sup>
+                    </label>
+                    <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="true"
+                      placeholder="Select Applicant category" formControlName="user_category" class="form-control"
+                      labelForId="usercategory" aria-describedby="usercategory"
+                      [class.is-invalid]="f.user_category.touched && f.user_category.invalid"
+                    >
+                      <ng-option *ngFor="let category of userCategories$ | async" [value]="category.code">
+                        {{ category.name }}
+                      </ng-option>
+                    </ng-select>
+                    <span class="invalid-feedback">Choose category</span>
+                  </div>
+                </div>
+                <div class="mb-4 col-lg-4"></div> -->
+              </ng-container>
+            </div>
+          </fan-id-fieldset-wrapper>
+          <div class="footer-area">
+            <button type="button" class="mx-3 btn btn-secondary" (click)="show_cancel_modal = true">
+              <span>{{ 'ManualStep1.Cancel' | translate }}</span>
+            </button>
+            <button type="submit" class="btn btn-primary btn-submit btn-caret-8"
+              [disabled]="manualRegistrationForm.invalid">
+              <span>{{ 'ManualStep1.Next' | translate }}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- <div class="col-lg-4 order-sm-first order-lg-last">
+      <label for="" style="visibility: hidden;" aria-hidden="true">placeholder</label>
+      <div class="register-note">
+        <h4>{{ 'ManualStep1.PleaseNote' | translate }}<strong>:</strong></h4>
+        <ol>
+          <li>{{ 'ManualStep1.Note2' | translate }}</li>
+        </ol>
+      </div>
+    </div> -->
+  </div>
+  <fan-id-modal-wrapper *ngIf="show_cancel_modal" [title]="'Common.Alert' | translate"
+    (closeThis)="show_cancel_modal = false">
+    <div class="cancel-modal-body">
+      <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+      <p>{{ 'Common.AllChangesDoneLost' | translate }}</p>
+      <button type="button" class="btn btn-primary btn-caret-8" (click)="cancel()">
+        {{ 'Common.YesProceed' | translate }}
+      </button>
+    </div>
+  </fan-id-modal-wrapper>
+</div>

@@ -1,0 +1,52 @@
+.organization-users {
+  margin: 0 5% 2% 5%;
+
+  .fan-id-datatable {
+    td {
+      border-left: solid 1px rgba(112, 112, 112, 0.15);
+      padding: 20px 15px !important;
+    }
+  }
+
+  .organization-btn-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
+      gap: 0.25rem;
+      // width: fit-content;
+      width: max-content;
+
+    }
+  }
+}
+a.disabled {
+  color: gray;
+  cursor: not-allowed;
+  text-decoration: underline;
+  pointer-events: none;
+}
+::ng-deep td.dataTables_empty {
+  display: none !important;
+}
+
+.no-data-available {
+  text-align: center;
+}
+table{
+  width: 100% !important;
+}
+
+.viewdetails {
+  color: #550065;
+    font-weight: 500;
+  border-color: #081c3b !important;
+  text-decoration: underline;
+  text-underline-position: under;
+}

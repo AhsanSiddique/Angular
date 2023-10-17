@@ -1,0 +1,161 @@
+<div class="mform row pt-5">
+	<div class="col-12 mb-3">
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<h3> {{ 'Profile.title' | translate }}</h3>
+			</div>
+		</div>
+	</div>
+	<!----------------------- Ticket Information ----------------------------->
+	<div class="col-12 mb-3">
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<h5 (click)="onClickAccordion(1)" class="text-left"> {{ 'Profile.ticketInfo' | translate }}
+					<img *ngIf="isOpenfirst" class="float-right mr-2" src="assets/images/accordion_up.svg" alt="">
+					<img *ngIf="!isOpenfirst" class="float-right mr-2" src="assets/images/accordion_down.svg" alt="">
+				</h5>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 mb-3" [@openClose]="isOpenfirst ? 'open' : 'closed'">
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<label class="upperlabel" for=""> {{ 'Profile.ticketNum' | translate }}</label>
+				<input type="text" class="form-control" [ngModel]="profileDetails.ticketNumber" readonly>
+			</div>
+		</div>
+	</div>
+	<!----------------------- Ticket Information End----------------------------->
+	<!----------------------- Document Details   ----------------------------->
+	<div class="col-12 mb-3">
+		<div class="row">
+			<div class="col-12 col-md-6 ">
+				<h5 (click)="onClickAccordion(2)" class="text-left"> {{ 'Profile.docdetails' | translate }}
+					<img *ngIf="isOpensecond" class="float-right mr-2" src="assets/images/accordion_up.svg" alt="">
+					<img *ngIf="!isOpensecond" class="float-right mr-2" src="assets/images/accordion_down.svg" alt="">
+				</h5>
+			</div>
+		</div>
+		<div class="col-md-12 py-3 px-0" [@openClose]="isOpensecond ?  'open' : 'closed'">
+			<div class="row mb-4">
+				<div class="col-12 col-md-6">
+					<img class="profileimg m-auto" style="width: 134.87px; height: 144.4px" [src]="propic" alt="Profile Pic">
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.passnum' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="profileDetails.passportOrQIdNumber" readonly>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.expdate' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="expiry_date" readonly>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.dob' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="dob" readonly>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-12 col-md-6">
+					<label class="upperlabel" for=""> {{ 'Profile.ntlty' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="profileDetails.nationalityName" readonly>
+					<!-- <span class="flag-icon flag-icon-{{ profileDetails?.nationalityCode | lowercase }}"></span> -->
+				</div>
+			</div>
+		</div>
+		<!----------------------- Document Details end ----------------------------->
+		<!----------------------- Personal Details   ----------------------------->
+		<div class="row">
+			<div class="col-12 col-md-6 ">
+				<h5 (click)="onClickAccordion(3)" class="text-left"> {{ 'Profile.prdetails' | translate }}
+					<img *ngIf="isOpenthird" class="float-right mr-2" src="assets/images/accordion_up.svg" alt="">
+					<img *ngIf="!isOpenthird" class="float-right mr-2" src="assets/images/accordion_down.svg" alt="">
+				</h5>
+			</div>
+		</div>
+		<div class="col-md-12 py-3 px-0" [@openClose]="isOpenthird ?  'open' : 'closed'">
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.firstname' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="profileDetails.firstName" readonly>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.lastname' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="profileDetails.lastName" readonly>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.gender' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="profileDetails.genderName" readonly>
+				</div>
+			</div>
+			<!-- <div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.ntlty' | translate }}</label>
+					<input type="text" class="form-control" [ngModel] ="profileDetails.nationalityName" readonly>
+				</div>
+			</div> -->
+		</div>
+		<!----------------------- Personal Details end ----------------------------->
+		<!----------------------- Contact Information ----------------------------->
+		<div class="row">
+			<div class="col-12 col-md-6 ">
+				<h5 (click)="onClickAccordion(4)" class="text-left"> {{ 'Profile.contactinfo' | translate }}
+					<img *ngIf="isOpenfour" class="float-right mr-2" src="assets/images/accordion_up.svg" alt="">
+					<img *ngIf="!isOpenfour" class="float-right mr-2" src="assets/images/accordion_down.svg" alt="">
+				</h5>
+			</div>
+		</div>
+		<div class="col-md-12 py-3 px-0" [@openClose]="isOpenfour ?  'open' : 'closed'">
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.email' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="profileDetails.email" readonly>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<button class="phone-area-code">
+						<span class="flag-icon flag-icon-{{ profileDetails?.phoneCountryCode | lowercase }}"></span>
+						<span class="mx-2">{{ profileDetails.phoneAreaCode }}</span>
+					</button>
+					<label class="upperlabel" for=""> {{ 'Profile.phone' | translate }}</label>
+					<input type="text" class="form-control" [ngModel]="profileDetails.phone" readonly>
+				</div>
+			</div>
+		</div>
+		<!----------------------- Contact Information end ----------------------------->
+		<!-----------------------  fan collection info ----------------------------->
+			<div class="row">
+				<div class="col-12 col-md-6 ">
+					<h5 (click)="onClickAccordion(5)" class="text-left"> {{ 'Profile.fidclctninfo' | translate }}
+						<img *ngIf="isOpenfive" class="float-right mr-2" src="assets/images/accordion_up.svg" alt="">
+						<img *ngIf="!isOpenfive" class="float-right mr-2" src="assets/images/accordion_down.svg" alt="">
+					</h5>
+				</div>
+			</div>
+		<div class="col-md-12 py-3 px-0" [@openClose]="isOpenfive ?  'open' : 'closed'">
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.dlvrytype' | translate }}</label>
+					<input type="text" class="form-control" ngModel="Service Center Pickup" readonly>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-12 col-md-6 ">
+					<label class="upperlabel" for=""> {{ 'Profile.pckupcntre' | translate }}</label>
+					<input type="text" class="form-control" ngModel="QNCC" readonly>
+					<!-- <p class="redtext float-right my-2"> {{ 'Profile.viewOnMap' | translate }}</p> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+<div class=" faq-container">
+    <div class="faq">
+        <div class="faqitemssection">
+            <div class="accordion" id="accordionExample">
+                <div class="card mb-3" *ngFor="let item of data; index as i">
+                <div class="card-header row col-12 ml-0 mr-0"  [id]="'heading'+i" [ngClass]="{'card-header-color':this.selectedIndex === i}">
+                    <h6 class="mb-0 col-11 pl-0 pr-0" (click)="imageShow(i)" [attr.data-target]="'#collapse'+i" data-toggle="collapse">
+                         {{item.title}} 
+                        </h6>
+                    <button type="button" class="close col-1" [attr.data-target]="'#collapse'+i" data-toggle="collapse"
+                        aria-label="Close"(click)="imageShow(i)">
+                        <img [src]="imageSrc(i)" [ngClass]="{'change-color':this.selectedIndex === i}"
+                        alt="Close" style="width: 20px;">
+                    </button>
+                    
+                </div>
+
+                <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i" data-parent="#accordionExample" style="padding-top: 1px;">
+                    <div class="card-body" [innerHtml]="item.description">
+                    <!-- <p class="card-text"> -->
+                        <!-- {{item.content}} -->
+                        <!-- </p> -->
+                    </div>
+                </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+

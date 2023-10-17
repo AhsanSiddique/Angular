@@ -1,0 +1,389 @@
+{
+	"Name": "Amir Cup",
+  "CloseContent":"Fan ID applications are no longer available.",
+  "CloseContent2":"We look forward to seeing you at our upcoming events.",
+	"Links":{
+		"Home":"Home",
+		"WhatisFANID":"What is Fan ID?",
+		"Faq":"FAQ",
+		"Contact":"Contact Us",
+		"ApplyforFANID":"Apply for Fan ID",
+		"Faqs":"FAQ",
+		"Terms":"Terms of Use",
+		"Privacy":"Privacy Policy",
+		"Cookie":"Cookie Policy",
+    "Book":"Book your Tickets"
+	},
+	"TitleInfo":"For all queries related to Ehteraz ",
+	"Common":{
+		"ClickHere":"Click Here",
+		"QFA":"Qatar Football Association",
+    "confirm":"Confirm",
+    "KnowMore":"Learn more",
+      "next":"Next",
+      "firstname":"FIRST NAME",
+      "lastname":"LAST NAME",
+      "gender":"GENDER",
+      "email":"EMAIL",
+      "phone":"PHONE",
+      "crpassword":"CREATE PASSWORD",
+      "dob":"DATE OF BIRTH",
+      "cnfmpasswd":"CONFIRM PASSWORD",
+      "submit":"Submit",
+      "edit":"Edit",
+      "Back":"Back",
+      "ErrorPassword":"Invalid email address or password"
+
+	},
+	"Profile":{
+		"title":"My Profile",
+		"ticketInfo":"Seat Voucher Information",
+		"ticketNum":"APPLICATION CONFIRMATION NUMBER",
+		"docdetails":"Document Details",
+		"qidnum":"QID NUMBER",
+		"expdate":"EXPIRY DATE",
+		"dob":"DATE OF BIRTH",
+		"ntlty":"NATIONALITY",
+		"prdetails":"Personal Details",
+		"contactinfo":"Contact Information",
+		"agreetext":" I have read and accept T&C and I acknowledge that I have been fully vaccinated ",
+		"tckt-info":"Application Confirmation Information",
+		"tckt-Num":"APPLICATION CONFIRMATION NUMBER",
+		"passnum":"DOCUMENT NUMBER",
+		"fidclctninfo":"Fan ID Collection Information",
+		"dlvrytype":"DELIVERY TYPE",
+		"pckupcntre":"PICK-UP CENTRE",
+		"next":"Next",
+		"firstname":"FIRST NAME",
+		"lastname":"LAST NAME",
+		"gender":"GENDER",
+		"email":"EMAIL",
+		"phone":"PHONE",
+		"crpassword":"CREATE PASSWORD",
+		"cnfmpasswd":"CONFIRM PASSWORD",
+		"submit":"Submit",
+		"edit":"Edit",
+		"viewOnMap":"View on map",
+    "SelectGender":"Select Gender"
+	},
+	"Chpsswd":{
+		"title":"Change Password",
+		"currentPass":"CURRENT PASSWORD",
+		"entercurrentPass":"Enter Your Current Password",
+		"newPass":"NEW PASSWORD",
+		"enterNewPass":"Enter Your New Password",
+		"cnfPass":"CONFIRM PASSWORD",
+		"cnfNewPass":"Confirm Your New Password",
+		"cancel":"Cancel",
+		"update":"Update"
+	},
+  "DashboardStatus": {
+    "FanProfile": {
+    "Name": "John Deo"
+  },
+   "WelcomeMsg": "Welcome back to the Fan ID Portal, your updates for today!",
+    "FanIDDetails": {
+      "Header": "FAN ID NUMBER",
+      "ID": "#12345678900"
+    },
+    "StatusHeader": "Fan ID Application Status",
+    "Status": {
+      "FirstStage": {
+        "Success": "Fan ID Application Submitted"
+      },
+      "SecondStage": {
+        "Processing": "Processing Fan ID Application",
+        "Success": "Fan ID Application Approved"
+      },
+      "ThirdStage": {
+        "Success": "Card Issuance Status",
+        "Pending": "Card Issuance Status"
+      }
+    },
+    "StatusDate": {
+      "PendingMessage": "Pending for printing",
+      "ProcessingDate": "ETA June 10, 2021",
+      "SubmittedDate": "June 6, 2021"
+    }
+  },
+
+  "Login":{
+    "SignIn":"Sign In ",
+    "EMAIL":"EMAIL",
+    "PASSWORD":"PASSWORD",
+    "Submit":"Submit",
+    "SignUp1":"Don’t have an account, click here to",
+    "SignUp2":"Sign Up",
+    "BackTo":"Back to",
+    "NeedHelp":"Need Help? ",
+    "ContactUs":"Contact Us"
+  },
+  "Contact":{
+    "Assist":"We are ready to assist you 24/7.",
+    "Reach":"Reach out to us if you have any questions,",
+    "ReachLine2":"or need help regarding Fan ID.",
+    "Address" :"Doha, State of Qatar",
+    "Email":"support@ac21.qa",
+    "Mobile1":"+(974) 800 - 8052 (Qatar)",
+    "Mobile2":""
+  },
+  "Tnc":{
+    "Titile":"Terms of Use"
+  },
+  "Header":{
+    "signInTitle":"Sign In",
+    "EmailPlaceHldr":"Enter Your Email Address",
+    "PassPlaceHldr":"Enter Your Password",
+    "ForgotPass":"Forgot Password",
+    "RememberDevice":"Remember my device",
+    "Allowus":"Allow us to get you back on track",
+    "ResetPassword":"Reset Password",
+    "CreateNewPassword": "Create New Password",
+    "RememberMe": "Remember me"
+  },
+  "Faq":{
+    "Title":"Frequently Asked Questions",
+    "FAQCategories":"FAQ Categories",
+    "GeneralFAQ":"General",
+    "StadiumAccess":"Stadium Access",
+    "Metro":"Metro",
+    "GeneralFAQs" : {
+      "AccoHead1": "How do I apply for a Fan ID?",
+      "AccoHead2": "When should I apply for a Fan ID?",
+      "AccoHead3": "Can I get a Fan ID before booking to attend the Amir Cup 2021 Final?",
+      "AccoHead4": "What do I need for my Fan ID application?",
+      "AccoHead5": "Do children under 14 need a Fan ID?",
+      "AccoHead6": "Who can submit a Fan ID application for a child?",
+      "AccoHead7": "How will I know if my Fan ID application is approved?",
+      "AccoHead8": "How can I check the status of my Fan ID application?",
+      "AccoHead9": "Where do I collect my Fan ID?",
+      "AccoHead10": "When are the Fan ID Service Centres open?",
+      "AccoHead11": "Can someone else collect my Fan ID?",
+      "AccoHead12": "What documents do I need to collect my Fan ID?",
+
+      "Para1": "Applications for a Fan ID can be submitted from 20 September via the Fan ID Portal at",
+      "Para2": "The Fan ID application will open from 20 September 2021. You will need to apply and receive your Fan ID in a timely manner before the match.",
+      "Para3": "No, you can only apply for a Fan ID after receiving your application confirmation number. This will be confirmed after payment is confirmed.",
+      "Para4": "To submit a Fan ID application, you will need the following:\n- A valid passport or Qatar ID (QID)\n- A valid application confirmation number",
+      "Para5": "Yes, children under the age of 14 need their own Fan ID.",
+      "Para6": "For applicants under the age of 14, the child's parent or legal guardian must submit their application. They must consent to the processing of the child’s personal data, receiving notifications regarding the application status and obtaining the Fan ID on the child's behalf. The applicant must provide the child’s QID, the child’s parent/ legal guardian's ID and a valid application confirmation number.",
+      "Para7": "You will receive a notification via the contact details provided on your Fan ID application.",
+      "Para8": "You can use the \"Check status\" section on your Fan ID portal profile page.",
+      "Para9": "You can collect your Fan ID from our dedicated Fan ID Service Centre located at Qatar National Convention Centre (QNCC) ",
+      "Para10": "The Fan ID Service Centres are open from 12 October 2021 (10 AM-11 PM every day).",
+      "Para11": "Yes, the person collecting your Fan ID will need to provide a copy of your ID as well as a copy of your Fan ID approval confirmation email.",
+      "Para12": "Citizens and residents will need to present a valid Qatar ID (QID) and visiting fans will need to present a valid passport. All fans will also need to show their Amir Cup 2021 Final Fan ID approval confirmation email.",
+      "Para13":"If you have already purchased your Seat Voucher online and applied for your Fan ID, Qatar Post will deliver your Fan ID card to your address free of charge, within 48 hours.",
+      "Para14":"Purchase your Seat Voucher at ",
+      "Para15":"https://tickets.qfa.qa",
+      "Para16":" and then apply for your Fan ID card at ",
+      "Para17":"https://ac21.qa.",
+      "Para18":" Qatar Post will then deliver your Fan ID card to your address free of charge, within 48 hours.",
+      "Para19":"Go to QNCC to purchase your Seat Voucher and collect your Fan ID at the same time. QNCC is open 10 AM-11 PM daily ",
+      "Para20":"(location map)",
+      "Para21":"OR"
+    },
+    "StadiumAccessFQAs": {
+      "AccoHead13": "What is the Fan ID?",
+      "AccoHead14": "How do I enter the stadium on matchday?",
+      "Para13": "Fan ID is a mandatory smart card device. Fan ID will be used as a means of identification for spectators to enter the stadium for the Amir Cup 2021 Final. Fan ID will also provide free access to the Doha Metro on matchday.",
+      "Para14": "You will need to use your Fan ID to enter Al Thumama Stadium on 22 October 2021."
+    },
+    "metroFaqBoolean": {
+      "AccoHead15": "Is Fan ID free of charge?",
+      "AccoHead16": "What are the additional benefits of having a Fan ID?",
+      "Para15": "Yes, and you can use your Fan ID for free Doha Metro travel (both to and from the match) on matchday.",
+      "Para16": "All Fan ID holders can use the Doha Metro free of charge (both to and from the match) on matchday."
+    },
+    "Help":"Still need help? Contact us"
+  },
+  "Homepage":{
+    "FrequentlyAsked":"Frequently Asked Questions",
+    "ApplyFanID":"Apply for your Fan ID",
+    "CheckFanID":"Check Fan ID Status",
+    "Metro":"Metro",
+    "Whatis":"What is Fan ID?",
+    "Body1":"Fan ID is a smart technology identification card that ensures you can attend the Amir Cup 2021 Final. All Qataris, residents and visitors attending the match will need to obtain a Fan ID.",
+    "Body2":"You’ll need your Fan ID to enter Al Thumama Stadium on Friday 22 October. Fan ID will also provide free access to the Doha Metro on matchday.",
+    "HowFanID":"How Fan ID Works?",
+    "BuyAmirCupTicket":"Book to watch the Amir Cup 2021 Final",
+    "CollectFanID":"Collect your Fan ID",
+    "Enterstadium":"Enter the Stadium",
+    "WhatisFanID":"What is Fan ID?",
+    "EntryPermit":"Entry Permit to State of Qatar",
+    "StadiumAccess":"Stadium Access",
+    "ValidityPeriod":"Validity Period",
+    "WhoFanID":"Who will need a Fan ID?",
+    "Howtickets":"How do I gain access to the match?",
+    "Benefit":"What are the additional benefits of having a Fan ID?",
+    "Cantfind1":"Can’t find the answers you are looking for?",
+    "Cantfind2":" Check Frequently Asked Questions",
+    "whatisfanidvalue":"Fan ID is a mandatory smart card device that will be used as a means of identification and for stadium entry. Fan ID will also provide free access to the Doha Metro on the day of the match. ",
+    "stadiumaccessvalue":"A Fan ID is required to access the venue of the Amir Cup 2021 Final.",
+    "validityperiodvalue":"Spectators attending the Amir Cup 2021 Final need to use their Fan ID to enter the stadium on the day of the match.",
+    "whowillneedafanid":"All spectators attending the Amir Cup 2021 Final match will need a Fan ID.",
+    "benefitsvalue":"All Fan ID holders are entitled to use the Doha Metro (both to and from the match) on matchday."
+
+  },
+  "MFPOne":{
+	  "sub-title":"Enter your Application Confirmation Number below",
+	  "tckt-Num":"Application Confirmation Number",
+    "Eytn":"Enter your seat voucher information",
+	"errormsg":"Please enter a valid Application Confirmation Number",
+	"errormsg_2":"Please enter a valid Primary User Application Number",
+	"selectApptype":"Select Applicant Type",
+	"parentapptext":"Enter Primary Fan ID Application Number",
+  "Primary":"Primary ticket holder",
+  "Secondary":"Secondary ticket holder"
+  },
+  "MFPTwo":{
+	  "title":"Personal Details",
+	  "info":"You can upload a JPG, JPEG, PNG, or BMP image file.  The maximum file size should be 2MB.  The photo must be at least 640 x 480 pixels.  If you have scanned your photo, crop the image to show only your head and shoulders before you upload it.",
+	  "info1": "You can upload a JPG, JPEG, PNG, or BMP image file.",
+	  "info2": "The maximum file size should be 2MB.",
+	  "info3": "The photo must be at least 640 x 480 pixels.",
+	  "info4": "If you have scanned your photo, crop the image to show only your head and shoulders before you upload it.",
+    "ch-photo":"Change Photo",
+    "up-photo":"Upload Photo",
+	  "qid":"QID",
+	  "passport":"Passport",
+	  "docdetails":"Document Details",
+	  "qidnum":"DOCUMENT NUMBER",
+	  "expdate":"EXPIRY DATE",
+	  "dob":"DATE OF BIRTH",
+	  "ntlty":"NATIONALITY",
+	  "prdetails":"Personal Details",
+	  "contactinfo":"Contact Information",
+	  "agreetext":"I have read and accept the Terms & Conditions <br/> I am fully vaccinated OR recovered from Covid-19 in the last one year OR under 12 years of age and will produce proof of a negative rapid PCR test (taken within 48 hours of kick-off time at a registered medical centre)",
+    "Eydn":"Enter your Document Number",
+    "ETED":"Enter the Expiry Date (DD-MM-YYYY)",
+    "ETDB":"Enter the Date of Birth (DD-MM-YYYY)",
+    "Eyn":"Enter your Nationality",
+    "Eyfn":"Enter your First Name",
+    "Eyg":"Enter your Gender",
+    "Eyln":"Enter your Last Name",
+    "Eye":"Enter your Email",
+    "EyPn":"Enter your Phone Number",
+    "Eyp":"Enter your Password",
+    "Cyp":"Confirm your Password",
+    "ThisFieldCannotBeBlank": "This field cannot be blank",
+    "PasswordsDoNotMatch": "Passwords do not match",
+    "SpaceCharNotAllowed": "Space not allowed",
+    "SpecialCharNotAllowed": "Special characters not allowed",
+    "OnlyNumbersAllowed": "Only numbers are allowed",
+    "SpecialCharNumNotAllowed": "Special characters and numbers not allowed",
+    "InvalidEmail": "Invalid Email ID",
+    "InvalidValue": "Invalid Value",
+    "documenterror":"Your QID is invalid",
+	"imagesizeError":"Error! The maximum size for photo upload is 2MB. Please try again.",
+	"imagetypeError":"Error! Please upload a JPG, JPEG, PNG, or BMP image file."
+
+  },
+  "MFPThree":{
+	  "title":"Summary of your Application",
+	  "tckt-info":"Application Confirmation Information",
+	  "tckt-Num":"APPLICATION CONFIRMATION NUMBER",
+	  "passnum":"DOCUMENT NUMBER",
+	  "fidclctninfo":"Fan ID Collection Information",
+	  "dlvrytype":"DELIVERY TYPE",
+	  "pckupcntre":"PICK-UP CENTRE",
+	"otperror":"We are not able to send you an OTP. Please check your phone number again."
+
+  },
+  "MFPFour":{
+	  "title":"One Time Password (OTP) Verification",
+	  "sub-title":"We have sent you a one-time password on your Mobile Number.",
+	  "emailotp":"EMAIL OTP",
+	  "phoneotp":"PHONE OTP",
+	  "resendotp":"Resend OTP",
+	  "change":"Change",
+	  "email":"Email",
+	  "or":"or",
+	  "mobile":"Mobile Number",
+    "enteremailotp": "Enter Email OTP",
+    "entersmsotp": "Enter Phone OTP",
+    "ResendOtpMessage": "A new OTP has been sent to your Mobile Number",
+  	"otperror":"Invalid OTP, please try again"
+    },
+  "MFPFive":{
+	  "title":"You’ve successfully submitted your Fan ID Application",
+	  "title_err":"We were not able to submit your Fan ID Application",
+	  "midtxtone":"Once your Fan ID is ready for collection, you will receive a notification to your registered email and mobile number.",
+	  "midtxttwo":"You can track your Fan ID application using",
+	  "midtxterrone":"We were not able to submit your",
+	  "midtxterrtwo":"Application Successfully",
+	  "midtxtthree":"You will receive the application number on your registered",
+	  "midtxtfour":"email and mobile number.",
+	  "exptxt":"How was your experience?",
+	  "givefeedback":"Give Feedback",
+	  "gotohome":"Go to Home",
+	  "edit":"Edit",
+    "yourAppNoIs": "Your Fan ID Application Number is"
+  },
+  "WhatisFanId":{
+    "Whatis":"What is",
+    "FanId":"Fan ID?",
+    "CarousalContent":"Fan ID is a smart technology identification card which all fans attending the Amir Cup 2021 Final need to obtain.",
+    "Get":"Get your Fan ID",
+    "StadiumAccess":"A Fan ID is required to access the venue of the Amir Cup 2021 Final.",
+    "Metro":"Fan ID is your go-to card for access: You’ll need it to enter the stadium and to enjoy free matchday travel on the Doha metro.",
+    "Benefits":"Fan ID Benefits",
+    "BenefitsContent":"You can use your Fan ID to travel on the metro, in addition to providing stadium access.",
+    "Para1":"You will need to show your Fan ID card to enter the stadium.",
+    "Para2":"Fan ID also gives you free access to Doha Metro – to and from the stadium – on matchdays. To board all you need to do is tap.",
+    "Para3":"Keep your Fan ID card safe and on your person at all times.",
+    "Para4":"Useful contacts",
+    "Para5":"Need to report a lost, stolen or damaged Fan ID card? Call 800 8052 or visit the Fan ID Service Centre at Qatar National Convention Centre (QNCC)",
+    "Para10":"Location map",
+    "Para11":"Any questions? Email",
+    "Para12":" support@ac21.qa"
+  },
+  "CreateNewPassword": {
+    "CreatePassword": "Create Password",
+    "ConfirmPassword": "Confirm Password",
+    "EnterNewPassword": "Enter New Password",
+    "PasswordsDoNotMatch": "Passwords do not match",
+    "SuccessMessage": "You've successfully updated your password",
+    "LinkErrorMessage": "Your password reset link is no longer valid. Please request a new password reset link"
+  },
+  "ForgotPassword": {
+    "SuccessMessage": "We have sent you an e-mail containing your password reset link"
+  },
+  "Main":{
+    "Dashboard":"Dashboard",
+    "MyProfile":"My Profile",
+    "ChangePassword":"Change Password",
+    "Logout":"Logout"
+  },
+  "CookieConsent": {
+    "Title": "This website uses cookies",
+    "Subtext": "We use technologies, like cookies, to measure our website audience, improve your browsing experience and provide you with relevant advertising based on your browsing activities and interests both on and off this site. To help do this we’ll share your ",
+    "Subtext1": "data",
+    "Subtext2" :" with our ",
+    "Subtext3":"affiliates and/or partners",
+    "Subtext4":". You can find out more by clicking ",
+    "Subtext5":"here",
+    "Subtext6":". Please click ‘agree’ if you’re okay with.",
+    "Accept": "AGREE",
+    "Decline": "REJECT"
+  },
+  "Register":{
+    "LetsBegin":"Let’s Begin Your Fan ID Journey",
+    "start":"Get Started!",
+    "ApplicationSummary":"Application Summary",
+    "OTPVerification":"OTP Verification",
+    "SelectNationality": "Select Nationality",
+    "Code":"Code"
+  },
+  "PasswordCheck": {
+    "test_1": "At least 8 characters and a maximum of 15 characters",
+    "test_2": "At least 1 uppercase letter",
+    "test_3": "At least 1 lowercase letter",
+    "test_4": "At least 1 number",
+    "test_5": "At least 1 special character i.e. ! @ # $ % & * _",
+    "test_6": "No space allowed"
+  },
+  "2021":"2021"
+}
+
+

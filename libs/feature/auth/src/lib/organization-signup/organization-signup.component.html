@@ -1,0 +1,387 @@
+<div class="row mt-3">
+  <div class="col-lg-12 register">
+    <div class="card">
+      <div class="login-validation" *ngIf="showInvalidError">
+        <span>{{ showError | translate }} </span>
+      </div>
+      <form [formGroup]="form">
+        <div class="sr-only"></div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="read-only" for="organizationname">{{
+                'Profile.OrganizationName' | translate
+              }}</label>
+              <input
+                type="text"
+                class="text-area read-only read-only-text form-control"
+                readonly
+                formControlName="organizationName"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="read-only" for="email">{{
+                'BulkGroup.OrganizationEmail' | translate
+              }}</label>
+              <input
+                type="text"
+                class="text-area read-only read-only-text form-control"
+                readonly
+                formControlName="email"
+                id="email"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="contactName">
+                {{ 'Organization.PrimaryContactFirstName' | translate }}</label
+              >
+              <input
+                type="text"
+                class="text-area fl-name form-control"
+                formControlName="contactName"
+                name="contactName"
+                id="contactName"
+                maxlength="20"
+                pattern="[a-zA-Z ]*$"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('contactName').touched &&
+                    form.get('contactName').invalid,
+                  hasValue: this.form.get('contactName').value
+                }"
+                [placeholder]="'OrgSignup.EnterPrimaryContactFirstName' | translate"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('contactName').errors?.required"
+              >
+                {{ 'OrgSignup.PrimaryContactFirstRequired' | translate }}
+              </div>
+
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('contactName').errors?.pattern"
+              >
+                {{ 'OrgSignup.ValidContactName' | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="contactName">
+                {{ 'Organization.PrimaryContactLastName' | translate }}</label
+              >
+              <input
+                type="text"
+                class="text-area fl-name form-control"
+                formControlName="contactLastName"
+                name="contactLastName"
+                id="contactLastName"
+                maxlength="20"
+                pattern="[a-zA-Z ]*$"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('contactLastName').touched &&
+                    form.get('contactLastName').invalid,
+                  hasValue: this.form.get('contactLastName').value
+                }"
+                [placeholder]="'OrgSignup.EnterPrimaryContactLastName' | translate"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('contactLastName').errors?.required"
+              >
+                {{ 'OrgSignup.PrimaryContactLastRequired' | translate }}
+              </div>
+
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('contactLastName').errors?.pattern"
+              >
+                {{ 'OrgSignup.ValidContactName' | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="country">Organization Country</label>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                placeholder="Select Organization Country"
+                bindLabel="name"
+                bindValue="id"
+                formControlName="country"
+                class="form-control full-select"
+                aria-describedby="country"
+                required
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('country').touched &&
+                    form.get('country').invalid
+                }"
+              >
+                <ng-option *ngFor="let list of dailingCodeList" [value]="list.id">
+                  <div class="drop-header">
+                    <span
+                      class="flag-icon flag-icon-{{
+                        list.code | lowercase
+                      }}"
+                    ></span>
+                    <span>{{ list.name }}</span>
+                  </div>
+                </ng-option>
+              </ng-select>
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('country').errors?.required"
+              >
+                Select a Organization Country
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="phonecode">{{
+              'OrgSignup.MobileNumber' | translate
+            }}</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  bindLabel="name"
+                  bindValue="id"
+                  [placeholder]="'+974'"
+                  formControlName="phonecode"
+                  class="form-control half-select"
+                  aria-describedby="phonecode"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      form.get('phonecode').touched &&
+                      form.get('phonecode').invalid,
+                    hasValue: this.form.get('phonecode').value
+                  }"
+                >
+                  <ng-option
+                    *ngFor="let phonecode of dailingCodeList"
+                    [value]="phonecode.id"
+                  >
+                    <span
+                      class="flag-icon flag-icon-{{
+                        phonecode.code | lowercase
+                      }}"
+                    ></span>
+                    <span class="mx-1 cc"> {{ phonecode.dialingCode }} </span>
+                  </ng-option>
+                </ng-select>
+              </div>
+              <input
+                type="number"
+                class="text-area fl-name form-control"
+                formControlName="phoneNumber"
+                name="phoneNumber"
+                id="phoneNumber"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength = "15"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('phoneNumber').touched &&
+                    form.get('phoneNumber').invalid,
+                  hasValue: this.form.get('phoneNumber').value
+                }"
+                [placeholder]="'OrgSignup.MobileNumber' | translate"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('phoneNumber').errors?.required"
+              >
+                {{ 'OrgSignup.EnterPrimaryContact' | translate }}
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('phonecode').errors?.required"
+              >
+                {{ 'OrgSignup.EnterPrimaryContactCode' | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="contactName">
+                {{ 'OrgSignup.EmailIdofFocalPoints' | translate }}</label
+              >
+              <span
+              style="padding-left: 5px;"
+              class="tooltip-custom"
+              > <svg width="20" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.4956 26.3538C9.40642 22.9942 3.93652 17.8226 0.627203 13.4966C3.93664 9.17707 9.40651 4.00571 13.4956 0.646267C18.1821 4.5091 22.4876 8.81219 26.3531 13.4965C22.4894 18.1845 18.1837 22.4901 13.4956 26.3538Z" stroke="var(--hayya-primary)"/>
+                <path d="M13.224 9.496C13.976 9.496 14.552 8.952 14.552 8.232C14.552 7.512 13.976 6.968 13.224 6.968C12.488 6.968 11.912 7.512 11.912 8.232C11.912 8.952 12.488 9.496 13.224 9.496ZM12.088 19H14.392V10.632H12.088V19Z" fill="var(--hayya-primary)"/>
+                </svg>
+              <span class="tooltiptext">
+                •	Please enter Email Address and press Enter Key to add it to the list
+                <br/>
+                •	At least one Email ID to be added to enable Sign Up button
+              </span>
+
+
+            </span>
+              <!-- <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="text-area fl-name form-control"
+                  formControlName="focalEmail"
+                  name="focalEmail"
+                  id="focalEmail"
+                  maxlength="30"
+                  [pattern]="emailPattern"
+                  [ngClass]="{
+                    'is-invalid':
+                      form.get('focalEmail').touched &&
+                      form.get('focalEmail').invalid,
+                    hasValue: this.form.get('focalEmail').value
+                  }"
+                  [placeholder]="
+                    'OrgSignup.AddEmailIdofFocalPoints' | translate
+                  "
+                />
+                <div class="input-group-append">
+                  <button class="btn button-right" type="button" (click)="addEmailId()">
+                    <div class="arrow-right"></div>
+                  </button>
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="form.get('focalEmail').errors?.pattern"
+                >
+                  {{ 'OrgSignup.ValidFocalPoint' | translate }}
+                </div>
+              </div> -->
+              <tag-input class="tagify" formControlName='focalEmail'
+              placeholder="Enter Email IDs"
+              [secondaryPlaceholder]="'Enter Email IDs'"
+              asyncValidators
+              inputClass="tagInput"
+              [errorMessages]="asyncErrorMessages"
+              [asyncValidators]="asyncValidators"
+              ></tag-input>
+<!--
+              <ng-select class="tagify"
+              #ngSelectComponentValues
+              [items]="[]"
+              [addTag]="true"
+              [multiple]="true"
+              [selectOnTab]="true"
+              [isOpen]="false"
+              bindVa
+              [clearable]="false"
+              (remove)="removeElement($event,emailList)">
+              formControlName="focalEmail"
+              (change)="onKey($event)"
+
+        >
+        </ng-select> -->
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phonecode">Organization Address</label>
+              <textarea class="textarea" placeholder="Enter Organization Address"
+              formControlName="address"
+              name="textarea" cols="30" rows="5"></textarea>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="org-table">
+          <table>
+            <thead>
+              <tr>
+                <td style="width: 10%;text-align: right;">S.No</td>
+                <td style="width: 60%">Email ID</td>
+                <td style="width: 30">Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of emailList; index as i">
+                <td style="text-align: right;">{{i+1}}</td>
+                <td>{{item}}</td>
+                <td><a class="delete-email" (click)="deleteEmail(item)">Delete</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> -->
+
+
+          <div class="login-validation" *ngIf="showOrgError != ''">
+          <span>{{ showOrgError | translate }} </span>
+        </div>
+        <div style="display: flex;justify-content: flex-end; margin-top: 10px;">
+
+
+          <button
+            type="button"
+            class="btn btn-secondary mr-2"
+            (click)="cancel()"
+          >
+            <span> {{ 'Common.Cancel' | translate }}</span>
+          </button>
+          <button
+          type="submit"
+          class="btn btn-primary btn-sm btn-submit"
+          (click)="submitOrgInvitation()"
+          [disabled]="!form.valid"
+        >
+          {{ 'OrgSignup.SignUp' | translate }}
+        </button>
+        </div>
+      </form>
+      <form>
+
+  <!-- <ng-select
+    [clearable]="false"
+    [multiple]="true"
+    [virtualScroll]="true"
+    [items]="filterStatisticForm.get('columnName').value ===1?appType:[]"
+    [closeOnSelect]="false"
+    bindLabel="name"
+    bindValue="id"
+    placeholder="{{'Dashboard.SelectOption' | translate}}"
+    formControlName="filterType"
+    class="form-control dashboardFiltertype custom-dashboard"
+    [ngClass]="{
+      'is-invalid':
+      filterStatisticForm.get('filterType').touched &&
+      filterStatisticForm.get('filterType').invalid
+    }"
+    labelForId="filterType"
+    aria-describedby="filterType"
+    (change)="optionChange($event)"
+  >-->
+      </form>
+    </div>
+  </div>
+</div>
+
+<fan-id-common-error-modal
+  *ngIf="error_dialog_open"
+  [head_error_message]="'SignUp.SubmitFailed'"
+  [error_message]="error_message"
+  buttontext="Common.Close"
+  (closeThis)="this.error_dialog_open = false"
+>
+</fan-id-common-error-modal>
+
+<fan-id-common-dialogue
+  *ngIf="showCommonDialog"
+  [Body]="'Please check the Email ID for the sign up link'"
+  [Header]="'OrgSignup.UserSuccess'"
+  (closeThis)="redirectToLogin()"
+>
+</fan-id-common-dialogue>

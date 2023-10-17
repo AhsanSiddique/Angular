@@ -1,0 +1,292 @@
+[dir='rtl'] {
+  text-align: right;
+  .fanid-crowd {
+    left: 0;
+    right:  inital !important;
+}
+  .dashboard-status {
+      .profile-details {
+          .fan-profile-details {
+              // border: 1px solid black;
+              padding-right: 12.5% !important;
+              padding-left: 0px !important;
+              @media(max-width:768px) {
+                padding-right: 0px !important;
+                padding-left: 0px !important;
+              }
+              .fan-details {
+                  margin-right: 0 !important;
+                  .fan-name {
+                      padding-right: 12px;
+                  }
+              }
+              .welcome-msg {
+                  margin-right: 15px;
+              }
+          }
+          .fan-id-details {
+              // border: 1px solid;
+              .id-details {
+                  text-align: right;
+              }
+          }
+      }
+      .fan-app-status {
+          .app-status-header {
+              .status-header{
+                  text-align: right;
+              }
+          }
+          .app-status-content {
+              .status-flow {
+                  .status-flow-chart {
+                      .status-flow-1 {
+                          position: relative;
+                          padding-right: 0;
+                          padding-left: 66px;
+                          text-align: right;
+                          .status-icon {
+                              width: 19px;
+                              img {
+                                  margin: 0;
+                                  width: 19px;
+                              }
+                          }
+                          .status {
+                              p.status-name {
+                                  display: flex;
+                                  width: max-content;
+                              }
+                              p.status-date {
+                                  text-align: right;
+                              }
+                          }
+
+                      }
+                      &::after {
+                          display: none;
+                      }
+                      &::before {
+                          content: '';
+                          background: url(../../../../../../apps/portal-amir-cup/src/assets/icons/arrow.svg) right center no-repeat;
+                          transform: rotate(180deg);
+                          position: absolute;
+                          top: 50%;
+                          width: 14px;
+                          height: 10px;
+                      }
+                      &:last-child {
+                          &::before {
+                              display: none;
+                          }
+                      }
+
+                      &:nth-child(1) {
+                          &::before {
+                            left: 14px;
+                          }
+                      }
+
+                      &:nth-child(2) {
+                          &::before {
+                            left: 14px;
+                          }
+                      }
+                  }
+
+              }
+          }
+      }
+  }
+  .mform{
+      // padding-left:unset !important;
+      // padding-right:12% !important;
+  }
+  .button-padding{
+      padding-left: 15px !important;
+      padding-right: -15px !important;
+  }
+  .input-password-append {
+      // display: none;
+      right: unset !important;
+      left:0 !important;
+      top:6px !important;
+      padding: 5px 9px 5px 12% !important;
+    }
+
+    //header
+    .portal-header{
+      .title-bar{
+        a{
+          padding: 0px 20px 0px 0px;
+          &:first-child{
+            padding: 0px;
+          }
+
+        }
+
+      }
+}
+//end
+//language
+.lang-selector {
+padding-left: 15px;
+padding-right: 0px;
+}
+//language end
+.modal-ham{
+text-align: right;
+}
+
+//homepage
+.homepage_carousel{
+  text-align: right;
+.left{
+@include individual_padding('padding-right');
+padding-left: 0px;
+.content{
+  .button-align{
+    display: flex;
+  }
+}
+}
+
+@include media-breakpoint-down(sm){
+display:block;
+.left{
+  @include application_padding('padding');
+    }
+  .right{
+    .img-stad{
+      // padding-right: 50px;
+    }
+  }
+}
+}
+
+.home-whatisfanid{
+
+.left{
+  @include individual_padding('padding-right');
+  padding-left: 20px;
+  text-align: right
+}
+.right{
+  @include individual_padding('padding-left');
+  padding-right: 20px;
+  h1{
+    font-size: 40px;;
+  }
+
+}
+}
+
+.home-faq{
+  text-align: right;
+.left{
+  @include individual_padding('padding-right');
+  padding-left: 40px !important;
+}
+.right{
+  @include individual_padding('padding-left');
+  padding-right: 40px !important;
+}
+.faq-contents{
+  .arrow{
+    float: left !important;
+    left: 5% !important;
+    right: initial  !important;
+  }
+     .faq-mobile{
+        .contents{
+          padding-left: 20px;
+          .selected{
+
+          svg{
+
+          margin-right: 20px;
+
+          }
+        }
+      }
+  }
+}
+}
+
+
+.footer{
+text-align: right;
+  .left-bar{
+    @include individual_padding('padding-right');
+    padding-left: 20px;
+  }
+  .right-bar{
+    @include individual_padding('padding-left');
+    padding-right: 20px;
+}
+@include media-breakpoint-down(sm){
+  .right-bar{
+    .address{
+      div{
+    text-align: right;
+
+      }
+  }
+}
+}
+}
+.sidebar{
+  text-align: right;
+  .main-links{
+  @media  screen and (min-width:769px) and (max-width:992px) {
+      .inner-links{
+      padding-right: 50px !important;
+      padding-left: 0px !important;
+      }
+    }
+
+  }
+  @media  screen and (min-width:993px) {
+.inner-links{
+padding-right:  90px !important;
+padding-left: 0px !important;
+}
+  }
+ .inner-links{
+   svg{
+     margin-left: 2px;
+   }
+ }
+}
+
+  .password-check {
+    text-align: right !important;
+  }
+}
+
+@media screen and (max-width:768px){
+  .sidebar{
+   .main-links{
+  .inner-links{
+
+  margin-right: 20px;
+    margin-left: 0px;
+  a{
+    margin-left: 0px;;
+    margin-right: 10px;
+  }
+  }
+      }
+  }
+
+.card-header {
+  h5{
+  button{
+    float: left !important;
+
+  }
+
+}
+}
+
+}

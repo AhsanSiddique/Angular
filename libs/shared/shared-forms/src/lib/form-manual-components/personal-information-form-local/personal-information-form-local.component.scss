@@ -1,0 +1,31 @@
+:host {
+    display: block;
+  }
+  .form-control.is-invalid,
+  .form-control:invalid {
+    background-image: initial;
+  }
+  .form-control.is-invalid,
+  .form-control:invalid {
+    background-image: initial;
+  }
+  .invalid-feedback:after {
+    content: '*';
+  }
+  
+  .disabled-input {
+    cursor: not-allowed;
+  }
+  
+  .medical-select {
+    ::ng-deep .ng-input {
+      display: none;
+    }
+  
+    &-has-value {
+      height: fit-content !important;
+    }
+  }
+  
+  
+  

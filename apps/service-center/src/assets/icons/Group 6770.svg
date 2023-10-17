@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="66" height="65" viewBox="0 0 66 65">
+    <defs>
+        <style>
+            .cls-2{fill:#f14d4e}
+        </style>
+    </defs>
+    <g id="Group_6770" transform="translate(-306 -481)">
+        <rect id="Rectangle_2791" width="66" height="65" fill="#f14d4e" opacity="0.12" rx="15" transform="translate(306 481)"/>
+        <g id="noun_Pen_71624" transform="translate(326.438 500.885)">
+            <path id="Path_3037" d="M63.9 10.339l1.2-1.2A2.939 2.939 0 0 0 66 7.1a1.965 1.965 0 0 0-.55-1.41l-2.479-2.48a2.542 2.542 0 0 0-3.448.347l-1.2 1.2z" class="cls-2" transform="translate(-43.495)"/>
+            <path id="Path_3038" d="M22.02 15l-9.4 9.4a5.817 5.817 0 0 0 5.58 5.572l9.4-9.4z" class="cls-2" transform="translate(-7.814 -9.615)"/>
+            <path id="Path_3039" d="M4.074 61.876l-1.446 6.356a.438.438 0 0 0 .428.536.4.4 0 0 0 .1-.012l6.36-1.447a7.7 7.7 0 0 1-5.442-5.433z" class="cls-2" transform="translate(0 -46.22)"/>
+        </g>
+    </g>
+</svg>

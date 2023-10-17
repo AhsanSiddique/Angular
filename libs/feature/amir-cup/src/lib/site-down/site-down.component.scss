@@ -1,0 +1,16 @@
+.align-content-center{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    p{
+      font-size: 26px;;
+
+    }
+}
+.homepage_carousel {
+  min-height: calc( 100vh - 64px) !important;
+  max-height: calc( 100vh - 64px) !important;
+}

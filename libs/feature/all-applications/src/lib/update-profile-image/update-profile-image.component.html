@@ -1,0 +1,132 @@
+<div
+  class="modalpane-wrapper"
+  [ngClass]="{ 'd-none': this.user_image_to_crop }"
+>
+  <div class="modalpane-body" style="height: 420px">
+    <div class="modalpane-header">
+      <h4 class="font-24 text-center">Update Profile Image</h4>
+      <div class="modalpane-closebtn">
+        <img
+          src="/assets/icons/close 001.svg"
+          style="width: 32px"
+          alt="close icon"
+          (click)="closeThis.emit('close')"
+        />
+      </div>
+    </div>
+    <div class="update-mobile-modal-body" style="height: 250px">
+      <form
+        autocomplete="off"
+        class="m-0 p-0 upload-document-form"
+        [formGroup]="updateProfileImageForm"
+        (ngSubmit)="Upload()"
+      >
+        <div class="">
+          <div class="image-preview">
+            <div
+              class="image-preview-wrap text-center"
+              [ngStyle]="{
+                'border-style': this.updateProfileImageForm.get('profilePic')
+                  ?.value
+                  ? 'none'
+                  : 'dashed'
+              }"
+            >
+              <img
+                *ngIf="!this.updateProfileImageForm.get('profilePic')?.value"
+                alt="user icon"
+                src="assets/icons/user_pic.svg"
+                style="width: 11rem; height: 12rem"
+              />
+              <img
+                *ngIf="this.updateProfileImageForm.get('profilePic')?.value"
+                alt="user image"
+                [src]="
+                  this.updateProfileImageForm.get('user_image_src')?.value
+                    ? this.updateProfileImageForm.get('user_image_src')?.value
+                    : (getImage(data.profilePic) | secureImage | async)
+                "
+                style="
+                  object-fit: contain;
+                  width: 11rem;
+                  height: 12rem;
+                  border-radius: inherit;
+                "
+              />
+            </div>
+          </div>
+          <div class="row justify-content-center mt-3">
+            <label for="upload-photo" class="doc-upload-btn btn">
+              <span style="margin-right: 1px">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_6092_4149)">
+                    <path
+                      d="M15.1803 14.7254L12.0442 11.5894C11.8 11.3439 11.4023 11.3439 11.158 11.5894L8.02197 14.7254C7.77653 14.9708 7.77653 15.3674 8.02197 15.6116C8.14411 15.7338 8.30426 15.7949 8.46576 15.7949C8.62591 15.7949 8.78742 15.7338 8.90956 15.6116L10.9749 13.5463V20.6553C10.9749 21.0011 11.256 21.2822 11.6018 21.2822C11.9475 21.2822 12.2287 21.0011 12.2287 20.6553V13.5463L14.294 15.6116C14.4162 15.7338 14.5763 15.7949 14.7378 15.7949C14.898 15.7949 15.0595 15.7338 15.1816 15.6116C15.4259 15.3673 15.4259 14.9697 15.1802 14.7254H15.1803Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M4.60382 8.89815C4.60382 9.17836 4.62175 9.4592 4.6569 9.74008C4.62034 9.73913 4.58367 9.73859 4.54695 9.73859C1.98487 9.73859 -0.1 11.8235 -0.1 14.3855C-0.1 16.9476 1.98487 19.0325 4.54695 19.0325H8.46677C8.86904 19.0325 9.19365 18.7065 9.19365 18.3056C9.19365 17.9046 8.86775 17.5787 8.46677 17.5787L4.54695 17.5785C2.78685 17.5785 1.35402 16.1468 1.35402 14.3856C1.35402 12.6244 2.78574 11.1927 4.54695 11.1927C4.81974 11.1927 5.10036 11.2316 5.38178 11.3078L5.38184 11.3079C5.63426 11.3761 5.9043 11.3039 6.08873 11.1169C6.27325 10.931 6.34258 10.6596 6.27178 10.4074L6.2717 10.4072C6.12885 9.90409 6.05765 9.39575 6.05765 8.89703C6.05765 5.84031 8.54502 3.35304 11.6016 3.35304C14.6583 3.35304 17.1456 5.84041 17.1456 8.89703C17.1456 9.29931 17.4716 9.62391 17.8725 9.62391C20.0648 9.62391 21.8492 11.4083 21.8492 13.6006C21.8492 15.7929 20.0659 17.5773 17.8725 17.5773H14.7365C14.3342 17.5773 14.0096 17.9033 14.0096 18.3042C14.0096 18.7065 14.3356 19.0311 14.7365 19.0311H17.8725C20.8668 19.0311 23.3033 16.5947 23.3033 13.6003C23.3037 10.842 21.2356 8.55688 18.5672 8.21495C18.2227 4.67545 15.2299 1.9 11.602 1.9C7.74325 1.9 4.60382 5.03933 4.60382 8.89815Z"
+                      fill="white"
+                      stroke="white"
+                      stroke-width="0.2"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_6092_4149">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+              <span>Select Photo</span>
+            </label>
+
+            <input
+              type="file"
+              accept=".jpg,.jpeg"
+              (change)="onUserImageChange($event)"
+              (click)="$event.target.value = null"
+              id="upload-photo"
+              class="d-none"
+            />
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+          <button
+            type="reset"
+            class="btn btn-secondary mr-2"
+            (click)="closeThis.emit('close')"
+          >
+            <span>{{ 'Common.Cancel' | translate }}</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary btn-caret-8"
+            (click)="Upload()"
+            [disabled]="
+              this.incomingPropic ===
+              this.updateProfileImageForm.get('profilePic')?.value
+            "
+          >
+            {{ 'Common.Submit' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop" *ngIf="!user_image_to_crop"></div>
+
+<fan-id-image-croppper
+  *ngIf="user_image_to_crop"
+  [config]="user_image_cropper_config"
+  [ImagePath]="user_image_to_crop"
+  (closeThis)="saveCroppedUserImage($event)"
+></fan-id-image-croppper>

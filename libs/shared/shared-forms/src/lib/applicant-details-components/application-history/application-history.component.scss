@@ -1,0 +1,37 @@
+button.view-history {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  gap: 0.25rem;
+  width: fit-content;
+}
+
+.application-history-container {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#application-history-table {
+  margin-inline: -1rem;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+}
+
+.fan-id-datatable {
+  min-height: unset;
+  min-width: 480px;
+  thead {
+    background: #ffffff;
+  }
+
+  td {
+    padding: 20px 15px !important;
+  }
+}
+
+.status-tag {
+  min-width: 100px;
+}

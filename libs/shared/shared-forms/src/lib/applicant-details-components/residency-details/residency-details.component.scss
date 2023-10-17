@@ -1,0 +1,30 @@
+@import '../applicant-details-common.scss';
+
+:host {
+  display: block;
+}
+
+.col {
+  margin-bottom: 1rem;
+}
+
+.view-document-btn {
+  color: #08d0b9 !important;
+  text-decoration: none;
+  outline: none;
+  box-shadow: none;
+  align-items: center;
+  display: flex;
+  font-size: 0.8rem;
+  padding-left: 0;
+  padding-right: 0;
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    svg {
+      height: 0.8rem;
+    }
+  }
+}

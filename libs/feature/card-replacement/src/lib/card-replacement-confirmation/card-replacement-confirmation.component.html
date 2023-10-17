@@ -1,0 +1,27 @@
+<div class="loader">
+    <div class="loader-content">
+        <div class="submitPane">
+            <div class="paneHeader">
+                <h4 class="font-20 text-center">{{ 'CardReplacement.CardReplacement' | translate }}</h4>
+                <div class="paneClose" *ngIf="confirmCheck" (click)="closeThis.emit('canceled')">
+                    <svg width="20" height="20" viewBox="0 0 33.799 33.799">
+                      <path id="Path_3042" data-name="Path 3042"
+                        d="M16.9,0A16.9,16.9,0,1,0,33.8,16.9,16.89,16.89,0,0,0,16.9,0Zm-.811,20.952L12.252,24.79a2.293,2.293,0,0,1-3.243-3.243l3.837-3.837a1.147,1.147,0,0,0,0-1.622L9.009,12.252a2.293,2.293,0,0,1,3.243-3.243l3.837,3.837a1.148,1.148,0,0,0,1.622,0l3.837-3.837a2.293,2.293,0,0,1,3.243,3.243l-3.837,3.837a1.147,1.147,0,0,0,0,1.622l3.837,3.837a2.293,2.293,0,0,1-3.243,3.243L17.71,20.952a1.147,1.147,0,0,0-1.622,0Z"
+                        fill="#fff" />
+                    </svg>
+                  </div>
+            </div>
+            <div class="card-replacement-paneBody">
+                <h6 *ngIf="!confirmCheck" class ="text-center">{{ 'CardReplacement.ReplacementConfirmationMessage' | translate }}</h6>
+                <h6 *ngIf="confirmCheck" class ="text-center">{{header | translate}}</h6>
+            </div>
+            <div class="paneFooter">
+                <button *ngIf="!confirmCheck" class="btn btn-primary btn-sm btn-failed" (click)="closeThis.emit()">{{ 'CardReplacement.Close' | translate }}</button>
+                <button *ngIf="confirmCheck" class="btn btn-primary btn-sm btn-failed" (click)="closeThis.emit('ok')">{{ 'Common.Ok' | translate }}</button>
+               
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="modalpane-backdrop"></div>
+

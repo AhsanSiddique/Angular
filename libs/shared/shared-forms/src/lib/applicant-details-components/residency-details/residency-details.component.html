@@ -1,0 +1,138 @@
+<div class="preferred-collection-details">
+  <div class="row">
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="country_birth" class="disabled-label">
+        Country of Birth
+      </label>
+      <div id="country_birth" class="form-control disabled-text d-flex align-items-center">
+        <span class="flag-icon flag-icon-{{ applicant_data?.placeOfBirth | lowercase }}"></span>
+        <span class="mx-1"> {{ applicant_data?.placeOfBirth_Name }} </span>
+      </div>
+    </div>
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="country_residence" class="disabled-label">
+        Country of Residence
+      </label>
+      <div id="country_residence" class="form-control disabled-text d-flex align-items-center">
+        <span class="flag-icon flag-icon-{{ applicant_data?.currentResidentCountryCode | lowercase }}"></span>
+        <span class="mx-1"> {{ applicant_data?.currentResidentCountry_Name }} </span>
+      </div>
+    </div>
+    <ng-container *ngIf="applicant_data?.channel !== 16 || (applicant_data?.channel === 16 && applicant_data?.previousNationality_Name)">
+      <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+        <label for="previous_nationality" class="disabled-label">
+          Previous Nationality
+        </label>
+        <div id="previous_nationality" class="form-control disabled-text d-flex align-items-center">
+          <span class="flag-icon flag-icon-{{ applicant_data?.previousNationality_Code | lowercase }}"></span>
+          <span class="mx-1"> {{ applicant_data?.previousNationality_Name }} </span>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="applicant_data?.channel !== 16 || (applicant_data?.channel === 16 && applicant_data?.professionCode)">
+      <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+        <fan-id-readonly-input
+          label="Job Title"
+          id="job_title"
+          [value]="applicant_data?.profession_Name"
+          placeholder="Job Title"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngIf="applicant_data?.professionCode === 'OTHR'">
+        <fan-id-readonly-input
+          label="Other Job Title"
+          id="other_job_title"
+          [value]="applicant_data?.otherProfession"
+          placeholder="Other Job Title"
+        ></fan-id-readonly-input>
+      </div>
+    </ng-container>
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngIf="applicant_data?.gccDoc">
+      <fan-id-readonly-input
+        label="GCC Resident Permit"
+        id="document_type"
+        [value]="'Document'"
+        placeholder="GCC Resident Permit"
+      ></fan-id-readonly-input>
+      <button class="btn btn-link view-document-btn"
+        (click)="viewDocument(applicant_data?.gccDoc)">
+        <span class="view-document-btn__icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 17.402 18.985"
+          >
+            <defs>
+              <style>
+                .cls-2 {
+                  fill: #08d0b9;
+                }
+              </style>
+            </defs>
+            <g id="copy" transform="translate(-1)">
+              <path
+                id="Path_3175"
+                d="M3.373 5.34a3.762 3.762 0 0 1 3.758-3.758h7.225A2.171 2.171 0 0 0 12.273 0h-9.1A2.177 2.177 0 0 0 1 2.175v12.262a2.177 2.177 0 0 0 2.175 2.175h.2z"
+                class="cls-2"
+              />
+              <path
+                id="Path_3176"
+                d="M17.273 4h-9.1A2.177 2.177 0 0 0 6 6.175v11.47a2.177 2.177 0 0 0 2.175 2.175h9.1a2.177 2.177 0 0 0 2.175-2.175V6.175A2.177 2.177 0 0 0 17.273 4zM15.69 17.448H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-2.769H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187z"
+                class="cls-2"
+                transform="translate(-1.045 -.836)"
+              />
+            </g>
+          </svg>
+        </span>
+        <span>View Document</span>
+      </button>
+    </div>
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngIf="applicant_data?.visaCopyDoc">
+      <fan-id-readonly-input
+        label="Visa Copy"
+        id="document_type"
+        [value]="'Document'"
+        placeholder="Visa Copy"
+      ></fan-id-readonly-input>
+      <button class="btn btn-link view-document-btn"
+        (click)="viewDocument(applicant_data?.visaCopyDoc)">
+        <span class="view-document-btn__icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 17.402 18.985"
+          >
+            <defs>
+              <style>
+                .cls-2 {
+                  fill: #08d0b9;
+                }
+              </style>
+            </defs>
+            <g id="copy" transform="translate(-1)">
+              <path
+                id="Path_3175"
+                d="M3.373 5.34a3.762 3.762 0 0 1 3.758-3.758h7.225A2.171 2.171 0 0 0 12.273 0h-9.1A2.177 2.177 0 0 0 1 2.175v12.262a2.177 2.177 0 0 0 2.175 2.175h.2z"
+                class="cls-2"
+              />
+              <path
+                id="Path_3176"
+                d="M17.273 4h-9.1A2.177 2.177 0 0 0 6 6.175v11.47a2.177 2.177 0 0 0 2.175 2.175h9.1a2.177 2.177 0 0 0 2.175-2.175V6.175A2.177 2.177 0 0 0 17.273 4zM15.69 17.448H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-2.769H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187z"
+                class="cls-2"
+                transform="translate(-1.045 -.836)"
+              />
+            </g>
+          </svg>
+        </span>
+        <span>View Document</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="{doc: viewDocument$ | async} as vm">
+  <fan-id-image-modal
+    *ngIf="vm.doc?.hasDocument"
+    fanIdDisableRightclick
+    [imageSrc]="vm.doc?.documentSrc"
+    (closeThis)="viewDocument$.next({})"
+  ></fan-id-image-modal>
+</ng-container>

@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.accommodation-type-error {
+  display: block;
+  bottom: -0.25rem;
+  // right: 0.75rem;
+}
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+.invalid-feedback:after {
+  content: '*';
+}
+
+.radio-disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}

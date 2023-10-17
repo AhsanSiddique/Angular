@@ -1,0 +1,65 @@
+[{
+        "id": 1,
+        "name": "Application Number"
+    },
+    {
+        "id": 2,
+        "name": "Application Status"
+    },
+    {
+        "id": 3,
+        "name": "Approval Comments"
+    },
+    {
+        "id": 4,
+        "name": "Fan ID Number"
+    },
+    {
+        "id": 5,
+        "name": "Document Type"
+    },
+    {
+        "id": 6,
+        "name": "Document Number"
+    },
+    {
+        "id": 7,
+        "name": "Nationality"
+    },
+    {
+        "id": 8,
+        "name": "First Name"
+    },
+    {
+        "id": 9,
+        "name": "Last Name"
+    },
+    {
+        "id": 10,
+        "name": "Mobile Number"
+    },
+    {
+        "id": 11,
+        "name": "Gender"
+    },
+    {
+        "id": 12,
+        "name": "Date of Birth"
+    },
+    {
+        "id": 13,
+        "name": "Profession"
+    },
+    {
+        "id": 14,
+        "name": "Salary"
+    },
+    {
+        "id": 15,
+        "name": "Submission Type"
+    },
+    {
+        "id": 16,
+        "name": "Fan-ID Card Details"
+    }
+]

@@ -1,0 +1,9 @@
+[
+  { "id": 1, "name": "Alzheimer's disease" },
+  { "id": 2, "name": "Arthritis" },
+  { "id": 3, "name": "Asthma" },
+  { "id": 4, "name": "Diabetes" },
+  { "id": 5, "name": "Heart disease" },
+  { "id": 6, "name": "High blood pressure" },
+  { "id": 7, "name": "None of the Above" }
+]

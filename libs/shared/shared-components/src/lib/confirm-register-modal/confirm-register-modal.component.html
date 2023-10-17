@@ -1,0 +1,38 @@
+<div class="modalpane-wrapper">
+  <div class="modalpane-closebtn">
+    <img
+      src="/assets/icons/close 001.svg"
+      style="width: 32px"
+      alt="close icon" (click)="closeThis.emit('close')"
+    />
+  </div>
+
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <h4 class="font-24 text-center" style="color: var(--hayya-primary); font-weight: 900">
+        {{ 'Common.Alert' | translate }}
+      </h4>
+    </div>
+
+    <p class="text-center font-16">
+      Confirm with the Applicant that all the information entered is correct and same as per the Applicant's Passport/QID.
+    </p>
+    <p class="text-center font-16">
+      Any discrepancies in the information provided may result in rejection of the application and / or refusal of entry.
+    </p>
+    <!-- <p class="text-center font-16" *ngIf="isServiceCenter">
+      {{ 'ConfirmRegister.Confirm2' | translate }}
+    </p> -->
+
+    <div class="modalpane-footer">
+      <button class="btn btn-secondary" (click)="closeThis.emit('close')">
+        <span>{{ 'Common.Close' | translate }}</span>
+      </button>
+      <button class="btn btn-primary btn-caret-8" (click)="closeThis.emit('proceed')">
+        {{ 'Common.Submit' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="modalpane-backdrop"></div>

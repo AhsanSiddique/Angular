@@ -1,0 +1,22 @@
+@import '../accommodation.common.scss';
+
+.width20 {
+  width:20% !important;
+}
+
+.accommodation-statistics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  gap: 0.25rem;
+
+  &__wrapper {
+      clear: both;
+      min-width: 200vh;
+      overflow-x: none;
+  }
+
+  .body-statistics {
+    align-content: space-between;
+    padding: 0 20px;
+  }
+}

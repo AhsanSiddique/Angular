@@ -1,0 +1,16 @@
+$textColor: #081c3b;
+$bgColor: #f7f9fe;
+$formcontrolcolor: #EAEAEA;
+$bordercolor: rgba(153, 159, 168, 0.45);
+$successColor: #0f7c3d;
+
+.disabled {
+  &-label {
+    color: rgba(69, 69, 69, 0.5) !important;
+  }
+  
+  &-text {
+    color: rgba(69, 69, 69, 0.5) !important;
+    background-color: $formcontrolcolor !important;
+  }
+}

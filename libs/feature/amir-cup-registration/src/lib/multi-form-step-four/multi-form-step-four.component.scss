@@ -1,0 +1,16 @@
+label + input.has-label {
+  padding-top: 24px;
+}
+
+.link-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.disabled-btn {
+  pointer-events: none;
+  background-color: var(--hayya-primary);
+  opacity: 0.25;
+  border: none;
+}

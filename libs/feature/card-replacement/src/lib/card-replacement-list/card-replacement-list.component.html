@@ -1,0 +1,262 @@
+<div class="bulk-groups" style="min-height: 550px;">
+  <div class="page-title pt-4 pb-4">
+    <h4 class="w-100 mb-0">
+      {{ 'CardReplacement.CardReplacement' | translate }}
+    </h4>
+    <div class="text-center">
+      <button
+        class="btn btn-sm btn-secondary"
+        (click)="Refresh()"
+      >
+        <span class="text-hide"><i class="fa fa-refresh-new" aria-hidden="true"></i></span>
+        <span>{{ 'AllApplicantsList.Refresh' | translate }}</span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="bulk-group-filter">
+        <form [formGroup]="cardReplacement" (ngSubmit)="filterColumn()">
+          <div class="row">
+            <div class="form-group col-lg-4">
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">{{
+                    'CardReplacement.SelectColumn' | translate
+                  }}</label>
+                </div>
+              </div>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="{{ 'CardReplacement.SelectColumn' | translate }}"
+                formControlName="columnName"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    cardReplacement.get('columnName').touched &&
+                    cardReplacement.get('columnName').invalid
+                }"
+                labelForId="columnName"
+                aria-describedby="columnName"
+              >
+                <ng-option *ngFor="let column of columns" [value]="column.id">
+                  {{ column.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-lg-3">
+              <label class="control-label">{{
+                'CardReplacement.EnterText' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="{{
+                  'CardReplacement.Enterthetextyouwant' | translate
+                }}"
+                formControlName="filterTxt"
+                [ngClass]="{
+                  'is-invalid':
+                    cardReplacement.get('filterTxt').touched &&
+                    cardReplacement.get('filterTxt').invalid
+                }"
+              />
+            </div>
+            <div class="form-group mb-0 col-lg-5 d-flex align-items-center justify-content-center"
+              style="gap: 1rem;"
+            >
+              <button
+                (click)="clearFilter()"
+                type="button"
+                class="btn btn-sm btn-secondary col-lg-4 col-md-2 col-sm-3 card-replace-list-clear-btn"
+              >
+                <span>{{ 'CardReplacement.Clear' | translate }}</span>
+              </button>
+              <button
+                [disabled]="cardReplacement.invalid"
+                class="btn btn-sm btn-primary btn-caret-8 col-lg-6 col-md-3 col-sm-4"
+                style="margin-top: 0.5rem; height: 3rem;"
+              >
+                {{ 'CardReplacement.Search' | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row"
+  [hidden]="tableShowHide()">
+    <div class="col-lg-12">
+      <div class="registration-details mt-4">
+        <div class="fan-card">
+          <div class="table-responsive" *ngIf="dtOptions">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              id="importdatatable"
+              class="row-border fan-id-datatable"
+              aria-describedby="cardReplaceTable"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">
+                    {{ 'CardReplacement.Actions' | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ 'CardReplacement.ApplicationDate' | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ 'CardReplacement.ApplicationStatus' | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ 'CardReplacement.ApplicationNumber' | translate }}
+                  </th>
+                  <th scope="col">{{ 'CardReplacement.FanIDNumber' | translate }}</th>
+
+                  <th scope="col">{{ 'CardReplacement.FirstName' | translate }}</th>
+                  <th scope="col">{{ 'CardReplacement.LastName' | translate }}</th>
+                  <th scope="col">{{ 'CardReplacement.FanIDCardStatus' | translate }}</th>
+                  <th scope="col">{{ 'CardReplacement.OrderId' | translate }}</th>
+                  <th scope="col">{{ 'CardReplacement.TicketReferenceNumber' | translate }}</th>
+                  <th scope="col">{{ 'CardReplacement.VoucherCode' | translate }}</th>
+
+                  <th scope="col">{{ 'CardReplacement.SubmissionType' | translate }}</th>
+                  <th scope="col">
+                    {{ 'CardReplacement.NoOfDependents' | translate }}
+                  </th>
+                  <th scope="col">
+                    {{ 'CardReplacement.PrinterName' | translate }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="filteredAppdata">
+                  <tr *ngFor="let data of filteredAppdata">
+                    <td>
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          {{ 'CardReplacement.Action' | translate }}
+                        </button>
+                        <div
+                          class="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <a
+                            class="dropdown-item"
+                            (click)="cardReplaceRequest(data?.id, data?.fanIdNo,data)"
+                          >
+                            {{
+                              'CardReplacement.CardReplacement' | translate
+                            }}</a
+                          >
+                          <a class="dropdown-item"
+                          (click)="viewdetails(data?.fanIdNo, data?.id)"
+
+                          >{{
+                            'CardReplacement.ViewDetails' | translate
+                          }}</a>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ dateFM(data?.applicationDate) }}</td>
+                    <td>
+                      <div
+                        class="status-tag"
+                        [ngClass]="{
+                          'status-approved': data?.applicationStatus === 2,
+                          'status-rejected': data?.applicationStatus === 3,
+                          'status-under-review': data?.applicationStatus === 1,
+                          'status-more-info': data?.applicationStatus === 4,
+                          'status-draft': data?.applicationStatus === 0,
+                          'status-cn-approved': data?.applicationStatus === 7
+                        }"
+                      >
+                        {{ data?.applicationStatus_Name }}
+                      </div>
+                    </td>
+                    <td>{{ data?.applicationNo }}</td>
+                    <td>{{ data?.fanIdNo }}</td>
+                    <td>{{ data?.firstName }}</td>
+                    <td>{{ data?.lastName }}</td>
+                    <td>
+                      <div class="card-status-tag"
+                        [ngClass]="{
+                          'card-printed': data?.cardStatus === 2,
+                          'card-pending': data?.cardStatus === 1,
+                          'card-delivery':  [3,4].includes(data?.cardStatus),
+                          'card-collected': [5,6].includes(data?.cardStatus),
+                          'card-home-delivery': data?.cardStatus === 10,
+                          'card-collection-qpr':data?.cardStatus === 11
+                        }"
+                      >
+                        {{ data?.cardStatus_Name }}
+                      </div>
+                    </td>
+                    <td>{{ data?.ticketOrderId }}</td>
+                    <td>{{ data?.ticketNo }}</td>
+                    <td>{{ data?.voucherCode }}</td>
+                    <td>{{ data?.submissionType_Name }}</td>
+                    <td class="card-replacement-dependendts-column">
+                      {{ data?.dependentCount }}
+                    </td>
+                    <td>{{ data?.printer_Name }}</td>
+                  </tr>
+                  <tr *ngIf="filteredAppdata.length === 0">
+                    <td colspan="10" class="no-data-available">No data available in table</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <fan-id-dt-goto
+              *ngIf="filteredAppdata"
+              class="goto-page" (_go)="gotoPage($event)"
+            ></fan-id-dt-goto>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<fan-id-card-replacement-dialog
+  *ngIf="replacement_dialog_open"
+  [id] = "ApplicationId"
+  (closeThis)="closeReplacementDialog($event)"
+>
+</fan-id-card-replacement-dialog>
+<fan-id-card-replacement-confirmation
+  *ngIf="replace_confirmation_dialog_open"
+  (closeThis)="closeReplacementConfirmation($event)"
+>
+</fan-id-card-replacement-confirmation>
+<fan-id-common-error-modal
+*ngIf="error_dialog_open"
+[head_error_message] =" 'CardReplacement.CardReplacementRequestFailed'"
+[error_message]="error_message"
+buttontext="Common.Ok"
+(closeThis)="closeReplacementConfirmation($event)">
+</fan-id-common-error-modal>
+<fan-id-card-replacement-confirmation
+  *ngIf="confirm_replace_bool"
+  [confirmCheck] = "true"
+  [header]="'CardReplacement.CardReplacementRequestSendConfirm'"
+  (closeThis)="Confirmation($event)"
+>
+</fan-id-card-replacement-confirmation>
+<fan-id-print-card-image
+  *ngIf="show_card_view_bool"
+  [userData] = "replace_full_data"
+  (closeThis)="this.show_card_view_bool = false"
+  (Print)="this.confirm_replace_bool = true; this.show_card_view_bool = false"
+></fan-id-print-card-image>

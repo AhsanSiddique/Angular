@@ -1,0 +1,310 @@
+<div class="bulk-registration margin-div">
+  <div class="page-title">
+    <fan-id-back-arrow></fan-id-back-arrow>
+    <h4 class="w-100 mb-0">
+      New Registration - Excel Upload
+    </h4>
+  </div>
+  <div class="row margin-div">
+    <div class="col-lg-8 order-sm-last order-lg-first">
+      <div class="registration-card">
+        <form class="" [formGroup]="registrationForm">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="eventname">
+                  {{ 'ManualStep1.EventName' | translate }}</label
+                >
+                <ng-select
+                  [virtualScroll]="true"
+                  [clearable]="false"
+                  [searchable]="false"
+                  bindLabel="name"
+                  bindValue="name"
+                  placeholder="{{ 'ManualStep1.Chooseyourevent' | translate }}"
+                  formControlName="eventname"
+                  class="form-control disable-arrow"
+                  [searchable]="false"
+                  [ngClass]="{
+                    'is-invalid':
+                      registrationForm.get('eventname').touched &&
+                      registrationForm.get('eventname').invalid
+                  }"
+                  [readonly]="true"
+                  labelForId="eventname"
+                  aria-describedby="eventname"
+                  style="background-color: white !important"
+                >
+                  <ng-option *ngFor="let event of events" [value]="event.name">
+                    {{ event.name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="organizationname">{{
+                  'ManualStep1.OrganizationName' | translate
+                }}</label>
+                <ng-select
+                  [readonly]="true"
+                  [virtualScroll]="true"
+                  [clearable]="false"
+                  [searchable]="false"
+                  bindLabel="name"
+                  bindValue="id"
+                  placeholder="{{
+                    'ManualStep1.Chooseyourorganizationname' | translate
+                  }}"
+                  formControlName="organizationname"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      registrationForm.get('organizationname').touched &&
+                      registrationForm.get('organizationname').invalid
+                  }"
+                  labelForId="organizationname"
+                  aria-describedby="organizationname"
+                  style="background-color: white !important"
+                >
+                  <ng-option
+                    *ngFor="let organization of organizations"
+                    [value]="organization.id"
+                  >
+                    {{ organization.name }}
+                  </ng-option>
+                </ng-select>
+                <span class="invalid-feedback">{{
+                  'ManualStep1.Chooseyourorganizationname' | translate
+                }}</span>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="bulkgroupname"
+                  >{{ 'ManualStep1.BulkGroupName' | translate
+                  }}<sup>*</sup></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bulkgroupname"
+                  formControlName="bulkgroupname"
+                  aria-describedby="bulkgroupname"
+                  [ngClass]="{
+                    'is-invalid':
+                      (registrationForm.get('bulkgroupname').touched &&
+                        registrationForm.get('bulkgroupname').invalid) ||
+                      validatebgError
+                  }"
+                  required
+                  placeholder="{{
+                    'ManualStep1.Enteryourbulkgroupname' | translate
+                  }}"
+                  style="background-color: white !important"
+                  (blur)="validateBulkGroup()"
+                />
+                <span class="invalid-feedback" *ngIf="!validatebgError">{{
+                  'ManualStep1.Enteryourbulkgroupname' | translate
+                }}</span>
+                <div
+                  class="validationError invalid-feedback"
+                  *ngIf="validatebgError"
+                >
+                  {{ 'ManualStep1.BulkGroupNameExists' | translate }}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="uploadzipfile"
+                  >{{ 'ManualStep1.UploadZip' | translate }}<sup>*</sup></label
+                >
+                <div class="file-control">
+                  <label
+                    for="uploadzipfile"
+                    class="file-upload form-control"
+                    style="border: none !important; padding: 0rem !important"
+                    [ngClass]="{
+                      'is-invalid':
+                        registrationForm.get('uploadzipfile').touched &&
+                        registrationForm.get('uploadzipfile').invalid,
+                      'is-valid': registrationForm.get('uploadzipfile').valid
+                    }"
+                  >
+                    <div class="download-btn-area">
+                      <div class="download-btn">
+                        <div class="dwn-text">
+                          <span>{{
+                            !this.file
+                              ? 'Import Zip file with excel'
+                              : this.file.name
+                          }}</span>
+                        </div>
+                        <div class="upload-btn-wrapper">
+                          <input
+                            *ngIf="!this.file"
+                            type="file"
+                            class="form-control"
+                            formControlName="uploadzipfile"
+                            id="uploadzipfile"
+                            aria-describedby="uploadzipfile"
+                            placeholder="{{
+                              'ManualStep1.ImportZip' | translate
+                            }}"
+                            class="form-control"
+                            (change)="uploadfile($event)"
+                            accept=".zip,.7zip"
+                            required
+                          />
+
+                          <button
+                            *ngIf="!this.file"
+                            class="btn p-0 voucherxl-browse"
+                          >
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g
+                                clip-path="url(#a)"
+                                stroke="var(--hayya-primary)"
+                                stroke-width="2"
+                                stroke-miterlimit="10"
+                                stroke-linecap="square"
+                              >
+                                <path
+                                  d="M1.5 9.5h22m-2 13h-18a2 2 0 0 1-2-2v-18h8l2 3h12v15a2 2 0 0 1-2 2Z"
+                                />
+                              </g>
+                            </svg>
+                          </button>
+                          <button
+                            *ngIf="this.file"
+                            class="btn p-0 voucherxl-browse"
+                            (click)="filereset()"
+                          >
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 22 23"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M18.596 4.971c.357 0 .654.296.654.672v.348a.668.668 0 0 1-.654.672H3.404a.669.669 0 0 1-.654-.672v-.348c0-.376.297-.672.654-.672h2.673c.543 0 1.016-.385 1.138-.93l.14-.624c.217-.85.933-1.415 1.752-1.415h3.786c.81 0 1.534.565 1.743 1.37l.15.669c.122.545.594.93 1.138.93h2.672ZM17.24 17.69c.279-2.598.767-8.769.767-8.83a.682.682 0 0 0-.166-.512.666.666 0 0 0-.48-.214H4.647a.648.648 0 0 0-.48.214.723.723 0 0 0-.174.511l.048.592c.13 1.615.493 6.111.727 8.239.166 1.568 1.196 2.553 2.687 2.588 1.151.027 2.337.036 3.55.036 1.142 0 2.301-.009 3.488-.035 1.543-.027 2.572-.995 2.747-2.589Z"
+                                fill="#130F26"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </label>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="
+                      registrationForm.get('uploadzipfile').errors?.required
+                    "
+                  >
+                    {{ 'ManualStep1.ImportZip' | translate }}
+                  </div>
+                  <div class="invalid-feedback" *ngIf="fileType">
+                    {{ 'ManualStep1.ImportValidZip' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group" >
+                <label for="bulkgroupname"
+                  >Organization Group Accommodation Details<sup>*</sup></label
+                >
+                <textarea name="accodetails"
+                style="height: 8rem !important;
+                background-color: white !important;"
+                  rows="5"
+                  class="form-control accodetails"
+                  id="accodetails"
+                  formControlName="accodetails"
+                  aria-describedby="accodetails"
+                  [ngClass]="{
+                    'is-invalid':
+                      (registrationForm.get('accodetails').touched &&
+                        registrationForm.get('accodetails').invalid)
+                  }"
+                  required
+                  placeholder="Please indicate where this group will be staying in Qatar"
+                  >
+                </textarea>
+                <div
+                class="invalid-feedback"
+                *ngIf="
+                  registrationForm.get('accodetails').errors?.required
+                "
+              >
+              Please indicate where this group will be staying in Qatar
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-area mt-5 mb-3">
+            <button
+              type="reset"
+              class="btn btn-secondary mr-2"
+              (click)="show_cancel_modal = true"
+            >
+              <span>{{ 'Common.Cancel' | translate }}</span>
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-primary btn-sm btn-submit"
+              [disabled]="registrationForm.invalid || validatebgError"
+              (click)="onSubmit()"
+            >
+              {{ 'ManualStep1.Upload' | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- <div class="col-lg-4 order-sm-first order-lg-last">
+      <div class="register-note">
+        <h4>{{ 'ManualStep1.PleaseNote' | translate }}<strong>:</strong></h4>
+        <span>{{ 'ManualStep1.Note2' | translate }}</span>
+      </div>
+    </div> -->
+  </div>
+</div>
+<fan-id-common-dialogue
+  *ngIf="showError"
+  [Header]="'RegisterError.SubmissionFailed'"
+  [Body]="error"
+  (closeThis)="onErrorClose($event)"
+>
+</fan-id-common-dialogue>
+
+<fan-id-modal-wrapper
+  *ngIf="show_cancel_modal"
+  [title]="'Common.Alert' | translate"
+  (closeThis)="show_cancel_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+    <p>{{ 'Common.AllChangesDoneLost' | translate }}</p>
+    <button
+      type="button"
+      class="btn btn-primary btn-caret-8"
+      (click)="cancel()"
+    >
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>

@@ -1,0 +1,38 @@
+.upperlabel {
+  left: calc(15px + 24px);
+  top: 12px;
+
+  + input {
+    padding-top: 27px;
+  }
+}
+
+.phone-area-code {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  width: 100px;
+  height: 46px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: #fff;
+  border: none;
+  border-right: 1px solid #eee;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+
+  & ~ .upperlabel {
+    padding-left: 96px;
+  }
+
+  & ~ input {
+    padding-left: 120px;
+  }
+}
+.row{
+  justify-content: center;
+  margin-right: 0px;
+  margin-left: 0px;
+}

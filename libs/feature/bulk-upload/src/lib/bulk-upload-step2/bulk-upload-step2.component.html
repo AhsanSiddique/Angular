@@ -1,0 +1,1090 @@
+<div class="bulk-registration margin-div" style="
+overflow: hidden;
+">
+  <div class="page-title">
+    <!-- <a class="back-ico btn btn-sm" fanIdBack
+      ><svg width="16" height="16" viewBox="0 0 21 21.946">
+        <g id="arrow-right" transform="translate(1.5 2.121)">
+          <line
+            id="Line_249"
+            data-name="Line 249"
+            x1="18"
+            transform="translate(0 9.001)"
+            fill="none"
+            stroke="#081c3b"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+          />
+          <path
+            id="Path_928"
+            data-name="Path 928"
+            d="M20.851,5,12,13.851,20.851,22.7"
+            transform="translate(-12 -5)"
+            fill="none"
+            stroke="#081c3b"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+          />
+        </g>
+      </svg>
+      <span class="sr-only">Back</span></a
+    > -->
+    <h4 class="w-100 mb-0">
+      New Registration - Excel Upload
+    </h4>
+  </div>
+
+
+  <div class="row margin-div">
+    <div class="col-lg-8">
+      <div class="registration-card" style="
+      overflow: hidden;
+  ">
+        <div class="row">
+          <div class="col-11">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="eventname">
+                    {{ 'ManualStep1.EventName' | translate }}</label
+                  >
+                  <input
+                    type="text"
+                    style="width: 100%"
+                    class="form-control"
+                    readonly
+                    id="eventname"
+                    [ngModel]="eventNameDisplay"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="organizationname">{{
+                    'ManualStep1.OrganizationName' | translate
+                  }}</label>
+                  <input
+                    type="text"
+                    style="width: 100%"
+                    class="form-control"
+                    readonly
+                    id="organizationname"
+                    [value]="formData.organizationname"
+                  />
+                </div>
+              </div>
+              <ng-container *ngIf="togglePanel">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="bulkgroupname">{{
+                      'ManualStep1.BulkGroupName' | translate
+                    }}</label>
+                    <input
+                      type="text"
+                      style="width: 100%"
+                      class="form-control"
+                      readonly
+                      id="bulkgroupname"
+                      [ngModel]="bulkgroupname"
+                    />
+                  </div>
+                </div>
+                <!-- <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="uploadzipfile">{{
+                      'ManualStep1.UploadZip' | translate
+                    }}</label>
+                    <input
+                      type="text"
+                      style="width: 100%"
+                      class="form-control"
+                      readonly
+                      id="uploadzipfile"
+                      [ngModel]="formData.uploadzipfile"
+                    />
+                  </div>
+                </div> -->
+                <!-- <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="deliverytype">{{
+                      'ManualStep1.DeliveryType' | translate
+                    }}</label>
+                    <input
+                      type="text"
+                      style="width: 100%"
+                      class="form-control"
+                      readonly
+                      id="deliverytype"
+                      [value]="formData.deliverytype"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="col-lg-6"
+
+                >
+                  <div class="form-group">
+                    <label for="servicecentre">{{
+                      'ManualStep1.SelectServiceCentre' | translate
+                    }}</label>
+                    <input
+                      type="text"
+                      style="width: 100%"
+                      class="form-control"
+                      readonly
+                      id="servicecentre"
+                      [value]="formData.servicecentre"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="col-lg-6"
+                  *ngIf="deliverytype === 'Deliver to address'"
+                >
+                  <div class="deliveryDetails mt-4">
+                    <div class="del-title mb-2">
+                      {{ 'ManualStep1.OrganizationAddress' | translate }}
+                    </div>
+                    <div class="del-address">
+                      1st Flr, Remal Royal Center, Umm Ghuwalina Umm Ghuwalina,
+                      Doha, Qatar
+                    </div>
+                  </div>
+                </div> -->
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-1 text-center">
+            <label class="control-label d-block mb-0">&nbsp;</label>
+            <button
+              type="submit"
+              class="btn btn-green btn-sm no-shadow mt-2 ac"
+              (click)="togglePanel = !togglePanel"
+            >
+            <div class="tri-up"   [ngClass]="{ 'rotate-1': !togglePanel }">
+
+            </div>
+
+              <!-- <i
+                class="arrow-down-ico"
+                [ngClass]="{ 'arrow-up': togglePanel }"
+              ></i> -->
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-lg-4 order-sm-first order-lg-last">
+      <div class="register-note">
+        <h4>{{ 'ManualStep1.PleaseNote' | translate }}<b>:</b></h4>
+        <span>{{ 'ManualStep1.Note3' | translate }}</span>
+      </div>
+    </div> -->
+    </div>
+<div class="row">
+    <div class="col-lg-12">
+      <div class="registration-details">
+        <div class='rtol'>
+
+        <h4 class="sub-heading mt-3 mb-3 Qatar2022" style="color: var(--hayya-primary);
+        font-size: 24px;
+    ">Bulk Import</h4>
+
+        <button
+        class="btn btn-primary btn-sm btn-submit"  *ngIf="showExport && importeddata.length>0" (click)="exportFailedApplication()">
+      Export Failed Records
+      </button>
+
+      </div>
+        <div class="fan-card">
+          <div class="table-responsive">
+            <table
+            datatable
+            [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger"
+              id="importdatatable"
+              class="row-border fan-id-datatable"
+            >
+              <thead>
+                <tr>
+                  <th style="width: 5% !important">
+                    <div class="roundcheck">
+                      <input
+                        type="checkbox"
+                        id="checkAll"
+                        #checkAllmem
+                        name="checkall"
+                        (change)="checkAll($event)"
+                      />
+                      <label for="checkAll"></label>
+                    </div>
+                  </th>
+                  <th>{{ 'ManualStep3.Action' | translate }}</th>
+                  <th>{{ 'ManualStep3.ImportStatus' | translate }}</th>
+                  <th>{{ 'ManualStep3.FirstName' | translate }}</th>
+                  <th>{{ 'ManualStep3.LastName' | translate }}</th>
+                  <th>Profile Photo</th>
+                  <th>{{ 'ManualStep3.DocumentType' | translate }}</th>
+                  <th>{{ 'ManualStep3.DocSubType' | translate }}</th>
+                  <!-- <th>{{ 'ManualStep3.PrintedQID' | translate }}</th> -->
+                  <th>Passport Photo</th>
+                  <th>{{ 'ManualStep3.ExpiryDate' | translate }}</th>
+                  <th>{{ 'ManualStep3.EmailAddress' | translate }}</th>
+                  <!-- <th>{{ 'ManualStep3.CountryCode' | translate }}</th>
+                  <th>{{ 'ManualStep3.MobileNumber' | translate }}</th> -->
+                  <th>{{ 'ManualStep3.Gender' | translate }}</th>
+                  <!-- <th>{{ 'ManualStep2.Title' | translate }}</th> -->
+                  <th>{{ 'ManualStep2.SecondName' | translate }}</th>
+                  <th>{{ 'ManualStep2.ThirdName' | translate }}</th>
+                  <th>{{ 'ManualStep2.FourthName' | translate }}</th>
+                 <th>{{ 'ApplicationInformation.ResidentType' | translate }}</th>
+                  <!-- <th>{{ 'ManualStep2.FanIDCategory' | translate }}</th>
+                <th>
+                    {{ 'ManualStep2.CurrentCountryofResidence' | translate }}
+                  </th> -->
+                  <!-- <th>{{ 'ManualStep2.TorVcode' | translate }}</th> -->
+                  <th>{{ 'ManualStep2.ArabicFirstName' | translate }}</th>
+                  <th>{{ 'ManualStep2.ArabicSecondName' | translate }}</th>
+                  <th>{{ 'ManualStep2.ArabicThirdName' | translate }}</th>
+                  <th>{{ 'ManualStep2.ArabicFourthName' | translate }}</th>
+                  <th>{{ 'ManualStep2.ArabicLastName' | translate }}</th>
+                  <th>{{ 'ManualStep2.DocumentNumber' | translate }}</th>
+                  <th>{{ 'ManualStep2.IssuingCountry' | translate }}</th>
+                  <th>{{ 'ManualStep2.Nationality' | translate }}</th>
+                  <th>{{ 'ManualStep2.DateofBirth' | translate }}</th>
+                  <th>{{ 'ApplicantDetails.UserCategory' | translate }}</th>
+                  <!-- <th>{{ 'ManualStep2.MedicalInformation' | translate }}</th> -->
+                  <!-- <th>{{'ManualStep2.ArrivalDate' | translate }}</th> -->
+                  <th>{{ 'ManualStep2.MarketingMailer' | translate }}</th>
+                  <!-- <th>{{ 'ManualStep2.ProofAccommodation' | translate }}</th> -->
+
+                </tr>
+              </thead>
+              <!-- <thead class="filterArea">
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-uploadstatus"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-fisrtName"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-lastname"
+                      />
+                    </div>
+                  </th>
+                  <th></th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-idtype"
+                      />
+                    </div>
+                  </th>
+                  <th></th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-expirydate"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-email"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-countrycode"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-contactno"
+                      />
+                    </div>
+                  </th>
+                  <th>
+                    <div class="filterList">
+                      <input
+                        type="text"
+                        style="width: 100%"
+                        placeholder="Search"
+                        name="search-gender"
+                      />
+                    </div>
+                  </th>
+                </tr>
+              </thead> -->
+              <tbody>
+                <tr *ngFor="let data of importeddata; let i = index">
+                  <td>
+                    <div class="roundcheck">
+                      <input
+                        type="checkbox"
+                        [attr.id]="i"
+                        (change)="selectMember(data.uiId, $event)"
+                        #checkboxes
+                      />
+                      <label [attr.for]="i"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        {{ 'ManualStep3.Action' | translate }}
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <a
+                          class="dropdown-item row-edit-ico"
+                          href="javascript:void(0)"
+                          (click)="editApplication(data,i)"
+                        >
+                          {{ 'ManualStep3.Edit' | translate }}</a
+                        >
+                        <a
+                          class="dropdown-item row-delete-ico"
+                          href="javascript:void(0)"
+                          (click)="removeIndvidual(data.uiId)"
+                        >
+                          {{ 'ManualStep3.Delete' | translate }}</a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                  <td style="
+                  text-align: center;
+              ">
+                      <ng-container *ngIf="data.errors.technicalError != ''"
+                    ><span
+                      class="imported-data specialError hascustomerror"
+                      [attr.data-message]="data.errors.technicalError"
+                      ><i class="error-ico"></i>
+                      <span
+                      class="status-tag"
+                      [ngClass]="{
+                        'status-success': data.importStatus === true,
+                        'status-failed': data.importStatus != ture
+                      }"
+                      >{{
+                        data.importStatus === true ? 'Success' : 'Failed'
+                      }}</span
+                    ></span
+                    >
+                  </ng-container>
+
+                  <ng-container *ngIf="data.errors.technicalError == ''"
+                  >
+                  <span
+                  class="status-tag"
+                  [ngClass]="{
+                    'status-success': data.importStatus === true,
+                    'status-failed': data.importStatus !== true
+                  }"
+                  >{{
+                    data.importStatus === true ?  'Success' : 'Failed'
+                  }}</span
+                >
+                  </ng-container>
+
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.firstName != ''"
+                    ><span
+                      class="imported-data haserror "
+                      [attr.data-message]="data.errors.firstName"
+                      ><i class="error-ico"></i>
+                      {{ data.customerCardApplication.firstName }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.firstName == ''"
+                    ><span class="imported-data">
+                      {{ data.customerCardApplication.firstName }}</span
+                    >
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.lastName != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.lastName"
+                      ><i class="error-ico"></i>
+                      {{ data.customerCardApplication.lastName }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.lastName == ''"
+                    ><span class="imported-data">
+                      {{ data.customerCardApplication.lastName }}</span
+                    >
+                    </ng-container>
+                  </td>
+                  <td>
+                    <div class="text-center">
+                      <ng-container *ngIf="data.errors.profilePic != ''"
+                        ><span
+                          class="imported-data haserror"
+                          [attr.data-message]="data.errors.profilePic"
+                          ><i class="error-ico"></i
+                          ><img
+                          [src]="
+                            getImage(data.customerCardApplication.profilePic) | secureImage | async
+                          "
+                          class="dataas-img profile-pic"
+                        /></span>
+                      </ng-container>
+                      <ng-container *ngIf="data.errors.profilePic == ''"
+                        ><span class="imported-data"
+                          ><img
+                          [src]="
+                            getImage(data.customerCardApplication.profilePic) | secureImage | async
+                          "
+                          class="dataas-img profile-pic"
+                        /></span>
+                      </ng-container>
+
+                    </div>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.docType_Name != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.docType_Name"
+                      ><i class="error-ico"></i>
+                      {{ data.customerCardApplication.docType_Name }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.docType_Name == ''"
+                    ><span class="imported-data">
+                      {{ data.customerCardApplication.docType_Name }}</span
+                    >
+                  </ng-container>
+                  </td>
+                  <!-- doc subtype -->
+                  <td>
+                    <ng-container *ngIf="data.errors.docSubType != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.docSubType"
+                      ><em class="error-ico"></em>
+                      {{ data.customerCardApplication.docSubType }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.docSubType == ''"
+                    ><span class="imported-data" *ngIf="data.customerCardApplication.docTypeId !==1">
+                      {{ data.customerCardApplication.docSubType }}</span
+                    >
+                    <span class="imported-data" *ngIf="data.customerCardApplication.docTypeId ==1">
+                     N/A</span
+                    >
+                  </ng-container>
+                  </td>
+                  <!-- is printed qid -->
+                  <!-- <td>
+                    <ng-container *ngIf="data.errors.printedQID != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.printedQID"
+                      ><em class="error-ico"></em>
+
+                      <span *ngIf="data.customerCardApplication.printedQID===true" >{{'Common.Yes' | translate}}</span>
+                      <span *ngIf="data.customerCardApplication.printedQID==false" >{{'Common.No' | translate}}</span>
+                    </span>
+
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.printedQID == ''"
+                    ><span class="imported-data">
+                      <span *ngIf="data.customerCardApplication.printedQID===true" >{{'Common.Yes' | translate}}</span>
+                      <span *ngIf="data.customerCardApplication.printedQID==false" >{{'Common.No' | translate}}</span></span
+                    >
+                  </ng-container>
+                  </td> -->
+                  <td>
+                    <div class="text-center">
+                      <ng-container *ngIf="data.errors.docImageFront!=''"
+                        ><span
+                          class="imported-data haserror"
+                          [attr.data-message]="data.errors.docImageFront"
+                          ><i class="error-ico"></i
+                          ><img
+                          [src]="
+                          getImage(data.customerCardApplication.docImageFront) | secureImage | async
+                        "
+                            class="dataas-img docment"
+                        /></span>
+                      </ng-container>
+                      <ng-container *ngIf="data.errors.docImageFront==''"
+                        ><span class="imported-data"  *ngIf="data.customerCardApplication.docTypeId !==1"
+                          ><img
+                          [src]="
+                          getImage(data.customerCardApplication.docImageFront) | secureImage | async
+                        "
+                            class="dataas-img docment"
+                        /></span>
+                        <span class="imported-data"   *ngIf="data.customerCardApplication.docTypeId ==1">
+                          N/A
+                        </span>
+                      </ng-container>
+
+                    </div>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.docExpiryDate != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.docExpiryDate"
+                      ><i class="error-ico"></i>
+                      {{ data.customerCardApplication.docExpiryDate  | date: 'dd-MM-yyyy'}}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.docExpiryDate == ''"
+                    ><span class="imported-data">
+                      {{ data.customerCardApplication.docExpiryDate | date: 'dd-MM-yyyy' }}</span
+                    >
+                  </ng-container>
+
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.email != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.email"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.email }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.email == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.email }}</span
+                      >
+                    </ng-container>
+                  </td>
+                  <!-- <td>
+                    <ng-container *ngIf="data.errors.phoneAreaCode != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.phoneAreaCode"
+                      ><i class="error-ico"></i>
+                       {{ data.customerCardApplication.phoneAreaCode }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.phoneAreaCode == ''"
+                    ><span class="imported-data">
+                       {{ data.customerCardApplication.phoneAreaCode }}</span
+                    > </ng-container
+                  >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.phone != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.phone"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.phone }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.phone == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.phone }}</span
+                      >
+                    </ng-container>
+                  </td> -->
+                  <td>
+                    <ng-container *ngIf="data.errors.gender_Name != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.gender_Name"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.gender_Name }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.gender_Name == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.gender_Name }}</span
+                      >
+                    </ng-container>
+                  </td>
+                  <!-- <td>
+                    <ng-container *ngIf="data.errors.title_Name != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.title_Name"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.title_Name }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.title_Name == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.title_Name }}</span
+                      > </ng-container
+                    >
+                  </td> -->
+                  <td>
+                    <ng-container *ngIf="data.errors.secondName != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.secondName"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.secondName }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.secondName == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.secondName }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.thirdName != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.thirdName"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.thirdName }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.thirdName == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.thirdName }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.fourthName != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.fourthName"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.fourthName }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.fourthName == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.fourthName }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.applicationType_Name != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.applicationType_Name"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.applicationType_Name }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.applicationType_Name == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.applicationType_Name }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <!-- <td>
+                    <ng-container *ngIf="data.errors.customerCategory_Name != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.customerCategory_Name"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.customerCategory_Name }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.customerCategory_Name == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.customerCategory_Name }}</span
+                      > </ng-container
+                    >
+                  </td>
+                   <td>
+                    <ng-container *ngIf="data.errors.currentResidentCountry_Name != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.currentResidentCountry_Name"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.currentResidentCountry_Name }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.currentResidentCountry_Name == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.currentResidentCountry_Name }}</span
+                      > </ng-container
+                    >
+                  </td> -->
+                  <!-- <td>
+                    <ng-container *ngIf="data.errors.fanIdNo != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.fanIdNo"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.fanIdNo }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.fanIdNo == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.fanIdNo }}</span
+                      > </ng-container
+                    >
+                  </td> -->
+                  <!-- <td>
+                    <ng-container *ngIf="data.errors.ticketNo != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.ticketNo"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.ticketNo }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.ticketNo == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.ticketNo }}</span
+                      > </ng-container
+                    >
+                  </td> -->
+                  <td>
+                    <ng-container *ngIf="data.errors.firstArabicName != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.firstArabicName"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.firstArabicName }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.firstArabicName == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.firstArabicName }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.secondArabicName != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.secondArabicName"
+                      ><i class="error-ico"></i>
+                      {{ data.customerCardApplication.secondArabicName }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.secondArabicName == ''"
+                    ><span class="imported-data">
+                      {{ data.customerCardApplication.secondArabicName }}</span
+                    > </ng-container
+                  >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.thirdArabicName != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.thirdArabicName"
+                      ><i class="error-ico"></i>
+                      {{ data.customerCardApplication.thirdArabicName }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.thirdArabicName == ''"
+                    ><span class="imported-data">
+                      {{ data.customerCardApplication.thirdArabicName }}</span
+                    > </ng-container
+                  >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.forthArabicName != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.forthArabicName"
+                      ><i class="error-ico"></i>
+                      {{ data.customerCardApplication.forthArabicName }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.forthArabicName == ''"
+                    ><span class="imported-data">
+                      {{ data.customerCardApplication.forthArabicName }}</span
+                    > </ng-container
+                  >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.fifthArabicName != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.fifthArabicName"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.fifthArabicName }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.fifthArabicName == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.fifthArabicName }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.documentIdNo != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.documentIdNo"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.documentIdNo }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.documentIdNo == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.documentIdNo }}</span
+                      > </ng-container
+                    >
+                  </td>
+
+                  <td>
+                    <ng-container *ngIf="data.errors.docIssuingAuthority_Nationality != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.docIssuingAuthority_Nationality"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.docIssuingAuthority_Nationality }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.docIssuingAuthority_Nationality == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.docIssuingAuthority_Nationality }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.nationality_Name != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.nationality_Name"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.nationality_Name }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.nationality_Name == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.nationality_Name }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.dateofBirth != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.dateofBirth"
+                        ><i class="error-ico"></i>
+                        {{data.customerCardApplication.dateofBirth
+                          | date: 'dd-MM-yyyy' }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.dateofBirth == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.dateofBirth
+                          | date: 'dd-MM-yyyy' }}</span
+                      > </ng-container
+                    >
+                  </td>
+                  <td>
+                    <ng-container *ngIf="data.errors.regUserCategory_Name != ''"
+                    ><span
+                      class="imported-data haserror"
+                      [attr.data-message]="data.errors.regUserCategory_Name"
+                      ><i class="error-ico"></i>
+                      {{ data.customerCardApplication.regUserCategory_Name }}
+                      </span
+                    >
+                  </ng-container>
+                  <ng-container *ngIf="data.errors.regUserCategory_Name == ''"
+                    ><span class="imported-data">
+                      {{ data.customerCardApplication.regUserCategory_Name }}
+                      </span
+                    > </ng-container
+                  >
+                </td>
+                  <!-- <td>
+                    <ng-container *ngIf="data.errors.medicalInformation_Name != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.medicalInformation_Name"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.medicalInformation_Name }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.medicalInformation_Name == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.medicalInformation_Name }}</span
+                      > </ng-container
+                    >
+                  </td> -->
+
+
+                    <!-- <td>
+                      <ng-container *ngIf="data.errors.arrivalDate != ''"
+                      ><span
+                        class="imported-data haserror"
+                        [attr.data-message]="data.errors.arrivalDate"
+                        ><i class="error-ico"></i>
+                        {{ data.customerCardApplication.arrivalDate  | date: 'dd-MM-yyyy' }}</span
+                      >
+                    </ng-container>
+                    <ng-container *ngIf="data.errors.arrivalDate == ''"
+                      ><span class="imported-data">
+                        {{ data.customerCardApplication.arrivalDate | date: 'dd-MM-yyyy' }}</span
+                      >
+                    </ng-container>
+
+                    </td> -->
+
+                  <td>
+                    <span *ngIf="data.customerCardApplication.optInMarketing===true" >{{'Common.Yes' | translate}}</span>
+                    <span *ngIf="data.customerCardApplication.optInMarketing!==true" >{{'Common.No' | translate}}</span>
+                  </td>
+
+                     <!-- <td>
+                    <div class="text-center">
+                      <ng-container *ngIf="data.errors.accommodationPic!=''"
+                        ><span
+                          class="imported-data haserror"
+                          [attr.data-message]="data.errors.accommodationPic"
+                          ><i class="error-ico"></i
+                          ><img
+                          [src]="
+                          getImage(data.customerCardApplication.accommodationPic)
+                        "
+                            class="dataas-img docment"
+                        /></span>
+                      </ng-container>
+                      <ng-container *ngIf="data.errors.accommodationPic==''"
+                        ><span *ngIf="data.customerCardApplication.accommodationPic!=null" class="imported-data"
+                          ><img
+                          [src]="
+                          getImage(data.customerCardApplication.accommodationPic)
+                        "
+                            class="dataas-img docment"
+                        /></span>
+                      </ng-container>
+
+                    </div>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="fan-card-footer tableBtn-foot">
+            <div class="d-flex">
+              <div class="w-100">
+
+                <button
+                  type="reset"
+                  class="btn btn-secondary mr-2"
+                  [disabled]="!isDeleteEnable"
+                  (click)="proceedDelete()"
+                >  <span> {{ 'ManualStep3.DeleteSelectedItems' | translate }}</span>
+                </button>
+
+              </div>
+              <div class="w-100 submitbtnPane">
+
+              <button
+                  type="reset"
+                  class="btn btn-secondary mr-2"
+                  (click)="cancel()"
+                >  <span>Save & Exit</span>
+                </button>
+                <button
+                  class="btn btn-primary btn-sm btn-submit"
+                  [disabled]="importListTemp.length === 0 || !isSubmitEnabled"
+                  (click)="onSubmit()"
+                >
+                  {{ 'ManualStep3.Submit' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<fan-id-processing
+  *ngIf="showProcessing"
+  [totalLimit]="importeddata.length"
+  [counter]="counterExcel"
+  [hideProcessing]="hideProcessing"
+  (closeThis)="closeProcessing()"
+></fan-id-processing>
+<fan-id-submission-status
+  *ngIf="submittedStatus"
+  [status]="subStatus"
+  (closeThis)="close($event)"
+  (backtoHme)="backtoHome()"
+>
+</fan-id-submission-status>
+
+<fan-id-bulk-upload-cancel *ngIf="showBulkCancelPopUp" [type]="type" (_close)="closeCancel()" (_proceed)="proceedCancel()"></fan-id-bulk-upload-cancel>
+
+
+
+<fan-id-bulk-upload-cancel *ngIf="showDeletePopup"
+[type]="type"
+[message]="'Common.AreYouSureDeleteApplication'"
+(_close)="closeCancel()"
+ (_proceed)="removeSelectedItems()">
+]</fan-id-bulk-upload-cancel>
+
+
+<fan-id-bulk-upload-cancel
+*ngIf="showIndividualDeletePopup"
+[message]="'Common.AreYouSureDeleteApplication'"
+[type]="type"
+(_close)="closeCancel()"
+(_proceed)="proceedDeleteBYID()">
+</fan-id-bulk-upload-cancel>
+
+

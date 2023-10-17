@@ -1,0 +1,370 @@
+<div class="bulk-registration margin-div">
+  <div class="page-title">
+    <!-- <button class="btn btn-sm text-danger"> -->
+    <fan-id-back-arrow></fan-id-back-arrow>
+    <!-- </button> -->
+    <h4 class="w-100 mb-0">New Registration</h4>
+  </div>
+  <div class="registration-card margin-div">
+    <div class="row ml-0">
+      <div class="col-lg-12 p-0">
+        <div class="options-card">
+          <!-- <fan-id-color-card
+            header="Excel Upload"
+            type="yellow"
+            [buttonText]="selectedOption === 'upload' ? 'Selected': 'Get Started'"
+            (buttonClick)="registerOptions('upload')"
+            [isActive]="selectedOption === 'upload'"
+            [footerSvg]="registrationTypeSvgs.upload"
+          ></fan-id-color-card> -->
+          <fan-id-color-card
+            [bgColor]="registrationTypes.manual.bgColor"
+            [titleText]="registrationTypes.manual.titleText"
+            (buttonClick)="registerOptions(ERegistrationType.manual)"
+            [svg]="registrationTypes.manual.svg"
+          ></fan-id-color-card>
+          <fan-id-color-card
+            [bgColor]="registrationTypes.packageUpload.bgColor"
+            [titleText]="registrationTypes.packageUpload.titleText"
+            (buttonClick)="registerOptions(ERegistrationType.packageUpload)"
+            [svg]="registrationTypes.packageUpload.svg"
+          ></fan-id-color-card>
+          <fan-id-color-card
+            [bgColor]="registrationTypes.apiSync.bgColor"
+            [titleText]="registrationTypes.apiSync.titleText"
+            (buttonClick)="showApiSyncPopup = true"
+            [svg]="registrationTypes.apiSync.svg"
+          ></fan-id-color-card>
+        </div>
+      </div>
+      <!-- <div class="col-lg-12 p-0">
+        <div class="options-card">
+          <fan-id-color-card
+            [bgColor]="registrationTypes.apiSync.bgColor"
+            [titleText]="registrationTypes.apiSync.titleText"
+            (buttonClick)="showApiSyncPopup = true"
+            [svg]="registrationTypes.apiSync.svg"
+          ></fan-id-color-card>
+          <div class="w-100"></div>
+        </div>
+      </div> -->
+      <!-- instructions -->
+      <div class="col-lg-12 p-0">
+        <!--Upload Excel-->
+        <div class="excel-upload" *ngIf="selectedOption === 'upload'">
+          <div class="card">
+            <div class="card-header Qatar2022">
+              <span class="instruction_header Qatar2022">{{ 'Register.Instructions' | translate }}</span>
+            </div>
+            <div class="card-body">
+              <div class="instructions-card">
+                <div class="instructions-area">
+                  <div class="instructions">
+                    <!-- <div class="ins-title">
+                      <h5>{{ 'Register.Step1' | translate }}</h5>
+                    </div> -->
+
+                    <ol class="ins-content" type="1">
+                      <!-- <li>{{ 'Register.Step1Details' | translate }}</li>
+                      <li>{{ 'Register.Step2Details' | translate }}</li> -->
+                      <li>Please go to Knowledge Base for detailed step by step instruction on the registration process</li>
+                      <li>Please download the sample templates for reference</li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="downloads">
+                  <div class="download-btn-area w-30">
+                    <div class="download-btn">
+                      <div class="dwn-ico">
+                        <svg
+                          id="excel"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="28.915"
+                          height="28.484"
+                          viewBox="0 0 38.915 36.484"
+                        >
+                          <path
+                            id="Path_3045"
+                            data-name="Path 3045"
+                            d="M274.241,106.765H257.216A1.217,1.217,0,0,1,256,105.549V81.227a1.217,1.217,0,0,1,1.216-1.216h17.025a1.217,1.217,0,0,1,1.216,1.216v24.322A1.217,1.217,0,0,1,274.241,106.765Z"
+                            transform="translate(-236.543 -75.145)"
+                            fill="#d8e4ec"
+                          />
+                          <g
+                            id="Group_5709"
+                            data-name="Group 5709"
+                            transform="translate(19.457 9.73)"
+                          >
+                            <path
+                              id="Path_3046"
+                              data-name="Path 3046"
+                              d="M262.08,146.443h-4.864a1.216,1.216,0,1,1,0-2.432h4.864a1.216,1.216,0,1,1,0,2.432Z"
+                              transform="translate(-256 -144.011)"
+                              fill="#30d595"
+                            />
+                            <path
+                              id="Path_3047"
+                              data-name="Path 3047"
+                              d="M262.08,210.443h-4.864a1.216,1.216,0,1,1,0-2.432h4.864a1.216,1.216,0,1,1,0,2.432Z"
+                              transform="translate(-256 -203.147)"
+                              fill="#30d595"
+                            />
+                            <path
+                              id="Path_3048"
+                              data-name="Path 3048"
+                              d="M262.08,274.443h-4.864a1.216,1.216,0,1,1,0-2.432h4.864a1.216,1.216,0,1,1,0,2.432Z"
+                              transform="translate(-256 -262.282)"
+                              fill="#30d595"
+                            />
+                            <path
+                              id="Path_3049"
+                              data-name="Path 3049"
+                              d="M262.08,338.443h-4.864a1.216,1.216,0,1,1,0-2.432h4.864a1.216,1.216,0,0,1,0,2.432Z"
+                              transform="translate(-256 -321.418)"
+                              fill="#30d595"
+                            />
+                            <path
+                              id="Path_3050"
+                              data-name="Path 3050"
+                              d="M387.648,146.443h-2.432a1.216,1.216,0,1,1,0-2.432h2.432a1.216,1.216,0,0,1,0,2.432Z"
+                              transform="translate(-374.271 -144.011)"
+                              fill="#30d595"
+                            />
+                            <path
+                              id="Path_3051"
+                              data-name="Path 3051"
+                              d="M387.648,210.443h-2.432a1.216,1.216,0,1,1,0-2.432h2.432a1.216,1.216,0,1,1,0,2.432Z"
+                              transform="translate(-374.271 -203.147)"
+                              fill="#30d595"
+                            />
+                            <path
+                              id="Path_3052"
+                              data-name="Path 3052"
+                              d="M387.648,274.443h-2.432a1.216,1.216,0,1,1,0-2.432h2.432a1.216,1.216,0,1,1,0,2.432Z"
+                              transform="translate(-374.271 -262.282)"
+                              fill="#30d595"
+                            />
+                            <path
+                              id="Path_3053"
+                              data-name="Path 3053"
+                              d="M387.648,338.443h-2.432a1.216,1.216,0,0,1,0-2.432h2.432a1.216,1.216,0,0,1,0,2.432Z"
+                              transform="translate(-374.271 -321.418)"
+                              fill="#30d595"
+                            />
+                          </g>
+                          <path
+                            id="Path_3054"
+                            data-name="Path 3054"
+                            d="M21.449,16.271a1.2,1.2,0,0,0-1-.258L.992,19.661A1.213,1.213,0,0,0,0,20.855V47.609A1.215,1.215,0,0,0,.992,48.8L20.45,52.452a1.144,1.144,0,0,0,.224.022,1.216,1.216,0,0,0,1.216-1.216V17.207A1.213,1.213,0,0,0,21.449,16.271Z"
+                            transform="translate(0 -15.989)"
+                            fill="#30d595"
+                          />
+                          <path
+                            id="Path_3055"
+                            data-name="Path 3055"
+                            d="M90.628,171.386l-3.845-4.395,3.889-5a1.217,1.217,0,0,0-1.919-1.5l-3.6,4.631-3.035-3.468a1.215,1.215,0,0,0-1.829,1.6l3.344,3.823-3.39,4.358a1.217,1.217,0,0,0,1.921,1.493l3.1-3.989,3.536,4.04a1.214,1.214,0,1,0,1.829-1.6Z"
+                            transform="translate(-73.904 -149.079)"
+                            fill="#fafafa"
+                          />
+                        </svg>
+                      </div>
+                      <div class="dwn-text">
+                        Excel Upload Template
+                      </div>
+                      <a
+                        (click)="exportTemplate()"
+                        class="dwn-link"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" viewBox="0 0 512 512" xml:space="preserve"><path fill="var(--hayya-primary)" d="M442.2 186.2H302.5V0h-93.1v186.2H69.8L256 418.9l186.2-232.7zM0 465.5V512h512v-46.5H0z"/></svg>
+                      </a>
+                    </div>
+                    <!-- <div class="hint-text mt-1">
+                      {{ 'Register.FollowTemplate' | translate }}
+                    </div> -->
+                  </div>
+                  <div class="download-btn-area w-30">
+                    <div class="download-btn">
+                      <div class="dwn-text">
+                        Sample Zip Folder
+                      </div>
+                      <a
+                        (click)="exportTemplate()"
+                        class="dwn-link"
+                        >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" viewBox="0 0 512 512" xml:space="preserve"><path fill="var(--hayya-primary)" d="M442.2 186.2H302.5V0h-93.1v186.2H69.8L256 418.9l186.2-232.7zM0 465.5V512h512v-46.5H0z"/></svg>
+                      </a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-area">
+            <button
+              type="submit"
+              class="btn btn-primary btn-caret-8 btn-grid next-btn"
+              (click)="redirectTo('upload/step-1')"
+            >
+              <span>{{ 'Register.Next' | translate }}</span>
+            </button>
+          </div>
+        </div>
+        <!--Manual-->
+        <div class="manual" *ngIf="selectedOption === 'manual'">
+          <div class="card">
+            <div class="card-header Qatar2022">
+              <span  class="instruction_header Qatar2022">{{ 'Register.Instructions' | translate }}</span>
+            </div>
+            <div class="card-body">
+              <div class="instructions-card">
+                <div class="instructions-area">
+                  <div class="instructions">
+                    <!-- <div class="ins-title">
+                      <h5>{{ 'Register.Step1' | translate }}</h5>
+                    </div> -->
+
+                    <ol class="ins-content" type="1">
+                      <!-- <li>{{ 'Register.Step2Details' | translate }}</li>
+                      <li>
+                        {{ 'Register.Step3Details' | translate }}
+                      </li> -->
+                      <p>Please go to Knowledge Base for detailed step by step instruction on the registration process</p>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-area d-none">
+            <button
+              type="submit"
+              class="btn btn-primary btn-caret-8 btn-grid next-btn"
+              (click)="redirectTo('manual-registration/step-1')"
+            >
+              <span>{{ 'Register.Next' | translate }}</span>
+            </button>
+          </div>
+        </div>
+        <!--packageUpload-->
+        <div class="manual" *ngIf="selectedOption === 'packageUpload'">
+          <div class="card">
+            <div class="card-header Qatar2022">
+              <span  class="instruction_header Qatar2022">{{ 'Register.Instructions' | translate }}</span>
+            </div>
+            <div class="card-body">
+              <div class="instructions-card">
+                <div class="instructions-area">
+                  <div class="instructions">
+                    <ol class="ins-content" type="1">
+                      <li>Please go to Knowledge Base for detailed step by step instruction on the registration process</li>
+                      <li>Please download the sample Zip folder template for reference</li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="downloads">
+                  <div class="download-btn-area w-30">
+                    <div class="download-btn">
+                      <div class="dwn-text">
+                        Passport Applicants
+                      </div>
+                      <a
+                        (click)="downloadPackageTemplate(EPackageTypes.PackagePassport)"
+                        class="dwn-link"
+                        >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" viewBox="0 0 512 512" xml:space="preserve"><path fill="var(--hayya-primary)" d="M442.2 186.2H302.5V0h-93.1v186.2H69.8L256 418.9l186.2-232.7zM0 465.5V512h512v-46.5H0z"/></svg>
+                      </a
+                      >
+                    </div>
+                  </div>
+                  <div class="download-btn-area w-30">
+                    <div class="download-btn">
+                      <div class="dwn-text">
+                        QID Applicants
+                      </div>
+                      <a
+                        (click)="downloadPackageTemplate(EPackageTypes.PackageQid)"
+                        class="dwn-link"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" viewBox="0 0 512 512" xml:space="preserve"><path fill="var(--hayya-primary)" d="M442.2 186.2H302.5V0h-93.1v186.2H69.8L256 418.9l186.2-232.7zM0 465.5V512h512v-46.5H0z"/></svg>
+                      </a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="downloads">
+                  <div class="download-btn-area w-30">
+                    <div class="download-btn">
+                      <div class="dwn-text">
+                        Youth Programme and Flag Bearer (Passport)
+                      </div>
+                      <a
+                        (click)="downloadPackageTemplate(EPackageTypes.PackagePassportYouth)"
+                        class="dwn-link"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" viewBox="0 0 512 512" xml:space="preserve"><path fill="var(--hayya-primary)" d="M442.2 186.2H302.5V0h-93.1v186.2H69.8L256 418.9l186.2-232.7zM0 465.5V512h512v-46.5H0z"/></svg>
+                      </a
+                      >
+                    </div>
+                  </div>
+                  <div class="download-btn-area w-30">
+                    <div class="download-btn">
+                      <div class="dwn-text">
+                        Youth Programme and Flag Bearer (QID)
+                      </div>
+                      <a
+                        (click)="downloadPackageTemplate(EPackageTypes.PackageQidYouth)"
+                        class="dwn-link"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" viewBox="0 0 512 512" xml:space="preserve"><path fill="var(--hayya-primary)" d="M442.2 186.2H302.5V0h-93.1v186.2H69.8L256 418.9l186.2-232.7zM0 465.5V512h512v-46.5H0z"/></svg>
+                      </a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-area">
+            <button
+              type="submit"
+              class="btn btn-primary btn-caret-8 btn-grid next-btn"
+              (click)="redirectTo('package-upload/step-1')"
+            >
+              <span>{{ 'Register.Next' | translate }}</span>
+            </button>
+          </div>
+        </div>
+        <!--apiSync-->
+        <div class="manual" *ngIf="selectedOption === 'apiSync'">
+          <div class="card">
+            <div class="card-header Qatar2022">
+              <span  class="instruction_header Qatar2022">{{ 'Register.Instructions' | translate }}</span>
+            </div>
+            <div class="card-body">
+              <div class="instructions-card">
+                <div class="instructions-area">
+                  <div class="instructions">
+                    <ol class="ins-content" type="1">
+                      <p>Please go to Knowledge Base for detailed step by step instruction on the registration process</p>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-area">
+            <button
+              type="submit"
+              class="btn btn-primary btn-caret-8 btn-grid next-btn"
+              (click)="redirectTo('manual-registration/step-1')"
+            >
+              <span>{{ 'Register.Next' | translate }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<fan-id-platform-sync *ngIf="showApiSyncPopup"   (closeThis)="closeApiSync()"></fan-id-platform-sync>

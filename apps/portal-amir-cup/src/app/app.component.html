@@ -1,0 +1,11 @@
+<div [attr.dir]="isRTLLayout ? 'rtl' : 'ltr'">
+  <router-outlet></router-outlet>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.5)"
+  size="default"
+  color="rgba(246,240,240,0.79)"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+></ngx-spinner>

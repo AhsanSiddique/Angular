@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Arab Cup",
+    "year": "2022",
+    "startDate": "Jan 02",
+    "endDate": "Jan 15",
+    "colorCode": "#29AA9D",
+    "imageUrl": "assets/images/arab-cup.png"
+  },
+  {
+    "name": "Amir Cup",
+    "year": "2022",
+    "startDate": "Mar 15",
+    "endDate": "Apr 10",
+    "colorCode": "#6B1B28",
+    "imageUrl": "assets/images/amir-cup.png"
+  },
+  {
+    "name": "FIFA World Cup",
+    "year": "2022",
+    "startDate": "Nov 20",
+    "endDate": "Dec 21",
+    "colorCode": "#8A1538",
+    "imageUrl": "assets/images/fifa-cup.png"
+  }
+]

@@ -1,0 +1,14 @@
+<div class="loader">
+    <div class="loader-content">
+        <div class="loader-inner">
+            <div class="fw-600 text-left mb-2">{{ 'Processing.Processing' | translate }}</div>
+            <div class="progressBar">
+                <div class="progressTrack">
+                    <div class="progressThumb" [ngStyle]="{'width':per+'%'}"></div>
+                    <div class="progressTxt">{{counters}} / {{data.totalCount}} {{ 'Processing.RecordsSubmitted' | translate }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loader-backdrop"></div>
+</div>

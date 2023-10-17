@@ -1,0 +1,105 @@
+.loader {
+  .loader-content {
+    width: 525px;
+    height: 620px;
+    padding: 0px !important;
+    border-radius: 30px;
+    margin: auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #ffffff;
+    // background: #081C3B;
+    color: #fff;
+    text-align: left !important;
+    font-size: 0.9rem;
+    z-index: 999;
+    border: 8px solid #1b76bc;
+    box-shadow: 0px 15px 25px rgba(8, 28, 59, 0.25);
+    .submitPane {
+      .paneHeader {
+        background: #1b76bc;
+        padding: 20px;
+        position: relative;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        .paneClose {
+          position: absolute;
+          right: 10px;
+          top: 7px;
+          cursor: pointer;
+        }
+      }
+      .paneBody {
+        padding: 25px 30px 25px 30px;
+        color: #081c3b;
+        height: 450px !important;
+        overflow-y: auto;
+        p {
+          font-size: 0.8rem;
+          margin-bottom: 1.68rem;
+        }
+      }
+      .paneFooterTerms {
+        text-align: right;
+        margin: 20px 30px 20px 30px;
+        button:not(:last-child) {
+          margin-right: 1rem;
+        }
+        .cancel-btn {
+          border-radius: 10px;
+          padding: 0.4rem 1rem;
+
+          border: solid 1px rgba(8, 28, 59, 0.2);
+          background-color: rgba(153, 159, 168, 0.15);
+        }
+      }
+    }
+  }
+  .loader-backdrop {
+    position: fixed;
+    top: 0;
+    background: rgba(4, 15, 31, 40%);
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+  }
+  .data-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.25rem !important;
+    dt {
+      padding: 0px 5px;
+    }
+    dd {
+      margin: 0px;
+      padding: 0px 5px;
+    }
+  }
+  .btn-failed {
+    width: 120px;
+    font-size: 1rem;
+  }
+}
+
+[dir='rtl'] {
+  .paneHeader {
+    h4 {
+      text-align: center !important;
+    }
+    .paneClose {
+      left: 10px !important;
+      right: auto !important;
+    }
+  }
+  .paneFooterTerms {
+    text-align: left !important;
+    margin: 20px 30px 20px 30px;
+    button:not(:last-child) {
+      margin-left: 1rem;
+    }
+  }
+}

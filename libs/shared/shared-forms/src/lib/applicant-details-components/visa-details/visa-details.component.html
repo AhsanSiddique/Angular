@@ -1,0 +1,56 @@
+<div class="row" style="row-gap: 1rem;">
+  <!-- Visa Number -->
+  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <fan-id-readonly-input
+      label="Visa Number"
+      id="visaNum"
+      [value]="applicant_data?.visaNum ?? 'NA'"
+      placeholder="Visa Number"
+    ></fan-id-readonly-input>
+  </div>
+  <!-- Visa Expiry Date -->
+  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <fan-id-readonly-input
+      label="Visa Expiry Date"
+      id="visaExpiryDate"
+      [value]="applicant_data?.visaExpiryDate ? (applicant_data?.visaExpiryDate + 'Z' | date: 'dd-MM-yyyy') : 'NA'"
+      placeholder="Visa Expiry Date"
+    ></fan-id-readonly-input>
+  </div>
+  <!-- Visa Last Entry Date -->
+  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <fan-id-readonly-input
+      label="Visa Last Entry Date"
+      id="visaLastEntryDate"
+      [value]="applicant_data?.visaLastEntryDate ? (applicant_data?.visaLastEntryDate + 'Z' | date: 'dd-MM-yyyy') : 'NA'"
+      placeholder="Visa Last Entry Date"
+    ></fan-id-readonly-input>
+  </div>
+  <!-- Visa Duration -->
+  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <fan-id-readonly-input
+      label="Visa Duration"
+      id="visaDuration"
+      [value]="applicant_data?.visaDuration ?? 'NA'"
+      placeholder="Visa Duration"
+    ></fan-id-readonly-input>
+  </div>
+  <!-- Visa Description Arabic -->
+  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <fan-id-readonly-input
+      label="Visa Description Arabic"
+      id="visaDescriptionAr"
+      [value]="applicant_data?.visaDescriptionAr ?? 'NA'"
+      placeholder="Visa Description Arabic"
+    ></fan-id-readonly-input>
+  </div>
+  <!-- Visa Description English -->
+  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <fan-id-readonly-input
+      label="Visa Description English"
+      id="visaDescriptionEn"
+      [value]="applicant_data?.visaDescriptionEn ?? 'NA'"
+      placeholder="Visa Description English"
+    ></fan-id-readonly-input>
+  </div>
+</div>

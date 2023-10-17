@@ -1,0 +1,99 @@
+<form class="row delivery-information align-items-center" [formGroup]="formGroup" autocomplete="off">
+  <div class="row w-100 m-0">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="delivery_type">{{
+        translateKey + '.DeliveryType' | translate
+        }}<sup>*</sup></label>
+      <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+        [placeholder]="translateKey + '.DeliveryType' | translate"
+        formControlName="delivery_type" class="form-control" [ngClass]="{
+          'is-invalid': df.delivery_type.touched && df.delivery_type.invalid
+        }" labelForId="delivery_type" aria-describedby="delivery_type"
+      >
+        <ng-option *ngFor="let delivery_type of (metadata$ | async)?.delivery_types" [value]="delivery_type.code">
+          {{ delivery_type.name }}
+        </ng-option>
+      </ng-select>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12"
+      *ngIf="df.delivery_type.value === 'SCP'"
+    >
+      <label for="service_centre">{{
+        translateKey + '.SelectServiceCentre' | translate
+        }}<sup>*</sup></label>
+      <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false"
+        [placeholder]="translateKey + '.SelectServiceCentre' | translate"
+        formControlName="service_centre" class="form-control" [ngClass]="{
+          'is-invalid': df.service_centre.touched && df.service_centre.invalid
+        }" labelForId="service_centre" aria-describedby="service_centre">
+        <ng-option *ngFor="let service_centre of (metadata$ | async)?.service_centres" [value]="service_centre.code">
+          {{ service_centre.name }}
+        </ng-option>
+      </ng-select>
+      <div class="invalid-feedback" *ngIf="df.service_centre.touched && df.service_centre.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12"
+      *ngIf="df.delivery_type.value === 'DTA'"
+    >
+      <label for="service_centre">{{
+        translateKey + '.ChooseCountry' | translate
+        }}</label>
+      <ng-select
+        [items]="(metadata$ | async)?.countries"
+        bindLabel="name"
+        bindValue="code"
+        [virtualScroll]="true" [clearable]="false"
+        [placeholder]="translateKey + '.ChooseCountry' | translate" formControlName="deliver_country"
+        class="form-control readonly-select" [ngClass]="{
+          'is-invalid': df.deliver_country.touched && df.deliver_country.invalid
+        }" labelForId="deliver_country" aria-describedby="deliver_country"
+        [searchFn]="nationalitySearchFn"
+        >
+          <ng-template ng-label-tmp let-country="item">
+            <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+            <span class="mx-1">
+              {{ country.name }}
+            </span>
+          </ng-template>
+          <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+            <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+            <span class="mx-1">
+              {{ country.name }}
+            </span>
+          </ng-template>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="row w-100 m-0" *ngIf="df.delivery_type.value === 'DTA'">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let address_line of address_line_labels | keyvalue">
+      <label [for]="'address_line_' + address_line.key">
+        {{
+        translateKey + '.' + (address_line.value | removewhitespace)
+        | translate
+        }}
+      </label>
+      <input type="text" [mask]="df.deliver_country.value === 'QA' ? '0*' : ''"
+        [formControlName]="'address_line_' + address_line.key" [name]="'address_line_' + address_line.key"
+        [placeholder]="
+          translateKey + '.Enter' + (address_line.value | removewhitespace)
+            | translate
+        " [id]="'address_line_' + address_line.key" class="form-control" [ngClass]="{
+          'is-invalid':
+            df['address_line_' + address_line.key].touched &&
+            df['address_line_' + address_line.key].invalid
+        }" />
+      <div class="invalid-feedback" *ngIf="
+          df['address_line_' + address_line.key].touched &&
+          df['address_line_' + address_line.key].invalid
+        ">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+  </div>
+</form>
+

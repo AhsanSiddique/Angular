@@ -1,0 +1,18 @@
+<fieldset class="fieldset-container" [disabled]="sectionDisabled" [class.section-disabled]="sectionDisabled">
+  <legend class="d-none"></legend>
+  <div class="fieldset-title" *ngIf="titleIndex" [class.title-disabled]="titleDisabled">
+    <div class="fieldset-title-index">
+      <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M0 28.992C7.303 19.25 19.91 7.382 28.992 0A205.26 205.26 0 0 1 58 28.992 204.605 204.605 0 0 1 28.992 58C19.91 50.618 7.303 38.75 0 28.992Z"
+          [attr.fill]="sectionValid ? '#00CFB7' : 'var(--hayya-primary)'" />
+      </svg>
+      <span>{{ titleIndex }}</span>
+    </div>
+    <h4 class="mb-0 fieldset-title-text">{{ title }}</h4>
+  </div>
+  <h4 *ngIf="!titleIndex" class="mb-0 fieldset-title-text" [class.title-disabled]="titleDisabled">{{ title }}</h4>
+  <section>
+    <ng-content></ng-content>
+  </section>
+</fieldset>

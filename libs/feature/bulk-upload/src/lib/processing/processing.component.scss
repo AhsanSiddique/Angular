@@ -1,0 +1,53 @@
+.loader {
+  .loader-content {
+    width: 40%;
+    height: 120px;
+    // border-radius: 10px;
+    margin: auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--hayya-content-bg);
+    color: var(--hayya-primary);;
+    text-align: center;
+    font-size: 14px;
+    z-index: 999;
+    .loader-inner {
+      padding: 20px;
+      .progressTrack {
+        width: 100%;
+        height: 30px;
+        background: var(--hayya-content-bg);
+        position: relative;
+        // border-radius: 8px;
+        .progressThumb {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 30px;
+          background: #00cfb7;
+          // border-radius: 8px;
+        }
+        .progressTxt {
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          left: 0;
+          top: 5px;
+          z-index: 99;
+        }
+      }
+    }
+  }
+  .loader-backdrop {
+    position: fixed;
+    top: 0;
+    background: rgba(4, 15, 31, 40%);
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+  }
+}

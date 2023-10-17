@@ -1,0 +1,60 @@
+<fan-id-common-confirm
+  *ngIf="updateConfirm && accommodationStatusToUpdate === EAccommodationStatus.Approved"
+  message="Are you sure you want to update the status to {{ EAccommodationStatus[accommodationStatusToUpdate] }}?"
+  (closeThis)="closeAccommodationStatusConfirm($event)"
+></fan-id-common-confirm>
+
+<fan-id-modal-wrapper
+  *ngIf="updateConfirm && accommodationStatusToUpdate === EAccommodationStatus.Rejected"
+  title="Return for Correction"
+  (closeThis)="_close.emit()"
+>
+  <div class="verify-accommodation-return-correction row">
+    <form autocomplete="off" class="col-12 py-4 px-5" [formGroup]="updateForm">
+      <div class="form-group mb-0">
+        <label for="reason" class="d-none">Reason<sup>*</sup></label>
+        <textarea name="reason" rows="5" class="form-control reason"
+          id="reason" formControlName="reason" aria-describedby="reason"
+          [class.is-invalid]="uf.reason.touched && uf.reason.invalid"
+          placeholder="Please indicate the reasons for returning the application for correction"
+        ></textarea>
+        <div class="invalid-feedback" *ngIf="uf.reason.errors?.required">
+          Please indicate reason
+        </div>
+        <div class="invalid-feedback" *ngIf="uf.reason.errors?.maxlength">
+          Maximum of {{uf.reason.errors?.maxlength.requiredLength}} characters are allowed
+        </div>
+        <div class="invalid-feedback" *ngIf="uf.reason.errors?.pattern">
+          Special characters are not allowed
+        </div>
+      </div>
+      <div class="form-group mb-0 d-flex justify-content-center mt-4">
+        <button type="reset" class="btn btn-secondary mr-4" (click)="_close.emit()">
+          <span>{{ 'Common.Cancel' | translate }}</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-caret-8"
+          [disabled]="updateForm.invalid"
+          (click)="submitForm()"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="updateError"
+  head_error_message="Unable to update the status"
+  [error_message]="errorMessage ?? 'Error'"
+  buttontext="Common.Close"
+  (closeThis)="_close.emit()"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="updateSuccess"
+  [head_success_message]="successMessage[accommodationStatusToUpdate].title"
+  [success_message]="successMessage[accommodationStatusToUpdate].message"
+  buttontext="Common.Ok"
+  (closeThis)="_close.emit(true)"
+></fan-id-common-success-modal>

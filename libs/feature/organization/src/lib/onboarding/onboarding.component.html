@@ -1,0 +1,414 @@
+<div class="loader">
+  <div class="loader-content">
+    <div class="submission-paneClose">
+      <img
+      src="/assets/icons/close 001.svg"
+      style="width: 32px"
+      alt="close icon"
+      (click)="closeThis.emit('close')"
+    />
+  </div>
+    <div class="submitPane">
+      <div class="paneBody">
+        <h4 class="font-24" style="color: var(--hayya-primary); font-weight: 900" *ngIf="!isEdit">Invite Organization</h4>
+        <p class="mb-4" style="color: var(--hayya-primary); font-weight: 500"  *ngIf="!isEdit">Let's get them onboard!</p>
+        <h4 class="font-24 mb-4" style="color: var(--hayya-primary); font-weight: 900" *ngIf="isEdit">Update Organization Details</h4>
+        <div class="paneHeader">
+          <ng-container *ngIf="
+            {
+              isConferenceSelected: isConferenceSelected$ | async,
+              isTransitSelected: isTransitSelected$ | async,
+              isVisaSelected: isVisaSelected$ | async
+            } as vm"
+          >
+            <form [formGroup]="form" class="onboarding-form">
+              <div class="row">
+                <!-- Requester Email ID -->
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="read-only" for="requesterEmailId">
+                      Requester Email ID
+                    </label>
+
+                    <input
+                    type="text"
+                    class="text-area fl-name form-control"
+                    formControlName="requesterEmailId"
+                    name="requesterEmailId"
+                    id="requesterEmailId"
+                    [ngClass]="{
+                      'is-invalid':
+                        form.get('requesterEmailId').touched &&
+                        form.get('requesterEmailId').invalid,
+                      hasValue: this.form.get('requesterEmailId').value
+                    }"
+                    [placeholder]="'Enter the Email ID'"
+                  />
+
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="form.get('requesterEmailId').errors?.required"
+                  >
+                    Email ID is required
+                  </div>
+                  <div
+                  class="invalid-feedback"
+                  *ngIf="form.get('requesterEmailId').errors?.pattern"
+                >
+                Invalid email address
+                </div>
+                  </div>
+                </div>
+                <!-- <div class="col-6"></div> -->
+                <!-- Organization Name -->
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="read-only" for="organizationname">{{
+                      'Profile.OrganizationName' | translate
+                    }}</label>
+                    <input
+                    type="text"
+                    class="text-area fl-name form-control"
+                    formControlName="organizationName"
+                    name="organizationName"
+                    id="organizationName"
+                    maxlength="30" pattern="[a-zA-Z0-9 ]*"
+                    [ngClass]="{
+                      'is-invalid':
+                        form.get('organizationName').touched &&
+                        form.get('organizationName').invalid,
+                      hasValue: this.form.get('organizationName').value
+                    }"
+                    [placeholder]="'Enter Organization Name'"
+                  />
+
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="form.get('organizationName').errors?.required"
+                  >
+                    Organization Name is required
+                  </div>
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="form.get('organizationName').errors?.pattern"
+                  >
+                  Please enter a valid Organization Name
+                  </div>
+                  </div>
+                </div>
+                <!-- Organization Admin Email Id -->
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="read-only" for="email">{{
+                      'Profile.PrimaryContactEmail' | translate
+                    }}</label>
+
+                    <input
+                    type="text"
+                    class="text-area fl-name form-control"
+                    formControlName="email"
+                    name="email"
+                    id="email"
+                    [ngClass]="{
+                      'is-invalid':
+                        form.get('email').touched &&
+                        form.get('email').invalid,
+                      hasValue: this.form.get('email').value
+                    }"
+                    [placeholder]="'Enter the Email ID'"
+                    maxlength="60"
+                  />
+
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="form.get('email').errors?.required"
+                  >
+                    Email ID is required
+                  </div>
+
+                  </div>
+                </div>
+                <!-- Organization Category -->
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="orgcategory">Organization Category</label>
+
+                    <ng-select
+                    #ngSelectComponentValues1
+                    [virtualScroll]="true"
+                    [clearable]="false"
+                    [multiple]="false"
+                    [virtualScroll]="true"
+                    [dropdownPosition] = "'bottom'"
+                    [items]="orgCategoryList"
+                    [closeOnSelect]="false"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="{{'Dashboard.SelectOption' | translate}}"
+                    formControlName="orgCategory"
+                    class="form-control dashboardFiltertype green-select"
+                    [ngClass]="{
+
+                    }"
+                    style="height:auto !important"
+                    labelForId="filterType"
+                    aria-describedby="filterType"
+                  >
+                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}"
+                    type="checkbox"
+                    name="item-{{index}}"
+                    [(ngModel)]="item$.selected"
+                    [ngModelOptions]="{standalone: true}"/> {{item.name}}
+                </ng-template>
+                  </ng-select>
+                  </div>
+                </div>
+                <!-- No of Maximum Applicants -->
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="numberofapplication">No of Maximum Applicants</label>
+                    <div class="inner-addon right-addon">
+                      <input type="number" min="1"
+                        oninput="if(!this.value.match('^[1-9][0-9]*$'))this.value='';" formControlName="maxNoOfApplicants"
+                        class="form-control" id="maxNoOfApplicants" aria-describedby="maxNoOfApplicants"
+                        placeholder="Enter No of Maximum Applicants"
+                        style="padding: 0px;"
+                        />
+                      <img src="/assets/icons/up-Arrow-new.svg" (click)="incrDecr('+','application')" class="svg-up-arrow-icon"
+                        alt="Bootstrap" />
+                      <img src="/assets/icons/down-arrow-new.svg" (click)="incrDecr('-','application')" class="svg-down-arrow-icon"
+                        alt="Bootstrap" />
+                    </div>
+                  </div>
+                </div>
+                <!-- Voucher Management -->
+                <div class="col-6">
+                    <label class="control-label" >
+                    Voucher Management</label>
+                    <div class="common-radio radio-group row">
+                      <div class="col-2" >
+                        <div class="radio-btn ">
+                          <input type="radio" class="d-none"
+                            id="vsinglemode" value="yes"  formControlName="voucherRequired" (change)="onChangeVoucher()"
+                          />
+                          <label for="vsinglemode" >
+                            <span class="radio"></span>
+                            <span style="font-size: 0.8rem !important">
+                              Yes
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-2" >
+                        <div class="radio-btn">
+                          <input type="radio" class="d-none"
+                            id="vbulkmode" value="no"  formControlName="voucherRequired" (change)="onChangeVoucher()"
+                          />
+                          <label for="vbulkmode" >
+                            <span class="radio"></span>
+                            <span style="font-size: 0.8rem !important">
+                              No
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- Voucher Category -->
+                <div class="col-6" *ngIf="!disableRadio">
+                  <div class="form-group">
+                    <label class="control-label">Voucher Category</label>
+                    <ng-select
+                            [virtualScroll]="true"
+                            [clearable]="false"
+                            bindLabel="voucherCategory_Translation_Name"
+                            bindValue="id"
+                            placeholder="Select Option"
+                            formControlName="refVoucherCategory_Id"
+                            class="form-control"
+                            labelForId="refVoucherCategory_Id"
+                            aria-describedby="refVoucherCategory_Id"
+                            [dropdownPosition] = "'top'"
+                            [ngClass]="{
+
+                            }"
+                          >
+                            <ng-option *ngFor="let item of voucherCategoryEnabledList" [value]="item.id">
+                              {{ item.voucherCategory_Translation_Name }}
+                            </ng-option>
+                          </ng-select>
+              </div>
+                </div>
+                <!-- No of Maximum Vouchers -->
+                <div class="col-lg-6" *ngIf="!disableRadio">
+                  <div class="form-group">
+                    <label for="maxNoOfVouchers">No of Maximum Vouchers</label>
+                    <div class="inner-addon right-addon">
+                      <input type="number" min="0"
+                        oninput="if(!this.value.match('^[1-9][0-9]*$'))this.value='';" formControlName="maxNoOfVouchers"
+                        class="form-control" id="maxNoOfVouchers" aria-describedby="maxNoOfVouchers"
+                        placeholder="Enter No of Maximum Vouchers"
+                        style="padding: 0px;"
+                        [ngClass]="{
+                          'is-invalid':
+                          form.get('maxNoOfVouchers')
+                              .touched &&
+                              form.get('maxNoOfVouchers')
+                              .invalid
+                        }"
+                        />
+                      <img src="/assets/icons/up-Arrow-new.svg" (click)="incrDecr('+','voucher')" class="svg-up-arrow-icon"
+                        alt="Bootstrap" />
+                      <img src="/assets/icons/down-arrow-new.svg" (click)="incrDecr('-','voucher')" class="svg-down-arrow-icon"
+                        alt="Bootstrap" />
+                    </div>
+                    <div
+                    class="invalid-feedback"
+                    *ngIf="form.get('maxNoOfVouchers').errors?.required"
+                  >
+                    Maximum Number of Vouchers is required
+                  </div>
+                  </div>
+                </div>
+                <!-- Category of Hayya Visit -->
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="hayyaVisitCategory">Category of Hayya Visit</label>
+                    <ng-select #ngSelectHayyaVisitCategory [virtualScroll]="true" [clearable]="false" [multiple]="true"
+                      [virtualScroll]="true" [items]="(hayyaVisitCategories$ | async)!" [closeOnSelect]="false"
+                      placeholder="{{'Dashboard.SelectOption' | translate}}" formControlName="hayyaVisitCategory"
+                      class="form-control dashboardFiltertype green-select" style="height:auto !important" labelForId="hayyaVisitCategory"
+                      aria-describedby="hayyaVisitCategory" bindLabel="name"
+                    >
+                      <ng-template ng-header-tmp let-items="items">
+                        <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="checkAllHayyaVisitCategory"
+                          (change)="onSelectAllChange(checkAllHayyaVisitCategory, 'hayyaVisitCategory', null, ngSelectHayyaVisitCategory)" />
+                        Select All
+                      </ng-template>
+
+                      <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                        <input id="item-{{index}}" type="checkbox" name="item-{{index}}" [(ngModel)]="item$.selected"
+                          [ngModelOptions]="{standalone: true}" /> {{item.name}}
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                </div>
+                <ng-container *ngIf="vm.isConferenceSelected">
+                  <!-- Conference List -->
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="conferenceEventList">Conference List</label>
+
+                      <ng-select #ngSelectConferenceEventList [virtualScroll]="true" [clearable]="false" [multiple]="true"
+                        [virtualScroll]="true" [items]="(conferenceEventList$ | async)!" [closeOnSelect]="false" bindLabel="name_EN"
+                        placeholder="{{'Dashboard.SelectOption' | translate}}" formControlName="conferenceEventList"
+                        class="form-control dashboardFiltertype green-select" style="height:auto !important" labelForId="conferenceEventList"
+                        aria-describedby="conferenceEventList" dropdownPosition="top"
+                        (change)="onConferenceChange()"
+                      >
+                        <ng-template ng-header-tmp let-items="items">
+                          <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="checkAllConferenceEventList"
+                            (change)="onSelectAllChange(checkAllConferenceEventList, 'conferenceEventList', null, ngSelectConferenceEventList)" />
+                          Select All
+                        </ng-template>
+
+                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                          <input id="item-{{index}}" type="checkbox" name="item-{{index}}" [(ngModel)]="item$.selected"
+                            [ngModelOptions]="{standalone: true}" /> {{item.name_EN}}
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <!-- Applicant Category -->
+                  <div class="col-lg-6" *ngIf="form.controls.conferenceEventList.value.length > 0">
+                    <div class="form-group">
+                      <label for="userCategory">Applicant Category</label>
+                      <ng-select
+                        #ngSelectComponentValues1
+                        [virtualScroll]="true"
+                        [clearable]="false"
+                        [multiple]="true"
+                        [virtualScroll]="true"
+                        [items]="userCategoryList"
+                        [closeOnSelect]="false"
+                        bindLabel="categoryName"
+                        bindValue="id"
+                        placeholder="{{'Dashboard.SelectOption' | translate}}"
+                        formControlName="userCategory"
+                        class="form-control dashboardFiltertype green-select"
+                        style="height:auto !important"
+                        labelForId="userCategory"
+                        aria-describedby="userCategory"
+                        dropdownPosition="top"
+                      >
+                        <ng-template ng-header-tmp let-items="items">
+                          <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="checkAll"  (change)="toggleCheckAll($event.currentTarget.checked)"/>
+                          Select All
+                        </ng-template>
+
+                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                          <input id="item-{{index}}"
+                          type="checkbox"
+                          name="item-{{index}}"
+                          [(ngModel)]="item$.selected"
+                          [ngModelOptions]="{standalone: true}"/> {{item.categoryName}}
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="login-validation" *ngIf="showOrgEror">
+                <span>{{showOrgEror}}  </span>
+              </div>
+              <!-- <div class="mt-4">
+                <button
+                type="button"
+                class="btn btn-secondary mr-2"
+                (click)="closeThis.emit('close')"
+                style="width: 25%"
+              >
+                <span> {{ 'Common.Cancel' | translate }}</span>
+              </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-sm btn-submit ml-1"
+                  style="width: 25%"
+                  [disabled]="!form.valid"
+                  (click)="inviteOrganization()"
+                >
+                  {{ 'Common.Submit' | translate }}
+                </button>
+              </div> -->
+              <br />
+              <div>
+
+              </div>
+            </form>
+          </ng-container>
+        </div>
+        <div class="paneFooter mt-4">
+          <button
+          type="button"
+          class="btn btn-secondary mr-2"
+          (click)="closeThis.emit('close')"
+          style="width: 25%"
+        >
+          <span> {{ 'Common.Cancel' | translate }}</span>
+        </button>
+          <button
+            type="submit"
+            class="btn btn-primary btn-sm btn-submit ml-1"
+            style="width: 25%"
+            [disabled]="!form.valid"
+            (click)="inviteOrganization()"
+          >
+            {{ 'Common.Submit' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="loader-backdrop"></div>
+</div>

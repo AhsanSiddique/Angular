@@ -1,0 +1,23 @@
+<form autocomplete="off" [formGroup]="formGroup" class="mt-4">
+  <p style="position: absolute; top: 0; color: rgba(37, 37, 37, 0.5);">
+    {{ 'CardChoice.UponApprovalCard' | translate }}
+  </p>
+  <div class="form-group terms-check mb-0">
+    <div class="radio-group">
+      <div class="radio-btn">
+        <input
+          type="checkbox"
+          class="d-none"
+          formControlName="receive_card"
+          id="card-choice"
+        />
+        <label for="card-choice" class="border-0">
+          <span class="radio"></span>
+          <span>
+            {{ 'CardChoice.ApplicantReceiveCard' | translate }}
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+</form>

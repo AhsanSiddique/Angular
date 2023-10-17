@@ -1,0 +1,87 @@
+<form autocomplete="off" class="row ticket-information align-items-center" [formGroup]="formGroup"
+(ngSubmit)="validateTicket()"
+>
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+    <label for="ticket_type">Hayya Category<sup>*</sup></label>
+    <ng-select
+      [items]="ticketTypes"
+      bindLabel="name"
+      [virtualScroll]="true" [clearable]="false"
+      [multiple]="false" [closeOnSelect]="true"
+      [placeholder]="'Select Hayya Category'" formControlName="ticket_type"
+      class="form-control" [ngClass]="{
+        'is-invalid': f.ticket_type.touched && f.ticket_type.invalid
+      }" labelForId="ticket_type" aria-describedby="ticket_type"
+    >
+    </ng-select>
+    <div class="invalid-feedback" *ngIf="f.ticket_type.touched  && f.ticket_type.invalid">
+      {{ 'Common.EnterTheDetails' | translate }}
+    </div>
+  </div>
+  <ng-container *ngIf="{t: f.ticket_type.value ?? {}} as vm">
+    <!-- ticket number and validate button -->
+    <ng-container *ngIf="vm.t.ticketRequired">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div>
+          <label for="ticket_number">{{ f.ticket_type.value?.ticketLabel }}<sup>*</sup></label>
+          <input type="text" formControlName="ticket_number" name="ticket_number" (input)="onTicketNumberChanged()"
+            [placeholder]="f.ticket_type.value?.ticketLabel" id="ticket_number" class="form-control" [ngClass]="{
+              'is-invalid': (f.ticket_number.touched  && f.ticket_number.invalid) || (f.ticket_valid.touched && f.ticket_valid.invalid),
+              'readonly-input-text': (f.ticket_number.disabled || formGroup.disabled)
+            }" />
+          <div class="invalid-feedback"
+            *ngIf="f.ticket_number.valid && f.ticket_valid.touched && f.ticket_valid.invalid">
+            Invalid {{ f.ticket_type.value?.ticketLabel }}
+          </div>
+          <fan-id-form-field-error [field_control]="f.ticket_number"></fan-id-form-field-error>
+        </div>
+      </div>
+
+      <div class="validate-btn-container align-self-end mb-4">
+        <button
+          type="submit"
+          class="validate-btn btn btn-primary btn-caret-8"
+          [disabled]="form_invalid || formGroup.disabled"
+        >
+          {{ 'TicketInformation.Validate' | translate }}
+        </button>
+      </div>
+      <div class="w-100"></div>
+    </ng-container>
+    <!-- purpose of visit -->
+    <ng-container *ngIf="!vm.t.purposeOfVisitExcluded && formExtras.applicationType === 'VISA'">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+        <label for="purpose_visit">Purpose of Visit<sup>*</sup></label>
+
+        <ng-select
+          [items]="(metadata$ | async)?.purpose_of_visit || []"
+          bindLabel="name"
+          bindValue="code"
+          [virtualScroll]="true" [clearable]="false"
+          [multiple]="false" [closeOnSelect]="true"
+          [placeholder]="'Select Purpose of Visit'" formControlName="purpose_visit"
+          class="form-control" [ngClass]="{
+            'is-invalid': f.purpose_visit.touched && f.purpose_visit.invalid
+          }" labelForId="purpose_visit" aria-describedby="purpose_visit"
+        >
+        </ng-select>
+        <div class="invalid-feedback" *ngIf="f.purpose_visit.touched  && f.purpose_visit.invalid">
+          {{ 'Common.EnterTheDetails' | translate }}
+        </div>
+      </div>
+    </ng-container>
+    <!-- other purpose of visit -->
+    <ng-container *ngIf="!vm.t.purposeOfVisitExcluded && formExtras.applicationType === 'VISA' && f.purpose_visit.value === 'OTE'">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+        <label for="purpose_visit_other">Other Purpose of Visit<sup>*</sup></label>
+        <input type="text" formControlName="purpose_visit_other" name="purpose_visit_other"
+          [placeholder]="'Other Purpose of Visit'" id="purpose_visit_other" class="form-control" [ngClass]="{
+            'is-invalid': f.purpose_visit_other.touched && f.purpose_visit_other.invalid
+          }" />
+        <div class="invalid-feedback" *ngIf="f.purpose_visit_other.touched  && f.purpose_visit_other.invalid">
+          {{ 'Common.EnterTheDetails' | translate }}
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</form>

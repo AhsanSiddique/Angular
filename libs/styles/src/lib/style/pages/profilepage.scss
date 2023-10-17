@@ -1,0 +1,137 @@
+.mform{
+	padding: 40px ;
+	.info-highlight{
+		background:#F0F0F0;
+		border-radius:10px;
+		margin:auto;
+	}
+	.profileimg{
+		width:100px;
+		border:3px solid $dark-maroon;
+		border-radius:25px;
+		clear:both;
+		display:block;
+	}
+	.uploadParent{
+		border:1px dotted #333;
+		border-radius:15px;
+	}
+	.custom-file-label-new{
+		background:#F0F0F0;
+		padding:10px;
+		width:100%;
+		border-radius:10px;
+	}
+	.form-control{
+		@extend .form-control;
+		height:56px;
+		border-radius:10px;
+	}
+	.custom-file-input-new{
+		width:0px!important;
+		height:0px!important;
+	}
+	.upperlabel{
+		position:absolute !important;
+		top:12px;
+		left:24px;
+		color:$dark-maroon;
+		font-size:12px;
+
+	}
+	.top-10{
+		top:18px;
+	}
+	.right-25{
+		right:25px;
+	}
+	.right-2{
+		right:10px;
+	}
+	.top-5{
+		top:6px;
+	}
+	.phonebutton{
+		position:absolute;
+		top:5px;
+		left:5px;
+		width:180px;
+		height:45px;
+		border-top-left-radius:10px;
+		border-bottom-left-radius:10px;
+		background:#fff;
+		border:none;
+		border-right:1px solid #eee;
+		font-size:25px;
+	}
+
+	.form-section{
+		text-align: center;
+		padding-top: 30px;
+		// overflow-y:auto;
+		// overflow-x:hidden;
+		// height: calc(100vh - 176px);
+		h4{
+			font-size: 40px;
+			color: $maroon;
+			font-weight: bold;
+		}
+		p.sub-title{
+			font-size: 20px;
+			color: #000;
+		}
+		.custom-form{
+			max-width: 420px;
+			margin: 0 auto;
+		}
+		.btn-primary{
+			padding: 10px 25px;
+			margin: 20px 0;
+		}
+	}
+	.text-primary{
+		color:$dark-maroon !important;
+	}
+	.longbtn{
+		background: #ECECEC;
+		border-radius:10px;
+		border:none;
+
+	}
+	.redtext{
+		color:$dark-maroon !important;
+	}
+	.green_check{
+		height:100px;
+	}
+	.middletext{
+		font-size:20px;
+	}
+	.green_text{
+		color:green;
+	}
+	.btn-primary{
+		background: $maroon;
+		color: $white;
+		border-color: $maroon;
+		font-size: 18px;
+		border-radius: 10px;
+		&:hover, &:focus, &:active, .active, .active:focus{
+			background-color: $light-maroon !important;
+			border-color: $light-maroon !important;
+			box-shadow: 0 0 0 0.2rem rgba(224,161,35,0.3) !important;
+		}
+	}
+
+	.btn-outline-primary{
+		color:#000;
+		border-color: $maroon;
+		font-size: 18px;
+		border-radius: 10px;
+		&:hover, &:focus, &:active, .active, .active:focus{
+			border-color: $light-maroon !important;
+			box-shadow: 0 0 0 0.2rem rgba(224,161,35,0.3) !important;
+		}
+	}
+
+}

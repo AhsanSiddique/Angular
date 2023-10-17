@@ -1,0 +1,68 @@
+<div class="mform">
+	<div class="form-section">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<h4 *ngIf="multiformdata.response == 200" class="mb-3"> {{ 'MFPFive.title' | translate }}	</h4>
+				<h4 *ngIf="multiformdata.response !== 200" class="mb-3"> {{ 'MFPFive.title_err' | translate }}	</h4>
+			</div>
+			<div class="col-md-12 py-3">
+				<img *ngIf="multiformdata.response == 200" class="green_check m-auto" src="assets/images/green_check.svg" alt="">
+				<img *ngIf="multiformdata.response !== 200" class="green_check m-auto" src="assets/images/red_check.svg" alt="">
+			</div>
+			<div class="col-md-12 py-3">
+				<div class="row justify-content-center">
+					<div class="col-12 col-md-6">
+						<p class="middletext">
+						<span *ngIf="multiformdata.response == 200">
+						{{ 'MFPFive.midtxtone' | translate }}<br/>
+						<!-- {{ 'MFPFive.midtxttwo' | translate }}<br/> -->
+						</span>
+
+						<span *ngIf="multiformdata.response !== 200" class="red_text">{{ multiformdata.errormsg }}<br/></span>
+            <span *ngIf="multiformdata.response == 200">{{ 'MFPFive.yourAppNoIs' | translate }}&nbsp;</span>
+						<span *ngIf="multiformdata.response == 200" class="green_text">#{{ multiformdata.trackingid }}<br/></span>
+
+						<!--<span *ngIf="multiformdata.response == 200">-->
+						<!--{{ 'MFPFive.midtxtthree' | translate }} <br/> {{ 'MFPFive.midtxtfour' | translate }}-->
+						<!--</span>-->
+						</p>
+					</div>
+				</div>
+			</div>
+			<!--<div class="col-md-12 py-3">-->
+				<!--<div class="row justify-content-center">-->
+					<!--<div class="col-12 col-md-6">-->
+						<!--<p class="middletext">-->
+						<!--{{ 'MFPFive.exptxt' | translate }}<br/>-->
+						<!--</p>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+		</div>
+		<!--<div class="col-md-12 py-3">-->
+			<!--<div class="row justify-content-center">-->
+				<!--<div class="col-6 col-md-2 pl-0">-->
+					<!--<button type="button" class="btn btn-primary btn-block m-auto">-->
+						<!--{{ 'MFPFive.givefeedback' | translate }}-->
+					<!--</button>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+		<div class="col-md-12 py-3">
+			<div  *ngIf="multiformdata.response !== 200" class="row justify-content-center mb-3">
+				<div class="col-6 col-md-2 pl-0">
+					<button type="button" (click)="goToEdit()" class="btn btn-outline-primary btn-block m-auto cancelBtn">
+						{{ 'MFPFive.edit' | translate }}
+					</button>
+				</div>
+			</div>
+			<div class="row justify-content-center mb-3">
+				<div class="col-6 col-md-2 pl-0">
+					<button type="button" (click)="goToHome()" class="btn btn-outline-primary btn-block m-auto cancelBtn">
+						{{ 'MFPFive.gotohome' | translate }}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

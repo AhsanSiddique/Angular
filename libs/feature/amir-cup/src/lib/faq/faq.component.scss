@@ -1,0 +1,363 @@
+.faq-container {
+ flex-flow: column nowrap;
+
+  .faq {
+    // margin-right: -15px;
+    //   margin-left: -15px;
+    font-family: 29lt Azer;
+    font-style: normal;
+    font-weight: 460;
+    height: fit-content;
+    .icon-banner {
+      background-image: url('/assets/icons/Amir2022_RGB_BPBurgundyfaq.png');
+      width: 100%;
+      height: 500px;
+      position: relative;
+    }
+    .title {
+      font-style: normal;
+      font-weight: bold;
+      color: #e2d8c0;
+      font-size: 64px;
+      line-height: 72px;
+      letter-spacing: 0.5px;
+      margin: 42px 0 0 18px;
+    }
+    .title_image {
+      margin: 104px 20px 0px 20px;
+    }
+    .divider-1 {
+      background-image: url('/assets/img/Amir2022_RGB_BPDesert_Sun_3.png');
+      width: 100%;
+      height: 8px;
+    }
+    .divider-2 {
+      background-image: url('/assets/img/Amir2022_RGB_BPDesert_Sun_2.png');
+      width: 100%;
+      height: 8px;
+    }
+    .container {
+      max-width: 80%;
+    }
+    p {
+      font-size: 0.915rem;
+      line-height: 2rem;
+    }
+    .faqsection {
+      text-align: center;
+      margin-top: 10%;
+      margin-left: -15px !important;
+      margin-right: -15px !important;
+      padding: 0px !important;
+
+      .faqcate {
+        font-size: 40px;
+        align-items: center;
+        line-height: 56px;
+        letter-spacing: 0.2px;
+        color: #401217;
+      }
+    }
+    .faqitemssection {
+      background-color: #fff8e8;
+    //   padding-bottom: 100px;
+      .accordion {
+        padding: 10% 10% 0 10%;
+        color: #401217;
+        .card {
+          // border-color: #950037;
+          border-bottom-color: #401217;
+          border-bottom-style: solid;
+          border-bottom-width: 1px;
+          border: 2px solid #401217;
+          .btn-link {
+            color: #401217;
+          }
+          .card-header {
+            background-color: #fff8e8;
+            font-size: 32px;
+            line-height: 32px;
+            letter-spacing: -0.5px;
+
+            h5 {
+              display: flex;
+              gap: 1rem;
+              align-items: center;
+              justify-content: space-between;
+            }
+          }
+          .card-body {
+            background-color: #fff8e8;
+            color: #401217;
+            font-size: 24px;
+            line-height: 32px;
+            .card-text {
+              white-space: pre-line;
+              color: #401217;
+              font-size: 24px;
+              line-height: 32px;
+              a {
+                color: #401217;
+                font-size: 24px;
+                line-height: 32px;
+              }
+              .text-decoraton {
+                // text-decoration-line: underline;
+                // text-decoration-color: #2626b5;
+                color: #2626b5;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+      .need-help-btn-div {
+        text-align: center;
+        align-items: center;
+        .help-btn {
+          padding-left: 4%;
+          padding-right: 4%;
+          color: #e0a123;
+          background-color: var(--hayya-primary);
+          border-radius: 6px;
+          border: 3px solid var(--hayya-primary);
+
+          &:hover {
+            color:rgba(138, 21, 56)
+          }
+        }
+      }
+    }
+    .faqSectionMain {
+      // margin-left:33%;
+      // background: linear-gradient(white 50%, #fff8e8 50%);
+      .card-row {
+        display: grid;
+        place-items: center;
+        grid-template-columns: repeat(3, 162px);
+        gap: 2rem;
+        place-content: center;
+      }
+      .faqCard {
+        border: 3px solid var(--hayya-primary);
+        border-radius: 24px;
+        cursor: pointer;
+        max-width: 162px;
+        min-width: 162px;
+
+        .generalFaqSelect {
+          background: linear-gradient(
+            179.69deg,
+            #950037 38.53%,
+            #4a1b1e 99.95%
+          );
+          border-radius: 19px;
+          margin: -1px;
+          box-shadow: 25px 28px 54px 1px rgba(138, 21, 56, 0.34);
+
+          .generalFaqText {
+            font-size: 20px;
+            line-height: 22px;
+            margin-top: 50%;
+            color: rgb(228, 216, 190);
+            font-weight: 900;
+          }
+        }
+        .stadiumAccessFaq {
+          border-radius: 24px;
+          background: #ffffff;
+          .SAFaqText {
+            font-size: 20px;
+            line-height: 22px;
+            margin-top: 52%;
+            color: var(--hayya-primary);
+            font-weight: 900
+          }
+        }
+        .metroFaq {
+          border-radius: 24px;
+          background: #ffffff;
+          .metroFaqText {
+            font-size: 20px;
+            line-height: 22px;
+            margin-top: 50%;
+            color: var(--hayya-primary);
+            font-weight: 900
+          }
+        }
+        .generalFaq {
+          // background: linear-gradient(179.69deg, #950037 38.53%, #4A1B1E 99.95%);
+          border-radius: 24px;
+          background: #ffffff;
+          // margin:-1px;
+          .generalFaqText {
+            font-size: 20px;
+            line-height: 22px;
+            margin-top: 50%;
+            color: var(--hayya-primary);
+            font-weight: 900
+          }
+        }
+        .stadiumAccessFaqSelect {
+          background: linear-gradient(
+            179.69deg,
+            #950037 38.53%,
+            #4a1b1e 99.95%
+          );
+          border-radius: 19px;
+          // background: var(--hayya-primary);
+          margin: -1px;
+          box-shadow: 25px 28px 54px 1px rgba(138, 21, 56, 0.34);
+
+          .SAFaqText {
+            margin-top: 52%;
+            font-size: 20px;
+            line-height: 22px;
+            color: rgb(228, 216, 190);
+            font-weight: 900
+          }
+        }
+        .metroFaqSelect {
+          background: linear-gradient(
+            179.69deg,
+            #950037 38.53%,
+            #4a1b1e 99.95%
+          );
+          border-radius: 19px;
+          // background: var(--hayya-primary);
+          margin: -1px;
+          box-shadow: 25px 28px 54px 1px rgba(138, 21, 56, 0.34);
+
+          .metroFaqText {
+            margin-top: 50%;
+            font-size: 20px;
+            line-height: 22px;
+            color: rgb(228, 216, 190);
+            font-weight: 900
+          }
+        }
+      }
+    }
+    // .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    //     width: 100%;
+    //     padding-right: 0px;
+    //     padding-left: 0px;
+    //     margin-right: auto;
+    //     margin-left: auto;
+    // }
+  }
+}
+
+:host-context([dir='rtl']) {
+  .SAFaqText{
+    margin-top: 32% !important;
+  }
+  .generalFaqText{
+    margin-top: 32% !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .FAQDiffCate {
+    width: 30% !important;
+    padding-left: 7.5px !important;
+    padding-right: 7.5px !important;
+  }
+  .faq {
+    .faqSectionMain {
+
+      .card-row {
+        grid-template-columns: repeat(3, 140px) !important;
+        gap: 1rem !important;
+      }
+
+      .faqCard {
+        max-width: 140px !important;
+        min-width: 140px !important;
+        max-height: 154px;
+        .card-text {
+          font-size: 16px !important;
+          padding-bottom: 0.5rem;
+          line-height: unset !important;
+        }
+
+        .metroFaq {
+          .metroFaqText {
+            // margin-top: 10% !important;
+            line-height: unset;
+            // padding-bottom: 1rem !important;
+          }
+        }
+        .metroFaqSelect {
+          .metroFaqText {
+            // margin-top: 10% !important;
+            line-height: unset;
+            // padding-bottom: 1rem !important;
+          }
+        }
+        .stadiumAccessFaqSelect {
+          .SAFaqText {
+            // margin-top: 10% !important;
+            line-height: unset;
+          }
+        }
+        .stadiumAccessFaq {
+          .SAFaqText {
+            // margin-top: 10% !important;
+            line-height: unset;
+          }
+        }
+        .generalFaq {
+          .generalFaqText {
+            // margin-top: 10% !important;
+            line-height: unset;
+            // padding-right: 1.5rem !important;
+          }
+        }
+        .generalFaqSelect {
+          .generalFaqText {
+            // margin-top: 10% !important;
+            line-height: unset;
+            // padding-right: 1.5rem !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+
+  .faq {
+    .faqSectionMain {
+      .card-row {
+        grid-template-columns: repeat(3, 104px) !important;
+        gap: 1rem !important;
+      }
+
+      .faqCard {
+        max-width: 104px !important;
+        min-width: 104px !important;
+        max-height: 111px;
+        border-radius: 14px !important;
+
+        img {
+          width: 20px;
+        }
+
+        .card-text {
+          font-size: 14px !important;
+          line-height: unset !important;
+          margin-top: 10% !important;
+          line-height: 20px !important;
+        }
+
+        .generalFaqSelect, .stadiumAccessFaqSelect,
+        .metroFaqSelect {
+          border-radius: 11px !important;
+        }
+
+      }
+    }
+  }
+
+}

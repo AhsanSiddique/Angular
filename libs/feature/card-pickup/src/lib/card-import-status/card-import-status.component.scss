@@ -1,0 +1,82 @@
+.card-import-status {
+  padding: 1rem;
+  width: 480px;
+
+  .file-control {
+    position: relative;
+    .file-upload {
+      display: flex;
+      border: 1px dashed rgba(153, 159, 168, 0.7) !important;
+      background: transparent !important;
+      border-radius: 8px;
+      font-size: 0.8rem !important;
+      cursor: pointer;
+      padding: 4px 10px;
+
+      &.is-valid {
+        border: 1px solid rgba(153, 159, 168, 0.27) !important;
+      }
+      .upload-ico {
+        width: 28px;
+        min-width: 28px;
+        height: 28px;
+        padding-top: 6px;
+      }
+      .upload-filename {
+        width: 100%;
+        padding: 6px;
+        line-height: 24px;
+      }
+      .upload-link {
+        color: #f14d4e;
+        padding: 6px;
+        line-height: 24px;
+      }
+      input[type='file'] {
+        // display: none;
+        height: 0px !important;
+        width: 0px !important;
+        border: 0px solid transparent;
+        padding: 0px !important;
+        background: transparent;
+        opacity: 0;
+        &:focus {
+          box-shadow: none !important;
+          outline: none !important;
+        }
+      }
+    }
+    .delete-ico {
+      width: 28px;
+      min-width: 28px;
+      height: 28px;
+      background: rgba(153, 159, 168, 0.15);
+      border: 1px solid rgba(153, 159, 168, 0.15);
+      border-radius: 4px;
+      padding: 0px 8px 8px 8px;
+      position: absolute;
+      top: 9px;
+      right: 8px;
+      cursor: pointer;
+    }
+  }
+
+  &-actions {
+    justify-content: center;
+    margin-top: 1rem;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      width: 100px;
+    }
+  }
+}
+
+
+
+.invalid-feedback:after {
+  content: '*';
+}

@@ -1,0 +1,29 @@
+<div class="modalpane-wrapper">
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <h4 class="font-24 text-center">
+        {{ title }}
+      </h4>
+      <div class="modalpane-closebtn">
+        <img
+          src="/assets/icons/close 001.svg"
+          style="width: 32px"
+          alt="close icon"
+          (click)="closeThis.emit('close')"
+        />
+      </div>
+    </div>
+    <p class="modalpane-confirm-pbody text-center">
+      You will be able to continue the application from the Organization Groups.
+    </p>
+    <div class="modalpane-footer">
+      <button class="btn btn-secondary" (click)="close()">
+        <span> Close </span>
+      </button>
+      <button class="btn btn-primary btn-caret-8" (click)="save()">
+        Save & Exit
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>

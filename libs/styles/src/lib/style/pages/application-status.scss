@@ -1,0 +1,313 @@
+.dashboard-status {
+    margin: 0;
+    padding: 125px 0;
+    font-family: 29LT Azer;
+    font-style: normal;
+    font-weight: 420;
+    .profile-details {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        .profile-detail {
+            .fan-detail {
+                .fan-profile-details {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0;
+                    padding-left: 12.5%;
+                    .fan-details {
+                        margin: 0;
+                        display: flex;
+                        flex-direction: row;
+                        // margin-right: 35%;
+                        .fan-img {
+                            border: 1px solid black;
+                            width: 40px;
+                            height: 40px;
+                            margin-right: 12px;
+                            border: none;
+                        }
+                        .fan-name {
+                            margin: 0;
+                            font-size: 48px;
+                            line-height: 50px;
+                            letter-spacing: -0.5px;
+                            color: #401217;
+                        }
+                    }
+                    .welcome-msg {
+                        margin-left: 0;
+                        font-size: 20px;
+                        line-height: 24px;
+                        letter-spacing: 0.5px;
+                        color: #401217;
+                        opacity: 0.7;
+
+                    }
+                }
+                .fan-id-details {
+                    justify-content: end;
+                    .id-details {
+                      background: linear-gradient(
+                        180deg
+                        , #E4D8BE 0%, #BFAC8A 100%);
+                        box-shadow: 6px 11px 37px 1px rgba(191,172,138,0.54);
+                        -webkit-box-shadow: 6px 11px 37px 1px rgba(191,172,138,0.54);
+                        -moz-box-shadow: 6px 11px 37px 1px rgba(191,172,138,0.54);
+
+                        width: 195px;
+                        border-radius: 3px;
+                        flex-direction: column;
+                        .id-header {
+                            padding-top: 16px;
+                            padding-left: 27px;
+                            margin-bottom: 0;
+                            font-size: 12px;
+                            line-height: 12px;
+                            text-transform: uppercase;
+                            color: #401217;
+                            opacity: 0.7;
+                        }
+                        .id {
+                            padding-left: 27px;
+                            margin-top: 7px;
+                            font-weight: bold;
+                            font-size: 20px;
+                            line-height: 20px;
+                            letter-spacing: 1px;
+                            color: var(--hayya-primary);
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
+    .fan-app-status {
+        margin-top: 89px;
+        display: flex;
+        flex-direction: column;
+        .app-status-header {
+            .status-header {
+                padding-left: 0;
+                font-size: 16px;
+                line-height: 24px;
+                color: #401217;
+                opacity: 0.6;
+                margin-bottom: 12px;
+                p {
+                    padding-bottom: 5px;
+                    border-bottom: 2px solid #E6E6E6;
+                }
+            }
+
+        }
+        .app-status-content {
+
+            .status-flow {
+                display: flex;
+                padding-left: 0;
+                margin: 0;
+                align-items: center;
+                .status-flow-chart {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  min-height: 50px;
+
+                    .status-flow-1 {
+                        position: relative;
+                        .status-icon {
+                          display: flex;
+                          align-items: start;
+                            img {
+                                height: 19px;
+                            }
+                        }
+                        .status {
+                            display: flex;
+                            flex-direction: column;
+                            .status-name {
+                                margin: 0;
+                                font-size: 20px;
+                                line-height: 24px;
+                            }
+
+                            .success {
+                                color: #007C3D;
+                            }
+                            .processing {
+                                color: var(--hayya-primary);
+                            }
+                            .rejected {
+                                color: #D12D37;                        ;
+                            }
+                            .pending {
+                                color: #BFBFBF;
+                            }
+                            .status-date {
+                                margin: 0;
+                                font-size: 14px;
+                                line-height: 16px;
+                                color: #828282;
+                                text-align: left;
+                            }
+                            &:first-child {
+                                padding-left: 16px;
+                            }
+                        }
+
+                    }
+                    &::after {
+                        content: '';
+                        background: url(../../../../../../apps/portal-amir-cup/src/assets/icons/arrow.svg) left center no-repeat;
+                        position: absolute;
+                        right: 10px;
+                        width: 14px;
+                        height: 10px;
+                        top: 50%;
+                        // -ms-transform: translateY(-50%);
+                        transform: translateY(-50%);
+                    }
+                    &:last-child {
+                        &::after {
+                            display: none;
+                        }
+                    }
+                    &:nth-child(2) {
+                        justify-content: center;
+                        display: flex;
+                        align-items: start;
+                        &::after {
+                          right: -14px;
+                        }
+                    }
+                    &:nth-child(3) {
+                        display: flex;
+                        justify-content: end;
+                        align-items: start;
+                    }
+                }
+
+
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+    .dashboard-status {
+        padding-left: 16px;
+        padding-top:30px;
+        .profile-details {
+            .profile-detail {
+                .fan-detail {
+                    display: inline;
+                    .fan-profile-details {
+                        flex: 0;
+                        padding-left: 0px;
+
+                        .fan-details {
+                            display: block;
+                            text-align: center;
+                            margin-right: 0%;
+                          .fan-img{
+                              width: 100px;
+                              height: 100px;
+                              margin-right: 0px;
+                          }
+                            .fan-name {
+                                padding-top: 16px;
+                                font-size: 24px;
+                                line-height: 24px;
+                            }
+                        }
+                        .welcome-msg {
+                            justify-content: center;
+                            font-size: 14px;
+                            line-height: 24px;
+                            padding-right: 16px;
+                        }
+                    }
+                    .fan-id-details {
+                        display: flex;
+                        padding: 0;
+                        .id-details {
+                            width: 100%;
+                            margin: 0;
+                            background: linear-gradient(
+                              180deg
+                              , #E4D8BE 0%, #BFAC8A 100%);
+                              box-shadow: 6px 11px 37px 1px rgba(191,172,138,0.54);
+                              -webkit-box-shadow: 6px 11px 37px 1px rgba(191,172,138,0.54);
+                              -moz-box-shadow: 6px 11px 37px 1px rgba(191,172,138,0.54);
+                            .id {
+                                font-size: 16px;
+                                line-height: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .fan-app-status {
+            margin-top: 40px;
+
+            .app-status-header {
+                .status-header {
+                    display: inline;
+                    line-height: 16px;
+                    padding-left: 16px;
+                }
+            }
+            .app-status-content {
+             @include application_padding('padding');
+                .status-flow {
+                    flex-direction: column;
+                    .status-flow-chart {
+                        padding-left: 0;
+                        padding-bottom: 64px;
+                        .status-flow-1 {
+                            flex-flow: inherit;
+                            .status-icon {
+                                width: 19px;
+
+                            }
+                            .icon {
+                                margin-right: 12px;
+                            }
+
+                            &:first-child {
+                            }
+                            &:nth-child(2) {
+                                padding-left: 0;
+                            }
+                        }
+                        &::after, &::before {
+                            display: none;
+                        }
+
+                        &:first-child {
+                            padding-left: 16px;
+                            padding-bottom: 64px;
+
+                        }
+                        &:nth-child(2) {
+                            justify-content: flex-start;
+                            padding-bottom: 64px;
+                        }
+                        &:last-child {
+                            justify-content: flex-start;
+                            padding-bottom: 0;
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
+}

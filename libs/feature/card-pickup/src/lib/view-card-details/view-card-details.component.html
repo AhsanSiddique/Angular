@@ -1,0 +1,126 @@
+<div class="applicant-details container-fluid">
+  <header class="row">
+    <div class="title d-flex align-items-center w-100">
+      <fan-id-back-arrow></fan-id-back-arrow>
+      <div>
+        <h4 class="mb-0">
+          {{ 'ApplicantDetails.ApplicantDetails' | translate }}
+        </h4>
+      </div>
+      <div class="applicant-details-actions">
+        <button class="btn btn-primary btn-caret-8 btn-grid" (click)="redirectToCardHistoryPage()">
+          <span>View Card Details</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="row">
+    <fan-id-fieldset-wrapper
+      [title]="'ApplicantDetails.ApplicationInformation' | translate"
+      titleDisabled="true"
+    >
+      <fan-id-application-details
+        [applicant_data]="applicant_data"
+        (openCard)="openCardDetails()"
+      ></fan-id-application-details>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      [title]="'ApplicantDetails.DocumentInformation' | translate"
+      titleDisabled="true"
+    >
+      <fan-id-document-details
+        [applicant_data]="applicant_data"
+      ></fan-id-document-details>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      [title]="'ApplicantDetails.PersonalInformation' | translate"
+      titleDisabled="true"
+    >
+      <fan-id-personal-details *ngIf="eventTournamentType === 2"
+        [applicant_data]="applicant_data"
+      ></fan-id-personal-details>
+
+      <fan-id-personal-details-local *ngIf="eventTournamentType === 1"
+        [applicant_data]="applicant_data"
+      ></fan-id-personal-details-local>
+
+      <div class="w-100 my-4" *ngIf="emergencyContactSubmissionTypes.includes(applicant_data?.submissionType) && eventTournamentType === 2">
+        <h4 class="emergency-title disabled-text">
+          {{ 'ApplicantDetails.EmergencyContactDetails' | translate }}
+        </h4>
+      </div>
+      <fan-id-emergency-contact-details
+        *ngIf="emergencyContactSubmissionTypes.includes(applicant_data?.submissionType) && eventTournamentType === 2"
+        [applicant_data]="applicant_data"
+      ></fan-id-emergency-contact-details>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      *ngIf="dependentList.length"
+      [title]="'ApplicantDetails.DependentDetails' | translate"
+      titleDisabled="true"
+    >
+      <div *ngFor="let dependent of dependentList | paginate: { itemsPerPage: 1,
+         currentPage: dependentPage, totalItems: dependentList.length }">
+        <fan-id-dependent-details
+          [applicant_data]="dependent"
+        >
+        </fan-id-dependent-details>
+      </div>
+
+      <div class="d-flex justify-content-center mt-5">
+        <ngb-pagination [(page)]="dependentPage" [pageSize]="1" [collectionSize]="dependentList.length">
+          <ng-template ngbPaginationFirst>First</ng-template>
+          <ng-template ngbPaginationLast>Last</ng-template>
+          <ng-template ngbPaginationPrevious>Prev</ng-template>
+          <ng-template ngbPaginationNext>Next</ng-template>
+          <ng-template ngbPaginationEllipsis>...</ng-template>
+          <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+        </ngb-pagination>
+      </div>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      [title]="'CardReplacement.CardDetails' | translate"
+      titleDisabled="true"
+    >
+      <fan-id-card-details
+        [card_data]="card_data"
+      ></fan-id-card-details>
+    </fan-id-fieldset-wrapper>
+    <fan-id-fieldset-wrapper
+      [title]="'CardReplacement.IntegrationStatus' | translate"
+      titleDisabled="true"
+    >
+      <fan-id-integration-status
+        [card_integration_data]="card_integration_data">
+      </fan-id-integration-status>
+    </fan-id-fieldset-wrapper>
+  </main>
+</div>
+
+<fan-id-submit-and-card-detail
+  *ngIf="card_details_open"
+  [type]="'cardDetail'"
+  [cardDetails]="card_details_modal"
+  (closeThis)="card_details_open = false"
+>
+</fan-id-submit-and-card-detail>
+
+<fan-id-common-error-modal
+*ngIf="applicant_error"
+head_error_message='CommonError.Error'
+[error_message]="applicant_error"
+(closeThis)="redirectToList()">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+*ngIf="card_details_error"
+head_error_message="CommonError.Error"
+[error_message]="card_details_error"
+buttontext="Common.Close"
+(closeThis)="closeCardError()">
+</fan-id-common-error-modal>

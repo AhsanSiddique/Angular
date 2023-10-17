@@ -1,0 +1,22 @@
+<!-- <div id="visor-video">
+    <iframe width="300" height="180"
+      [src]="displayURL" allowfullscreen>
+    </iframe>
+</div> -->
+<div class="kbvhi">
+<div class="row ml-0 mr-0">
+    <!-- <div class="col-lg-12"> -->
+        <div class="kbvhi-card" *ngFor="let video of data">
+            <div class="kbvhi-body kbvhi-bg-3" >
+            <img [src]="imageSrc(video.image) | secureImage | async" alt="Bootstrap" width="270" height="152"/>
+            <p  [title]="video.title" class="align-self-start">{{videoTitleTrim(video.title)}}</p>
+            <img src="/assets/icons/iconplay.png" alt="Bootstrap" class="playBtn" (click)="playVideo(video.videoUrl)" />
+            </div>
+        </div>
+</div>
+</div>
+<fan-id-kb-youtube-play 
+*ngIf="openPlayerModal"
+(closeThis)="openPlayerModal = false"
+[src] = "this.displayURL">
+</fan-id-kb-youtube-play>

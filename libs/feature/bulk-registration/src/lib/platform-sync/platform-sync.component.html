@@ -1,0 +1,35 @@
+<div class="loader">
+  <div class="loader-content">
+    <div class="submission-paneClose" >
+      <img
+      src="/assets/icons/close 001.svg"
+      style="width: 32px"
+      alt="close icon"
+      (click)="closeThis.emit('close')"
+    />
+  </div>
+    <div class="submitPane">
+
+      <div class="paneBody">
+        <div class="paneHeader">
+          <h4 class="font-24" style="color: var(--hayya-primary); font-weight: 900">We are ready to assist you!</h4>
+<p class="mt-5" style="font-weight: 500;">Please reach out to us on <a style="color: var(--hayya-primary);" href = "mailto:devops@hayya.qa">
+  devops@hayya.qa
+  </a>
+  if you have any questions regarding Platform-to-Platform API Sync registration process </p>
+      </div>
+
+      </div>
+      <div class="paneFooter">
+       <button
+          class="btn btn-primary btn-sm btn-failed"
+          (click)="closeThis.emit()"
+        >
+      Close
+      </button>
+
+      </div>
+    </div>
+  </div>
+  <div class="loader-backdrop"></div>
+</div>

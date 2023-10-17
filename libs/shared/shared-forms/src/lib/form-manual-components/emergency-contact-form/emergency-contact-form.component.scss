@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+
+.emergency-contact-form {
+  .row {
+    margin-bottom: 32px;
+  }
+
+  .emergency-contact__title {
+    padding: 0 15px 25px 15px;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #999fa8;
+  }
+
+  .fields-combo {
+    display: grid;
+    grid-template-columns: 100px auto;
+    column-gap: 1rem;
+
+    .phonecode {
+      ::ng-deep .ng-arrow-wrapper {
+        display: none !important;
+      }
+    }
+
+    input {
+      min-width: unset;
+      width: 100%;
+      text-overflow: ellipsis;
+
+      &::placeholder {
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+
+.invalid-feedback:after,
+.invalid-feedback span:after {
+  content: '*';
+}

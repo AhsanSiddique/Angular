@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+
+.application-type-error {
+  display: block;
+  bottom: -0.25rem;
+  // right: 0.75rem;
+}
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+.invalid-feedback:after {
+  content: '*';
+}
+
+.radio-disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.br-fields {
+  margin-left: -15px;
+  margin-right: -15px;
+  > div {
+    display: grid;
+    margin-bottom: 1rem;
+    width: 100%;
+
+    label {
+      margin-bottom: 0.75rem;
+    }
+
+    input[type='date'],
+    input[type='text'],
+    input[type='number'],
+    ng-select {
+      // border: 1px solid $bordercolor;
+      min-width: 200px;
+      margin: 0;
+      padding: 0.6rem 0.8rem;
+      // background-color: $formcontrolcolor;
+    }
+  }
+
+  .invalid-feedback {
+    left: 15px;
+  }
+}

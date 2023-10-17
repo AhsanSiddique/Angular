@@ -1,0 +1,23 @@
+@import '../common-modal.scss';
+
+.modalpane-wrapper {
+  max-width: 600px;
+
+  .modalpane-closebtn {
+    position: fixed;
+    right: 0;
+    top:0;
+    transform: translateX(100%);
+    cursor: pointer;
+  }
+
+  .modalpane-footer {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    gap: 1rem;
+
+    button {
+      min-width: 90px;
+    }
+  }
+}

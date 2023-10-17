@@ -1,0 +1,68 @@
+<div class="modalpane-wrapper">
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <h4 class="font-24 text-center">
+        Update Host Details
+      </h4>
+      <div class="modalpane-closebtn">
+        <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon" (click)="_close.emit()" />
+      </div>
+    </div>
+    <div class="host-email-update">
+      <form autocomplete="off" class="row" [formGroup]="updateForm">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="emailId">Host Email ID<sup>*</sup></label>
+            <input type="text" name="emailId" placeholder="Enter Host Email ID" id="emailId" class="form-control"
+              formControlName="emailId" [ngClass]="{
+              'is-invalid':emailId.touched &&
+              emailId.invalid
+            }" [pattern]="EmailRegex" maxlength="60" />
+            <div class="invalid-feedback" *ngIf="emailId.errors?.required">
+              Host Email ID is required
+            </div>
+            <div class="invalid-feedback" *ngIf="emailId.errors?.pattern">
+              Enter a valid Host Email ID
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="hostName">Host Name<sup>*</sup></label>
+            <input type="text" name="hostName" placeholder="Enter Host Name" id="hostName" class="form-control"
+              formControlName="hostName" [ngClass]="{
+              'is-invalid':hostName.touched &&
+              hostName.invalid
+            }" maxlength="60" />
+            <div class="invalid-feedback" *ngIf="hostName.errors?.required">
+              Host Name is required
+            </div>
+            <div class="invalid-feedback" *ngIf="hostName.errors?.pattern">
+              Enter a valid Host Name
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb-0 d-flex justify-content-between mt-4"
+          style="width: 100%; justify-content: center !important;">
+          <button type="reset" class="btn btn-secondary mr-2"
+            (click)="_close.emit()">
+            <span>{{ 'Common.Cancel' | translate }}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-caret-8" [disabled]="updateForm.invalid"
+            (click)="submitForm()">
+            {{ 'Common.Submit' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>
+
+<fan-id-common-error-modal *ngIf="updateError" head_error_message="Unable to update the Host Details"
+  [error_message]="errorMessage" buttontext="Common.Close" (closeThis)="updateError=false"></fan-id-common-error-modal>
+
+<fan-id-common-success-modal *ngIf="updateSuccess" head_success_message="Host Details updated successfully"
+  buttontext="Common.Ok" (closeThis)="_close.emit(true)"></fan-id-common-success-modal>

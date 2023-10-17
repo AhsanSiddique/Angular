@@ -1,0 +1,186 @@
+<div class="modalpane-wrapper">
+    <div class="modalpane-body">
+      <div class="modalpane-header">
+        <h4
+          class="font-24 text-center"
+        >
+        Update Contact Details
+        </h4>
+        <div class="modalpane-closebtn">
+          <img
+            src="/assets/icons/close 001.svg"
+            style="width: 32px"
+            alt="close icon"
+            (click)="closeThis.emit('close')"
+          />
+        </div>
+      </div>
+
+    <div class="update-mobile-modal-body">
+        <form  [formGroup]="updateContactForm" (ngSubmit)="Submit()" style="min-width: 425px;">
+        <div class="row"  *ngIf="!this.data.isChildApplication">
+            <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="dialingCode">Country Code<sup>*</sup></label>
+                  <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="true" placeholder="Select Country Code"
+                  formControlName="dialingCode" class="form-control" labelForId="dialingCode" aria-describedby="dialingCode"
+                  bindValue="dialingCode" bindLabel="dialingCode"
+                  [ngClass]="{
+                    'is-invalid':updateContactForm.get('dialingCode').touched &&
+                    updateContactForm.get('dialingCode').invalid
+                  }">
+                  <ng-option *ngFor="let country of countries | async" [value]="country.code">
+                    <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+                    <span class="mx-1">
+                      {{ country.dialingCode }}
+                    </span>
+                  </ng-option>
+                </ng-select>
+                <div
+                class="invalid-feedback"
+                *ngIf="updateContactForm.get('dialingCode').errors?.required"
+              >
+              Country code required
+              </div>
+                  </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="form-group">
+                  <label for="mobilenumber">Mobile Number<sup>*</sup></label>
+                  <input type="text"  mask="0*" name="mobilenumber" placeholder="Enter Mobile Number"
+                   id="mobilenumber" class="form-control"  formControlName="mobilenumber"
+                   pattern="[0-9]*"
+                   [ngClass]="{
+                    'is-invalid':updateContactForm.get('mobilenumber').touched &&
+                    updateContactForm.get('mobilenumber').invalid
+                  }"/>
+                  <div
+                  class="invalid-feedback"
+                  *ngIf="updateContactForm.get('mobilenumber').errors?.required"
+                >
+                  Mobile number required
+                </div>
+
+                <div
+                  class="invalid-feedback"
+                  *ngIf="updateContactForm.get('mobilenumber').errors?.pattern"
+                >
+                  Enter valid mobile number
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="updateContactForm.get('mobilenumber').errors?.minlength"
+                >
+                  Minimum 6 digits
+                </div>
+                <div
+                class="invalid-feedback"
+                *ngIf="updateContactForm.get('mobilenumber').errors?.maxlength"
+              >
+                Maximum 15 digits
+              </div>
+                  </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="data.docTypeId===3">
+            <div class="col-lg-12">
+                <div class="form-group">
+                  <label for="EmergencyContactName">Emergency Contact Name<sup>*</sup></label>
+                  <input type="text" name="EmergencyContactName" placeholder="Enter Emergency Contact Name
+                  " id="EmergencyContactName" class="form-control" formControlName="EmergencyContactName"
+                  [ngClass]="{
+                    'is-invalid':updateContactForm.get('EmergencyContactName').touched &&
+                    updateContactForm.get('EmergencyContactName').invalid
+                  }"/>
+                  <div
+                  class="invalid-feedback"
+                  *ngIf="updateContactForm.get('EmergencyContactName').errors?.required"
+                >
+                Emergency contact name required
+                </div>
+                  </div>
+            </div>
+        </div>
+        <div class="row"  *ngIf="data.docTypeId===3">
+            <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="EmergencyContactCountryCode">Country Code<sup>*</sup></label>
+                  <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="true" placeholder="Select Country Code"
+                 class="form-control" labelForId="EmergencyContactCountryCode" aria-describedby="EmergencyContactCountryCode"
+                 formControlName="EmergencyContactCountryCode"
+                 bindValue="dialingCode" bindLabel="dialingCode"
+                 [ngClass]="{
+                  'is-invalid':updateContactForm.get('EmergencyContactCountryCode').touched &&
+                  updateContactForm.get('EmergencyContactCountryCode').invalid
+                }">
+                  <ng-option *ngFor="let country of countries | async" [value]="country.code">
+                    <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+                    <span class="mx-1">
+                      {{ country.dialingCode }}
+                    </span>
+                  </ng-option>
+                </ng-select>
+                <div
+                class="invalid-feedback"
+                *ngIf="updateContactForm.get('EmergencyContactCountryCode').errors?.required"
+              >
+              Country code required
+              </div>
+                  </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="form-group">
+                  <label for="EmergencyContactNumber">Emergency Contact Number<sup>*</sup></label>
+                  <input type="text" mask="0" name="EmergencyContactNumber" placeholder="Enter Emergency Contact Number"
+                   id="EmergencyContactNumber" class="form-control"
+                   formControlName="EmergencyContactNumber"
+                   pattern="[0-9]*"
+                   [ngClass]="{
+                    'is-invalid':updateContactForm.get('EmergencyContactNumber').touched &&
+                    updateContactForm.get('EmergencyContactNumber').invalid
+                  }"/>
+                  <div
+                  class="invalid-feedback"
+                  *ngIf="updateContactForm.get('EmergencyContactNumber').errors?.required"
+                >
+                Emergency contact number required
+                </div>
+
+                <div
+                  class="invalid-feedback"
+                  *ngIf="updateContactForm.get('EmergencyContactNumber').errors?.pattern"
+                >
+                  Enter valid mobile number
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="updateContactForm.get('EmergencyContactNumber').errors?.minlength"
+                >
+                  Minimum 6 digits
+                </div>
+                <div
+                class="invalid-feedback"
+                *ngIf="updateContactForm.get('EmergencyContactNumber').errors?.maxlength"
+              >
+                Maximum 15 digits
+              </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <button
+                    type="reset"
+                    class="btn btn-secondary mr-2" (click)="closeThis.emit('close')"
+                    >  <span>{{ 'Common.Cancel' | translate }}</span>
+                    </button>
+            <button type="button" class="btn btn-primary btn-caret-8" (click)="Submit()"
+            [disabled]="updateContactForm.invalid">
+            {{ 'Common.Submit' | translate }}
+            </button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+  <div class="modalpane-backdrop"></div>

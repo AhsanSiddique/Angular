@@ -1,0 +1,24 @@
+
+@include media-breakpoint-down(sm) {
+	.header-section{
+    position: absolute;
+    top: 0px;
+		background:$white;
+		width:100%;
+		z-index:1000;
+		a{
+      display: flex !important;
+      justify-content: center;
+			padding: 15px;
+			border-bottom: 8px solid $basecolor;
+		}
+	}
+
+}
+.header-section{
+	a{
+		display: block;
+		padding: 15px;
+		border-bottom: 8px solid $basecolor;
+	}
+}

@@ -1,0 +1,84 @@
+<div class="modalpane-wrapper">
+    <div class="modalpane-body">
+      <div class="modalpane-header">
+        <h4
+          class="font-24 text-center"
+        >
+        Update Fan Category
+        </h4>
+        <div class="modalpane-closebtn">
+          <img
+            src="/assets/icons/close 001.svg"
+            style="width: 32px"
+            alt="close icon"
+            (click)="closeThis.emit('close')"
+          />
+        </div>
+      </div>
+
+    <div class="update-mobile-modal-body">
+        <form  [formGroup]="updateFanCategoryForm" (ngSubmit)="validateTicket()" style="min-width: 625px;">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                    <label for="ticket_type">Fan Category<sup>*</sup></label>
+                    <ng-select [items]="ticketTypes" [virtualScroll]="true"
+                    [clearable]="false" [searchable]="true"
+                    [closeOnSelect]="true"
+                    placeholder="Select Fan Category"
+                    formControlName="ticket_type" class="form-control" labelForId="ticket_type" aria-describedby="ticket_type"
+                    bindLabel="name"
+                    [ngClass]="{
+                        'is-invalid':updateFanCategoryForm.get('ticket_type').touched &&
+                        updateFanCategoryForm.get('ticket_type').invalid
+                    }"
+                    (change)="changecategory()">
+                    <!-- <ng-option *ngFor="let type of ticketTypes | async" [value]="type.code">
+                        <span class="mx-1">
+                        {{ type.name }}
+                        </span>
+                    </ng-option> -->
+                    </ng-select>
+                    <div
+                    class="invalid-feedback"
+                    *ngIf="updateFanCategoryForm.get('ticket_type').errors?.required"
+                >
+                Fan Category required
+                </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" *ngIf="f.ticket_type.value?.ticketRequired">
+                    <div class="form-group">
+                    <label for="ticket_number">{{f.ticket_type.value?.ticketLabel}}<sup>*</sup></label>
+                    <input type="text"  mask="0*" name="ticket_number"
+                    (input)="onTicketNumberChanged()"
+                    [placeholder]="f.ticket_type.value?.ticketLabel"
+                    id="ticket_number"
+                    class="form-control"
+                    formControlName="ticket_number"
+                    [ngClass]="{
+                        'is-invalid': errorVal}"/>
+                        <div class="invalid-feedback"
+                        *ngIf="errorVal">
+                        Invalid {{ f.ticket_type.value?.ticketLabel }}
+                      </div>
+                    <!-- <fan-id-form-field-error [field_control]="f.ticket_number"></fan-id-form-field-error> -->
+                    </div>
+                </div>
+            </div>
+        <div class="row justify-content-center">
+            <button
+                    type="reset"
+                    class="btn btn-secondary mr-2" (click)="closeThis.emit('close')"
+                    >  <span>{{ 'Common.Cancel' | translate }}</span>
+                    </button>
+            <button type="button" class="btn btn-primary btn-caret-8" (click)="validateTicket()"
+            [disabled]="updateFanCategoryForm.invalid">
+            {{ 'Common.Submit' | translate }}
+            </button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+  <div class="modalpane-backdrop"></div>

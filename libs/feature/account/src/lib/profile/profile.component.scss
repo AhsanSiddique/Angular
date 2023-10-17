@@ -1,0 +1,14 @@
+.Edit-Profile {
+  form {
+    padding: 2rem;
+    border-radius: 1rem;
+  }
+
+  .text-area, .text-area-mobilenumber {
+    border-radius: 1rem;
+  }
+
+  .countrycode {
+    border-radius: calc(1rem - 1.6%);
+  }
+}

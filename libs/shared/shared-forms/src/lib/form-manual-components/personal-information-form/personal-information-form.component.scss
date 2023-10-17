@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+
+.invalid-feedback:after {
+  content: '*';
+}
+
+.disabled-code {
+  pointer-events: none;
+
+  ::ng-deep .ng-arrow-wrapper {
+    display: block !important;
+  }
+}
+
+.medical-select {
+  ::ng-deep .ng-input {
+    // display: none;
+    #medical {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+
+  &-has-value {
+    height: fit-content !important;
+  }
+}
+
+.readonly-input-text {
+  pointer-events: none;
+  background-color: #EAEAEA !important;
+  color: rgba(69, 69, 69, 0.5) !important;
+}
+
+.pointer-none {
+  pointer-events: none;
+}
+
+

@@ -1,0 +1,138 @@
+<div class="loader">
+  <div class="loader-content" style="height: fit-content;">
+    <div class="submitPane">
+      <div class="paneHeader" *ngIf="otpinputprocess">
+        <h4 class="font-20 text-center">
+          {{ 'OtpVerify.OTPVerification' | translate }}
+        </h4>
+        <div class="paneClose" (click)="close()">
+          <svg width="20" height="20" viewBox="0 0 33.799 33.799">
+            <path id="Path_3042" data-name="Path 3042"
+              d="M16.9,0A16.9,16.9,0,1,0,33.8,16.9,16.89,16.89,0,0,0,16.9,0Zm-.811,20.952L12.252,24.79a2.293,2.293,0,0,1-3.243-3.243l3.837-3.837a1.147,1.147,0,0,0,0-1.622L9.009,12.252a2.293,2.293,0,0,1,3.243-3.243l3.837,3.837a1.148,1.148,0,0,0,1.622,0l3.837-3.837a2.293,2.293,0,0,1,3.243,3.243l-3.837,3.837a1.147,1.147,0,0,0,0,1.622l3.837,3.837a2.293,2.293,0,0,1-3.243,3.243L17.71,20.952a1.147,1.147,0,0,0-1.622,0Z"
+              fill="#fff" />
+          </svg>
+        </div>
+      </div>
+      <div class="paneHeader" *ngIf="!otpinputprocess && otpverified_successfully">
+        <img src="/assets/icons/Group 6786.svg" style="width: 45px" alt="Bootstrap" />
+      </div>
+      <div class="paneHeader" *ngIf="!otpinputprocess && !otpverified_successfully">
+        <img src="/assets/icons/Group 6841.svg" style="width: 45px" alt="Bootstrap" />
+      </div>
+      <div class="otpBody" [hidden]="!otpinputprocess">
+        <div class="count-down-body">
+          <countdown #cd *ngIf="timerConfig" [config]="timerConfig" (event)="handleCountdown($event)"></countdown>
+        </div>
+        <label *ngIf="eventTournamentType === 1">SMS OTP</label>
+        <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{
+            length: 4,
+            isPasswordInput: false,
+            allowNumbersOnly: true,
+            disableAutoFocus: true,
+            inputStyles: {
+              'background-color': '#f2f6fc',
+              'border-radius': '15px',
+              border: '1px solid whitesmoke',
+              'text-align': 'center',
+              'align-content': 'center',
+              margin: '0 8px',
+              'font-size': '30px',
+              'font-weight': '500',
+              'caret-color': 'rgb(242, 246, 252)'
+            },
+            containerStyles: {
+              'align-content': 'center',
+              'text-align': 'center'
+            },
+            inputClass: 'ngOtpInputFont'
+          }">
+        </ng-otp-input>
+
+        <!-- <label *ngIf="eventTournamentType == 1">Email OTP</label>
+        <ng-otp-input *ngIf="eventTournamentType == 1" (onInputChange)="onEmailOtpChange($event)" [config]="{
+          length: 4,
+          isPasswordInput: true,
+          allowNumbersOnly: true,
+          disableAutoFocus: true,
+          inputStyles: {
+            'background-color': '#f2f6fc',
+            'border-radius': '15px',
+            border: '1px solid whitesmoke',
+            'text-align': 'center',
+            'align-content': 'center',
+            margin: '0 8px',
+            'font-size': '72px',
+            'font-weight': '500',
+            'caret-color': 'rgb(242, 246, 252)'
+          },
+          containerStyles: {
+            'align-content': 'center',
+            'text-align': 'center'
+          },
+          inputClass: 'ngOtpInputFont'
+        }">
+        </ng-otp-input> -->
+        <p class="otp-send-error" *ngIf="returnMaxresendError">
+          {{ 'OtpVerify.MaxNoOfAttempt' | translate }}
+        </p>
+        <p class="otp-send-error" *ngIf="otp_send_error && !returnMaxresendError">
+          {{ ('OtpVerify.' + ((resend_otp_count >= max_otp_count)? 'ResendMaxedOut' : 'FailedToSendOTP')) | translate }}
+        </p>
+
+        <p class="otp-send-error" *ngIf="otp_submit_error && !otp_submit_error_type">
+          {{ 'OtpVerify.InvalidOTP' | translate }}
+        </p>
+
+        <p class="otp-send-error" *ngIf="otp_submit_error && otp_submit_error_type">
+          {{ ('OtpVerify.' + (otp_submit_error_type === 'sms' ? 'InvalidSmsOTP' : 'InvalidEmailOTP')) | translate }}
+        </p>
+
+        <button type="button" class="resend-otp-button" (click)="resendOTP()" [disabled]="!resend_otp_enabled">
+          {{ 'OtpVerify.ResendOTP' | translate }}
+        </button>
+        <p class="otp-send-error" *ngIf="(resend_otp_count === 2 || resend_otp_count === 3) && !otp_send_error && !otp_submit_error && !returnMaxresendError">
+          {{ 'OtpVerify.ResendSuccessfullMsg'  | translate }}
+        </p>
+      </div>
+      <div class="otp-success-paneBody" *ngIf="!otpinputprocess && otpverified_successfully">
+        <label class="text-center">
+          <strong>{{
+            'OtpVerify.AccountCreatedSuccessfully' | translate
+            }}</strong>
+        </label>
+        <label style="font-size: 0.7rem !important">{{ 'OtpVerify.ApplicationTrackingNumber' | translate }}
+          <!-- <span style="color: #fb4444">#{{ application_tracking_number }}</span> -->
+          {{
+          'OtpVerify.Willbesenttoemail&phonenumberprovidedduringtheregistration'
+          | translate
+          }}
+        </label>
+      </div>
+      <div class="paneBody" *ngIf="!otpinputprocess && !otpverified_successfully">
+        <h4 class="text-center font-20" style="padding: 0 50px">
+          {{ 'OtpVerify.AccountCreationFailed' | translate }}
+        </h4>
+        <!-- registration failure error message, used in new-customer -->
+        <p *ngIf="register_error_message" class="text-center font-15" style="padding: 20px 50px 0">
+          {{ register_error_message }}
+        </p>
+      </div>
+      <div class="paneFooter">
+        <button class="btn btn-primary btn-sm btn-failed" style="margin-bottom: 2rem;" *ngIf="otpinputprocess && eventTournamentType==2" (click)="submit()"
+          [disabled]="otpLength !== 4 || returnMaxresendError">
+          {{ 'OtpVerify.Submit' | translate }}
+        </button>
+        <button class="btn btn-primary btn-sm btn-failed" style="margin-bottom: 2rem;" *ngIf="otpinputprocess && eventTournamentType==1" (click)="localSubmit()"
+        [disabled]="otpLength !== 4 || returnMaxresendError">
+        {{ 'OtpVerify.Submit' | translate }}
+      </button>
+        <button class="btn btn-primary btn-sm btn-failed" *ngIf="!otpinputprocess" (click)="goToHome()"
+          style="width: 130px !important; margin-bottom: 2rem;">
+          {{ 'Common.GotoHome' | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="modalpane-backdrop"></div>
+  </div>
+  <div class="loader-backdrop"></div>
+</div>

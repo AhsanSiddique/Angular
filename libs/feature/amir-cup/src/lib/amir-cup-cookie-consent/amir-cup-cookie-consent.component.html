@@ -1,0 +1,18 @@
+<div class="amir-cup-cookie-consent" *ngIf="showConsent">
+  <div class="consent-text">
+    <div class="consent-text-title">
+      {{ 'CookieConsent.Title' | translate }}
+    </div>
+    <div class="consent-text-subtext">{{ 'CookieConsent.Subtext'|translate}}<a [routerLink]="['/cookie-policy']">{{'CookieConsent.Subtext1'|translate }}</a>{{'CookieConsent.Subtext2'|translate}}<a [routerLink]="['/cookie-policy']">{{'CookieConsent.Subtext3'|translate }}</a>{{'CookieConsent.Subtext4'|translate}}<a [routerLink]="['/cookie-policy']">{{'CookieConsent.Subtext5'|translate}}</a>{{'CookieConsent.Subtext6'|translate}}
+    </div>
+  </div>
+  <div class="consent-action">
+    <button class="consent-action-accept" (click)="submitCookie(true)">
+      {{ 'CookieConsent.Accept' | translate }}
+    </button>
+
+    <button class="consent-action-decline" (click)="submitCookie(false)">
+      {{ 'CookieConsent.Decline' | translate }}
+    </button>
+  </div>
+</div>

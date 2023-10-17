@@ -1,0 +1,45 @@
+<main>
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" (click)="activeTab()" class="nav-tabs text-center">
+      <li [ngbNavItem]="1" style="min-width: 8.5rem;">
+        <a ngbNavLink  class="h6"
+          >
+          Help Kit</a
+        >
+        <img *ngIf="active ===1" src="/assets/icons/Union.svg"
+        alt="Bootstrap" />
+        <ng-template ngbNavContent>
+          <section>
+            <fan-id-knowledge-base></fan-id-knowledge-base>
+        </section>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2" style="min-width: 8.5rem;">
+      <a ngbNavLink class="h6"
+        >
+        FAQ</a
+      >
+      <img *ngIf="active ===2" src="/assets/icons/Union.svg"
+      alt="Bootstrap" />
+      <ng-template ngbNavContent>
+        <section>
+           <fan-id-kb-faq></fan-id-kb-faq>
+        </section>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3" style="min-width: 8.5rem;">
+      <a ngbNavLink class="h6"
+        >
+        Video Hub</a
+      >
+      <img *ngIf="active ===3" src="/assets/icons/Union.svg"
+      alt="Bootstrap" />
+      <ng-template ngbNavContent>
+        <section>
+           <fan-id-kb-video-hub></fan-id-kb-video-hub>
+        </section>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</main>

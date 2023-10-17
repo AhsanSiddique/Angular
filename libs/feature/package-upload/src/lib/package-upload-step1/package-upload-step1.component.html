@@ -1,0 +1,365 @@
+<ng-container *ngIf="{ b2bVisaType: b2bVisaType$ | async } as vm">
+  <div class="new-customer container-fluid">
+    <header class="row">
+      <div class="title col-lg-5 d-flex align-items-center">
+        <fan-id-back-arrow></fan-id-back-arrow>
+        <div>
+          <h4 class="mb-0">
+            New Registration - Package Upload
+          </h4>
+        </div>
+      </div>
+    </header>
+    <main class="row">
+      <form autocomplete="off" class="row m-0 p-0 application-form" [formGroup]="packageUploadForm">
+        <!-- <div class="mb-4 pl-3" style="position: relative">
+          <div class="form-group">
+            <label class="mb-3">Applicant Type<sup>*</sup></label>
+            <div class="radio-group">
+              <div class="radio-btn" *ngFor="let application_type of (metadata$ | async)?.application_types">
+                <input type="radio" class="d-none" formControlName="application_type"
+                  id="application_type_{{ application_type.code }}" [value]="application_type.code" />
+                <label for="application_type_{{ application_type.code }}">
+                  <span class="radio"></span>
+                  <span>
+                    {{ application_type.name }}
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <fan-id-fieldset-wrapper
+          [title]="'Organization Information'"
+          titleIndex="01"
+          [sectionValid]="(section1Valid$ | async)!"
+        >
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group col d-flex flex-column px-0">
+                <label for="cgname">Organization Group Name<sup>*</sup></label>
+                <input type="text" formControlName="cgname" name="cgname" placeholder="Enter Organization Group Name"
+                  id="cgname" class="form-control" [class.is-invalid]="puf.cgname.touched && puf.cgname.invalid"
+                  (blur)="onBulkGroupNameBlur()" (focus)="onUniqueFieldFocus(puf.cgname)" required />
+                <span class="invalid-feedback" *ngIf="
+                  !puf.cgname.hasError('notUnique') &&
+                  !puf.cgname.errors?.maxlength &&
+                  !puf.cgname.errors?.pattern"
+                >
+                  Enter Organization Group Name
+                </span>
+                <span class="invalid-feedback" *ngIf="puf.cgname.hasError('notUnique')">
+                  {{ 'ErrorMessage.BulkNameInUse' | translate }}
+                </span>
+                <span class="invalid-feedback" *ngIf="puf.cgname.errors?.maxlength">
+                  Name cannot exceeds {{ puf.cgname.errors?.maxlength.requiredLength }} characters
+                </span>
+                <span class="invalid-feedback" *ngIf="puf.cgname.errors?.pattern">
+                  Special characters are not allowed
+                </span>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="bulkgroupname">Organization Group Accommodation Details<sup>*</sup></label>
+                <textarea name="accodetails" style="height: 8rem !important;
+                      background-color: white !important; resize: none;" rows="5" class="form-control accodetails"
+                  id="accodetails" formControlName="accodetails" aria-describedby="accodetails" required
+                  placeholder="Please indicate where this group will be staying in Qatar"
+                  [class.is-invalid]="puf.accodetails.touched && puf.accodetails.invalid"></textarea>
+                <div class="invalid-feedback" *ngIf="puf.accodetails.errors?.required">
+                  Please indicate where this group will be staying in Qatar
+                </div>
+                <div class="invalid-feedback" *ngIf="puf.accodetails.errors?.maxLines">
+                  Maximum of {{puf.accodetails.errors?.maxLines}} lines are allowed
+                </div>
+                <div class="invalid-feedback" *ngIf="puf.accodetails.errors?.maxlength">
+                  Maximum of {{puf.accodetails.errors?.maxlength.requiredLength}} characters are allowed
+                </div>
+              </div>
+            </div>
+          </div>
+        </fan-id-fieldset-wrapper>
+
+        <fan-id-fieldset-wrapper
+          [title]="'Application Information'"
+          titleIndex="02"
+          [sectionValid]="(section2Valid$ | async)!"
+        >
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group col d-flex flex-column px-0">
+                <label for="hayyaVisitCategory">
+                  Category of Hayya Visit<sup>*</sup>
+                </label>
+                <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="true"
+                  placeholder="Select Category of Hayya Visit" formControlName="hayyaVisitCategory" class="form-control"
+                  labelForId="hayyaVisitCategory" aria-describedby="hayyaVisitCategory"
+                  [class.is-invalid]="puf.hayyaVisitCategory.touched && puf.hayyaVisitCategory.invalid"
+                  (change)="categoryChange()"
+                >
+                  <ng-option *ngFor="let category of hayyaVisitCategories$ | async" [value]="category.code">
+                    {{ category.name }}
+                  </ng-option>
+                </ng-select>
+                <span class="invalid-feedback">Choose category</span>
+              </div>
+            </div>
+
+            <ng-container *ngIf="vm.b2bVisaType === 'CONFERENCE'">
+              <!-- conference id -->
+              <div class="col-lg-4 mb-4">
+                <div class="form-group col d-flex flex-column px-0">
+                  <label for="conferenceId">
+                    Conference List<sup>*</sup>
+                  </label>
+                  <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="true"
+                    placeholder="Select Conference" formControlName="conferenceId" class="form-control"
+                    labelForId="conferenceId" aria-describedby="conferenceId"
+                    [class.is-invalid]="puf.conferenceId.touched && puf.conferenceId.invalid"
+                    (change)="categoryChange()"
+                  >
+                    <ng-option *ngFor="let category of conferenceEventList$ | async" [value]="category.confrenceId">
+                      {{ category.name_EN }}
+                    </ng-option>
+                  </ng-select>
+                  <span class="invalid-feedback">Choose category</span>
+                </div>
+              </div>
+              <div class="col-lg-4"></div>
+              <!-- applicant category -->
+              <!-- <div class="col-lg-4 mb-4">
+                <div class="form-group col d-flex flex-column px-0">
+                  <label for="usercategory">
+                    Applicant Category<sup>*</sup>
+                  </label>
+                  <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="true"
+                    placeholder="Select Applicant category" formControlName="user_category" class="form-control"
+                    labelForId="usercategory" aria-describedby="usercategory"
+                    [class.is-invalid]="puf.user_category.touched && puf.user_category.invalid"
+                    (change)="categoryChange()"
+                  >
+                    <ng-option *ngFor="let category of (_metadata$ | async)?.user_categories" [value]="category.code">
+                      {{ category.name }}
+                    </ng-option>
+                  </ng-select>
+                  <span class="invalid-feedback">Choose category</span>
+                </div>
+              </div> -->
+            </ng-container>
+
+            <div class="col-lg-4">
+              <ng-container *ngIf="true" [ngTemplateOutlet]="uploadZipFileTpl"></ng-container>
+            </div>
+          </div>
+        </fan-id-fieldset-wrapper>
+
+
+
+        <!-- <div class="col-lg-3 mb-4" *ngIf="showHideField">
+          <div class="form-group col d-flex flex-column px-0">
+            <label for="hayya_number">Hayya Card No. of Primary Applicant
+              <sup>*</sup>
+            </label>
+            <input type="text" formControlName="hayya_number" name="hayya_number" placeholder="Enter the Hayya Card No."
+              id="hayya_number" class="form-control"
+              [class.is-invalid]="puf.hayya_number.touched && puf.hayya_number.invalid" (input)="onHayyaNumberChange()" />
+            <span class="invalid-feedback">Enter Hayya Card No</span>
+          </div>
+        </div>
+        <div class="mb-4 col-lg-1 pl-0" *ngIf="showHideField && upload_type === 0">
+          <div class="form-group flex-column" style="max-width: 40px;">
+            <label for="placeholder" style="visibility: hidden;">placeholder</label>
+            <button class="btn btn-sm stat-search-ico p-0" style="margin-left: -10px !important; height: 3rem !important;"
+              (click)="youthProgramRegCheck()" [disabled]="youthButtonDisable()">
+              <a href="javascript:void(0)" class="stat-search-ico" title="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
+                  style="width: 100%; height: 100%;">
+                  <rect width="40" height="40" fill="var(--hayya-primary)" />
+                  <path d="M25.6128 20L16.9031 14.8038V25.1962L25.6128 20Z" fill="white" />
+                </svg>
+
+                <span class="sr-only">Search</span></a>
+            </button>
+          </div>
+        </div> -->
+        <!-- <div class="mb-4 col-lg-4" *ngIf="!showHideField"></div> -->
+        <!-- <div class="col-lg-4">
+          <ng-container *ngIf="{user_category: puf.user_category.value, application_type: puf.application_type.value} as vm">
+            <ng-container *ngIf="vm.user_category !== 'SFP' && !(vm.user_category === 'LSC' && vm.application_type === 'QRC')" [ngTemplateOutlet]="uploadZipFileTpl"></ng-container>
+            <ng-container *ngIf="vm.user_category === 'SFP' || (vm.user_category === 'LSC' && vm.application_type === 'QRC')" [ngTemplateOutlet]="uploadExcelFileTpl"></ng-container>
+          </ng-container>
+        </div> -->
+
+        <div class="footer-actions mt-5 col-lg-8">
+          <button type="button" class="btn btn-secondary"
+            (click)="show_cancel_modal = true">
+            <span>Cancel</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-caret-8" [disabled]="disableSubmit()" (click)="formSubmit()">
+            Submit
+          </button>
+        </div>
+      </form>
+    </main>
+    <fan-id-modal-wrapper *ngIf="show_cancel_modal" [title]="'Common.Alert' | translate"
+      (closeThis)="show_cancel_modal = false">
+      <div class="cancel-modal-body">
+        <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+        <p>{{ 'Common.AllChangesDoneLost' | translate }}</p>
+        <button type="button" class="btn btn-primary btn-caret-8" (click)="cancel()">
+          {{ 'Common.YesProceed' | translate }}
+        </button>
+      </div>
+    </fan-id-modal-wrapper>
+  </div>
+</ng-container>
+
+<!-- #region templates -->
+<ng-template #uploadZipFileTpl>
+  <div class="form-group">
+    <label for="uploadzipfile">Bulk Upload<sup>*</sup></label>
+    <div class="file-control">
+      <label for="uploadzipfile" class="file-upload form-control"
+        style="border: none !important; padding: 0rem !important"
+        [ngClass]="{
+          'is-invalid': is_file_uploaded && (puf.uploadzipfile.invalid || fileType),
+          'is-valid': puf.uploadzipfile.valid
+        }">
+        <div class="download-btn-area">
+          <div class="download-btn">
+            <div class="dwn-text">
+              <span>{{
+                !this.file
+                ? 'Import Zip file'
+                : this.file.name
+                }}</span>
+            </div>
+            <div class="upload-btn-wrapper">
+              <input *ngIf="!this.file" type="file" class="form-control" formControlName="uploadzipfile"
+                id="uploadzipfile" aria-describedby="uploadzipfile" placeholder="Upload Zip Folder"
+                (click)="onUploadFileClick()" (change)="uploadfile($event)"
+                accept=".zip,.7zip" required />
+
+              <button *ngIf="!this.file" class="btn p-0 voucherxl-browse">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#a)" stroke="var(--hayya-primary)" stroke-width="2" stroke-miterlimit="10"
+                    stroke-linecap="square">
+                    <path d="M1.5 9.5h22m-2 13h-18a2 2 0 0 1-2-2v-18h8l2 3h12v15a2 2 0 0 1-2 2Z" />
+                  </g>
+                </svg>
+              </button>
+              <button *ngIf="this.file" class="btn p-0 voucherxl-browse" (click)="fileReset($event)">
+                <svg width="24" height="24" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M18.596 4.971c.357 0 .654.296.654.672v.348a.668.668 0 0 1-.654.672H3.404a.669.669 0 0 1-.654-.672v-.348c0-.376.297-.672.654-.672h2.673c.543 0 1.016-.385 1.138-.93l.14-.624c.217-.85.933-1.415 1.752-1.415h3.786c.81 0 1.534.565 1.743 1.37l.15.669c.122.545.594.93 1.138.93h2.672ZM17.24 17.69c.279-2.598.767-8.769.767-8.83a.682.682 0 0 0-.166-.512.666.666 0 0 0-.48-.214H4.647a.648.648 0 0 0-.48.214.723.723 0 0 0-.174.511l.048.592c.13 1.615.493 6.111.727 8.239.166 1.568 1.196 2.553 2.687 2.588 1.151.027 2.337.036 3.55.036 1.142 0 2.301-.009 3.488-.035 1.543-.027 2.572-.995 2.747-2.589Z"
+                    fill="#130F26" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </label>
+      <div class="invalid-feedback" *ngIf="!fileType && is_file_uploaded && puf.uploadzipfile.errors?.required">
+        Import Zip
+      </div>
+      <div class="invalid-feedback" *ngIf="fileType">
+        Import valid Zip
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #uploadExcelFileTpl>
+  <div class="form-group">
+    <label for="uploadzipfile">
+      Excel Upload<sup>*</sup>&nbsp;
+      <span class="tooltip-custom"> <svg width="20" height="20" viewBox="0 0 30 30" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.4956 26.3538C9.40642 22.9942 3.93652 17.8226 0.627203 13.4966C3.93664 9.17707 9.40651 4.00571 13.4956 0.646267C18.1821 4.5091 22.4876 8.81219 26.3531 13.4965C22.4894 18.1845 18.1837 22.4901 13.4956 26.3538Z"
+            stroke="var(--hayya-primary)" />
+          <path
+            d="M13.224 9.496C13.976 9.496 14.552 8.952 14.552 8.232C14.552 7.512 13.976 6.968 13.224 6.968C12.488 6.968 11.912 7.512 11.912 8.232C11.912 8.952 12.488 9.496 13.224 9.496ZM12.088 19H14.392V10.632H12.088V19Z"
+            fill="var(--hayya-primary)" />
+        </svg>
+        <span class="tooltiptext" style="font-weight: normal;">Please go to Knowledge Base to download the excel template</span>
+      </span>
+    </label>
+    <div class="file-control">
+      <label for="uploadzipfile" class="file-upload form-control"
+        style="border: none !important; padding: 0rem !important"
+        [ngClass]="{
+          'is-invalid': is_file_uploaded && (puf.uploadzipfile.invalid || fileType),
+          'is-valid': puf.uploadzipfile.valid
+        }">
+        <div class="download-btn-area">
+          <div class="download-btn">
+            <div class="dwn-text">
+              <span>{{
+                !this.file
+                ? 'Import Excel file'
+                : this.file.name
+                }}</span>
+            </div>
+            <div class="upload-btn-wrapper">
+              <input *ngIf="!this.file" type="file" class="form-control" formControlName="uploadzipfile"
+                id="uploadzipfile" aria-describedby="upload excel file" placeholder="Upload Excel File"
+                (click)="onUploadFileClick()" (change)="uploadfile($event)"
+                accept=".xlsx" required />
+
+              <button *ngIf="!this.file" class="btn p-0 voucherxl-browse">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#a)" stroke="var(--hayya-primary)" stroke-width="2" stroke-miterlimit="10"
+                    stroke-linecap="square">
+                    <path d="M1.5 9.5h22m-2 13h-18a2 2 0 0 1-2-2v-18h8l2 3h12v15a2 2 0 0 1-2 2Z" />
+                  </g>
+                </svg>
+              </button>
+              <button *ngIf="this.file" class="btn p-0 voucherxl-browse" (click)="fileReset($event)">
+                <svg width="24" height="24" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M18.596 4.971c.357 0 .654.296.654.672v.348a.668.668 0 0 1-.654.672H3.404a.669.669 0 0 1-.654-.672v-.348c0-.376.297-.672.654-.672h2.673c.543 0 1.016-.385 1.138-.93l.14-.624c.217-.85.933-1.415 1.752-1.415h3.786c.81 0 1.534.565 1.743 1.37l.15.669c.122.545.594.93 1.138.93h2.672ZM17.24 17.69c.279-2.598.767-8.769.767-8.83a.682.682 0 0 0-.166-.512.666.666 0 0 0-.48-.214H4.647a.648.648 0 0 0-.48.214.723.723 0 0 0-.174.511l.048.592c.13 1.615.493 6.111.727 8.239.166 1.568 1.196 2.553 2.687 2.588 1.151.027 2.337.036 3.55.036 1.142 0 2.301-.009 3.488-.035 1.543-.027 2.572-.995 2.747-2.589Z"
+                    fill="#130F26" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </label>
+      <div class="invalid-feedback" *ngIf="!fileType && is_file_uploaded && puf.uploadzipfile.errors?.required">
+        Import Excel
+      </div>
+      <div class="invalid-feedback" *ngIf="fileType">
+        Import valid Excel
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- #endregion -->
+
+<fan-id-common-success-modal *ngIf="register_success"
+  head_success_message="{{isPackageExcel() ? 'Excel' : 'Package'}} Uploaded Successfully"
+  success_message="We are processing your {{isPackageExcel() ? 'excel' : 'package'}}.
+  You can check the status from the organization groups section and continue with the registration
+  once the {{isPackageExcel() ? 'excel' : 'package'}} is processed successfully."
+  note="Note: Records with incorrect format/data will not be processed successfully."
+  buttontext="Go To Organization Groups" (closeThis)="closeRegisterSuccess()"></fan-id-common-success-modal>
+
+<!-- #region error-modals -->
+<fan-id-common-error-modal *ngIf="register_error"
+  head_error_message="{{isPackageExcel() ? 'Excel' : 'Package'}} Upload Failed" buttontext="Common.Ok"
+  [error_message]="register_error_message" (closeThis)="closeRegisterError()"></fan-id-common-error-modal>
+
+<fan-id-common-error-modal *ngIf="youthPgmSubmitErrorPopupBoolean" head_error_message="Invalid Primary Applicant"
+  buttontext="Common.Ok" [error_message]="youthProgramErrorMsg"
+  (closeThis)="this.youthPgmSubmitErrorPopupBoolean = false;"></fan-id-common-error-modal>
+
+<fan-id-common-success-modal *ngIf="youthPgmSubmitSuccessPopupBoolean"
+  head_success_message="Primary Applicant Verified Successfully"
+  success_message="We were able to successfully verify the Primary Applicant, please proceed with the registration. Kindly note that once the registration is complete you will not be able to change the Primary Applicant."
+  buttontext="Common.Continue" (closeThis)="this.youthPgmSubmitSuccessPopupBoolean = false">
+</fan-id-common-success-modal>
+<!-- #endregion error-modals -->

@@ -1,0 +1,240 @@
+<div class="div-box margin-div">
+    <div class="page-title">
+      <fan-id-back-arrow></fan-id-back-arrow>
+      <h4 class="w-100 mb-0">{{ createMode ? 'Create' : 'Update' }} Configuration</h4>
+    </div>
+  </div>
+  <div class="Edit-Profile" style="min-height: 60vh;">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card">
+          <form [formGroup]="updatePrinterForm">
+            <div class="sr-only">
+              <input type="hidden" formControlName="firstname" />
+            </div>
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="servicecentre"
+                    >Terminal Name<sup>*</sup></label
+                  >
+                  <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                placeholder="Select Terminal"
+                formControlName="servicecentre"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    updatePrinterForm.get('servicecentre').touched &&
+                    updatePrinterForm.get('servicecentre').invalid
+                }"
+                labelForId="servicecentre"
+                aria-describedby="servicecentre"
+              >
+                <ng-option *ngFor="let item of terminalList" [value]="item?.code">
+                  <span>{{ item.code }}</span> &nbsp;
+                  <span>{{ item.name }}</span>
+                </ng-option>
+              </ng-select>
+              <div
+                class="invalid-feedback"
+                *ngIf="updatePrinterForm.get('servicecentre').errors?.required"
+              >
+              Terminal required
+              </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="macaddress">
+                     Mac Address<sup>*</sup></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="macaddress"
+                    name="macaddress"
+                    id="macaddress"
+                    placeholder="Enter Mac Address"
+                    [ngClass]="{
+                      'is-invalid':
+                      updatePrinterForm.get('macaddress').touched &&
+                      updatePrinterForm.get('macaddress').invalid
+                    }"
+                  />
+                  <div
+                class="invalid-feedback"
+                *ngIf="updatePrinterForm.get('macaddress')?.errors?.required"
+              >
+              Mac Address is required
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="!updatePrinterForm.get('macaddress')?.errors?.required && updatePrinterForm.get('macaddress')?.errors"
+              >
+              Enter valid Mac address
+              </div>
+                  <!-- <input
+                    type="text"
+                    class="text-area read-only"
+                    formControlName="macaddress"
+                    name="macaddress"
+                    id="macaddress"
+                  /> -->
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="PrinterType">
+                    Printer Type
+                  </label>
+                  <div class="common-radio radio-group row col">
+                    <div class="radio-btn ">
+                      <input type="radio" class="d-none" value="1"
+                        id="printerSingle" formControlName="pType"
+                        (click)="printerTypeSelection(1)"
+                      />
+                      <label for="printerSingle">
+                        <span class="radio"></span>
+                        <span style="font-size: 0.8rem !important">
+                          Printer
+                        </span>
+                      </label>
+                    </div>
+                    <div class="radio-btn">
+                      <input type="radio" class="d-none" value="2"
+                        id="printerpool" formControlName="pType"
+                        (click)="printerTypeSelection(2)"
+                      />
+                      <label for="printerpool">
+                        <span class="radio"></span>
+                        <span style="font-size: 0.8rem !important">
+                          Printer Pool
+                        </span>
+                      </label>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="printer"
+                    >Printer {{printerDropdownLabel}} Name<sup>*</sup></label
+                  >
+                  <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                placeholder="Select Printer"
+                formControlName="printer"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    updatePrinterForm.get('printer').touched &&
+                    updatePrinterForm.get('printer').invalid
+                }"
+                labelForId="printer"
+                aria-describedby="printer"
+              >
+              <ng-container *ngIf="updatePrinterForm.get('pType')?.value === '1'">
+                <ng-option
+                *ngFor="let item of printerOrPrinterPoolList" [value]="item?.id">
+                  <span>{{ item?.printer_Name }}</span>
+                </ng-option>
+              </ng-container>
+              <ng-container *ngIf="updatePrinterForm.get('pType')?.value === '2'">
+                <ng-option
+                *ngFor="let item of printerOrPrinterPoolList" [value]="item?.id">
+                  <span>{{ item?.printerSC_Name }}</span>
+                </ng-option>
+              </ng-container>
+              </ng-select>
+              <div
+                class="invalid-feedback"
+                *ngIf="updatePrinterForm.get('printer').errors?.required"
+              >
+              Printer required
+              </div>
+                </div>
+              </div>
+            </div>
+            <div class="footer text-right d-flex">
+              <button
+                type="button"
+                class="btn btn-secondary mr-2"
+                (click)="cancel()"
+              >
+               <span> {{ 'Common.Cancel' | translate }}</span>
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary btn-sm btn-submit"
+                (click)="showConfirmModal()"
+                [disabled]="updatePrinterForm.invalid"
+              >
+                {{ createMode?'Submit':'Save' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<fan-id-modal-wrapper
+  *ngIf="show_cancel_modal"
+  [title]="'Common.Alert' | translate"
+  (closeThis)="this.show_cancel_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+    <p>{{ 'Common.AllChangesDoneLost' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="cancelProceed()">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-modal-wrapper
+  *ngIf="show_confirmation_modal"
+  [title]="'Common.Alert' | translate"
+  (closeThis)="this.show_confirmation_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>Please confirm if you wish to proceed</p>
+    <div class="row">
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary btn-caret-8" (click)="this.show_confirmation_modal = false">
+          {{ 'Common.Close' | translate }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button
+          type="button"
+          class="btn btn-primary btn-caret-8"
+          (click)="ConfirmProceed()"
+        >
+          {{ 'Common.YesProceed' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-success-modal
+  *ngIf="this.insertSuccessBoolean || this.updateSuccessBoolean"
+  [head_success_message]="this.insertSuccessBoolean? 'Configuration Created Successfully':'Configuration Updated Successfully'"
+  buttontext="Close"
+  (closeThis)="closeInsertOrUpdate()">
+</fan-id-common-success-modal>
+
+<fan-id-common-error-modal
+  *ngIf="this.updateFailedBoolean || this.insertFailedBoolean"
+  head_error_message='Configuration Failed'
+  buttontext = "Close"
+  [error_message]="this.failedMessage"
+  (closeThis)="closeFailed()">
+</fan-id-common-error-modal>
+

@@ -1,0 +1,233 @@
+<div class="loader">
+    <div class="loader-content">
+      <div class="submitPane">
+        <div class="paneHeader">
+          <h4 class="font-20 text-center">
+            {{ 'CardPickup.CardPrintingList' | translate }}
+          </h4>
+          <div class="paneClose" (click)="closefunction()">
+            <svg width="20" height="20" viewBox="0 0 33.799 33.799">
+              <path
+                id="Path_3042"
+                data-name="Path 3042"
+                d="M16.9,0A16.9,16.9,0,1,0,33.8,16.9,16.89,16.89,0,0,0,16.9,0Zm-.811,20.952L12.252,24.79a2.293,2.293,0,0,1-3.243-3.243l3.837-3.837a1.147,1.147,0,0,0,0-1.622L9.009,12.252a2.293,2.293,0,0,1,3.243-3.243l3.837,3.837a1.148,1.148,0,0,0,1.622,0l3.837-3.837a2.293,2.293,0,0,1,3.243,3.243l-3.837,3.837a1.147,1.147,0,0,0,0,1.622l3.837,3.837a2.293,2.293,0,0,1-3.243,3.243L17.71,20.952a1.147,1.147,0,0,0-1.622,0Z"
+                fill="#fff"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="card-replacement-paneBody">
+          <div class="row" *ngIf="event==='AmirCup2021' || event ==='Amircup2021'">
+            <div class="col-lg-12">
+              <div class="registration-details">
+                <img src="/assets/icons/Path 3394.svg"
+                *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==0"
+                (click)="prevItem()" alt="Previous Icon" class="printCardPrevious"/>
+                <div class="printCardPrevious" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                    <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(-13921.842 -3556.444) rotate(180)"/>
+                </svg>
+                </div>
+                <div class="amir-card">
+                  <div class="amir-left">
+                    <div class="name">
+                      <span>{{ cardPrintDetail.name }} </span>
+                    </div>
+                    <div class="amir-bot">
+                      <div class="stadium-details">
+                        <div>
+                          <span class="header">GATE</span>
+                          <span class="body">{{ cardPrintDetail.gateNumber }}</span>
+                        </div>
+                        <div>
+                          <span class="header">BLOCK</span>
+                          <span class="body">{{ cardPrintDetail.blockNumber }}</span>
+                        </div>
+                        <div>
+                          <span class="header">ROW</span>
+                          <span class="body">{{ cardPrintDetail.rowNumber }}</span>
+                        </div>
+                        <div>
+                          <span class="header">SEAT</span>
+                          <span class="body">{{ cardPrintDetail.seatNumber }}</span>
+                        </div>
+
+                      </div>
+                      <img style ="background-color: white;" class="bar" src="{{'data:image/jpg;base64,' + cardPrintDetail.barcode}}" alt="Bar Code"/>
+
+                    </div>
+
+                  </div>
+                  <div class="amir-right">
+                    <img [src]="cardPrintDetail.profileImg" alt="Profile Image" />
+                    <span class="document">QID {{ cardPrintDetail.QID }}</span>
+                    <span class="normal">Lost / Stolen Card</span>
+                    <span class="normal">+974 8008052</span>
+                  </div>
+
+                </div>
+
+              <img src="/assets/icons/Path 3393.svg"
+              *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==this.cardPrintDatailsArray.length-1"
+              (click)="nextItem()" alt="Next Icon" class="printCardNext"/>
+              <div class="printCardNext" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===this.cardPrintDatailsArray.length-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(13947.135 3601.373)"/>
+                </svg>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="event != 'AmirCup2021' && event != 'Amircup2021' && event != 'testevent' && event != 'FAC21'">
+            <div class="col-lg-12">
+              <div class="registration-details">
+                <img src="/assets/icons/Path 3394.svg"
+                (click)="prevItem()" *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==0" alt="Previous Icon" class="printCardPrevious"/>
+                <div class="printCardPrevious" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                    <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(-13921.842 -3556.444) rotate(180)"/>
+                </svg>
+                </div>
+                <div class="stad-card">
+                  <div class="stad-left">
+                    <img [src]="cardPrintDetail.profileImg" alt="Profile Image" />
+                  </div>
+                  <div class="stad-right">
+                    <div class="name">
+                      <span>{{ cardPrintDetail.name }} </span>
+                    </div>
+                    <div class="id">
+                      <span class="header">ID NUMBER</span>
+                      <span class="body">{{ cardPrintDetail.QID }}</span>
+                    </div>
+                    <div class="id">
+                      <span class="header">VALID THRU</span>
+                      <span class="body">{{ cardPrintDetail.valid }}</span>
+                    </div>
+                    <div class="stadlink">
+                      <img style ="background-color: white;" src="{{'data:image/jpg;base64,' + cardPrintDetail.barcode}}" alt="Bar Code"/>
+                      <span>Stad-Link</span>
+                    </div>
+                  </div>
+                </div>
+
+              <img src="/assets/icons/Path 3393.svg"
+              *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==this.cardPrintDatailsArray.length-1"
+              (click)="nextItem()" alt="Next Icon" class="printCardNext"/>
+              <div class="printCardNext" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===this.cardPrintDatailsArray.length-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(13947.135 3601.373)"/>
+                </svg>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="event ==='testevent' || event==='FAC21'">
+            <div class="col-lg-12">
+              <div class="registration-details">
+                <img src="/assets/icons/Path 3394.svg"
+                (click)="prevItem()" *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==0" alt="Previous Icon" class="printCardPrevious"/>
+                <div class="printCardPrevious" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                    <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(-13921.842 -3556.444) rotate(180)"/>
+                </svg>
+                </div>
+                <div class="arab-side">
+                <div class="arab-card">
+                  <div class="card-top">
+                <div class="card-bar">
+                  <div class="stad-left">
+                    <img [src]="cardPrintDetail.profileImg" alt="Profile Image" />
+                  </div>
+                  <div class="stad-right">
+                    <div class="name">
+                      <span>{{ cardPrintDetail.firstName }} </span>
+                      <br>
+                      <span>{{cardPrintDetail.lastName}}</span>
+                    </div>
+
+                    <div class="first-row">
+                      <div class="fanid-no">
+                        <span class="header">FAN NO.</span>
+                        <span class="body">{{ cardPrintDetail.fanIdNo }}</span>
+                      </div>
+                      <div class="expires">
+                        <span class="header">Expires</span>
+                        <span class="body">{{ cardPrintDetail.valid }}</span>
+                      </div>
+                    </div>
+                    <div class="second-row">
+                      <img class="img-qa" src="/assets/arab-card/qa.png" alt="img-qa">
+                      <div class="side">
+                        <div class="country">
+                          <span class="header">NATIONALITY</span>
+                          <span class="body">{{cardPrintDetail.nationalityCode}}</span>
+                        </div>
+                        <div class="id">
+                          <span class="header">QID / PASSPORT NO.</span>
+                          <span class="body">{{ cardPrintDetail.QID }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="bot">
+                  <div class="info">
+                    <span>SUPPORT NUMBER</span>
+                    <span>CALL: +974 8008052</span>
+                    <span style="margin-top: 2px;">MANUFACTURER NAME</span>
+                    <span>1234 09/21</span>
+                  </div>
+                  <img class="img-bottom" src="/assets/arab-card/bottom.png" alt="img-bottom">
+
+                </div>
+
+                </div>
+
+                <img class="img-side" src="/assets/arab-card/side.png" alt="img-side">
+
+                </div>
+
+              </div>
+
+              <img src="/assets/icons/Path 3393.svg"
+              *ngIf="this.cardPrintDatailsArray.length>1 && this.index !==this.cardPrintDatailsArray.length-1"
+              (click)="nextItem()" alt="Next Icon" class="printCardNext"/>
+              <div class="printCardNext" *ngIf="this.cardPrintDatailsArray.length>1 && this.index ===this.cardPrintDatailsArray.length-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.293 44.93">
+                <path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-width="4px" d="M-13944.307-3598.545l19.637 19.636-19.637 19.636" transform="translate(13947.135 3601.373)"/>
+                </svg>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="paneFooter">
+          <button
+            class="btn btn-primary btn-sm btn-failed ml-3 mr-3"
+            (click)="this.Print.emit()"
+            [disabled]="this.printSuccessArray.includes(cardPrintDetail.fanIdNo)"
+          >
+            {{ 'CardPickup.PrintCard' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modalpane-backdrop"></div>
+  <fan-id-common-error-modal
+  *ngIf="error_dialog_open"
+  [head_error_message] =" 'CardPickup.CardPrintingRequestFailed'"
+  [error_message]="error_message"
+  buttontext="Common.Close"
+  (closeThis)="closeErrorModel($event)">
+  </fan-id-common-error-modal>
+  <fan-id-common-dialogue
+    *ngIf="showCommonDialogue"
+    [Body]="common.body"
+    [Header]="common.header"
+    [FanId] = "common.fanId"
+    (closeThis)="closeCommonDialogue($event)"
+  >
+  </fan-id-common-dialogue>
+

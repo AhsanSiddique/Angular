@@ -1,0 +1,93 @@
+<form autocomplete="off" class="row address-information align-items-center" [formGroup]="formGroup">
+  <div class="row w-100 m-0">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12"
+      [class.address-information-country]="form_type !== 'new-customer'">
+      <label for="address_country">{{
+        translateKey + '.ChooseCountry' | translate
+        }}</label>
+      <ng-select
+        [items]="(countries | async)"
+        bindLabel="name"
+        bindValue="code"
+        [virtualScroll]="true" [clearable]="false"
+        [placeholder]="translateKey + '.SelectCountry' | translate" formControlName="address_country"
+        class="form-control" [ngClass]="{
+          'is-invalid': af.address_country.touched && af.address_country.invalid
+        }" labelForId="address_country" aria-describedby="address_country"
+        [searchFn]="nationalitySearchFn"
+      >
+        <ng-template ng-label-tmp let-country="item">
+          <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+          <span class="mx-1">
+            {{ country.name }}
+          </span>
+        </ng-template>
+        <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+          <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+          <span class="mx-1">
+            {{ country.name }}
+          </span>
+        </ng-template>
+      </ng-select>
+      <div class="invalid-feedback" *ngIf="af.address_country.touched && af.address_country.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+
+    <div *ngIf="form_type === 'new-customer'" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="delivery_type">{{
+        translateKey + '.DeliveryType' | translate
+        }}</label>
+      <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false" bindLabel="delivery_type"
+        bindValue="delivery_type" [placeholder]="translateKey + '.DeliveryType' | translate"
+        formControlName="delivery_type" class="form-control" [ngClass]="{
+          'is-invalid': af.delivery_type.touched && af.delivery_type.invalid
+        }" labelForId="delivery_type" aria-describedby="delivery_type">
+        <ng-option *ngFor="let delivery_type of delivery_types | async" [value]="delivery_type.code">
+          {{ delivery_type.name }}
+        </ng-option>
+      </ng-select>
+    </div>
+
+    <div *ngIf="form_type === 'new-customer' && af.delivery_type?.value === 'SCP'"
+      class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="service_centre">{{
+        translateKey + '.SelectServiceCentre' | translate
+        }}</label>
+      <ng-select [virtualScroll]="true" [clearable]="false" [searchable]="false" bindLabel="service_centre"
+        bindValue="service_centre" [placeholder]="translateKey + '.SelectServiceCentre' | translate"
+        formControlName="service_centre" class="form-control" [ngClass]="{
+          'is-invalid': af.service_centre.touched && af.service_centre.invalid
+        }" labelForId="service_centre" aria-describedby="service_centre">
+        <ng-option *ngFor="let service_centre of service_centres | async" [value]="service_centre.name">
+          {{ service_centre.name }}
+        </ng-option>
+      </ng-select>
+      <div class="invalid-feedback" *ngIf="af.service_centre.touched && af.service_centre.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row w-100 m-0">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12" *ngFor="let address_line of address_line_labels | keyvalue">
+      <label [for]="'address_line_' + address_line.key">
+        {{
+        translateKey + '.' + (address_line.value | removewhitespace)
+        | translate
+        }}
+      </label>
+      <input type="text" [mask]="af.address_country.value === 'Qatar' ? '0*' : ''"
+        [formControlName]="'address_line_' + address_line.key" [name]="'address_line_' + address_line.key"
+        [placeholder]="
+          translateKey + '.Enter' + (address_line.value | removewhitespace)
+            | translate
+        " [id]="'address_line_' + address_line.key" class="form-control" [ngClass]="{
+          'is-invalid':
+            af['address_line_' + address_line.key].touched &&
+            af['address_line_' + address_line.key].invalid
+        }" />
+      <fan-id-form-field-error [field_control]="af['address_line_' + address_line.key]"></fan-id-form-field-error>
+    </div>
+  </div>
+</form>

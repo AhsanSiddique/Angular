@@ -1,0 +1,66 @@
+<div class="bulk-groups">
+  <div class="page-title">
+    <fan-id-back-arrow></fan-id-back-arrow>
+    <h4 class="w-100">Booked Accommodation History</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="registration-details">
+        <div class="fan-card">
+          <div class="table-responsive fan-id-tablewrap w-100">
+            <table
+              id="historydatatable"
+              class="row-border fan-id-datatable w-100"
+              aria-describedby="Other Accommodation History"
+            >
+              <thead>
+                <tr>
+                  <th>Created Date</th>
+                  <th>Accommodation Status</th>
+                  <th>Updated By</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody [class.d-none]="dataList.length === 0">
+                <ng-container *ngIf="dataList">
+                  <tr *ngFor="let data of dataList">
+                    <td>
+                      {{
+                        data.system_ModifiedOn === null
+                          ? (data.system_CreatedOn + 'Z' | date: 'dd-MM-yyyy hh:mm:ss a')
+                          : (data.system_ModifiedOn + 'Z' | date: 'dd-MM-yyyy hh:mm:ss a')
+                      }}
+                    </td>
+                    <td>
+                      <div
+                        class="status-tag"
+                        [ngClass]="{
+                          'status-rejected': data.otherAccommodationStatus === 3,
+                          'status-approved': data.otherAccommodationStatus === 2,
+                          'status-under-review': data.otherAccommodationStatus === 1
+                        }"
+                      >
+                        {{ data?.otherAccommodationStatus_Name }}
+                      </div>
+                    </td>
+                    <td>{{ data.system_CreatedBy }}</td>
+                    <td>{{ data.otherAccommodationStatus === 3 ? data.rejectReason : 'Not Applicable' }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+              <tfoot [hidden]="dataList.length">
+                <tr [hidden]="(dtProcessing$ | async) === true">
+                  <td colspan="10" style="border: none !important;" class="text-center">No data available</td>
+                </tr>
+                <tr [hidden]="(dtProcessing$ | async) === false">
+                  <td colspan="10" style="border: none !important;" class="text-center">Processing...</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

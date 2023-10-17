@@ -1,0 +1,100 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fan-id/core": ["libs/core/src/index.ts"],
+      "@fan-id/api/interceptor": ["libs/api/interceptor/src/index.ts"],
+      "@fan-id/api/server": ["libs/api/server/src/index.ts"],
+      "@fan-id/feature/auth": ["libs/feature/auth/src/index.ts"],
+      "@fan-id/feature/bulk-registration": [
+        "libs/feature/bulk-registration/src/index.ts"
+      ],
+      "@fan-id/feature/bulk-upload": ["libs/feature/bulk-upload/src/index.ts"],
+      "@fan-id/feature/manual-upload": [
+        "libs/feature/manual-upload/src/index.ts"
+      ],
+      "@fan-id/shared/header-sidebar": [
+        "libs/shared/header-sidebar/src/index.ts"
+      ],
+      "@fan-id/feature/account": ["libs/feature/account/src/index.ts"],
+      "@fan-id/styles": ["libs/styles/src/index.ts"],
+      "@fan-id/feature/bulk-group": ["libs/feature/bulk-group/src/index.ts"],
+      "@fan-id/feature/all-applications": [
+        "libs/feature/all-applications/src/index.ts"
+      ],
+      "@fan-id/feature/service-center": [
+        "libs/feature/service-center/src/index.ts"
+      ],
+      "@fan-id/shared/shared-components": [
+        "libs/shared/shared-components/src/index.ts"
+      ],
+      "@fan-id/feature/new-customer": [
+        "libs/feature/new-customer/src/index.ts"
+      ],
+      "@fan-id/shared/shared-forms": ["libs/shared/shared-forms/src/index.ts"],
+      "@fan-id/feature/card-replacement": [
+        "libs/feature/card-replacement/src/index.ts"
+      ],
+      "@fan-id/feature/card-pickup": ["libs/feature/card-pickup/src/index.ts"],
+      "@fan-id/shared/utils/date": ["libs/shared/utils/date/src/index.ts"],
+      "@fan-id/feature/amir-cup": ["libs/feature/amir-cup/src/index.ts"],
+      "@fan-id/feature/amir-cup-registration": [
+        "libs/feature/amir-cup-registration/src/index.ts"
+      ],
+      "@fan-id/shared/portal-common": [
+        "libs/shared/portal-common/src/index.ts"
+      ],
+      "@fan-id/feature/amir-cup-main": [
+        "libs/feature/amir-cup-main/src/index.ts"
+      ],
+      "@fan-id/shared/utils/common": ["libs/shared/utils/common/src/index.ts"],
+      "@fan-id/shared/utils/form": ["libs/shared/utils/form/src/index.ts"],
+      "@fan-id/feature/voucher-codes": [
+        "libs/feature/voucher-codes/src/index.ts"
+      ],
+      "@fan-id/feature/knowledge-base": [
+        "libs/feature/knowledge-base/src/index.ts"
+      ],
+      "@fan-id/feature/organization": [
+        "libs/feature/organization/src/index.ts"
+      ],
+      "@fan-id/shared/utils/ocr": ["libs/shared/utils/ocr/src/index.ts"],
+      "@fan-id/feature/package-upload": [
+        "libs/feature/package-upload/src/index.ts"
+      ],
+      "@fan-id/feature/accomadation": [
+        "libs/feature/accomadation/src/index.ts"
+      ],
+      "@fan-id/libs/feature/verify-application": [
+        "libs/libs/feature/verify-application/src/index.ts"
+      ],
+      "@fan-id/feature/verify-application": [
+        "libs/feature/verify-application/src/index.ts"
+      ],
+      "@fan-id/feature/printer-management": [
+        "libs/feature/printer-management/src/index.ts"
+      ],
+      "@fan-id/feature/verify-accommodation": [
+        "libs/feature/verify-accommodation/src/index.ts"
+      ],
+      "@fan-id/feature/approve-application": [
+        "libs/feature/approve-application/src/index.ts"
+      ],
+      "@fan-id/feature/payment": ["libs/feature/payment/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

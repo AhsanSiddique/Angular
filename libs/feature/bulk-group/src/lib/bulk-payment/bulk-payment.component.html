@@ -1,0 +1,433 @@
+<div class="bulk-groups">
+  <div class="page-title pt-4 pb-4">
+    <button class="btn btn-sm back pl-0">
+      <a routerLink="/main/bulk-groups/step-1" class="back-ico" title="Back">
+        <svg width="29" height="24" viewBox="0 0 29 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m11.356.496 2.259 2.25-7.54 7.615H29v3.206H6.075l7.54 7.615-2.26 2.25L0 11.964 11.356.496Z" fill="var(--hayya-primary)"/></svg>
+        <span class="sr-only">Back</span></a>
+    </button>
+    <h4 class="w-100 mb-0">
+      {{ 'AllApplicantsList.AllApplications' | translate }} -
+      Bulk Payments
+    </h4>
+
+
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="bulk-group-filter" style="border: 0 !important">
+        <div class="form-group">
+          <label for="eventName">{{
+            'AllApplicantsList.EventName' | translate
+          }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="eventname"
+            aria-describedby="eventname"
+            placeholder="eventName"
+            readonly
+            [value]="displayEventName"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="bulk-group-filter">
+        <form [formGroup]="allApplication" (ngSubmit)="filterColumn()">
+          <div class="row">
+            <div class="form-group col-lg-4">
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">{{
+                    'AllApplicantsList.SelectColumn' | translate
+                  }}</label>
+                </div>
+                <div class="col-lg-3" *ngIf="clearButton()">
+                  <button
+                    type="button"
+                    class="btn btn-sm float-end float-right rounded-pill"
+                    style="color: #550065; padding: 0rem 0.5rem !important"
+                    (click)="clearFilter()"
+                  >
+                    {{ 'AllApplicantsList.Clear' | translate }}
+                  </button>
+                </div>
+              </div>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                formControlName="columnName"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    allApplication.get('columnName').touched &&
+                    allApplication.get('columnName').invalid
+                }"
+                labelForId="columnName"
+                aria-describedby="columnName"
+              >
+                <ng-option *ngFor="let column of columns" [value]="column.id">
+                  {{ column.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-lg-4">
+              <label class="control-label">{{
+                'AllApplicantsList.EnterText' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="{{
+                  'AllApplicantsList.Enterthetextyouwant' | translate
+                }}"
+                formControlName="filterTxt"
+              />
+            </div>
+            <div class="form-group mt-3 mb-0 col-lg-4 text-center">
+              <button
+                class="btn btn-sm btn-caret-8 btn-primary"
+                style="width: 200px; margin-top: 17px"
+              >
+                {{ 'AllApplicantsList.Search' | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="registration-details mt-4">
+        <div class="fan-card">
+          <div class="table-responsive"  *ngIf="dtOptions">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              id="importdatatable"
+              class="row-border fan-id-datatable"
+            >
+            
+              <thead>
+                <tr > 
+                   
+                  <th >
+                    
+                   
+                    <div class="roundcheck">
+                   
+                       
+                        
+                      <input
+                        type="checkbox"
+                        id="checkAll"
+                        #checkAllmem
+                        name="checkall"
+                        [checked]="selectAllChecked"
+                        (change)="checkAll1($event)"
+                      />
+                
+                      
+  
+                      <label class="m-0" for="checkAll"></label> 
+                    
+                    </div>
+              
+              
+              
+             
+                  </th>
+              
+                  <th>
+                    {{ 'AllApplicantsList.ApplicationDate' | translate }}
+                  </th>
+                  <th>
+                    {{ 'AllApplicantsList.ApplicationNumber' | translate }}
+                  </th>
+                  <th>
+                    {{ 'AllApplicantsList.ApplicationStatus' | translate }}
+                  </th>
+                  <th>{{ 'AllApplicantsList.EntryRefNumber' | translate }}</th>
+
+                  <th>{{ 'AllApplicantsList.FanIDNumber' | translate }}</th>
+                  <th>
+                    {{ 'AllApplicantsList.FanIDCardStatus' | translate }}
+                  </th>
+                  <th >{{ 'AllApplicantsList.UserCategory' | translate }}</th>
+                  <th>{{ 'AllApplicantsList.FirstName' | translate }}</th>
+                  <th>{{ 'AllApplicantsList.LastName' | translate }}</th>
+                  <th >{{ 'AllApplicantsList.DocumentType' | translate }}</th>
+                  <th >{{ 'AllApplicantsList.DocumentNumber' | translate }}</th>
+                  <th >{{ 'AllApplicantsList.BulkGroupName' | translate }}</th>
+                  <th >{{ 'AllApplicantsList.OrganizationName' | translate }}</th>
+                  <th >{{ 'AllApplicantsList.SubmissionType' | translate }}</th>
+                  <th >{{ 'AllApplicantsList.NumberDependent' | translate }}</th>
+                  <th>{{ 'AllApplicantsList.Nationality' | translate }}</th>
+                  <th >Email ID</th>
+                  <!-- <th>{{ 'AllApplicantsList.MobileNumber' | translate }}</th> -->
+                </tr>
+              </thead>
+              <tbody [class.d-none]="!filteredAppdata.length">
+                <ng-container *ngIf="filteredAppdata">
+                  <ng-container *ngFor="let data of filteredAppdata let i=index">
+<!--               
+                      <tr *ngFor="let data of dataList; let i = index"> -->
+                        <tr>
+                      <td>
+                        
+                        <div class="roundcheck" style="transform: translatex(1px);">
+                      
+                            <input
+                              type="checkbox"
+                              [attr.id]="data.fanIdNo"
+                              (change)="selectPayment($event, data)"
+                              [checked]="data.checked"
+                              #checkboxes
+                            />
+                            <label class="m-0" [attr.for]="data.fanIdNo"></label>
+                        
+                          </div>
+                        <!-- <div class="dropdown">
+                          <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            {{ 'AllApplicantsList.Action' | translate }}
+                          </button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <a class="dropdown-item" (click)="action('',data?.fanIdNo,data?.id,data.isBulkRegistrationDraft) && (allPermission || permission?.value?.update)">{{
+                              'ApplicantListAction.ViewDetails' | translate
+                            }}</a>
+                            <a *ngIf ="data?.applicationStatus === 3"
+                              class="dropdown-item"
+                              (click)="action('Re-Submit',data?.fanIdNo,data?.id,data.isBulkRegistrationDraft)"
+                              >{{
+                                'ApplicantListAction.ReSubmit'
+                                  | translate
+                              }}</a
+                            >
+                            <a *ngIf ="(data.isBulkRegistrationDraft ? !([1].includes(data?.applicationStatus)) : checkAction('Update Info', data)) && (allPermission || permission?.value?.update)"
+                              class="dropdown-item"
+                              (click)="action('Update Info',data?.fanIdNo,data?.id,data.isBulkRegistrationDraft)"
+                              >{{
+                                (data.isBulkRegistrationDraft ? 'Common.Edit' : 'ApplicantListAction.UpdateInfo') | translate
+                              }}</a
+                            >
+                            <a
+                              *ngIf="!data?.isBulkRegistrationDraft && checkAction('Add Dependent', data) && (allPermission || permission?.value?.create)"
+                              class="dropdown-item"
+                              (click)="
+                                action('Add Dependent', data?.fanIdNo)
+                              "
+                              >{{
+                                'ApplicantListAction.AddDependent' | translate
+                              }}</a
+                            >
+                             <a
+                              *ngIf="data?.applicationStatus !== 6 && !data.isBulkRegistrationDraft"
+                              class="dropdown-item"
+                              (click)="showCancelApplicationModal(data.fanIdNo,data?.documentIdNo)"
+                              >{{
+                                'Common.Cancel' | translate
+                              }}</a
+                            > -->
+                            <!-- <a
+                              *ngIf="data?.applicationStatus === 6"
+                              class="dropdown-item"
+                              (click)="action('Re-Apply', data.fanIdNo, data?.id, data.isBulkRegistrationDraft)"
+                              >{{
+                                'ApplicantListAction.Re-Apply' | translate
+                              }}</a
+                            > -->
+                            <!-- <a
+                              *ngIf="data.isBulkRegistrationDraft && (allPermission || permission?.value?.delete)"
+                              class="dropdown-item"
+                              (click)="showDeleteDraftModal(data)"
+                              >{{
+                                'Common.Delete' | translate
+                              }}</a
+                            >
+                          </div>
+                        </div> --> 
+                      </td>
+                      <td>{{ dateFM(data?.applicationDate) }}</td>
+                      <td>{{ data?.applicationNo }}</td>
+                      <td>
+                        <div
+                          class="status-tag"
+                          [ngClass]="{
+                            'status-approved': data?.applicationStatus === 2,
+                            'status-rejected': data?.applicationStatus === 3,
+                            'status-under-review': data?.applicationStatus === 1,
+                            'status-more-info': data?.applicationStatus === 4,
+                            'status-draft': data?.applicationStatus === 0,
+                            'status-cancelled': data?.applicationStatus === 6,
+                            'status-cn-approved': data?.applicationStatus === 7,
+                            'status-pending-payment': data?.applicationStatus === 10,
+                            'status-pending-ticket-verification': data?.applicationStatus === 11,
+                            'status-cancelled': data?.applicationStatus === 14
+
+                          }"
+                        >
+                          {{ data?.applicationStatus_Name }}
+                        </div>
+                      </td>
+                      <td>{{ data?.fanIdNo }}</td>
+
+                      <td>{{ data?.hayyaNo }}</td>
+                      <td>
+                        <div class="p-1 card-status-tag"
+                          [ngClass]="{
+                            'card-queue': data?.cardStatus === 12,
+                            'card-printed': data?.cardStatus === 2,
+                            'card-pending': (data?.printingStatus !== 2 && data?.cardStatus === 1),
+                            'card-delivery': [3,4].includes(data?.cardStatus),
+                            'card-collected': [5,6].includes(data?.cardStatus),
+                            'card-home-delivery': data?.cardStatus === 10,
+                            'card-collection-qpr': data?.cardStatus === 11
+                          }"
+                        >
+                          {{ data?.cardStatus_Name }}
+                        </div>
+                      </td>
+                      <td>{{ data?.regUserCategory_Name }}</td>
+                      <td>{{ data?.firstName }}</td>
+                      <td>{{ data?.lastName }}</td>
+                      <td>{{ data?.docType_Name }}</td>
+                      <td>{{ data?.documentIdNo }}</td>
+                      <td>{{ data?.bulkGroupName }}</td>
+                      <td>{{ data?.organization_Name }}</td>
+                      <td>{{ data?.submissionType_Name }}</td>
+                      <td>{{ data?.isChildApplication === false?data?.dependentCount :'Is A Dependent'}}</td>
+                      <td>{{ data?.nationality_Name }}</td>
+                      <td>{{ data?.email }}</td>
+                      <!-- <td>{{ data?.phone }}</td> -->
+                    </tr>
+                  </ng-container>
+                  <tr *ngIf="filteredAppdata.length === 0">
+                    <td colspan="10" class="no-data-available">No data available in table</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+              <tfoot [hidden]="filteredAppdata?.length">
+                <tr [hidden]="(dtProcessing$ | async) === true">
+                  <td colspan="10" style="border: none !important;" class="text-center">No data available</td>
+                </tr>
+                <tr [hidden]="(dtProcessing$ | async) === false">
+                  <td colspan="10" style="border: none !important;" class="text-center">Processing...</td>
+                </tr>
+              </tfoot>
+              <tfoot [hidden]="filteredAppdata?.length">
+                <tr >
+                  <td colspan="10" style="border: none !important;" class="text-center">No data available</td>
+                </tr>
+              </tfoot>
+              <tr *ngIf="filteredAppdata.length === 0">
+                  <td colspan="11" class="no-data-available text-center"  style="border-top:none">No data available</td>
+              </tr>
+            </table>
+            <fan-id-dt-goto
+            *ngIf="filteredAppdata?.length"
+            class="goto-page" (_go)="gotoPage($event)"
+          ></fan-id-dt-goto>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  <div class="right-al">
+  <button
+        type="reset"
+        class="btn btn-secondary mr-2"
+        (click)="cancel()"
+      >  <span>{{ 'Common.Cancel' | translate }}</span>
+      </button>
+      <button
+        class="btn btn-primary btn-sm btn-submit"
+        [disabled]="!isSubmitEnabled"
+        (click)="onSubmit()"
+      >
+        {{ 'ManualStep3.Submit' | translate }}
+      </button>
+
+    </div>
+  </div>
+ 
+ 
+   
+ 
+
+ 
+
+<!--Cancel Application Start-->
+<fan-id-modal-wrapper
+  *ngIf="show_cancel_application_modal"
+  [title]="'AllApplicantsList.Ca' | translate"
+  (closeThis)="show_cancel_application_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'AllApplicantsList.Astcta' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="cancelApplication()">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+<fan-id-package-upload-delete *ngIf="showBulkCancelPopUp"
+[type]="type"
+header="Are you sure you want to cancel?"
+message="You will be able to continue "
+(_close)="closeCancel()"
+(_proceed)="cancel()">
+</fan-id-package-upload-delete>
+
+<fan-id-common-error-modal
+  *ngIf="cancel_application_error"
+  [head_error_message]="'AllApplicantsList.Acf'"
+  [error_message]="cancel_application_error_message"
+  buttontext="Common.Close"
+  (closeThis)="cancel_application_error = false"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="cancel_application_success"
+  head_success_message='AllApplicantsList.Acs'
+  buttontext="Common.Ok"
+  (closeThis)="cancelApplicationSuccess()"
+></fan-id-common-success-modal>
+<!--Cancel Application End-->
+
+<!-- #region delete draft modal -->
+<fan-id-common-confirm
+  *ngIf="show_delete_draft_modal"
+  message="Are you sure you want to delete the application?"
+  (closeThis)="closeDeleteDraftModal($event)"
+></fan-id-common-confirm>
+
+<fan-id-common-error-modal
+  *ngIf="delete_draft_error"
+  head_error_message="AllApplicantsList.DraftDeleteFailed"
+  [error_message]="delete_draft_error_message"
+  buttontext="Common.Close"
+  (closeThis)="delete_draft_error = false"
+></fan-id-common-error-modal>
+
+ 
+
+
+
+ 
+ 
+

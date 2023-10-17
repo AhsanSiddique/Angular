@@ -1,0 +1,388 @@
+<div class="edit-application container-fluid">
+  <header class="row">
+    <div class="title col-12 d-flex align-items-center">
+      <fan-id-back-arrow></fan-id-back-arrow>
+      <div>
+        <h4 class="mb-0">
+          Verify Accommodation
+          <span class="tooltip-custom tooltip-custom__verify-accommodation">
+            <svg width="20" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.4956 26.3538C9.40642 22.9942 3.93652 17.8226 0.627203 13.4966C3.93664 9.17707 9.40651 4.00571 13.4956 0.646267C18.1821 4.5091 22.4876 8.81219 26.3531 13.4965C22.4894 18.1845 18.1837 22.4901 13.4956 26.3538Z" stroke="var(--hayya-primary)"/>
+              <path d="M13.224 9.496C13.976 9.496 14.552 8.952 14.552 8.232C14.552 7.512 13.976 6.968 13.224 6.968C12.488 6.968 11.912 7.512 11.912 8.232C11.912 8.952 12.488 9.496 13.224 9.496ZM12.088 19H14.392V10.632H12.088V19Z" fill="var(--hayya-primary)"/>
+            </svg>
+            <span class="tooltiptext">The below fields cannot be Updated or Edited.</span>
+          </span>
+        </h4>
+      </div>
+      <div class="ml-auto">
+        <button
+          type="button"
+          class="btn btn-secondary ml-auto"
+          (click)="show_cancel_modal = true"
+        >
+          <span>{{ translateKey + '.Cancel' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="row">
+    <fan-id-fieldset-wrapper
+      title="Accommodation Information"
+    >
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div>
+            <label for="firstname">Accommodation Name</label>
+            <input type="text" [value]="verifyAccommodationData?.accommodationName"
+              placeholder="Accommodation Name" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div>
+            <label for="firstname">Accommodation Category</label>
+            <input type="text" [value]="verifyAccommodationData?.otherAccommodationCategory_Name"
+              placeholder="Accommodation Category" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div>
+            <label for="firstname">Accommodation Start Date</label>
+            <input type="text"
+              [value]="verifyAccommodationData?.accommodationStartDate ? (verifyAccommodationData?.accommodationStartDate + 'Z' | date: 'dd-MM-yyyy') : null"
+              placeholder="Accommodation Start Date" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div>
+            <label for="firstname">Accommodation End Date</label>
+            <input type="text" [value]="verifyAccommodationData?.accommodationEndDate ? (verifyAccommodationData?.accommodationEndDate + 'Z' | date: 'dd-MM-yyyy') : null"
+              placeholder="Accommodation End Date" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div>
+            <label for="firstname">Country of Departure</label>
+            <ng-select
+              [virtualScroll]="true"
+              [clearable]="false"
+              placeholder="Country of Departure"
+              class="form-control readonly-select readonly-input"
+              [items]="[{name: verifyAccommodationData?.departureCountry_Name, code: verifyAccommodationData?.departureCountryCode}]"
+              [(ngModel)]="departureCountryCode"
+              bindValue="code"
+              disabled
+            >
+              <ng-template ng-label-tmp let-country="item" >
+                <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+                <span class="mx-1">
+                  {{ country.name }}
+                </span>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5">
+          <label for="firstname">Accommodation Address</label>
+          <textarea class="form-control disabled-text"
+            rows="5"
+            style="height: 8rem !important; color: #45454580 !important; resize: none;"
+            [value]="verifyAccommodationData?.address"
+            readonly
+          ></textarea>
+          <button type="button" class="btn btn-link view-document-btn" (click)="viewDocument()">
+            <span class="view-document-btn__icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 17.402 18.985"
+                class="h-16"
+              >
+                <defs>
+                  <style>
+                    .cls-2 {
+                      fill: #08d0b9;
+                    }
+                  </style>
+                </defs>
+                <g id="copy" transform="translate(-1)">
+                  <path
+                    id="Path_3175"
+                    d="M3.373 5.34a3.762 3.762 0 0 1 3.758-3.758h7.225A2.171 2.171 0 0 0 12.273 0h-9.1A2.177 2.177 0 0 0 1 2.175v12.262a2.177 2.177 0 0 0 2.175 2.175h.2z"
+                    class="cls-2"
+                  />
+                  <path
+                    id="Path_3176"
+                    d="M17.273 4h-9.1A2.177 2.177 0 0 0 6 6.175v11.47a2.177 2.177 0 0 0 2.175 2.175h9.1a2.177 2.177 0 0 0 2.175-2.175V6.175A2.177 2.177 0 0 0 17.273 4zM15.69 17.448H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-2.769H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187z"
+                    class="cls-2"
+                    transform="translate(-1.045 -.836)"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span class="font-16">View Proof of Accommodation Document</span>
+          </button>
+        </div>
+        <div class="col-7">
+          <label style="visibility: hidden;">Accommodation Actions</label>
+          <div class="verify-accommodation-actions">
+            <button type="button" class="btn btn-primary btn-caret-8" (click)="showUpdateStatusModal(3)">
+              Return to Applicant for Correction
+            </button>
+            <button type="button" class="btn btn-primary btn-caret-8" (click)="showUpdateStatusModal(2)">
+              Verify & Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </fan-id-fieldset-wrapper>
+    <!-- <fan-id-fieldset-wrapper [title]="'TicketInformation.TicketInformation' | translate">
+      <fan-id-ticket-information-form
+      [formGroup]="ticketForm"
+      ></fan-id-ticket-information-form>
+    </fan-id-fieldset-wrapper> -->
+
+    <fan-id-fieldset-wrapper
+      [titleDisabled]="true"
+      [title]="translateKey + '.ApplicationInformation' | translate"
+    >
+      <fan-id-application-form
+        [formGroup]="applicationForm"
+        [translateKey]="translateKey"
+        [metadata$]="metadata$"
+        (clearSwitchData)="clearDataAFterSwitch($event)"
+      ></fan-id-application-form>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      [titleDisabled]="true"
+      [title]="translateKey + '.DocumentInformation' | translate"
+    >
+      <fan-id-upload-document-form
+        [formGroup]="uploadDocumentForm"
+        [translateKey]="translateKey"
+        [application_type]="application_type"
+        (formSubmit)="uploadDocument()"
+        [isServiceCentre]="true"
+        [disable_form]="true"
+        [fan_category]="fan_category"
+        [nationality]="nationality"
+        [metadata$]="metadata$"
+        [editApp]="true"
+        [qid_validated]="qid_validated"
+        (qidCleared)="resetQidFields()"
+        [passport_validated]="passport_validated"
+        (passportSubmit)="fetchPassportOCR()"
+        [face_validated]="face_validated"
+        (faceValidationChanged)="onFaceValidationChange($event)"
+        (passportBlur)="onPassportNumberBlur()"
+        [showICAO]="true"
+        [icao_data]="icao_data"
+        [applicantData]="applicant_data"
+      ></fan-id-upload-document-form>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper [title]="'Residency Information'"
+      *ngIf="(applicationType === 'VISA' || applicant_data?.customerCategoryCode === 'NHWM')"
+      [titleDisabled]="true"
+    >
+      <fan-id-residency-information-form
+        [formGroup]="residencyForm"
+        [parentForm]="applicantForm"
+        [metadata$]="metadata$"
+        [applicantData]="applicant_data!"
+      ></fan-id-residency-information-form>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper [title]="'Accommodation Information'"
+      *ngIf="applicationType === 'VISA' && applicant_data?.customerCategoryCode !== 'GCCN'"
+      [titleDisabled]="true"
+    >
+      <fan-id-accommodation-information-form
+        [formGroup]="accommodationForm"
+        [parentForm]="applicantForm"
+        [metadata$]="metadata$"
+      ></fan-id-accommodation-information-form>
+    </fan-id-fieldset-wrapper>
+    <fan-id-fieldset-wrapper
+      [titleDisabled]="true"
+      [title]="translateKey + '.PersonalInformation' | translate"
+    >
+      <fan-id-personal-information-form
+        [formGroup]="personalInfoForm"
+        [translateKey]="translateKey"
+        [application_type]="application_type"
+        [fan_category]="fan_category"
+        [user_category]="af.user_category"
+        [nationality]="nationality"
+        [document_type]="document_type"
+        [metadata$]="metadata$"
+        form_type="edit-application"
+        [editApp]="true"
+      ></fan-id-personal-information-form>
+      <div style="visibility: hidden" fanIdObserveVisibility (visible)="onVisible(personalInfoForm)"></div>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      *ngIf="dependentList.length"
+      [titleDisabled]="true"
+      [title]="'ApplicantDetails.DependentDetails' | translate"
+      style="margin-bottom: 0;"
+    >
+      <div *ngFor="let dependent of dependentList | paginate: { itemsPerPage: 1,
+        currentPage: dependentPage, totalItems: dependentList.length }">
+        <fan-id-dependent-details
+          [applicant_data]="dependent"
+        >
+        </fan-id-dependent-details>
+      </div>
+
+      <div class="d-flex justify-content-center mt-1">
+        <ngb-pagination [(page)]="dependentPage" [pageSize]="1" [collectionSize]="dependentList.length">
+          <ng-template ngbPaginationFirst>First</ng-template>
+          <ng-template ngbPaginationLast>Last</ng-template>
+          <ng-template ngbPaginationPrevious>Prev</ng-template>
+          <ng-template ngbPaginationNext>Next</ng-template>
+          <ng-template ngbPaginationEllipsis>...</ng-template>
+          <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+        </ngb-pagination>
+      </div>
+    </fan-id-fieldset-wrapper>
+  </main>
+  <!-- <div class="row mt-5 footer-actions">
+    <div class="col d-flex justify-content-end">
+      <div class="footer-actions-primary">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="show_cancel_modal = true"
+        >
+          <span>{{ translateKey + '.Cancel' | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-caret-8"
+          (click)="showUpdateStatusModal(3)"
+          [disabled]="applicantForm.invalid"
+        >
+          Reject
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-caret-8"
+          (click)="showUpdateStatusModal(2)"
+          [disabled]="applicantForm.invalid"
+        >
+          Approve
+        </button>
+      </div>
+    </div>
+  </div> -->
+
+  <fan-id-modal-wrapper
+    *ngIf="show_cancel_modal"
+    [title]="'Common.Alert' | translate"
+    (closeThis)="show_cancel_modal = false"
+  >
+    <div class="cancel-modal-body">
+      <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+      <!-- <p *ngIf="!(+submitReasonType === 2)">{{ 'Common.AllChangesDoneLost' | translate }}</p> -->
+      <button type="button" class="btn btn-primary btn-caret-8" (click)="cancel()">
+        {{ 'Common.YesProceed' | translate }}
+      </button>
+    </div>
+  </fan-id-modal-wrapper>
+</div>
+
+<fan-id-submit-and-card-detail
+  *ngIf="confirm_submit_open"
+  [type]="'submit'"
+  (closeThis)="closedialog($event)"
+></fan-id-submit-and-card-detail>
+
+<fan-id-verify-accommodation-update-status
+  *ngIf="isUpdateStatusModalOpen"
+  [applicantData]="applicant_data"
+  [accommodationStatusToUpdate]="accommodationStatusToUpdate"
+  (_close)="closeUpdateStatusModal($event)"
+></fan-id-verify-accommodation-update-status>
+
+<fan-id-common-error-modal
+  *ngIf="applicant_error"
+  head_error_message='CommonError.Error'
+  [error_message]="applicant_error"
+  (closeThis)="redirectToList()">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+  *ngIf="register_error"
+  head_error_message='RegisterError.SubmissionFailed'
+  [error_message]="register_error"
+  (closeThis)="onRegisterError($event)">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+  *ngIf="ocr_error"
+  head_error_message='RegisterError.DocumentVerificationFailed'
+  [error_message]="ocr_error === 'error' ? ('ErrorMessage.OcrError' | translate) : ocr_error"
+  buttontext="Common.Close"
+  (closeThis)="closeOCRError()">
+</fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="resubmit_success"
+  head_success_message='RegisterSuccess.ResubmitSuccessTitle'
+  buttontext="Common.Ok"
+  (closeThis)="redirectToList()">
+</fan-id-common-success-modal>
+
+<fan-id-common-error-modal
+*ngIf="moi_error"
+head_error_message='RegisterError.YourQIDIsInvalid'
+buttontext="Common.Close"
+(closeThis)="closeMOIError()">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+  *ngIf="qid_exists_error"
+  head_error_message="RegisterError.YourQIDIsInvalid"
+  error_message="An Application with this QID already exists"
+  buttontext="Common.Close"
+  (closeThis)="closeQidExistsError()"
+></fan-id-common-error-modal>
+
+<fan-id-update-info-alert-modal
+  *ngIf="show_update_info_alert"
+  (closeThis)="onUpdateInfoAlertClose($event)"
+></fan-id-update-info-alert-modal>
+
+<fan-id-update-info-alert-modal
+  *ngIf="show_resubmit_alert"
+  _type="resubmit"
+  (closeThis)="onUpdateInfoAlertClose($event)"
+></fan-id-update-info-alert-modal>
+
+<fan-id-pdf-modal
+  *ngIf="isPdfModalOpen"
+  fanIdDisableRightclick
+  [pdfSrc]="pdfSrc"
+  (closeThis)="closePdfModal()">
+</fan-id-pdf-modal>
+
+<ngx-spinner
+  name="upload-info-image"
+  bdColor="rgba(0,0,0,0.5)"
+  size="default"
+  color="rgba(246,240,240,0.79)"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+></ngx-spinner>
+
+<ngx-spinner
+  name="edit-info-submit"
+  bdColor="rgba(0,0,0,0.5)"
+  size="default"
+  color="rgba(246,240,240,0.79)"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+></ngx-spinner>

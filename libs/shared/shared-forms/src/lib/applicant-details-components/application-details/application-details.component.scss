@@ -1,0 +1,138 @@
+@import '../applicant-details-common.scss';
+
+:host {
+  display: block;
+}
+
+.application-information {
+  .row > div {
+    margin-bottom: 1rem;
+  }
+}
+
+.view-card-col {
+  max-width: fit-content;
+}
+
+.card-details-btn {
+  width: fit-content;
+  display: grid;
+  place-items: center;
+  place-content: center;
+  height: 3rem;
+
+  &-disabled {
+    pointer-events: none;
+    cursor: none !important;
+    opacity: 0.25;
+  }
+}
+
+.status-col {
+  display: grid;
+  max-width: fit-content;
+  grid-template-columns: auto auto;
+  place-items: center;
+  place-content: center;
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.status-badge {
+  border: 1px solid $textColor;
+  background-color: $bgColor;
+  color: $textColor;
+  // padding: 0.5rem 1rem;
+  padding: 0.3rem 0.7rem;
+  width: max-content;
+  // transform: scale(0.8);
+  font-size: smaller;
+  margin-top: 0.2rem;
+  border-radius: 1rem;
+
+  &-approved {
+    border-color: $successColor;
+    color: $successColor;
+    background-color: rgba($successColor, 0.05);
+  }
+
+  &-rejected {
+    $rejectColor: #f34a4b;
+    border-color: $rejectColor;
+    color: $rejectColor;
+    background-color: rgba($rejectColor, 0.05);
+  }
+
+  &-under-review {
+    $underReviewColor: #d1bd0f;
+    border-color: $underReviewColor;
+    color: $underReviewColor;
+    background-color: rgba($underReviewColor, 0.05);
+  }
+
+  &-more-info {
+    $moreInfoColor: #6a7bff;
+    border-color: $moreInfoColor;
+    color: $moreInfoColor;
+    background-color: rgba($moreInfoColor, 0.05);
+  }
+
+}
+
+.br-status {
+  .card-details-btn {
+    width: 100%;
+  }
+
+  .status-col {
+    max-width: unset;
+    place-content: flex-start;
+  }
+}
+// .ehteraz-status-badge {
+//   border-radius: 1.3rem;
+//   border: 1px solid $textColor;
+//   background-color: $bgColor;
+//   color: $textColor;
+//   padding: 0.5rem 1rem;
+//   width: max-content;
+//   transform: scale(0.8);
+//   margin-top: 0.2rem;
+
+//   &-approved {
+//     border-color: $successColor;
+//     color: $successColor;
+//     background-color: rgba($successColor, 0.05);
+//   }
+
+//   &-rejected {
+//     $rejectColor: #f34a4b;
+//     border-color: $rejectColor;
+//     color: $rejectColor;
+//     background-color: rgba($rejectColor, 0.05);
+//   }
+
+//   &-under-review {
+//     $underReviewColor: #d1bd0f;
+//     border-color: $underReviewColor;
+//     color: $underReviewColor;
+//     background-color: rgba($underReviewColor, 0.05);
+//   }
+
+//   &-more-info {
+//     $moreInfoColor: #6a7bff;
+//     border-color: $moreInfoColor;
+//     color: $moreInfoColor;
+//     background-color: rgba($moreInfoColor, 0.05);
+//   }
+
+// }
+
+table.dataTable.no-footer {
+  border-bottom: none;
+}
+table.dataTable tbody td {
+  padding: 8px 0px;
+}

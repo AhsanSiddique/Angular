@@ -1,0 +1,352 @@
+<div class="organizations-list">
+  <div class="page-title pt-4 pb-4">
+    <h4 class="w-100 mb-0">{{"Organization.Organizations" | translate}}</h4>
+    <div class="organization-btn-actions">
+      <button type="button" class="btn btn-sm btn-secondary"
+      style="padding-top: 10px !important;padding-bottom: 10px !important;"
+      *ngIf="accessGroup =='B2B_Super_User'"
+      (click)="downloadOrgTemplate()">
+      <span><i class="fa fa-download"></i></span>
+      <span>Organization Provisioning Template</span>
+      </button>
+      <button *ngIf="showInvite"
+      class="btn btn-sm btn-primary dbpink"
+      (click)="showOrganizationPopUp =true"
+    >
+      <span class="pb-1">Invite Organization</span>
+    </button>
+      <button
+        class="btn btn-sm btn-primary"
+        (click)="export()"
+        [disabled]="organizationList.length < 1"
+        *ngIf="exportPermission?.value?.allow || allPermission"
+      >
+        <span class="pb-1">Export</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row bulk-groups">
+    <div class="col-lg-12">
+      <div class="bulk-group-filter" style="border: 0 !important">
+        <form [formGroup]="search" (ngSubmit)="filterColumn()">
+          <div class="row">
+            <div class="form-group col-lg-3"
+            >
+              <label for="eventName">{{
+                'AllApplicantsList.EventName' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="eventname"
+                aria-describedby="eventname"
+                placeholder="eventName"
+                readonly
+                [value]="displayEventName"
+              />
+            </div>
+
+            <div class="form-group col-lg-3">
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">{{
+                    'AllApplicantsList.SelectColumn' | translate
+                  }}</label>
+                </div>
+                <div class="col-lg-3" *ngIf="clearButton()">
+                  <button
+                    type="button"
+                    class="btn btn-sm float-end float-right rounded-pill"
+                    style="color: #550065; padding: 0rem 0.5rem !important"
+                    (click)="clearFilter()"
+                  >
+                    {{ 'AllApplicantsList.Clear' | translate }}
+                  </button>
+                </div>
+              </div>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="key"
+                bindValue="text"
+                placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                formControlName="columnName"
+                class="form-control"
+                labelForId="columnName"
+                aria-describedby="columnName"
+                (change)="changeColumn()"
+              >
+                <ng-option *ngFor="let column of filterOptions" [value]="column.key">
+                  {{ column.text }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-lg-3"*ngIf="!filterSelectOptionKeys.includes(search.controls.columnName.value)">
+              <label class="control-label">{{
+                'AllApplicantsList.EnterText' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="{{
+                  'AllApplicantsList.Enterthetextyouwant' | translate
+                }}"
+                formControlName="filterTxt"
+              />
+            </div>
+            <div class="form-group col-lg-3" *ngIf="search.get('columnName')?.value === 'statusValue'">
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">Select Status</label>
+                </div>
+              </div>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="key"
+                bindValue="text"
+                placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                formControlName="filterTxt"
+                class="form-control"
+                labelForId="columnName"
+                aria-describedby="Activation Status"
+              >
+                <ng-option *ngFor="let column of activationStatus" [value]="column.id">
+                  {{ column.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-lg-3" *ngIf="search.get('columnName')?.value === 'isVoucherGenerationEnabled'">
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">Select Voucher Enabled</label>
+                </div>
+              </div>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="key"
+                bindValue="text"
+                placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                formControlName="filterTxt"
+                class="form-control"
+                labelForId="columnName"
+                aria-describedby="Voucher Enabled Status"
+              >
+                <ng-option *ngFor="let column of voucherStatus" [value]="column.id">
+                  {{ column.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-lg-3" *ngIf="search.get('columnName')?.value === 'refVoucherCategory_Id'">
+              <div class="row">
+                <div class="col-lg-9">
+                  <label class="control-label">Select Voucher Category</label>
+                </div>
+              </div>
+              <ng-select
+                [virtualScroll]="false"
+                [clearable]="false"
+                [items]="(voucherCategoryList$ | async)!"
+                bindLabel="voucherCategory_Translation_Name"
+                bindValue="id"
+                placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                formControlName="filterTxt"
+                class="form-control"
+                labelForId="columnName"
+                aria-describedby="Voucher Category"
+              ></ng-select>
+            </div>
+            <div class="form-group mb-0 col-lg-3 flex-column">
+              <label class="control-label" style="visibility: hidden;" aria-hidden="true">placeholder</label>
+              <button
+                [disabled]="search.invalid"
+                style="height:47px;    width: 197px; "
+                class="btn btn-sm btn-primary btn-caret-8 fltrSchbtn ml-auto"
+              >
+                {{ 'AllApplicantsList.Search' | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="fan-card">
+        <div class="table-responsive" *ngIf="dtOptions">
+          <table
+            datatable
+            [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger"
+            id="organizationdatatable"
+            class="row-border fan-id-datatable"
+            aria-describedby="organization-table"
+          >
+            <thead>
+              <tr>
+                <th scope="col"> {{ "Organization.Action" | translate }} </th>
+                <th scope="col"> {{ "Organization.ActivationStatus" | translate }} </th>
+
+                <th scope="col"> {{ "Organization.OrganizationName" | translate }} </th>
+                <!-- <th scope="col"> {{ "Organization.OrganizationID" | translate }} </th> -->
+                <th scope="col"> {{ "Organization.PrimaryContactName" | translate }} </th>
+                <th scope="col">Organization Category</th>
+                <th scope="col">Voucher Management</th>
+                <th scope="col">Number of Maximum Vouchers</th>
+                <th scope="col">Number of Maximum Applicants</th>
+                <th scope="col">Remaining Application</th>
+                <!-- <th scope="col">Number of Applicants Remaining</th> -->
+                <th scope="col"> {{ "Organization.PrimaryContactEmail" | translate }} </th>
+                <th scope="col"> Requester Email </th>
+                <th scope="col"> {{ "Organization.CountryCode" | translate }} </th>
+                <th scope="col"> {{ "Organization.MobileNumber" | translate }} </th>
+                <th scope="col">Organization Country</th>
+                <th scope="col">Organization Address</th>
+                <th scope="col"> Voucher Category </th>
+                <th scope="col">Category of Hayya Visit</th>
+                <th scope="col">Conference List</th>
+                <th scope="col">Applicant Category</th>
+
+                <!-- <th scope="col"> {{ "Organization.OrganizationDescription" | translate }} </th> -->
+                <!-- <th scope="col"> {{ "Organization.ResendOrganizationInvite" | translate }} </th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let data of organizationList; index as i">
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        {{ 'ApplicantDetails.Action' | translate }}
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                      <a
+                      *ngIf="data?.statusValue === 2"
+                      [routerLink]="'/main/organization/users'"
+                      [queryParams]="{ id: data?.signupId }"
+                      (click)="setCache(data)"
+                      href="javascript:"
+                      class="dropdown-item"
+                      >{{ 'Organization.ViewDetails' | translate }}</a
+                    >
+                    <a *ngIf="data?.statusValue === 2 && (invitePermission?.value?.create || allPermission)"
+                        class="dropdown-item"
+                        style="cursor: pointer;"
+                        (click)="managerUser(data)"
+                        >Add User</a
+                      >
+                      <a *ngIf="data?.statusValue === 2 && accessGroup =='B2B_Super_User'"
+                      class="dropdown-item"
+                      style="cursor: pointer;"
+                      (click)="editUser(data)"
+                      >Update Organization Details</a
+                    >
+
+                        <a *ngIf="data?.statusValue !== 2 && (permission?.value?.update || allPermission)"
+                        class="dropdown-item"
+                        style="cursor: pointer;"
+                        (click)="resendOrganizationInvite(data)"
+                        >{{ 'Organization.ResendOrganizationInvite' | translate }}</a
+                      >
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                        class="p-1 status-tag"
+                        [ngClass]="{
+                          'status-approved': data?.statusValue === 2,
+                          'status-rejected': data?.statusValue === 1
+                        }"
+                      >
+                      {{data?.status}}
+                      </div></td>
+                  <td>{{ data?.name }}</td>
+                  <!-- <td> {{ data?.organizationId }} </td> -->
+                  <td>{{ data?.contactName }}</td>
+                  <td>{{ data?.organizationCategory }}</td>
+                  <td>{{ data?.isVoucherGenerationEnabled===true?'Yes': (data?.isVoucherGenerationEnabled===false)?'No':'' }}</td>
+                  <td>{{ data?.maximumVoucherCount }}</td>
+                  <td>{{ data?.maximumApplicantCount }}</td>
+                  <td>{{ data?.remainingApplicant }}</td>
+                  <td>{{ data?.email }}</td>
+                  <td>{{ data?.requesterEmailId }}</td>
+                  <td>{{ data?.phoneAreaCode }}</td>
+                  <td>{{ data?.phoneNumber }}</td>
+                  <td>{{ data?.countryName }}</td>
+                  <td>{{ data?.addressLine1 }}</td>
+                  <td>{{ data?.voucherCategoryName }}</td>
+                  <td>{{ data?.customerCategories }}</td>
+                  <td>{{ data?.conferenceEvents }}</td>
+                  <td>{{ data?.regUserCategories }}</td>
+
+                  <!-- <td> {{ data?.description }} </td> -->
+                </tr>
+              </ng-container>
+            </tbody>
+            <tr *ngIf="organizationList.length === 0">
+              <td [attr.colspan]="dtOptions.columns?.length" style="border-top: none" class="no-data-available">
+                {{ "Common.NoData" | translate }}
+              </td>
+            </tr>
+          </table>
+          <fan-id-dt-goto
+            *ngIf="organizationList?.length"
+            class="goto-page" (_go)="gotoPage($event)"
+          ></fan-id-dt-goto>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<fan-id-onboarding *ngIf="showOrganizationPopUp" (closeThis)="closeInviteUser()" (refreshPage)="onboardRefresh()" [isEdit]="isEdit" [editData]="isEditData"></fan-id-onboarding>
+<fan-id-common-success-modal
+  *ngIf="showOrganizationSuccessPopUp"
+  head_success_message='Organization Invitation Sent Successfully'
+  buttontext="Common.Close"
+  success_message="We have send account activation link to your Email address to complete the Sign Up process.
+  The link in the Email will expire in 72 hours."
+  (closeThis)="refreshOrganization()"
+></fan-id-common-success-modal>
+
+<fan-id-common-success-modal
+  *ngIf="showOrganizationSuccessPopUp1"
+  head_success_message='Organization Updated Successfully'
+  buttontext="Common.Close"
+  success_message="We have updated your Organization details."
+  (closeThis)="refreshOrganization()"
+></fan-id-common-success-modal>
+<fan-id-common-error-modal
+  *ngIf="showOrganizationResendPopUp"
+  head_error_message='Organization invitation resend failed'
+  buttontext="Common.Close"
+  (closeThis)="showOrganizationResendPopUp = false"
+></fan-id-common-error-modal>
+<fan-id-add-user
+  *ngIf="showManagePopUp"
+  (closeThis)="showManagePopUp = false"
+  (_success)="showSuccessUserInfo()"
+  [organizationId]="selectedOrg"
+></fan-id-add-user>
+
+<fan-id-common-success-modal
+  *ngIf="showSuccessMessageUserInvite"
+  head_success_message='User Invited Successfully'
+  buttontext="Common.Close"
+  success_message="We have send account activation link to your Email address to complete the Sign Up process.
+  The link in the Email will expire in 72 hours."
+  (closeThis)="showSuccessMessageUserInvite = false"
+></fan-id-common-success-modal>

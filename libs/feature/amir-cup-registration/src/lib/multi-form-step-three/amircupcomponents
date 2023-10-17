@@ -1,0 +1,107 @@
+let SessionLoad = 1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-one
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +16 /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-three/multi-form-step-three.component.ts
+badd +45 /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/feature-amir-cup-registration.module.ts
+badd +69 /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-two/multi-form-step-two.component.ts
+badd +62 /media/anoop/data/workspace/sectorqube/fid_service-center/apps/portal-amir-cup/src/polyfills.ts
+badd +51 /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-one/multi-form-step-one.component.ts
+argglobal
+%argdel
+$argadd /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-three/multi-form-step-three.component.ts
+edit /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-two/multi-form-step-two.component.ts
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 49 + 27) / 54)
+exe 'vert 1resize ' . ((&columns * 66 + 104) / 208)
+exe '2resize ' . ((&lines * 49 + 27) / 54)
+exe 'vert 2resize ' . ((&columns * 141 + 104) / 208)
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 14 - ((13 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+14
+normal! 0
+wincmd w
+argglobal
+if bufexists("/media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-three/multi-form-step-three.component.ts") | buffer /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-three/multi-form-step-three.component.ts | else | edit /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-three/multi-form-step-three.component.ts | endif
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 62 - ((26 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+62
+normal! 061|
+wincmd w
+exe '1resize ' . ((&lines * 49 + 27) / 54)
+exe 'vert 1resize ' . ((&columns * 66 + 104) / 208)
+exe '2resize ' . ((&lines * 49 + 27) / 54)
+exe 'vert 2resize ' . ((&columns * 141 + 104) / 208)
+tabedit /media/anoop/data/workspace/sectorqube/fid_service-center/libs/feature/amir-cup-registration/src/lib/multi-form-step-one/multi-form-step-one.component.ts
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 28 - ((24 * winheight(0) + 25) / 51)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+28
+normal! 025|
+tabnext 2
+if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 winminheight=1 winminwidth=1 shortmess=filnxtToOF
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+let g:this_session = v:this_session
+let g:this_obsession = v:this_session
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

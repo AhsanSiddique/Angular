@@ -1,0 +1,32 @@
+
+<div class="sidebar">
+  <img src="/assets/images/home-logo.svg" class="d-none d-md-block" alt="Amir Cup Logo">
+  <div class="main-links">
+  <div class="inner-links" [ngClass]="{'active': currentUrl==='/main/dashboard'}">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 3H3V10H10V3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M21.0005 3H14.0005V10H21.0005V3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M21.0005 14H14.0005V21H21.0005V14Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 14H3V21H10V14Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <a [routerLink]="['/main/dashboard']">{{'Main.Dashboard' | translate}}</a>
+  </div>
+  <div class="inner-links" [ngClass]="{'active': currentUrl==='/main/profile'}">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19.9995 21V19C19.9995 17.9391 19.5781 16.9217 18.8279 16.1716C18.0778 15.4214 17.0604 15 15.9995 15H7.99951C6.93865 15 5.92123 15.4214 5.17108 16.1716C4.42094 16.9217 3.99951 17.9391 3.99951 19V21" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/>
+      <path d="M12.0005 11C14.2096 11 16.0005 9.20914 16.0005 7C16.0005 4.79086 14.2096 3 12.0005 3C9.79135 3 8.00049 4.79086 8.00049 7C8.00049 9.20914 9.79135 11 12.0005 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+<a [routerLink]="['/main/profile']">{{'Main.MyProfile' | translate}}</a>
+
+  </div>
+  <div class="inner-links" [ngClass]="{'active': currentUrl==='/main/change-password'}">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6.99951 11V7C6.99951 5.67392 7.5263 4.40215 8.46398 3.46447C9.40166 2.52678 10.6734 2 11.9995 2C13.3256 2 14.5974 2.52678 15.535 3.46447C16.4727 4.40215 16.9995 5.67392 16.9995 7V11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+<a [routerLink]="['/main/change-password']">{{'Main.ChangePassword' | translate}}</a>
+
+  </div>
+</div>
+
+</div>

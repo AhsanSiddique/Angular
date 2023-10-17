@@ -1,0 +1,360 @@
+.register {
+  .full-select{
+    width: 100% !important;
+
+    .ng-dropdown-panel {
+      .ng-dropdown-panel-items {
+        width: 100% !important;
+      }
+    }
+
+      }
+  .card {
+    background-color: transparent;
+    border: none;
+  }
+  .read-only-text {
+    color: rgba(69, 69, 69, 0.5) !important;
+  }
+  .footer {
+    margin-top: 35px;
+  }
+  .input-password {
+    position: relative;
+    --scale: 2;
+    --tooltip-color: #081c3b;
+    --arrow-size: 6px;
+    .comparePass {
+      width: 100%;
+      margin-top: 0.25rem;
+      font-size: 80%;
+      color: #dc3545;
+    }
+    .verfiedPass {
+      position: absolute;
+      top: 4px;
+      right: 20px;
+      width: 2.3rem;
+      height: 2.3rem;
+      padding: 5px 5px 5px 9px;
+    }
+  }
+  .form-control.pwVisibility.is-invalid.hasValue {
+    background-position: right calc(0.375em + 1.875rem) center;
+  }
+  .error-text {
+    display: none;
+    position: absolute;
+    top: 0rem;
+    left: 107%;
+    transition: 150ms transform;
+    transform: translateX(50%) translateY(var(--translate-y, 0))
+      scale(var(--scale));
+    transform-origin: bottom center;
+    box-shadow: 0px 12px 29px rgba(39, 43, 54, 0.26%);
+    .error-placement {
+      padding: 1px 0px;
+      font-size: 6px;
+      .invalid-ico {
+        background: url(/assets/images/invalid.svg);
+        width: 0.3rem;
+        height: 0.3rem;
+        background-size: 88%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        margin-right: 2px;
+        position: relative;
+        top: 0px;
+        left: 1px;
+        display: inline-block;
+      }
+      .valid-ico {
+        background: url(/assets/images/valid.svg);
+        width: 0.3rem;
+        height: 0.3rem;
+        background-size: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        margin-right: 2px;
+        /* margin-top: 1px; */
+        /* line-height: 1; */
+        position: relative;
+        top: 0px;
+        display: inline-block;
+      }
+    }
+    &::before {
+      position: absolute;
+      top: 1.3rem;
+      left: -9px;
+      transition: 150ms transform;
+      transform: translateX(50%) translateY(var(--translate-y, 0))
+        scale(var(--scale));
+      transform-origin: bottom center;
+    }
+  }
+  .display-pass {
+    &:hover,
+    &:focus-within,
+    &:active {
+      .error-text {
+        --translate-y: 35%;
+        // content: attr(data-tooltip);
+        content: '';
+        color: white;
+        z-index: 1;
+        padding: 0.25rem;
+        border-radius: 2px;
+        font-size: 0.33rem;
+        text-align: left;
+        height: auto;
+        width: max-content;
+        max-width: 100%;
+        display: block;
+        background-color: var(--hayya-primary);
+        &::before {
+          --scale: 2;
+          --translate-y: calc(-1 * var(--arrow-size));
+          content: '';
+          width: 4px;
+          height: 25px;
+          background: url(/assets/images/password-arrow.svg);
+          background-size: 100%;
+          background-repeat: no-repeat;
+          background-position: 100% 50%;
+          transform-origin: left center;
+          transform-origin: left center;
+          fill: var(--hayya-primary);
+        }
+      }
+    }
+  }
+
+  .confirmPass {
+    position: relative;
+    // position: relative;
+    // --scale: 2;
+    // --tooltip-color: #081c3b;
+    // --arrow-size: 6px;
+    .comparePass {
+      width: 100%;
+      margin-top: 0.25rem;
+      font-size: 80%;
+      color: #dc3545;
+    }
+    .verfiedPass {
+      position: absolute;
+      top: 4px;
+      right: 20px;
+      width: 2.3rem;
+      height: 2.3rem;
+      padding: 5px 5px 5px 9px;
+    }
+  }
+
+  :host-context([dir='rtl']) {
+    .input-password {
+      .error-text {
+        left: -65% !important;
+        &::before {
+          transform: scale(-1) !important;
+          right: -15px;
+          width: 8px !important;
+          left: auto !important;
+          top: 1rem !important;
+        }
+      }
+    }
+    .input-password-append {
+      left: 15px !important;
+      right: auto !important;
+    }
+    .confirmPass {
+      .verfiedPass {
+        right: auto !important;
+        left: 0px !important;
+        padding: 5px 10px !important;
+      }
+    }
+    .footer .footer-inner {
+      text-align: left !important;
+    }
+  }
+  .drop-header {
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    column-gap: 12.5px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    span:first-child {
+      margin-left: 10px;
+    }
+    span:last-child {
+      white-space: normal;
+    }
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+  .login-validation {
+    width: 100%;
+    font-size: 99%;
+    color: #ff0018;
+    padding: 0px 25px 10px 25px;
+    text-align: center;
+  }
+
+  .ng-dropdown-panel {
+    .ng-dropdown-panel-items {
+      width: 100px !important;
+    }
+  }
+
+  .half-select {
+    width: 85px !important;
+  }
+  .ng-value{
+    .ng-value-label{
+      .cc{
+        display: none;
+      }
+    }
+  }
+}
+.button-right {
+  background-color: var(--hayya-primary);
+  border-radius: 0px;
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+  .arrow-right {
+    color: white;
+    width: 0px;
+    height: 0px;
+    border: 10px solid black;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: white;
+    margin-left: 6px;
+  }
+}
+
+.org-table {
+  margin-bottom: 20px;
+  table {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid var(--hayya-primary);
+    font-weight: 500;
+    thead {
+      color: var(--hayya-primary);
+      td {
+        padding: 10px;
+      }
+      border-bottom: 1px solid rgba(69, 69, 69, 0.5) !important;
+      padding-bottom:2px;
+    }
+    tbody {
+      td {
+        padding: 10px;
+      }
+    }
+  }
+}
+.delete-email{
+  color: #550065 !important;
+    font-weight: 600;
+    cursor: pointer;
+}
+.tagify{
+  font-family: 'Graphik', sans-serif !important;
+  border: none !important;
+  border: 1px solid var(--hayya-primary);
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  .ng2-tag-input{
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    min-height: 150px !important;
+
+  }
+  .ng2-tags-container{
+    padding: 0px 10px;
+    padding-top: 5px;
+    tag{
+      background: #00CFB7;
+      color: white;
+    font-weight: 500;
+    font-family: 'Graphik', sans-serif !important;
+    border-radius: 1px;
+
+    }
+    tag:hover{
+      background: #00cfb7a1 !important;
+    color: white !important;
+    font-weight: 500;
+    font-family: "Graphik", sans-serif !important;
+    border-radius: 1px;
+      }
+    delete-icon{
+      svg{
+        path{
+          fill: white;
+
+        }
+      }
+    }
+    input{
+      background: none transparent;
+    }
+    .tag-wrapper{
+      margin-top: -3px;
+    }
+
+  }
+  .ng2-tag-input--focused{
+    border-bottom: none !important;
+  }
+  .ng2-tag-input--invalid {
+    border: 1px solid #dc3545 !important ;
+}
+  .ng-arrow-wrapper{
+    display: none !important;
+  }
+  .ng-value-icon, .ng-value-label{
+    background-color: var(--hayya-primary);
+  }
+  .ng-select-container{
+    padding: 0px 10px !important;
+  }
+
+
+}
+.textarea {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  border: 1ps solid transparent;
+  border: 1px solid var(--hayya-alt-border-color);
+  width: 100%;
+  min-height: 150px;
+  padding: 10px;
+  font-size: .8rem;
+  font-weight: 600;
+  &::placeholder {
+    color: #999fa8 !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    -webkit-text-size-adjust: 100%;
+    -webkit-text-stroke: 0em;
+  }
+  &:focus{
+    border: none;
+  }
+  &:focus-visible{
+    outline: none;
+  }
+}

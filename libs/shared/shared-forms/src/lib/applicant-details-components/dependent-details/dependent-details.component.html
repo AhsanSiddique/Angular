@@ -1,0 +1,83 @@
+<div class="dependent-information">
+  <div class="row inner-card m-0">
+    <div class="image-col mr-3">
+      <div class="image-wrap">
+        <img
+          alt="user icon"
+          [src]="applicant_data?.profilePic | secureImage | async"
+          onerror="this.src='assets/icons/user_pic.svg'"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="row fields-row">
+        <div class="col">
+          <fan-id-readonly-input
+            label="First Name"
+            id="dependent_firstname"
+            [value]="applicant_data?.firstName"
+            placeholder="First Name"
+            translateKey="ApplicantDetails"
+          ></fan-id-readonly-input>
+          <button class="btn btn-link view-document-btn" (click)="viewDetails()">
+            <span class="view-document-btn__icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 17.402 18.985"
+              >
+                <defs>
+                  <style>
+                    .cls-2 {
+                      fill: #08d0b9;
+                    }
+                  </style>
+                </defs>
+                <g id="copy" transform="translate(-1)">
+                  <path
+                    id="Path_3175"
+                    d="M3.373 5.34a3.762 3.762 0 0 1 3.758-3.758h7.225A2.171 2.171 0 0 0 12.273 0h-9.1A2.177 2.177 0 0 0 1 2.175v12.262a2.177 2.177 0 0 0 2.175 2.175h.2z"
+                    class="cls-2"
+                  />
+                  <path
+                    id="Path_3176"
+                    d="M17.273 4h-9.1A2.177 2.177 0 0 0 6 6.175v11.47a2.177 2.177 0 0 0 2.175 2.175h9.1a2.177 2.177 0 0 0 2.175-2.175V6.175A2.177 2.177 0 0 0 17.273 4zM15.69 17.448H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-2.769H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187z"
+                    class="cls-2"
+                    transform="translate(-1.045 -.836)"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span>{{ 'ApplicantDetails.ViewDetails' | translate }}</span>
+          </button>
+        </div>
+        <div class="col">
+          <fan-id-readonly-input
+            label="Application Number"
+            id="dependent_application_number"
+            [value]="applicant_data?.applicationNo"
+            placeholder="Application Number"
+            translateKey="ApplicantDetails"
+          ></fan-id-readonly-input>
+        </div>
+        <div class="col">
+          <fan-id-readonly-input
+            label="Application Status"
+            id="dependent_application_status"
+            [value]="applicant_data?.applicationStatus_Name | setApplicationStatus : applicant_data?.applicationStatus"
+            placeholder="Application Status"
+            translateKey="ApplicantDetails"
+          ></fan-id-readonly-input>
+        </div>
+        <!-- <div class="col">
+          <fan-id-readonly-input
+            label="Dependent Category"
+            id="dependent_category"
+            [value]="applicant_data?.dependentCategory"
+            placeholder="Dependent Category"
+            translateKey="ApplicantDetails"
+          ></fan-id-readonly-input>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

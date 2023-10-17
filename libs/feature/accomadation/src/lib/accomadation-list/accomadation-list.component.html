@@ -1,0 +1,139 @@
+<div class="accomadation-main">
+  <div class="page-title pt-4 pb-4">
+    <h4 class="mb-0 w-100">
+      Accommodation Details
+    </h4>
+
+    <div class="accommodation-actions">
+      <button *ngIf="active !== 1" (click)="tableComponent.advancedFilterClick()"
+        [disabled]="normalFilterBoolean" class="btn btn-sm btn-secondary btn-alt"
+      >
+        <span><i class="fa fa-filter" [ngStyle]="{color:advancedFilterBoolean?'var(--hayya-accent)':''}" aria-hidden="true"></i></span>
+        <span class="pl-2 pr-2">{{ 'Filter' | translate }}</span>
+      </button>
+
+      <button *ngIf="active !== 1"
+        class="btn btn-sm btn-secondary btn-alt"
+        (click)="tableComponent.clearFilter()"
+      >
+        <span class="text-hide"><i class="fa fa-refresh-new" aria-hidden="true"></i></span>
+        <span>{{ 'AllApplicantsList.Refresh' | translate }}</span>
+      </button>
+
+      <button (click)="tableComponent.showExportModal()"
+        class="btn btn-sm btn-primary btn-alt"
+      >
+        <span>{{ 'Common.Export' | translate }}</span>
+      </button>
+    </div>
+  </div>
+  <main>
+    <div class="ngbnav-container">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="active" (click)="activeTab()" class="nav-tabs">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>Dashboard</a>
+          <img *ngIf="active ===1" src="/assets/icons/Union.svg"
+          alt="Bootstrap" />
+          <ng-template ngbNavContent>
+            <section>
+              <fan-id-accomadation-dashboard
+              [event]="eventName"
+              #tableComponent>
+              </fan-id-accomadation-dashboard>
+            </section>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>QAA</a>
+          <img *ngIf="active ===2" src="/assets/icons/Union.svg"
+          alt="Bootstrap" />
+          <ng-template ngbNavContent>
+            <section>
+                <fan-id-qaa
+                [event]="eventName"
+                #tableComponent
+                (filterBooleans)="filterBooleans($event)">
+              </fan-id-qaa>
+            </section>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+          <a ngbNavLink>SITA</a>
+          <img *ngIf="active ===3" src="/assets/icons/Union.svg"
+          alt="Bootstrap" />
+          <ng-template ngbNavContent>
+            <section>
+                <fan-id-sita
+                [event]="eventName"
+                #tableComponent
+                (filterBooleans)="filterBooleans($event)">
+              </fan-id-sita>
+            </section>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="4">
+          <a ngbNavLink>Alternative Accommodation</a>
+          <svg *ngIf="active === 4" width="131" height="17" viewBox="0 0 131 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M101 9.40413L14.1507 9.40413L7.74288 16.0977L0 8.02119L7.74288 9.53674e-05L14.2041 6.63826L101 6.63825V6.69353L116.849 6.69353L123.257 0L131 8.07647L123.257 16.0976L116.796 9.4594H101V9.40413Z" fill="var(--hayya-primary)"/>
+          </svg>
+          <ng-template ngbNavContent>
+            <section>
+              <fan-id-accommodation-alternate
+                #tableComponent
+                [event]="eventName"
+                (filterBooleans)="filterBooleans($event)"
+              ></fan-id-accommodation-alternate>
+            </section>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="5">
+          <a ngbNavLink>Property/Guest Details</a>
+          <svg *ngIf="active === 5" width="131" height="17" viewBox="0 0 131 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M101 9.40413L14.1507 9.40413L7.74288 16.0977L0 8.02119L7.74288 9.53674e-05L14.2041 6.63826L101 6.63825V6.69353L116.849 6.69353L123.257 0L131 8.07647L123.257 16.0976L116.796 9.4594H101V9.40413Z" fill="var(--hayya-primary)"/>
+          </svg>
+          <ng-template ngbNavContent>
+            <section>
+              <fan-id-accommodation-property-guest
+                #tableComponent
+                [event]="eventName"
+                (filterBooleans)="filterBooleans($event)"
+              ></fan-id-accommodation-property-guest>
+            </section>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="6">
+          <a ngbNavLink>Cancellation</a>
+          <svg *ngIf="active === 6" width="131" height="17" viewBox="0 0 131 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M101 9.40413L14.1507 9.40413L7.74288 16.0977L0 8.02119L7.74288 9.53674e-05L14.2041 6.63826L101 6.63825V6.69353L116.849 6.69353L123.257 0L131 8.07647L123.257 16.0976L116.796 9.4594H101V9.40413Z" fill="var(--hayya-primary)"/>
+          </svg>
+          <ng-template ngbNavContent>
+            <section>
+              <fan-id-accommodation-cancellation
+                #tableComponent
+                [event]="eventName"
+                (filterBooleans)="filterBooleans($event)"
+              ></fan-id-accommodation-cancellation>
+            </section>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="7">
+          <a ngbNavLink>Booked Accommodations</a>
+          <svg  *ngIf="active === 7" width="131" height="17" viewBox="0 0 131 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M101 9.40413L14.1507 9.40413L7.74288 16.0977L0 8.02119L7.74288 9.53674e-05L14.2041 6.63826L101 6.63825V6.69353L116.849 6.69353L123.257 0L131 8.07647L123.257 16.0976L116.796 9.4594H101V9.40413Z" fill="var(--hayya-primary)"/>
+          </svg>
+          <ng-template ngbNavContent>
+            <section>
+              <fan-id-accommodation-other
+                #tableComponent
+                [event]="eventName"
+                (filterBooleans)="filterBooleans($event)"
+              ></fan-id-accommodation-other>
+            </section>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </main>
+</div>
+

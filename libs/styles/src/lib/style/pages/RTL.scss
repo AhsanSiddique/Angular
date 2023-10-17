@@ -1,0 +1,763 @@
+[dir='rtl'] {
+  * {
+    text-align: right;
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 14px;
+  }
+  ol {
+    padding-right: 13px !important;
+  }
+  &.login {
+    .input-password-append {
+      left: 2px !important;
+      right: auto !important;
+    }
+  }
+  .back-ico {
+    transform: rotate(180deg);
+    margin-left: 15px;
+    margin-top: 3px;
+    margin-right: 0px;
+  }
+  .file-control {
+    .file-upload {
+      &.is-invalid {
+        background-position: left calc(0.375em + 0.18rem) center;
+        .upload-link {
+          padding: 5px 5px 5px 15px;
+        }
+        ~ .delete-ico {
+          left: 25px;
+          right: auto;
+        }
+      }
+    }
+    .delete-ico {
+      left: 8px;
+      right: auto;
+    }
+  }
+  .align-login-right {
+    position: absolute;
+    margin-right: 20%;
+    margin-top: 20%;
+  }
+  .form-control.is-invalid,
+  .was-validated .form-control:invalid {
+    background-position: left calc(0.375em + 0.1875rem) center !important;
+  }
+  select.form-control.is-invalid,
+  .was-validated select.form-control:invalid {
+    background-position: left calc(0.375em + 0.875rem) center !important;
+  }
+  .status-tag {
+    &.status-approved {
+      padding: 1px 28px !important;
+    }
+    &.status-rejected {
+      padding: 1px 30.7px !important;
+    }
+    &.status-under-review {
+      padding: 1px 15.5px !important;
+    }
+    &.status-success {
+      padding: 1px 16px !important;
+    }
+    &.status-failed {
+      padding: 1px 22px !important;
+    }
+  }
+  //Global end
+  // bulk registration
+  .bulk-registration {
+    .registration-card {
+      .instructions-area {
+        .ins-content {
+          padding-left: 0px !important;
+        }
+      }
+    }
+    .excel-upload {
+      .card {
+        .card-header {
+          h4 {
+            text-align: right;
+          }
+        }
+      }
+    }
+    .footer-area {
+      text-align: left !important;
+    }
+    .option-arrow {
+      transform: rotate(180deg);
+    }
+    /* align icon */
+    .right-addon {
+      .svg-up-arrow-icon {
+        position: absolute;
+        right: unset !important;
+        left: 3px !important;
+        top: 3px;
+        bottom: 0px;
+      }
+      .svg-down-arrow-icon {
+        position: absolute;
+        right: unset !important;
+        left: 3px !important;
+        top: 21px;
+        bottom: 0px;
+      }
+    }
+
+    /* add padding  */
+    .right-addon input {
+      padding-left: 30px;
+      &.form-control {
+        padding: 0rem 0.75rem 0rem 3rem !important;
+        &.is-invalid {
+          background-position: left calc(1.5em + 1.4rem) center !important;
+        }
+      }
+    }
+  }
+  .register-note {
+    ol {
+      padding-left: 0px !important;
+    }
+  }
+  .paneHeader {
+    h4 {
+      text-align: center !important;
+    }
+    .paneClose {
+      left: 0 !important;
+      right: auto !important;
+      transform: translateX(-100%) !important;
+    }
+  }
+  .submitbtnPane {
+    text-align: left !important;
+  }
+  .filterArea {
+    th {
+      .filterList {
+        &:after {
+          left: 4px !important;
+          right: auto !important;
+        }
+      }
+    }
+  }
+  .fan-id-datatable {
+    th:first-child {
+      border-top-left-radius: 0px !important;
+      border-right: 1px solid #ffffff !important;
+      border-left: 0px solid transparent !important;
+    }
+    th:last-child {
+      border-top-right-radius: 0px !important;
+      border-right: 1px solid #ffffff !important;
+      border-left: 0px solid transparent !important;
+    }
+  }
+  .fan-id-datatable {
+    .imported-data {
+      &.haserror {
+        .error-ico {
+          right: 0px;
+          left: auto !important;
+        }
+        &:before {
+          left: auto !important;
+          right: 16px;
+          transform: rotate(180deg);
+        }
+        &:after {
+          text-align: right;
+          left: auto !important;
+          right: 38px;
+        }
+      }
+    }
+  }
+  .dataTables_wrapper {
+    .dataTables_paginate.paging_simple_numbers,
+    .dataTables_paginate.paging_full_numbers {
+      .paginate_button.next:before {
+        top: -1px;
+        left: 0px;
+        transform: rotate(180deg);
+      }
+      .paginate_button.next.disabled:before {
+        top: 8px;
+        left: 9px;
+        transform: rotate(0deg);
+      }
+      .paginate_button.previous:before {
+        top: 9px;
+        left: 10px;
+        transform: rotate(0deg);
+      }
+      .paginate_button.previous.disabled:before {
+        top: -1px;
+        left: 1px;
+        transform: rotate(180deg);
+      }
+      .paginate_button.first {
+        padding-left: 12px !important;
+        padding-right: 24px !important;
+        // line-height: 1.5rem;
+        &:before {
+          top: 1px;
+          right: 22px;
+          transform: rotate(180deg);
+        }
+      }
+      .paginate_button.first.disabled {
+        padding-left: 12px !important;
+        padding-right: 24px !important;
+        // line-height: 1.5rem;
+        &:before {
+          top: 1px;
+          right: 22px;
+          // transform: rotate(180deg);
+        }
+      }
+      .paginate_button.last {
+        padding-left: 24px !important;
+        padding-right: 12px !important;
+        // line-height: 1.5rem;
+        &:before {
+          top: 1px;
+          left: 15px;
+          right: auto !important;
+          transform: rotate(180deg);
+        }
+      }
+      .paginate_button.last.disabled {
+        padding-left: 24px !important;
+        padding-right: 12px !important;
+        // line-height: 1.5rem;
+        &:before {
+          top: 7px;
+          left: 10px;
+          right: auto !important;
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+  .dropdown-menu {
+    .dropdown-item {
+      text-align: right;
+      padding: 0.5rem 0.5rem 0.5rem 0.5rem !important;
+      &.row-edit-ico {
+        &:before {
+          left: auto !important;
+          right: 6px;
+          top: 10px;
+        }
+      }
+      &.row-delete-ico {
+        &:before {
+          left: auto !important;
+          right: 6px;
+          top: 10px;
+        }
+      }
+    }
+  }
+  // bulk registration end
+  // Change Password
+  .change-password {
+    .input-password {
+      .error-text {
+        left: -65% !important;
+        &::before {
+          transform: scale(-1) !important;
+          right: -15px;
+          width: 8px !important;
+          left: auto !important;
+          top: 1rem !important;
+        }
+      }
+      .verfiedPass {
+        right: auto !important;
+        left: 0px !important;
+        padding: 5px 10px !important;
+      }
+    }
+    .input-password-append {
+      left: 15px !important;
+      right: auto !important;
+    }
+    .confirmPass {
+      .verfiedPass {
+        right: auto !important;
+        left: 0px !important;
+        padding: 5px 10px !important;
+      }
+    }
+    .footer .footer-inner {
+      text-align: left !important;
+    }
+  }
+  // Change Password End
+  .fa {
+    font: normal normal normal 14px/1 FontAwesome !important;
+  }
+  //sub heading
+  .sub-heading {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  //sub heading end
+  //Top Bar
+  .top-bar {
+    .language-bar {
+      text-align: left !important;
+    }
+    .dropdown {
+      text-align: left;
+    }
+    .w3-dropdown-hover {
+      .w3-dropdown-content {
+        width: 100%;
+        max-width: 150px;
+        .dropdown-item {
+          .dropdown-item-text {
+            display: inline-block;
+            padding-right: 10px;
+          }
+        }
+      }
+    }
+    .profile-panel {
+      .profile-right {
+        text-align: right;
+      }
+      i {
+        left: 35px;
+        right: auto !important;
+      }
+    }
+  }
+  //Top Bar End
+  //login
+  .login {
+    .input-password {
+      position: relative;
+      --scale: 2;
+      --tooltip-color: #081c3b;
+      --arrow-size: 6px;
+      .form-control.pwVisibility.is-invalid.hasValue {
+        background-position: right calc(0.375em + 1.875rem) center;
+      }
+      .input-password-append {
+        // display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2.3rem;
+        height: 2.3rem;
+        padding: 5px 5px 5px 9px;
+        cursor: pointer;
+      }
+    }
+    .lang-selector {
+      position: relative;
+      z-index: 999;
+      right: 5%;
+      top: 10%;
+    }
+    .roundcheck {
+      label {
+        right: 0;
+      }
+    }
+  }
+  //login end
+  //Dashboard
+  .dashboard-statistics {
+    text-align: center;
+    .user-info {
+      position: absolute;
+      margin-top: 223;
+      margin-right: 60px;
+      color: #000;
+    }
+  }
+  .event-info {
+    text-align: center !important;
+    .event-info-inner {
+      text-align: center !important;
+    }
+    .click-arrow {
+      margin-left: 0px;
+      margin-right: 15px;
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  //Dashboard End
+  .bulk-groups {
+    .bulk-group-panel {
+      thead {
+        th {
+          padding: 1rem 10% 1rem 0.75rem !important;
+          &:first-child {
+            border-top-left-radius: 0px !important;
+            border-top-right-radius: 15px !important;
+          }
+          &:last-child {
+            border-top-left-radius: 15px !important;
+            border-top-right-radius: 0px !important;
+          }
+        }
+      }
+      td {
+        padding: 1rem 10% 1rem 0.75rem !important;
+      }
+    }
+    .right-addon {
+      .svg-up-arrow-icon {
+        position: absolute;
+        right: unset !important;
+        left: 3px !important;
+        top: 3px;
+        bottom: 0px;
+      }
+      .svg-down-arrow-icon {
+        position: absolute;
+        right: unset !important;
+        left: 3px !important;
+        top: 21px;
+        bottom: 0px;
+      }
+    }
+
+    /* add padding  */
+    .right-addon input {
+      padding-left: 30px;
+      &.form-control {
+        padding: 0rem 0.75rem 0rem 3rem !important;
+        &.is-invalid {
+          background-position: left calc(1.5em + 1.4rem) center !important;
+        }
+      }
+    }
+  }
+
+  //#region manual-registration-step2, edit-application
+  .individual-registration,
+  .edit-application,
+  .new-customer {
+    header {
+      .title {
+        h4 {
+          font-size: 1.2rem !important;
+        }
+      }
+
+      .back {
+        transform: rotateY(180deg) !important;
+      }
+    }
+
+    .application-form {
+      .radio-group {
+        label {
+          margin: 0 0 0 0.75rem !important;
+        }
+
+        .radio-btn {
+          .radio {
+            margin: 0 0 0 12px !important;
+          }
+        }
+      }
+
+      .gcc-countries {
+        .radio-group {
+          .radio-btn {
+            .radio {
+              margin: 0 2rem 0 0 !important;
+            }
+          }
+        }
+      }
+
+      &-select-1 {
+        > div {
+          padding-right: 0 !important;
+          padding-left: 1rem;
+        }
+      }
+    }
+
+    .upload-document-form {
+      > div:not(:last-child) {
+        margin-right: 0 !important;
+        margin-left: 2rem;
+      }
+
+      .document-types {
+        .radio-btn:not(:last-child) {
+          margin-right: 0 !important;
+          margin-left: 1rem;
+        }
+
+        #document_type_1 + label > span:last-child {
+          font-size: 12px !important;
+        }
+      }
+    }
+
+    .personal-information {
+      margin: 0 -15px 0 0 !important;
+
+      .fields-combo {
+        .input-group-prepend {
+          padding-left: 10px !important;
+        }
+      }
+    }
+
+    .address-information {
+      &-country {
+        margin-right: 0 !important;
+        margin-left: auto;
+      }
+    }
+
+    .terms-check {
+      .custom-check-box {
+        margin-right: 0 !important;
+        margin-left: 0.5rem;
+      }
+      .radio-group .radio-btn .radio {
+        margin: 0 0 0 12px;
+      }
+    }
+
+    .invalid-feedback {
+      right: -1rem;
+
+      &.application-type-error {
+        right: -0.75rem;
+      }
+      &.gender-error{
+        text-align: right;
+        padding-right: 32px !important;
+        padding-left: unset !important;
+      }
+    }
+
+    .personal-form-note {
+      right: unset;
+      left: 0;
+      transform-origin: top left;
+
+      .form-note {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 25px;
+      }
+    }
+  }
+  .paneFooterTerms {
+    text-align: left !important;
+    margin: 20px 30px 20px 30px;
+    button:not(:last-child) {
+      margin-left: 1rem !important;
+      margin-right: 0 !important;
+    }
+  }
+  /* align icon */
+  .date-right-addon .bi {
+    position: absolute;
+    left: 1rem;
+    right: unset !important;
+  }
+
+  //#endregion manual-registration-step2
+
+  //#region allapplications
+  .card-detail-paneBody {
+    .card-detail {
+      h5 {
+        text-align: left !important;
+      }
+      .card-detail-status-change {
+        padding-right: 15px !important;
+        padding-left: 0 !important;
+      }
+    }
+    .card-detail-staus-switch {
+      padding-left: unset !important;
+      padding-right: 6px !important;
+    }
+  }
+  //#endregion allapplications
+  //#region stepper
+
+  .stepper-container {
+    .arrow {
+      transform: rotateY(180deg);
+    }
+  }
+  //#endregion stepper
+
+  //#region applicant-details
+  .applicant-details {
+    header {
+      .back {
+        transform: rotateY(180deg) !important;
+      }
+
+      .title {
+        padding-right: 0;
+        padding-left: 54px;
+        
+        h4 {
+          font-size: 1.2rem !important;
+        }
+
+        .applicant-details-actions {
+          margin-right: auto;
+          margin-left: 0;
+        }
+      }
+    }
+    .radio-group {
+      label {
+        margin: 0 0 0 0.75rem !important;
+      }
+
+      .radio-btn {
+        .radio {
+          margin: 0 0 0 12px !important;
+        }
+      }
+    }
+
+    .view-document-btn__icon {
+      margin-right: 0 !important;
+      margin-left: 0.5rem;
+    }
+  }
+  //#endregion applicant-details
+
+  //#region card-replacement
+  .card-replacement-paneBody {
+    .radio-group {
+      label {
+        margin: 0 0 0 0.75rem !important;
+      }
+
+      .radio-btn {
+        .radio {
+          margin: 0 0 0 12px !important;
+        }
+      }
+    }
+    .printCardPrevious{
+      margin-right:unset !important;
+      margin-left:50px !important;
+      transform: rotate(180deg);
+    }
+    .printCardNext{
+      margin-right:50px !important;
+      margin-left:unset !important;
+      transform: rotate(180deg);
+    }
+  }
+
+  .card-replace-list-clear-btn {
+    margin-right: unset !important;
+    margin-left: 15px !important;
+  }
+  .lost-stolen-replacement-dialog {
+    padding: 0.6rem 0.6rem 0.6rem 75px !important;
+  }
+  .card-malfunctioning-replacement-dialog {
+    padding: 0.6rem 0.6rem 0.6rem 55px !important;
+  }
+  .incorrect-info-replacement-dialog {
+    padding: 0.6rem 0.6rem 0.6rem 40px !important;
+  }
+  //#endregion card-replacement
+  .service-center {
+
+    .service-center-body {
+      margin-left: 0px;
+      margin-right:150px;
+
+    }
+  }
+
+  .form-note {
+    li {
+      margin-left: unset;
+      margin-right: 1rem;
+    }
+  }
+
+  image-cropper {
+    div:first-child {
+      text-align: center;
+    }
+  }
+
+  // datatable goto-page
+  .goto-page {
+    left: 1rem;
+    right: unset;
+  }
+  .stat-search-ico {
+    transform: rotate(180deg);
+    // margin-left: 10px;
+    // margin-top: 3px;
+    margin-right: 0px;
+  }
+
+  //modalpane style
+  .modalpane-wrapper{
+
+    .modalpane-closebtn{
+      // position:absolute;
+      right: unset !important;
+      left: 0;
+      top: 0;
+      transform: translateX(-100%) !important;
+
+    }
+  }
+
+  .loader-content{
+
+    .submission-paneClose{
+      left: 0 !important;
+      right: auto !important;
+      transform: translateX(-100%) !important;
+    }
+  }
+
+  .fieldset-title-index {
+    left: unset !important;
+    right: 0;
+    transform: translateX(calc(50% + 1rem)) !important;
+  }
+  .fa-file-export{
+    transform: rotate(180deg);
+  }
+
+.fa-refresh-new {
+    transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  }
+
+}

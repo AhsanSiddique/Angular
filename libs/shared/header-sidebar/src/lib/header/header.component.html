@@ -1,0 +1,93 @@
+<div class="bottom-header fix-header">
+  <div class="top-bar row Qatar2022" [ngStyle]="{ height: '100px' }">
+    <div class="align-right">
+      <span class="title">{{ 'Header.Title' | translate }}
+      <!-- <span class="title-event" *ngIf="this.selectedEvent">- {{this.selectedEvent}}</span>  -->
+    </span>
+    </div>
+    <div class="right-top-bar pl-5 pr-5">
+      <!-- <div class="language-bar">
+        <fan-id-language></fan-id-language> -->
+      <!-- </div> -->
+      <div class="pl-0">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle profile-panel"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            [ngStyle]="{ height: isServiceCenter ? '76px' : '66px' }"
+          >
+            <img
+              class="profileImg"
+              [src]="profileImg"
+              [ngStyle]="{
+                'margin-top': isServiceCenter ? '10px' : '2px'
+               }"
+               style="border-radius: 10px;"
+              alt="profile image"
+            />
+
+            <div class="profile-right">
+              <!-- <label>{{ 'Header.LoggedIn' | translate }}</label> -->
+              <!-- <span class="calendar-ico"></span> -->
+              <span class="username">{{ firstName }}</span>
+              <label>{{ date }}</label>
+              <span class="span-service-center">{{ selectedTerminal }}</span>
+            </div>
+          </button>
+          <div
+            class="dropdown-menu w3-dropdown-content dropdown-menu-right"
+            aria-labelledby="dropdownMenuButton"
+          >
+            <a class="dropdown-item" routerLink="/main/account/profile"
+              ><i class="fa fa-pencil" aria-hidden="true"></i
+              ><span class="dropdown-item-text">{{
+                'Header.EditProfile' | translate
+              }}</span></a
+            >
+            <a class="dropdown-item" routerLink="/main/account/change-password"
+              ><i class="fa fa-lock" aria-hidden="true"></i
+              ><span class="dropdown-item-text">{{
+                'Header.ChangePassword' | translate
+              }}</span></a
+            >
+            <a class="dropdown-item" (click)="logout()"
+              ><i class="fa fa-power-off" aria-hidden="true"></i
+              ><span class="dropdown-item-text">{{
+                'Header.Logout' | translate
+              }}</span></a
+            >
+          </div>
+        </div>
+        <!-- <div class="w3-dropdown-hover dropdownhover">
+      <div class="profile-panel">
+        <img class="profileImg" [src]="profileImg" />
+
+        <div class="profile-right">
+          <label>Logged in as:</label>
+          <span>{{ username }}</span>
+        </div>
+        <i class="fa fa-caret-down"></i>
+      </div>
+      <div class="w3-dropdown-content w3-bar-block">
+        <a class="dropdown-item" routerLink="/main/account/profile"
+          ><i class="fa fa-pencil" aria-hidden="true"></i
+          ><span class="dropdown-item-text">Edit Profile</span></a
+        >
+        <a class="dropdown-item" routerLink="/main/account/change-password"
+          ><i class="fa fa-lock" aria-hidden="true"></i
+          ><span class="dropdown-item-text">Change Password</span></a
+        >
+        <a class="dropdown-item" (click)="logout()"
+          ><i class="fa fa-power-off" aria-hidden="true"></i
+          ><span class="dropdown-item-text">Logout</span></a
+        >
+      </div>
+    </div> -->
+      </div>
+    </div>
+  </div>
+</div>

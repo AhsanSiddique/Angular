@@ -1,0 +1,44 @@
+<div class="loader">
+  <div class="loader-content">
+    <div class="submission-paneClose">
+      <img src="/assets/icons/close 001.svg" style="width: 32px" alt="close icon" (click)="closeThis.emit('close')" />
+    </div>
+    <div class="submitPane">
+      <div class="paneBody" *ngIf="status">
+        <div class="paneHeader">
+          <h4 class="font-24" style="color: var(--hayya-primary); font-weight: 900">Application Deletion Status</h4>
+        </div>
+        <dl class="data-center">
+          <dt>
+            <div class="">Total Success:</div>
+          </dt>
+          <dd>
+            <span class="text-success">{{ status.totalSuccess }}</span>
+          </dd>
+        </dl>
+        <dl class="data-center">
+          <dt>
+            <div class="">Total Failed:</div>
+          </dt>
+          <dd>
+            <span class="text-danger">{{ status.totalFailed }}</span>
+          </dd>
+        </dl>
+        <!-- <dl class="data-center" *ngIf="status?.pendingRecords">
+          <dt>
+            <div class="">{{ 'Common.PendingRecords' | translate }}:</div>
+          </dt>
+          <dd>
+            <span class="text-danger">{{ status.pendingRecords }}</span>
+          </dd>
+        </dl> -->
+      </div>
+      <div class="paneFooter">
+        <button class="btn btn-primary btn-sm btn-caret-8" (click)="closeThis.emit()">
+          Ok
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="loader-backdrop"></div>
+</div>

@@ -1,0 +1,43 @@
+<div class="integration-status-info">
+  <div class="row">
+    <div class="col col-xl-4 col-lg-4 col-md-6 col-sm-12">
+      <label for="card_printing" style="color: rgba(69, 69, 69, 0.5);">
+        {{'CardReplacement.CardPrinting'|translate}}
+      </label>
+      <!-- <div class="status-tag"
+      [ngClass]="{
+        'status-approved': [2,4].includes(card_integration_data?.printingStatus),
+        'status-rejected': [3,5].includes(card_integration_data?.printingStatus),
+        'status-under-review': card_integration_data?.printingStatus === 1
+      }"
+      > -->
+      <div class="p-1 card-status-tag"
+      [ngClass]="{
+        'card-queue':(card_integration_data?.printingStatus === 2 && card_integration_data?.cardStatus === 1),
+        'card-printed': card_integration_data?.cardStatus === 2,
+        'card-pending': (card_integration_data?.printingStatus !== 2 && card_integration_data?.cardStatus === 1),
+        'card-delivery':  [3,4].includes(card_integration_data?.cardStatus),
+        'card-collected': [5,6].includes(card_integration_data?.cardStatus),
+        'card-home-delivery':card_integration_data?.cardStatus === 10,
+        'card-collection-qpr':card_integration_data?.cardStatus === 11
+      }"
+    >
+      
+        {{ card_integration_data?.printingStatus_Name ?? 'N/A' }}
+      </div>
+    </div>
+
+    <!-- <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="push_customer_information_to_qnb">{{'CardReplacement.PushCustomerInformationtoQNB'|translate}}</label>
+      <div class="status-badge"
+      [ngClass]="{
+        'status-badge-approved': card_integration_data?.qnb_Status?.status === 2,
+        'status-badge-rejected': card_integration_data?.qnb_Status?.status === 3,
+        'status-badge-under-review': card_integration_data?.qnb_Status?.status === 1
+      }"
+      >
+        {{ card_integration_data?.qnb_Status?.status_Name ?? 'N/A'  }}
+      </div>
+    </div> -->
+  </div>
+</div>

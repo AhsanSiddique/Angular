@@ -1,0 +1,273 @@
+<div class="edit-application container-fluid">
+  <header class="row">
+    <div class="title col-12 d-flex align-items-center">
+      <fan-id-back-arrow></fan-id-back-arrow>
+      <div>
+        <h4 class="mb-0">
+          {{ translateKey + ( +submitReasonType === 2 ? '.ResubmitApplication' : '.EditApplication') | translate }}
+        </h4>
+      </div>
+      <div class="ml-auto">
+        <button
+          type="button"
+          class="btn btn-secondary ml-auto"
+          (click)="show_cancel_modal = true"
+        >
+          <span>{{ translateKey + '.Cancel' | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-caret-8 ml-4"
+          (click)="showApproveConfirmModal = true"
+        >
+          <span>Approve</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="row">
+    <fan-id-fieldset-wrapper [title]="'TicketInformation.TicketInformation' | translate">
+      <fan-id-ticket-information-form
+        [formGroup]="ticketForm"
+        [parentForm]="applicantForm"
+        [metadata$]="metadata$"
+      ></fan-id-ticket-information-form>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      [title]="translateKey + '.ApplicationInformation' | translate"
+    >
+      <fan-id-application-form
+        [formGroup]="applicationForm"
+        [translateKey]="translateKey"
+        [metadata$]="metadata$"
+        (clearSwitchData)="clearDataAFterSwitch($event)"
+      ></fan-id-application-form>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      [title]="translateKey + '.DocumentInformation' | translate"
+    >
+      <fan-id-upload-document-form
+        [formGroup]="uploadDocumentForm"
+        [translateKey]="translateKey"
+        [application_type]="application_type"
+        (formSubmit)="uploadDocument()"
+        [isServiceCentre]="true"
+        [disable_form]="true"
+        [fan_category]="fan_category"
+        [nationality]="nationality"
+        [metadata$]="metadata$"
+        [editApp]="true"
+        [qid_validated]="qid_validated"
+        (qidCleared)="resetQidFields()"
+        [passport_validated]="passport_validated"
+        (passportSubmit)="fetchPassportOCR()"
+        [face_validated]="face_validated"
+        (faceValidationChanged)="onFaceValidationChange($event)"
+        (passportBlur)="onPassportNumberBlur()"
+        [showICAO]="true"
+        [icao_data]="icao_data"
+        [applicantData]="applicant_data"
+      ></fan-id-upload-document-form>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper [title]="'Residency Information'"
+      *ngIf="(applicationType === 'VISA' || applicant_data?.customerCategoryCode === 'NHWM')"
+    >
+      <fan-id-residency-information-form
+        [formGroup]="residencyForm"
+        [parentForm]="applicantForm"
+        [metadata$]="metadata$"
+        [applicantData]="applicant_data"
+      ></fan-id-residency-information-form>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper [title]="'Accommodation Information'"
+      *ngIf="applicationType === 'VISA' && applicant_data?.customerCategoryCode !== 'GCCN'"
+    >
+      <fan-id-accommodation-information-form
+        [formGroup]="accommodationForm"
+        [parentForm]="applicantForm"
+        [metadata$]="metadata$"
+      ></fan-id-accommodation-information-form>
+    </fan-id-fieldset-wrapper>
+    <fan-id-fieldset-wrapper
+      [title]="translateKey + '.PersonalInformation' | translate"
+    >
+      <fan-id-personal-information-form
+        [formGroup]="personalInfoForm"
+        [translateKey]="translateKey"
+        [application_type]="application_type"
+        [fan_category]="fan_category"
+        [user_category]="af.user_category"
+        [nationality]="nationality"
+        [document_type]="document_type"
+        [metadata$]="metadata$"
+        form_type="edit-application"
+        [editApp]="true"
+      ></fan-id-personal-information-form>
+      <div style="visibility: hidden" fanIdObserveVisibility (visible)="onVisible(personalInfoForm)"></div>
+    </fan-id-fieldset-wrapper>
+
+    <fan-id-fieldset-wrapper
+      [title]="'TermsAndConditions.Terms&Conditions' | translate"
+    >
+      <fan-id-terms-conditions-form
+        [formGroup]="termsForm"
+        [translateKey]="translateKey"
+      ></fan-id-terms-conditions-form>
+    </fan-id-fieldset-wrapper>
+  </main>
+  <!-- <div class="row mt-5 footer-actions">
+    <div class="col d-flex justify-content-end">
+      <div class="footer-actions-primary">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="show_cancel_modal = true"
+        >
+          <span>{{ translateKey + '.Cancel' | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-caret-8"
+          (click)="show_return_correction_modal = true"
+          [disabled]="applicantForm.invalid"
+        >
+          Return to Applicant for Correction
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-caret-8"
+          (click)="submitForm()"
+          [disabled]="applicantForm.invalid"
+        >
+          Submit to MOI
+        </button>
+      </div>
+    </div>
+  </div> -->
+
+  <fan-id-modal-wrapper
+    *ngIf="show_cancel_modal"
+    [title]="'Common.Alert' | translate"
+    (closeThis)="show_cancel_modal = false"
+  >
+    <div class="cancel-modal-body">
+      <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+      <p *ngIf="!(+submitReasonType === 2)">{{ 'Common.AllChangesDoneLost' | translate }}</p>
+      <button type="button" class="btn btn-primary btn-caret-8" (click)="cancel()">
+        {{ 'Common.YesProceed' | translate }}
+      </button>
+    </div>
+  </fan-id-modal-wrapper>
+</div>
+
+<fan-id-submit-and-card-detail
+  *ngIf="confirm_submit_open"
+  [type]="'submit'"
+  (closeThis)="closedialog($event)"
+></fan-id-submit-and-card-detail>
+
+<fan-id-verify-application-return-correction
+  *ngIf="show_return_correction_modal"
+  [applicant_data]="applicant_data"
+  (_close)="closeReturnCorrectionModal($event)"
+></fan-id-verify-application-return-correction>
+
+<fan-id-common-error-modal
+  *ngIf="applicant_error"
+  head_error_message='CommonError.Error'
+  [error_message]="applicant_error"
+  (closeThis)="redirectToList()">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+  *ngIf="register_error"
+  head_error_message='RegisterError.SubmissionFailed'
+  [error_message]="register_error"
+  (closeThis)="onRegisterError($event)">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+  *ngIf="ocr_error"
+  head_error_message='RegisterError.DocumentVerificationFailed'
+  [error_message]="ocr_error === 'error' ? ('ErrorMessage.OcrError' | translate) : ocr_error"
+  buttontext="Common.Close"
+  (closeThis)="closeOCRError()">
+</fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="resubmit_success"
+  head_success_message='RegisterSuccess.ResubmitSuccessTitle'
+  buttontext="Common.Ok"
+  (closeThis)="redirectToList()">
+</fan-id-common-success-modal>
+
+<fan-id-common-error-modal
+*ngIf="moi_error"
+head_error_message='RegisterError.YourQIDIsInvalid'
+buttontext="Common.Close"
+(closeThis)="closeMOIError()">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+  *ngIf="qid_exists_error"
+  head_error_message="RegisterError.YourQIDIsInvalid"
+  error_message="An Application with this QID already exists"
+  buttontext="Common.Close"
+  (closeThis)="closeQidExistsError()"
+></fan-id-common-error-modal>
+
+<fan-id-update-info-alert-modal
+  *ngIf="show_update_info_alert"
+  (closeThis)="onUpdateInfoAlertClose($event)"
+></fan-id-update-info-alert-modal>
+
+<fan-id-update-info-alert-modal
+  *ngIf="show_resubmit_alert"
+  _type="resubmit"
+  (closeThis)="onUpdateInfoAlertClose($event)"
+></fan-id-update-info-alert-modal>
+
+<fan-id-common-confirm
+  *ngIf="showApproveConfirmModal"
+  message="Are you sure you want to update the status to Approved?"
+  [footerActionType]="1"
+  (closeThis)="closeConfirmApproveModal($event)"
+></fan-id-common-confirm>
+
+<fan-id-common-success-modal
+  *ngIf="showApproveSuccessModal"
+  head_success_message="Accommodation Verification Completed"
+  success_message="The application is successfully verified and approved"
+  buttontext="Common.Ok"
+  (closeThis)="redirectToList()"
+></fan-id-common-success-modal>
+
+<fan-id-common-error-modal
+  *ngIf="showApproveErrorModal"
+  head_error_message="Accommodation Verification Failed"
+  error_message="Something went wrong. Please try again later"
+  buttontext="Common.Close"
+  (closeThis)="showApproveErrorModal = false"
+></fan-id-common-error-modal>
+
+<ngx-spinner
+  name="upload-info-image"
+  bdColor="rgba(0,0,0,0.5)"
+  size="default"
+  color="rgba(246,240,240,0.79)"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+></ngx-spinner>
+
+<ngx-spinner
+  name="edit-info-submit"
+  bdColor="rgba(0,0,0,0.5)"
+  size="default"
+  color="rgba(246,240,240,0.79)"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+></ngx-spinner>

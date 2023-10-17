@@ -1,0 +1,111 @@
+.drop-header {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  column-gap: 12.5px;
+  font-weight: 600;
+  font-size: 0.8rem;;
+  span:first-child {
+    margin-left: 10px;
+  }
+  span:last-child {
+    white-space: normal;
+  }
+}
+
+.drop-printer{
+  display: grid;
+  grid-template-columns: 2fr 4.5fr;
+  column-gap: 12.5px;
+  font-weight: 600;
+  font-size: 0.8rem;;
+  span:first-child {
+    margin-left: 10px;
+  }
+  span:last-child {
+    white-space: normal;
+  }
+}
+
+:host-context([dir='rtl']) {
+  .drop-header {
+    span:first-child {
+      margin-right: 10px;
+      margin-left: initial;
+    }
+  }
+}
+
+.login-validation{
+  width: 100%;
+    font-size: 99%;
+    color: #ff0018;
+    padding: 0px 25px 10px 25px;
+    text-align: center;
+}
+
+.roundcheck label {
+  background-color: #fff;
+  border: 1px solid rgb(0 0 0);
+  border-radius: 2px;
+  cursor: pointer;
+  height: 19px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 19px;
+  transform: rotate(0deg) !important;
+}
+
+.roundcheck label:after {
+  border: 0.2rem solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 8px;
+  left: 2px !important;
+  opacity: 0;
+  position: absolute;
+  top: 3px !important;
+  transform: rotate(319deg) !important;  width: 12px;
+
+}
+
+.roundcheck input[type='checkbox'] {
+  visibility: hidden;
+}
+
+.roundcheck input[type='checkbox']:checked + label {
+  background-color:var(--hayya-primary);
+  border-color: var(--hayya-primary);
+}
+
+.purple{
+  color: #550065 !important;
+}
+
+.otp-div{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.timer{
+
+color:#FF004C;
+font-weight: 500;
+}
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #00000054 !important;
+}
+
+::ng-deep .terminal-select ng-dropdown-panel {
+  border: 1px solid var(--hayya-primary);
+  .ng-dropdown-header{
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+  }
+}

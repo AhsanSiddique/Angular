@@ -1,0 +1,103 @@
+<div class="row" style="row-gap: 1rem;">
+  <!-- Applicant Category -->
+  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <fan-id-readonly-input
+      label="Applicant Category"
+      id="user_category"
+      [value]="applicant_data?.user_category ?? 'NA'"
+      placeholder="Applicant Category"
+    ></fan-id-readonly-input>
+  </div>
+  <!-- Job Title -->
+  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <fan-id-readonly-input
+      label="Job Title"
+      id="profession_Name"
+      [value]="applicant_data?.profession_Name ?? 'NA'"
+      placeholder="Job Title"
+    ></fan-id-readonly-input>
+  </div>
+  <ng-container *ngIf="{ data: accreditationData$ | async } as vm">
+    <!-- Job Title English -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Job Title English"
+        id="jobTitleEn"
+        [value]="vm.data?.otherProfession ?? 'NA'"
+        placeholder="Job Title English"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Job Title Arabic -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Job Title Arabic"
+        id="jobTitleAr"
+        [value]="vm.data?.otherProfessionAR ?? 'NA'"
+        placeholder="Job Title Arabic"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Organization -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Organization"
+        id="organization"
+        [value]="vm.data?.organizations ?? 'NA'"
+        placeholder="Organization"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Organization Name English -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Organization Name English"
+        id="organizationNameEn"
+        [value]="vm.data?.organizationEnName ?? 'NA'"
+        placeholder="Organization Name English"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Organization Name Arabic -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Organization Name Arabic"
+        id="organizationNameAr"
+        [value]="vm.data?.organizationArName ?? 'NA'"
+        placeholder="Organization Name Arabic"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Zone -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Zone"
+        id="zone"
+        [value]="vm.data?.zones ?? 'NA'"
+        placeholder="Zone"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Belonging -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Belonging"
+        id="belonging"
+        [value]="vm.data?.belongings ?? 'NA'"
+        placeholder="Belonging"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Venue -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Venue"
+        id="venue"
+        [value]="vm.data?.venues ?? 'NA'"
+        placeholder="Venue"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Representing Country -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Representing Country"
+        id="representing_country"
+        [value]="applicant_data?.representingCountryCode_Name ?? 'NA'"
+        placeholder="Representing Country"
+      ></fan-id-readonly-input>
+    </div>
+  </ng-container>
+</div>

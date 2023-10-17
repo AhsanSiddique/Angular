@@ -1,0 +1,169 @@
+<div class="all-applications-export container-fluid">
+  <form class="form-row" [formGroup]="exportForm">
+    <!-- Application Start Date -->
+    <div class="col-6 my-2">
+      <label for="applicationDateBegin">
+        {{ translateKey + '.StartDate' | translate }}
+      </label>
+      <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+        <input type="search" formControlName="applicationDateBegin" name="applicationDateBegin"
+          [placeholder]="translateKey + '.StartDate' | translate" id="applicationDateBegin" ngbDatepicker #d="ngbDatepicker"
+          class="w-100 form-control" [class.is-invalid]="
+            ef.applicationDateBegin.touched && ef.applicationDateBegin.invalid
+          " (click)="d.toggle()"
+          autocomplete="off"
+          [minDate]="{ day: 1, month: 3, year: 2022 }"
+          [maxDate]="dateToday"
+        />
+        <svg (click)="d.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-calendar d-block d-sm-block"
+        >
+          <path
+            d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+            fill="#00CFB7" />
+        </svg>
+      </div>
+      <fan-id-form-field-error [field_control]="ef.applicationDateBegin"></fan-id-form-field-error>
+    </div>
+    <!-- Application End Date -->
+    <div class="col-6 my-2">
+      <label for="applicationDateEnd">
+        {{ translateKey + '.EndDate' | translate }}
+      </label>
+      <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+        <input type="search" formControlName="applicationDateEnd" name="applicationDateEnd"
+          [placeholder]="translateKey + '.EndDate' | translate" id="applicationDateEnd"
+          ngbDatepicker #ed="ngbDatepicker"
+          class="w-100 form-control" [class.is-invalid]="
+            ef.applicationDateEnd.touched && ef.applicationDateEnd.invalid
+          "
+          [class.is-disabled]="!ef.applicationDateBegin.value"
+          autocomplete="off"
+          (click)="ed.toggle()"
+          [minDate]="ef.applicationDateBegin.value"
+          [maxDate]="dateToday"
+        />
+        <svg [class.is-disabled]="!ef.applicationDateBegin.value" (click)="ed.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-calendar d-block d-sm-block"
+        >
+          <path
+            d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+            fill="#00CFB7" />
+        </svg>
+      </div>
+      <fan-id-form-field-error [field_control]="ef.applicationDateEnd"></fan-id-form-field-error>
+    </div>
+    <!-- Application Status -->
+    <div class="col-6 my-2">
+      <label for="applicationStatus">{{
+        translateKey + '.ApplicationStatus' | translate
+        }}</label>
+
+      <ng-select [items]="ApplicationStatusNameList" bindLabel="name" bindValue="value"
+        [virtualScroll]="true" [clearable]="false"
+        [placeholder]="translateKey + '.SelectApplicationStatus' | translate"
+        formControlName="applicationStatus" class="form-control"
+        [ngClass]="{
+          'is-invalid': ef.applicationStatus.touched && ef.applicationStatus.invalid
+        }" labelForId="applicationStatus" aria-describedby="applicationStatus"></ng-select>
+      <div class="invalid-feedback" *ngIf="ef.applicationStatus.touched && ef.applicationStatus.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+    <ng-container *ngIf="isServiceCenter">
+      <!-- Data Error Code -->
+      <div class="col-6 my-2">
+        <label for="moiErrorCode">Data Error Code</label>
+        <input type="text" class="form-control" formControlName="moiErrorCode" id="moiErrorCode"
+          placeholder="Data Error Code"
+          [class.is-invalid]="ef.moiErrorCode.touched && ef.moiErrorCode.invalid"
+        />
+        <div class="invalid-feedback" *ngIf="ef.moiErrorCode.touched && ef.moiErrorCode.invalid">
+          {{ 'Common.EnterTheDetails' | translate }}
+        </div>
+      </div>
+      <!-- Nationality -->
+      <div class="col-6 my-2">
+        <label for="nationality">Nationality</label>
+        <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+          style="background-color: white !important;"
+          placeholder="Nationality"
+          formControlName="inAnyNationalityCodes" class="form-control"
+          labelForId="nationality" aria-describedby="nationality"
+          dropdownPosition="top"
+        >
+          <ng-option value="_ALL">
+            <span>All</span>
+          </ng-option>
+          <ng-option *ngFor="let country of nationalityList$ | async" [value]="country.code">
+            <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+            <span class="mx-1">{{ country.name }}</span>
+          </ng-option>
+        </ng-select>
+      </div>
+      <!-- Hayya Visit Category -->
+      <div class="col-6 my-2">
+        <div class="form-group">
+          <label for="hayyaVisitCategory">Hayya Visit Category</label>
+          <ng-select [virtualScroll]="true" [clearable]="true" [searchable]="true"
+            style="background-color: white !important;"
+            placeholder="Hayya Visit Category"
+            formControlName="inAnyCustomerCategoryCodes" class="form-control"
+            labelForId="hayyaVisitCategory" aria-describedby="hayyaVisitCategory"
+            dropdownPosition="top"
+          >
+            <ng-option value="_ALL"><span>All</span></ng-option>
+            <ng-option *ngFor="let category of hayyaVisitCategoryList$ | async" [value]="category.value">
+              {{ category.name }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+    </ng-container>
+    <!-- <div class="col-6 my-2" *ngIf="isServiceCenter">
+      <label for="cardStatus">{{
+        translateKey + '.FanIDCardStatus' | translate
+        }}</label>
+
+      <ng-select [items]="cardStatusList" bindLabel="name" bindValue="value"
+        [virtualScroll]="true" [clearable]="false"
+        [placeholder]="translateKey + '.SelectFanIDCardStatus' | translate"
+        formControlName="cardStatus" class="form-control"
+        [ngClass]="{
+          'is-invalid': ef.cardStatus.touched && ef.cardStatus.invalid
+        }" labelForId="cardStatus" aria-describedby="cardStatus"></ng-select>
+      <div class="invalid-feedback" *ngIf="ef.cardStatus.touched && ef.cardStatus.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div> -->
+    <div class="col-6 my-2" *ngIf="!isServiceCenter">
+      <label for="organization_name">{{
+        translateKey + '.Organization' | translate
+        }}</label>
+
+      <ng-select [items]="organizationList" bindLabel="name" bindValue="id"
+        [virtualScroll]="true" [clearable]="false"
+        [placeholder]="translateKey + '.SelectOrganization' | translate"
+        formControlName="inAnyRefOrganization_Id" class="form-control"
+        [ngClass]="{
+          'is-invalid': ef.inAnyRefOrganization_Id.touched && ef.inAnyRefOrganization_Id.invalid
+        }" labelForId="organization_name" aria-describedby="organization_name"></ng-select>
+      <div class="invalid-feedback" *ngIf="ef.inAnyRefOrganization_Id.touched && ef.inAnyRefOrganization_Id.invalid">
+        {{ 'Common.EnterTheDetails' | translate }}
+      </div>
+    </div>
+  </form>
+  <div class="row all-applications-export-actions" style="gap:1rem;">
+    <button type="button" class="btn btn-secondary"
+    (click)="closeThis.emit('close')"
+    >
+    <span>{{ 'Common.Close' | translate }}</span>
+  </button>
+  <button type="submit" class="btn btn-primary"
+    (click)="generateExcel()"
+    [disabled]="exportForm.invalid"
+  >
+    <span>{{ 'Common.Download' | translate }}</span>
+  </button>
+  </div>
+</div>

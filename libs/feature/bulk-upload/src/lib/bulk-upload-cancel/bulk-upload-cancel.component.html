@@ -1,0 +1,15 @@
+<fan-id-modal-wrapper [title]="(type === 'cancel' ? 'Common.SaveExit':'Common.Alert') | translate" (closeThis)="cancel()">
+  <div class="cancel-modal-body">
+    <p *ngIf="message===''">{{ (type === 'cancel' ? 'Common.SaveExitExcel' : 'Common.BulkUploadExitMessage') | translate }}</p>
+    <p *ngIf="message==='' && type !== 'cancel'">{{ 'Common.DoProceed' | translate }}</p>
+    <p *ngIf="message!==''">{{message | translate}}</p>
+    <div class="cancel-btn-group">
+      <button type="button" class="btn btn-primary btn-caret-8" (click)="proceed()">
+        {{ 'Common.YesProceed' | translate }}
+      </button>
+      <button type="button" class="btn btn-secondary mr-2" (click)="cancel()">
+        <span>{{ 'Common.Cancel' | translate }}</span>
+      </button>
+    </div>
+  </div>
+</fan-id-modal-wrapper>

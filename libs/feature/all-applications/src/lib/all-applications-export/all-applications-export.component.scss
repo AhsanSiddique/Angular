@@ -1,0 +1,51 @@
+.all-applications-export {
+  padding: 1rem;
+  .form-row > div {
+    width: 200px;
+    padding: 0 10px;
+  }
+  &-actions {
+    justify-content: center;
+    margin-top: 2rem;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      width: 160px;
+    }
+  }
+}
+
+.date-inner-addon {
+  position: relative;
+}
+
+/* style icon */
+.date-inner-addon .bi {
+  position: absolute;
+}
+
+/* align icon */
+.date-right-addon .bi {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  bottom: 0px;
+  cursor: pointer !important;
+}
+
+/* add padding  */
+.date-right-addon input {
+  padding-right: 30px;
+}
+
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+
+.is-disabled {
+  pointer-events: none;
+}

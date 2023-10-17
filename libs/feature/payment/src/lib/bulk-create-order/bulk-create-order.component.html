@@ -1,0 +1,56 @@
+<div class="create-order__container">
+    <div class="page-title">
+      <h4>Payment Details</h4>
+    </div>
+  
+    <div class="create-order__content container-fluid">
+      <div class="row">
+        <div class="col-8">
+          <form class="form-row" [formGroup]="createOrderForm">
+            <!-- amount -->
+            <div class="form-group col-6">
+              <label for="amount">Amount</label>
+              <input type="text" class="form-control" id="amount" placeholder="Amount" formControlName="amount" />
+            </div>
+            <!-- payment mode -->
+            <div class="form-group col-6">
+              <label for="paymentMode">Payment Mode</label>
+              <ng-select [virtualScroll]="true" [clearable]="false" placeholder="Payment Mode"
+                formControlName="paymentMode" class="form-control" labelForId="paymentMode"
+                aria-describedby="paymentMode">
+                <ng-option *ngFor="let mode of paymentModeList$ | async" [value]="mode.id">
+  
+                  
+                  {{ mode.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-6">
+              <label for="amount">Total Application </label>
+              <input type="text" class="form-control"  [readonly]="true"  formControlName="totalApplication" value="{{ fanIdObject.totalApplication }}">
+            </div>
+            <div class="form-group col-6">
+              <label for="amount">Bulk Group Name </label>
+              <input type="text" class="form-control"  [readonly]="true" formControlName="bulKGroupName" value="{{ fanIdObject.bulkGroupName }}">
+            </div>
+             
+            <!-- actions -->
+            <div class="w-100 mb-5"></div>
+            <div class="col-12 create-order__actions">
+              <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+              <button class="btn btn-primary" type="button" (click)="proceed()">Proceed</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="payoutFormData.length>0">
+    <!-- CheckOut Form -->
+    <form ngNoForm novalidate [action]="paymentUrl" method="post">
+      <input *ngFor="let formData of payoutFormData;" type="hidden" [id]="formData.key" [name]="formData.key"
+        [value]="formData.value">
+      <input id="checkoutFormBtn" type="submit" style="visibility:hidden;">
+    </form>
+  </div>

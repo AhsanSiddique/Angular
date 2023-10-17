@@ -1,0 +1,50 @@
+.payment-confirm {
+  &__container {
+    padding: 2rem;
+    margin-inline: 35px;
+  }
+
+  &__content {
+    > .row > .col-12 {
+      // background-color: var(--hayya-content-bg);
+      border-radius: 1rem;
+      padding: 4rem 0;
+    }
+  }
+
+  &__status {
+    &-container {
+      display: grid;
+      gap: 2rem;
+      place-content: center;
+      place-items: center;
+      max-width: 400px;
+      text-align: center;
+      margin-inline: auto;
+    }
+
+    &-header {
+      color: var(--hayya-primary);
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    &-message {
+      > span {
+        color: var(--hayya-primary);
+        font-weight: bold;
+      }
+    }
+
+    &-actions {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: flex-end;
+
+      button {
+        width: 140px;
+      }
+    }
+  }
+
+}

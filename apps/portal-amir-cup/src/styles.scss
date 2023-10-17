@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Azer';
+  src:  url('/assets/fonts/29LTAzer-Regular.OTF') format('opentype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Azer';
+  src:  url('/assets/fonts/29LTAzer-Light.OTF') format('opentype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Azer';
+  src:  url('/assets/fonts/29LTAzer-Medium.OTF') format('opentype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Azer';
+  src:  url('/assets/fonts/29LTAzer-Thin.OTF') format('opentype');
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'Azer';
+  src:  url('/assets/fonts/29LTAzer-Bold.OTF') format('opentype');
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'Azer';
+  src:  url('/assets/fonts/29LTAzer-Black.OTF') format('opentype');
+  font-weight: 600;
+}
+@import 'style/amir-cup.scss'; // @import '~bootstrap/scss/bootstrap.scss';

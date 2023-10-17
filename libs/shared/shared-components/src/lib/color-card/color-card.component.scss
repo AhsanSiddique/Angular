@@ -1,0 +1,42 @@
+.color-card-hayya {
+  --color-card-bg-color: var(--hayya-content-bg);
+  --color-card-text-color: #1C1C1C;
+  border-radius: 8px;
+  background: var(--color-card-bg-color);
+  color: var(--color-card-text-color);
+  box-shadow: 0px 3.5px 5.5px 0px rgba(0, 0, 0, 0.02);
+  padding: 20px;
+  display: grid;
+  gap: 20px;
+  cursor: pointer;
+
+  &__header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    &-icon {
+      width: 33px;
+      height: 33px;
+    }
+
+    &-action {
+      width: 33px;
+      height: 33px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background-color: #222;
+    }
+  }
+
+  &__title {
+    line-height: 34px;
+    word-spacing: 100vw;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+  }
+}

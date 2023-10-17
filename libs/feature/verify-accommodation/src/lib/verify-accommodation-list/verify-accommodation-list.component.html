@@ -1,0 +1,763 @@
+<div class="bulk-groups">
+    <div class="page-title pt-4 pb-4">
+      <h4 class="w-100 mb-0">Verify Accommodations</h4>
+      <div class="list-applications-actions">
+        <button
+          type="button"
+          data-toggle="modal"
+          [disabled]="normalFilterBoolean"
+          #toggleAdvFilter
+          data-target="#advFilterModal"
+          class="btn btn-sm btn-secondary btn-alt"
+        >
+          <span
+            ><i
+              class="fa fa-filter"
+              [ngStyle]="{ color: advancedFilterBoolean ? 'var(--hayya-accent)' : '' }"
+              aria-hidden="true"
+            ></i
+          ></span>
+          <span class="pl-2 pr-2">{{ 'Filter' | translate }}</span>
+        </button>
+        <button
+          class="btn btn-sm btn-secondary btn-alt"
+          (click)="clearFilter()"
+        >
+          <span class="text-hide"
+            ><i class="fa fa-refresh-new" aria-hidden="true"></i
+          ></span>
+          <span>{{ 'AllApplicantsList.Refresh' | translate }}</span>
+        </button>
+
+        <!-- <button
+            *ngIf="(isServiceCenter || (!isServiceCenter && isUserAgent)) && (allPermission || exportPermission?.value?.read)  "
+            class="btn btn-sm btn-primary btn-caret-8"
+            (click) = "showExportModal()"
+          >
+            <span>{{ 'Common.Export' | translate }}</span>
+          </button> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="bulk-group-filter" style="border: 0 !important">
+          <form [formGroup]="verifyApplicationForm" (ngSubmit)="filterColumn()">
+            <div class="row">
+              <div class="form-group col-lg-3">
+                <label for="eventName">{{
+                  'AllApplicantsList.EventName' | translate
+                }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="eventname"
+                  aria-describedby="eventname"
+                  placeholder="eventName"
+                  readonly
+                  [value]="displayEventName"
+                />
+              </div>
+              <div class="form-group col-lg-3">
+                <div class="row">
+                  <div class="col-lg-9">
+                    <label class="control-label">{{
+                      'AllApplicantsList.SelectColumn' | translate
+                    }}</label>
+                  </div>
+                  <div class="col-lg-3" *ngIf="clearButton()">
+                    <button
+                      type="button"
+                      class="btn btn-sm float-end float-right rounded-pill"
+                      style="color: #550065; padding: 0rem 0.5rem !important"
+                      (click)="clearFilter()"
+                    >
+                      {{ 'AllApplicantsList.Clear' | translate }}
+                    </button>
+                  </div>
+                </div>
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  bindLabel="name"
+                  bindValue="id"
+                  placeholder="{{ 'AllApplicantsList.SelectColumn' | translate }}"
+                  formControlName="columnName"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      verifyApplicationForm.get('columnName')?.touched &&
+                      verifyApplicationForm.get('columnName')?.invalid
+                  }"
+                  labelForId="columnName"
+                  aria-describedby="columnName"
+                  [readonly]="advancedFilterBoolean"
+                  (change)="changeColumn()"
+                >
+                  <ng-option *ngFor="let column of columns" [value]="column.id">
+                    {{ column.name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div
+                class="form-group col-lg-3"
+                *ngIf="selectedSearchColumnType === 1"
+              >
+                <label class="control-label">{{
+                  'AllApplicantsList.EnterText' | translate
+                }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{
+                    'AllApplicantsList.Enterthetextyouwant' | translate
+                  }}"
+                  formControlName="filterTxt"
+                  [readonly]="advancedFilterBoolean"
+                />
+              </div>
+              <div
+                class="form-group col-lg-3"
+                *ngIf="selectedSearchColumnType === 2"
+              >
+                <label class="control-label">Select Date</label>
+                <div
+                  class="date-inner-addon date-right-addon"
+                  data-date-format="mm-dd-yyyy"
+                >
+                  <input
+                    type="search"
+                    formControlName="filterTxt"
+                    name="filterTxt"
+                    placeholder="Select Date"
+                    id="filterTxt"
+                    ngbDatepicker
+                    #dt="ngbDatepicker"
+                    class="w-100 form-control"
+                    (click)="dt.toggle()"
+                    [readonly]="advancedFilterBoolean"
+                    [maxDate]="dateToday"
+                  />
+                  <svg
+                    (click)="dt.toggle()"
+                    width="18"
+                    height="21"
+                    viewBox="0 0 18 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bi bi-calendar d-block d-sm-block"
+                  >
+                    <path
+                      d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                      fill="#00CFB7"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="form-group col-lg-3"
+                *ngIf="selectedSearchColumnType === 3"
+              >
+                <label class="control-label">Select Type</label>
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  placeholder="Select Type"
+                  formControlName="filterTxt"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      verifyApplicationForm.get('filterTxt').touched &&
+                      verifyApplicationForm.get('filterTxt').invalid
+                  }"
+                  labelForId="filterTxt"
+                  aria-describedby="filterTxt"
+                  [readonly]="advancedFilterBoolean"
+                >
+                  <ng-option
+                    *ngFor="let item of searchSelectItems$ | async"
+                    [value]="item.value"
+                  >
+                    {{ item.name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div
+                class="form-group mb-0 col-lg-3 flex-column"
+                [ngClass]="isRTLLayout ? 'text-left pr-0' : 'text-right'"
+              >
+                <label
+                  class="control-label"
+                  style="visibility: hidden"
+                  aria-hidden="true"
+                  >placeholder</label
+                >
+                <button
+                  [disabled]="
+                    verifyApplicationForm.invalid ||
+                    spacetext() ||
+                    advancedFilterBoolean
+                  "
+                  class="btn btn-sm btn-primary btn-caret-8 fltrSchbtn ml-auto"
+                >
+                  {{ 'AllApplicantsList.Search' | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="registration-details mt-4">
+          <div class="fan-card">
+            <div class="table-responsive" *ngIf="dtOptions">
+              <table
+                datatable
+                [dtOptions]="dtOptions"
+                [dtTrigger]="dtTrigger"
+                id="verifyAccommodationdatatable"
+                class="row-border fan-id-datatable"
+                aria-describedby="allAppsList"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      {{ 'AllApplicantsList.Action' | translate }}
+                    </th>
+                    <th scope="col">
+                      Date of Submission
+                    </th>
+                    <th scope="col">
+                      {{ 'AllApplicantsList.ApplicationNumber' | translate }}
+                    </th>
+                    <th scope="col">
+                      Entry Reference Number
+                    </th>
+                    <th scope="col">
+                      {{ 'AllApplicantsList.ApplicationStatus' | translate }}
+                    </th>
+                    <th scope="col">
+                      Hayya Number
+                    </th>
+                    <th scope="col">
+                      {{ 'AllApplicantsList.FirstName' | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ 'AllApplicantsList.LastName' | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ 'AllApplicantsList.DocumentType' | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ 'AllApplicantsList.DocumentNumber' | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ 'AllApplicantsList.Nationality' | translate }}
+                    </th>
+                    <th scope="col">Accommodation Name</th>
+                    <th scope="col">Accommodation Category</th>
+                    <th scope="col">Accommodation Start Date</th>
+                    <th scope="col">Accommodation End Date</th>
+                    <th scope="col">Country of Departure</th>
+                  </tr>
+                </thead>
+                <tbody [class.d-none]="!filteredAppdata?.length">
+                  <ng-container *ngIf="filteredAppdata">
+                    <tr *ngFor="let data of filteredAppdata">
+                      <td>
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            {{ 'AllApplicantsList.Action' | translate }}
+                          </button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <a
+                              class="dropdown-item"
+                              (click)="verifyApplication(data)"
+                              >Verify Accommodation</a
+                            >
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        {{ data?.dateOfSubmitted ? (data?.dateOfSubmitted + 'Z' | date: 'dd-MM-yyyy') : ''}}
+                      </td>
+                      <td>{{ data?.applicationNo }}</td>
+                      <td>{{ data?.fanIdNo }}</td>
+                      <td>
+                        <div
+                          class="p-1 status-tag"
+                          [ngClass]="{
+                            'status-approved': data?.applicationStatus === 2,
+                            'status-rejected': data?.applicationStatus === 3,
+                            'status-under-review': [1, 9,12].includes(
+                              data?.applicationStatus
+                            ),
+                            'status-more-info': [4, 5,13].includes(
+                              data?.applicationStatus
+                            ),
+                            'status-draft': data?.applicationStatus === 0,
+                            'status-cancelled': data?.applicationStatus === 6,
+                            'status-cn-approved': data?.applicationStatus === 7,
+                            'status-pending-payment': data?.applicationStatus === 10,
+                          'status-pending-ticket-verification': data?.applicationStatus === 11,
+                          'status-cancelled': data?.applicationStatus === 14
+
+                          }"
+                        >
+                          {{ data?.applicationStatus_Name | setApplicationStatus : data?.applicationStatus }}
+                        </div>
+                      </td>
+                      <td>{{ data?.hayyaNo }}</td>
+                      <td>{{ data?.firstName }}</td>
+                      <td>{{ data?.lastName }}</td>
+                      <td>{{ data?.docType_Name }}</td>
+                      <td>{{ data?.documentIdNo }}</td>
+                      <td>{{ data?.nationality_Name }}</td>
+                      <td>{{ data?.accommodationName }}</td>
+                      <td>{{ data?.otherAccommodationCategory_Name }}</td>
+                      <td>{{ data?.accommodationStartDate ? (data?.accommodationStartDate + 'Z' | date: 'dd-MM-yyyy') : ''}}</td>
+                      <td>{{ data?.accommodationEndDate ? (data?.accommodationEndDate + 'Z' | date: 'dd-MM-yyyy') : ''}}</td>
+                      <td>{{ data?.departureCountry_Name }}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+                <tfoot [hidden]="filteredAppdata?.length">
+                  <tr>
+                    <td
+                      colspan="10"
+                      style="border: none !important"
+                      class="text-center"
+                    >
+                      No Data
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+              <fan-id-dt-goto
+                *ngIf="filteredAppdata"
+                class="goto-page"
+                (_go)="gotoPage($event)"
+              ></fan-id-dt-goto>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal popup right fade p-0"
+    id="advFilterModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="advFilterModal"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header pl-0 pr-0">
+          <h5 class="modal-title">Advanced Filters</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">
+              <img src="/assets/icons/closeNew.svg" alt="close icon" />
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" [formGroup]="verifyApplicationForm">
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>Entry Reference Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  style="background-color: white !important"
+                  placeholder="Entry Reference Number"
+                  formControlName="fidno"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>Hayya Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  style="background-color: white !important"
+                  placeholder="Hayya Number"
+                  formControlName="hayyaNo"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>{{
+                  'AllApplicantsList.ApplicationNumber' | translate
+                }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{
+                    'AllApplicantsList.ApplicationNumber' | translate
+                  }}"
+                  formControlName="appsno"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>{{
+                  'AllApplicantsList.DocumentNumber' | translate
+                }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{
+                    'AllApplicantsList.DocumentNumber' | translate
+                  }}"
+                  formControlName="docno"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>{{ 'AllApplicantsList.FirstName' | translate }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ 'AllApplicantsList.FirstName' | translate }}"
+                  formControlName="fname"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>{{ 'AllApplicantsList.LastName' | translate }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ 'AllApplicantsList.LastName' | translate }}"
+                  formControlName="lname"
+                />
+              </div>
+            </div>
+           <!-- <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>{{
+                  'AllApplicantsList.FanIDCardStatus' | translate
+                }}</label>
+                <ng-select
+                  [virtualScroll]="true"
+                  [clearable]="true"
+                  [searchable]="true"
+                  style="background-color: white !important"
+                  [placeholder]="'AllApplicantsList.FanIDCardStatus' | translate"
+                  formControlName="fidstat"
+                  class="form-control"
+                  labelForId="fidstat"
+                  aria-describedby="fidstat"
+                >
+                  <ng-option
+                    *ngFor="let cardstat of cardStatusList"
+                    [value]="cardstat.value"
+                  >
+                    {{ cardstat.translation }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div> -->
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>{{ 'AllApplicantsList.Nationality' | translate }}</label>
+                <ng-select
+                  [virtualScroll]="true"
+                  [clearable]="true"
+                  [searchable]="true"
+                  style="background-color: white !important"
+                  [placeholder]="'AllApplicantsList.Nationality' | translate"
+                  formControlName="nat"
+                  class="form-control"
+                  labelForId="nat"
+                  aria-describedby="nat"
+                >
+                  <ng-option
+                    *ngFor="let country of countries | async"
+                    [value]="country.code"
+                  >
+                    <span
+                      class="flag-icon flag-icon-{{ country.code | lowercase }}"
+                    ></span>
+                    <span class="mx-1">
+                      {{ country.name }}
+                    </span>
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>{{
+                  'AllApplicantsList.ApplicationDate' | translate
+                }}</label>
+                <div
+                  class="date-inner-addon date-right-addon"
+                  data-date-format="mm-dd-yyyy"
+                >
+                  <input
+                    type="search"
+                    formControlName="appdate"
+                    name="appdate"
+                    [placeholder]="
+                      'AllApplicantsList.ApplicationDate' | translate
+                    "
+                    id="applicationDateBegin"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                    class="w-100 form-control"
+                    (click)="d.toggle()"
+                    [maxDate]="dateToday"
+                  />
+                  <svg
+                    (click)="d.toggle()"
+                    width="18"
+                    height="21"
+                    viewBox="0 0 18 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bi bi-calendar d-block d-sm-block"
+                  >
+                    <path
+                      d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                      fill="#00CFB7"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>{{ 'AllApplicantsList.DocumentType' | translate }}</label>
+                <ng-select
+                  [virtualScroll]="true"
+                  [clearable]="true"
+                  [searchable]="true"
+                  style="background-color: white !important"
+                  [placeholder]="'AllApplicantsList.DocumentType' | translate"
+                  formControlName="doctype"
+                  class="form-control"
+                  labelForId="doctype"
+                  aria-describedby="doctype"
+                  dropdownPosition="top"
+                >
+                  <ng-option
+                    *ngFor="let doc of DocTypeList | async"
+                    [value]="doc.id"
+                  >
+                    {{ doc.name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>Application Status</label>
+                <ng-select
+                  [virtualScroll]="true"
+                  [clearable]="true"
+                  [searchable]="true"
+                  style="background-color: white !important"
+                  placeholder="Application Status"
+                  formControlName="appstat"
+                  class="form-control"
+                  labelForId="appstat"
+                  aria-describedby="appstat"
+                  [items]="(applicationStatusList$ | async)!"
+                  bindLabel="name"
+                  bindValue="value"
+                ></ng-select>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>Accommodation Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Accommodation Name"
+                  formControlName="accommodationName"
+                />
+              </div>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>Accommodation Category</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Accommodation Category"
+                  formControlName="otherAccommodationCategory_Name"
+                />
+              </div>
+            </div> -->
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>Accommodation Start Date</label>
+                <div
+                  class="date-inner-addon date-right-addon"
+                  data-date-format="mm-dd-yyyy"
+                >
+                  <input
+                    type="search"
+                    formControlName="accommodationStartDate"
+                    name="accommodationStartDate"
+                    placeholder="Accommodation Start Date"
+                    id="accommodationStartDate"
+                    ngbDatepicker
+                    #asd="ngbDatepicker"
+                    class="w-100 form-control"
+                    (click)="asd.toggle()"
+                  />
+                  <svg
+                    (click)="asd.toggle()"
+                    width="18"
+                    height="21"
+                    viewBox="0 0 18 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bi bi-calendar d-block d-sm-block"
+                  >
+                    <path
+                      d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                      fill="#00CFB7"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label [class.is-disabled]="!verifyApplicationForm.get('accommodationStartDate')?.value">
+                  Accommodation End Date
+                </label>
+                <div
+                  class="date-inner-addon date-right-addon"
+                  data-date-format="mm-dd-yyyy"
+                >
+                  <input
+                    type="search"
+                    formControlName="accommodationEndDate"
+                    name="accommodationEndDate"
+                    placeholder="Accommodation End Date"
+                    id="accommodationEndDate"
+                    [class.is-disabled]="!verifyApplicationForm.get('accommodationStartDate')?.value"
+                    ngbDatepicker
+                    #aed="ngbDatepicker"
+                    class="w-100 form-control"
+                    (click)="aed.toggle()"
+                    [minDate]="verifyApplicationForm.get('accommodationStartDate')?.value"
+                  />
+                  <svg
+                    (click)="aed.toggle()"
+                    width="18"
+                    height="21"
+                    viewBox="0 0 18 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bi bi-calendar d-block d-sm-block"
+                  >
+                    <path
+                      d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                      fill="#00CFB7"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>Country of Departure</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Country of Departure"
+                  formControlName="departureCountry_Name"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-ms-12">
+              <div class="form-group">
+                <label>Date of Submission</label>
+                <div
+                  class="date-inner-addon date-right-addon"
+                  data-date-format="mm-dd-yyyy"
+                >
+                  <input
+                    type="search"
+                    formControlName="dateOfSubmitted"
+                    name="dateOfSubmitted"
+                    placeholder="Date of Submission"
+                    id="dateOfSubmitted"
+                    ngbDatepicker
+                    #bad="ngbDatepicker"
+                    class="w-100 form-control"
+                    (click)="bad.toggle()"
+                    [maxDate]="dateToday"
+                  />
+                  <svg
+                    (click)="bad.toggle()"
+                    width="18"
+                    height="21"
+                    viewBox="0 0 18 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bi bi-calendar d-block d-sm-block"
+                  >
+                    <path
+                      d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+                      fill="#00CFB7"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary m-2"
+            style="width: 140px;"
+            data-dismiss="modal"
+            (click)="onClearFilter()"
+          >
+            <span>{{ 'AllApplicantsList.Clear' | translate }}</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary btn-caret-8 m-2"
+            style="width: 140px;"
+            data-dismiss="modal"
+            (click)="advancedSearch()"
+          >
+            <span>Apply</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

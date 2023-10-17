@@ -1,0 +1,33 @@
+<div class="preferred-collection-details">
+  <div class="row">
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="country_birth" class="disabled-label">
+        Country of Birth
+      </label>
+      <div id="country_birth" class="form-control disabled-text d-flex align-items-center">
+        <span class="flag-icon flag-icon-{{ applicant_data?.placeOfBirth | lowercase }}"></span>
+        <span class="mx-1"> {{ applicant_data?.placeOfBirth_Name }} </span>
+      </div>
+    </div>
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <label for="country_residence" class="disabled-label">
+        Country of Residence
+      </label>
+      <div id="country_residence" class="form-control disabled-text d-flex align-items-center">
+        <span class="flag-icon flag-icon-{{ applicant_data?.currentResidentCountryCode | lowercase }}"></span>
+        <span class="mx-1"> {{ applicant_data?.currentResidentCountry_Name }} </span>
+      </div>
+    </div>
+    <ng-container *ngIf="applicant_data?.channel !== 16 || (applicant_data?.channel === 16 && applicant_data?.previousNationality_Name)">
+      <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+        <label for="previous_nationality" class="disabled-label">
+          Previous Nationality
+        </label>
+        <div id="previous_nationality" class="form-control disabled-text d-flex align-items-center">
+          <span class="flag-icon flag-icon-{{ applicant_data?.previousNationality_Code | lowercase }}"></span>
+          <span class="mx-1"> {{ applicant_data?.previousNationality_Name }} </span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

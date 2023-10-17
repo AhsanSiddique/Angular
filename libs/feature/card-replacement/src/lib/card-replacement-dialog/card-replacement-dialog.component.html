@@ -1,0 +1,103 @@
+<div class="loader">
+  <div
+    class="loader-content"
+    [style.height]="reasonField() ? '390px' : '340px'"
+  >
+    <div class="submitPane">
+      <form [formGroup]="cardReplacementForm" (ngSubmit)="submit()">
+        <div class="paneHeader">
+          <h4 class="font-20 text-center">
+            {{ 'CardReplacement.CardReplacement' | translate }}
+          </h4>
+        </div>
+        <div
+          class="card-replacement-paneBody"
+          [style.height]="reasonField() ? '220px' : '180px'"
+        >
+          <div class="row col-lg-12" style="margin:0">
+            <div class="form-group">
+              <label class="control-label">{{
+                'CardReplacement.ChooseTheReason' | translate
+              }}</label>
+              <div class="radio-group">
+                <div
+                  class="radio-btn"
+                  *ngFor="let reason of REASONS; index as i"
+                >
+                  <input
+                    type="radio"
+                    class="d-none"
+                    formControlName="selectedReason"
+                    id="reason-{{ i + 1 }}"
+                    [value]="reason.label"
+                    (change)="onSelect()"
+                  />
+                  <label
+                    for="reason-{{ i + 1 }}"
+                    [ngClass]="reasonPadding(reason.label)"
+                  >
+                    <span class="radio">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14.425"
+                        height="10.954"
+                        viewBox="0 0 14.425 10.954"
+                      >
+                        <path
+                          d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                          transform="translate(-11.104 -18.854)"
+                        />
+                      </svg>
+                    </span>
+                    <span>
+                      {{
+                        'ApplicantListAction.' + (reason.label | removewhitespace)
+                          | translate
+                      }}
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="reasonField()" style="margin: 0">
+            <div class="form-group col-lg-12">
+              <label class="control-label">{{
+                'CardReplacement.Enterthereason' | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                style="width: 97% !important"
+                placeholder="{{ 'CardReplacement.Enterthereason' | translate }}"
+                formControlName="reason"
+                [ngClass]="{
+                  'is-invalid':
+                    cardReplacementForm.get('reason').touched &&
+                    cardReplacementForm.get('reason').invalid
+                }"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="paneFooter">
+          <button
+            class="btn btn-primary btn-sm btn-failed"
+            style="margin: 0 12.5px"
+            [disabled]="cardReplacementForm.invalid"
+          >
+            {{ 'CardReplacement.Submit' | translate }}
+          </button>
+          <button
+          style="margin: 0 12.5px"
+            class="btn btn-sm btn-light btn-canceled"
+            (click)="closeThis.emit()"
+          >
+            {{ 'CardReplacement.Close' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>

@@ -1,0 +1,95 @@
+button.view-history {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  gap: 0.25rem;
+  width: fit-content;
+}
+
+.entrypermit-history-container {
+  max-height: 500px;
+  // overflow-y: auto;
+  // overflow-x: hidden;
+  padding: 0.25rem 1rem;
+}
+
+.tableSroll{
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  // padding: 0.25rem 1rem;
+}
+
+#entrypermit-history-table {
+  // margin-inline: -1rem;
+  // margin-top: -1rem;
+  margin-bottom: 2rem;
+}
+
+.fan-id-datatable {
+  min-height: unset;
+  min-width: 560px;
+
+  td {
+    padding: 20px 15px !important;
+  }
+}
+
+.status-tag {
+  min-width: 100px;
+}
+
+.roundcheck {
+  font-size: 12px;
+  // display: flex;
+  // label {
+  //   // border-width: 2px;
+  //   &:after {
+  //     left: 2px;
+  //     top: 4px;
+  //     height: 4px;
+  //   }
+  // }
+
+  input[type='checkbox']:checked {
+    ~ .roundcheckLabel {
+      color: #081c3b;
+      padding: 0px 10px;
+    }
+  }
+  .roundcheckLabel {
+    color: #999fa8;
+    padding: 0px 10px;
+  }
+}
+
+.view-document-btn {
+  color: #6a7bff !important;
+  text-decoration: none;
+  outline: none;
+  box-shadow: none;
+  align-items: center;
+  display: flex;
+  font-size: 0.8rem;
+  padding-left: 0;
+  padding-right: 0;
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    svg {
+      height: 0.8rem;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  border: 5px solid #FCBE0B
+}
+::-webkit-scrollbar-thumb {
+// background: #8A1539;
+}

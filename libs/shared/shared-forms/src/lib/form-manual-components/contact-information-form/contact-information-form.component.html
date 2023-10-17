@@ -1,0 +1,73 @@
+<form autocomplete="off" class="row personal-information align-items-center" [formGroup]="formGroup">
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 fields-combo">
+    <label for="mobile">Mobile Number of Applicant<sup>*</sup></label>
+    <div class="input-group">
+      <ng-select [virtualScroll]="true" [clearable]="false" [items]="(metadata$ | async)?.phonecodes"
+        bindValue="dialingCode" bindLabel="dialingCode"
+        [searchFn]="dialingCodeSearchFn" [searchable]="true"
+        placeholder="e.g(+974)" formControlName="phonecode" class="form-control input-group-prepend" [ngClass]="{
+          'is-invalid': (f.mobile.touched || isExcel) && f.mobile.invalid,
+          'disabled-code': f.phonecode.disabled
+        }" labelForId="phoneCode" aria-describedby="phoneCode"
+      >
+        <ng-template ng-label-tmp let-item="item">
+          <span class="flag-icon flag-icon-{{ item.code | lowercase }}"></span>
+        </ng-template>
+
+        <ng-template ng-option-tmp let-item="item"
+          style="min-width: 150px;"
+        >
+          <span class="flag-icon flag-icon-{{ item.code | lowercase }}"></span>
+          <span class="mx-1"> {{ item.name }} </span>
+          <span class="mx-1"> {{ item.dialingCode }} </span>
+        </ng-template>
+      </ng-select>
+
+      <input type="text" mask="0*" formControlName="mobile" name="mobile"
+        [placeholder]="'Mobile Number'" id="mobile" class="form-control" [ngClass]="{
+          'is-invalid': ((f.mobile.touched || isExcel ) && f.mobile.invalid) ||
+          (formGroup.hasError('invalidContactNumber') && f.mobile.valid),
+          'readonly-input-text': f.mobile.disabled
+        }" />
+      <fan-id-form-field-error [isExcel]="isExcel" [field_control]="f.mobile"></fan-id-form-field-error>
+      <div class="invalid-feedback" style="bottom: -2.25rem;" *ngIf="formGroup.hasError('invalidContactNumber') && f.mobile.valid">
+        {{ 'ErrorMessage.NotSameContact' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 fields-combo">
+    <label for="emergencyPhoneNumber">Emergency Number<sup>*</sup></label>
+    <div class="input-group">
+      <ng-select [virtualScroll]="true" [clearable]="false" [items]="(metadata$ | async)?.phonecodes"
+        bindValue="dialingCode" bindLabel="dialingCode"
+        placeholder="e.g(+974)" formControlName="emergencyPhoneCode" class="form-control input-group-prepend" [ngClass]="{
+          'is-invalid': (f.emergencyPhoneNumber.touched || isExcel) && f.emergencyPhoneNumber.invalid,
+          'disabled-code': f.emergencyPhoneCode.disabled
+        }" labelForId="emergencyPhoneCode" aria-describedby="emergencyPhoneCode"
+      >
+        <ng-template ng-label-tmp let-item="item">
+          <span class="flag-icon flag-icon-{{ item.code | lowercase }}"></span>
+        </ng-template>
+
+        <ng-template ng-option-tmp let-item="item"
+          style="min-width: 150px;"
+        >
+          <span class="flag-icon flag-icon-{{ item.code | lowercase }}"></span>
+          <span class="mx-1"> {{ item.name }} </span>
+          <span class="mx-1"> {{ item.dialingCode }} </span>
+        </ng-template>
+      </ng-select>
+
+      <input type="text" mask="0*" formControlName="emergencyPhoneNumber" name="emergencyPhoneNumber"
+        [placeholder]="'Emergency Number'" id="emergencyPhoneNumber" class="form-control" [ngClass]="{
+          'is-invalid': ((f.emergencyPhoneNumber.touched || isExcel ) && f.emergencyPhoneNumber.invalid) ||
+          (formGroup.hasError('invalidContactNumber') && f.emergencyPhoneNumber.valid),
+          'readonly-input-text': f.emergencyPhoneNumber.disabled
+        }" />
+      <fan-id-form-field-error [isExcel]="isExcel" [field_control]="f.emergencyPhoneNumber"></fan-id-form-field-error>
+      <div class="invalid-feedback" style="bottom: -2.25rem;" *ngIf="formGroup.hasError('invalidContactNumber') && f.emergencyPhoneNumber.valid">
+        {{ 'ErrorMessage.NotSameContact' | translate }}
+      </div>
+    </div>
+  </div>
+</form>

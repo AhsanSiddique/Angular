@@ -1,0 +1,1047 @@
+<div class="dashboard" >
+  <div class="dashboard-statistics">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="user-info" *ngIf="isServiceCenter" [ngStyle]="{'min-height': isServiceCenter ? '385px':'350px'}" >
+            <span class="welcome Qatar2022">{{ 'Dashboard.Welcome' | translate }},</span>
+            <span class="user-name-br custom-name">{{ firstName }}</span>
+            <span class="user-name-br d-flex align-items-center" style="gap: 5px;">
+              <strong style="font-weight: 700 !important;">Terminal Name</strong> : {{ terminal?.code }}
+              <span class="tooltip-custom tooltip-custom__terminal">
+                <svg width="20" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.4956 26.3538C9.40642 22.9942 3.93652 17.8226 0.627203 13.4966C3.93664 9.17707 9.40651 4.00571 13.4956 0.646267C18.1821 4.5091 22.4876 8.81219 26.3531 13.4965C22.4894 18.1845 18.1837 22.4901 13.4956 26.3538Z" stroke="var(--hayya-primary)"/>
+                  <path d="M13.224 9.496C13.976 9.496 14.552 8.952 14.552 8.232C14.552 7.512 13.976 6.968 13.224 6.968C12.488 6.968 11.912 7.512 11.912 8.232C11.912 8.952 12.488 9.496 13.224 9.496ZM12.088 19H14.392V10.632H12.088V19Z" fill="var(--hayya-primary)"/>
+                </svg>
+                <span class="tooltiptext">{{ terminal?.name }}</span>
+              </span>
+            </span>
+            <span class="user-name-br">
+              <strong style="font-weight: 700 !important;">Printer Type</strong> : {{ printer?.printerTypeName ?? 'N/A' }}
+            </span>
+            <span class="user-name-br">
+              <strong style="font-weight: 700 !important;">{{ 'Login.PrinterName' |translate }}</strong> : {{ printer?.printerName ?? 'N/A' }}
+            </span>
+            <!-- <img src="/assets/images/Dashboard-bg.png" alt="Fifa Banner"/> -->
+          </div>
+          <div class="user-info" *ngIf="!isServiceCenter" [ngStyle]="{'min-height': isServiceCenter ? '385px':'350px'}" >
+            <span class="welcome Qatar2022">{{ 'Dashboard.Welcome' | translate }},</span>
+            <span class="user-name-br custom-name"
+              > {{ firstName
+              }}
+
+            </span>
+            <span class="user-name-br"
+            ><b style="font-weight: 700 !important;">Role</b> : {{ accessName
+            }}
+
+          </span>
+            <span class="user-name-br"
+              > <b style="font-weight: 700 !important;">Organization </b>: {{ organizationName
+              }}
+
+            </span>
+
+            <!-- <span *ngIf="isServiceCenter" style="font-weight: 600;">
+              {{'Login.PrinterName' |translate}}: {{printer.printer_Name}}
+            </span> -->
+            <img *ngIf="isServiceCenter" style="height: 115px; padding-left: 135px;" src="/assets/images/Dashboard-bg.png" alt="Fifa Banner"/>
+            <div class="stat-div" *ngIf="!isServiceCenter">
+              <svg style="margin-bottom: 10px;" class="width: 200px;" width="200" height="23" viewBox="0 0 320 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M239.682 11.6214L235.122 7.04058L230.574 11.6214L235.134 16.2022L239.682 11.6214ZM219.602 11.6214L214.514 6.51029L209.426 11.6214L214.514 16.7325L219.602 11.6214ZM259.8 11.6214L255.818 7.61556L251.83 11.6214L255.818 15.6272L259.8 11.6214ZM199.377 11.6214L193.761 5.9736L188.144 11.6214L193.761 17.2628L199.377 11.6214ZM300.251 11.6214L297.256 8.60587L294.253 11.6214L297.256 14.6306L300.251 11.6214ZM280.019 11.6214L276.521 8.10752L273.016 11.6214L276.521 15.1353L280.019 11.6214ZM320 11.6214L317.85 9.46196L315.707 11.6214L317.863 13.7808L320 11.6214ZM25.772 11.6214L22.7699 8.60585L19.7742 11.6214L22.7699 14.6306L25.772 11.6214ZM68.208 11.6214L64.2264 7.61554L60.2385 11.6214L64.2264 15.6272L68.208 11.6214ZM2.18158 13.7808L4.30594 11.6214L2.15616 9.46193L9.94748e-07 11.6214L2.18158 13.7808ZM46.9836 11.6214L43.4854 8.10749L39.9809 11.6214L43.4854 15.1353L46.9836 11.6214ZM110.587 11.6214L105.498 6.51028L100.41 11.6214L105.498 16.7325L110.587 11.6214ZM89.4387 11.6214L84.8784 7.04057L80.318 11.6214L84.8784 16.2022L89.4387 11.6214ZM131.849 11.6214L126.227 5.9736L120.611 11.6214L126.265 17.2947L131.849 11.6214ZM151.897 19.6011L156.642 19.6011L159.975 23L163.326 19.633L168.071 19.633L168.071 14.867L171.423 11.5L168.071 8.13305L168.071 3.36697L163.326 3.36697L159.975 1.2713e-05L156.623 3.36697L151.878 3.36696L151.878 8.13305L148.526 11.5L151.878 14.867L151.897 19.6011Z" fill="#FF004C"/>
+              </svg>
+              <div class="stat-t ">
+                <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0.873291 6.99819C2.5584 4.75017 5.46737 2.01186 7.56287 0.308594C10.0117 2.30942 12.254 4.55046 14.2561 6.99819C12.2549 9.44786 10.0125 11.6902 7.56287 13.6914C5.46737 11.9882 2.5584 9.24985 0.873291 6.99819Z" fill="#00CFB7"/>
+                  </svg>
+
+                  <span class="title-span">Application Count</span>
+                    <span
+                    class="tooltip-custom"
+                    > <svg width="20" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13.4956 26.3538C9.40642 22.9942 3.93652 17.8226 0.627203 13.4966C3.93664 9.17707 9.40651 4.00571 13.4956 0.646267C18.1821 4.5091 22.4876 8.81219 26.3531 13.4965C22.4894 18.1845 18.1837 22.4901 13.4956 26.3538Z" stroke="var(--hayya-primary)"/>
+                      <path d="M13.224 9.496C13.976 9.496 14.552 8.952 14.552 8.232C14.552 7.512 13.976 6.968 13.224 6.968C12.488 6.968 11.912 7.512 11.912 8.232C11.912 8.952 12.488 9.496 13.224 9.496ZM12.088 19H14.392V10.632H12.088V19Z" fill="var(--hayya-primary)"/>
+                      </svg>
+                    <span class="tooltiptext" *ngIf="(count.maxApp === (count.usedApp + count.draftApp)) && (count.draftApp ===0)">
+                      You have reached the permitted limit for application count. Kindly contact  <a style="color:white; text-decoration: underline;" href = "mailto:b2b@hayya.qa">b2b@hayya.qa</a> to upgrade the application submission limit.
+                      <br/>
+                       <br/>
+
+                      Permitted Application Count : {{count.maxApp}}
+                      <br/>
+                      Applications Submitted  :  {{count.usedApp}}
+                    </span>
+                    <span class="tooltiptext" *ngIf="(count.maxApp === (count.usedApp + count.draftApp)) && (count.draftApp !==0)">
+                      You have reached the permitted limit for application count. Kindly clear the drafts to submit further applications.
+                      <br/>
+                      <br/>
+
+                      Permitted Application Count : {{count.maxApp}}
+                      <br/>
+                      Applications Submitted  :  {{count.usedApp}}
+                      <br/>
+                      Records in Draft: {{count.draftApp}}
+                    </span>
+                    <span class="tooltiptext" *ngIf="(count.maxApp !== (count.usedApp + count.draftApp))">
+                      Permitted Application Count : {{count.maxApp}}
+                      <br/>
+                      Applications Submitted  :  {{count.usedApp}}
+                      <br/>
+                      Records in Draft: {{count.draftApp}}
+                    </span>
+
+                  </span>
+              </div>
+              <div class="stat-i ">
+                {{count.usedApp + count.draftApp}}/{{count.maxApp}}
+              </div>
+              <div class="stat-t  mt-3">
+                <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0.873291 6.99819C2.5584 4.75017 5.46737 2.01186 7.56287 0.308594C10.0117 2.30942 12.254 4.55046 14.2561 6.99819C12.2549 9.44786 10.0125 11.6902 7.56287 13.6914C5.46737 11.9882 2.5584 9.24985 0.873291 6.99819Z" fill="#00CFB7"/>
+                  </svg>
+                  <span class="title-span">Voucher Count</span>
+                  <span
+                  class="tooltip-custom" *ngIf="(count.usedVoucher >= count.maxVoucher)  && count.usedVoucher > 0"
+                  > <svg width="20" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.4956 26.3538C9.40642 22.9942 3.93652 17.8226 0.627203 13.4966C3.93664 9.17707 9.40651 4.00571 13.4956 0.646267C18.1821 4.5091 22.4876 8.81219 26.3531 13.4965C22.4894 18.1845 18.1837 22.4901 13.4956 26.3538Z" stroke="var(--hayya-primary)"/>
+                    <path d="M13.224 9.496C13.976 9.496 14.552 8.952 14.552 8.232C14.552 7.512 13.976 6.968 13.224 6.968C12.488 6.968 11.912 7.512 11.912 8.232C11.912 8.952 12.488 9.496 13.224 9.496ZM12.088 19H14.392V10.632H12.088V19Z" fill="var(--hayya-primary)"/>
+                    </svg>
+                  <span class="tooltiptext">
+                    You have reached the permitted limit for voucher generation count. Kindly contact  <a style="color:white; text-decoration: underline;" href = "mailto:b2b@hayya.qa">b2b@hayya.qa</a> to upgrade the voucher limit.
+
+                  </span>
+
+                </span>
+              </div>
+              <div class="stat-i ">
+                {{count.usedVoucher}}/{{count.maxVoucher}}
+              </div>
+            </div>
+          </div>
+
+
+        <div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-8" *ngIf="isServiceCenter">
+        <div class=" card sc-cont d-flex justify-content-center">
+              <!-- nav options -->
+      <div class="row">
+        <div class="col-5">
+        <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-current" role="tab" aria-controls="pills-current" aria-selected="true"> {{ 'Dashboard.GeneralStats' | translate }}</a> </li>
+            <li class="nav-item"> <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="false"> {{ 'Dashboard.TerminalStats' | translate }}</a> </li>
+        </ul>
+      </div> <!-- content -->
+            <div class="bulk-group-filter col-7"
+            [ngStyle]="{ 'padding-right': clearButton() ? '15px' : '0px' }"
+            >
+
+            <form [formGroup]="filterStatisticForm" (ngSubmit)="filterColumn()">
+          <div class="row stat-row">
+            <div class="form-group col-5 pl-0" style="padding: 0 !important;">
+              <div class="row">
+                <div class="col-lg-9">
+                </div>
+              </div>
+              <ng-select
+              #ngSelectComponentOption
+                [virtualScroll]="false"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="{{'Dashboard.SelectType' | translate}}"
+                formControlName="columnName"
+                class="form-control custom-dashboard"
+                [ngClass]="{
+                  'is-invalid':
+                  filterStatisticForm.get('columnName').touched &&
+                  filterStatisticForm.get('columnName').invalid
+                }"
+                labelForId="columnName"
+                aria-describedby="columnName"
+                (change)="columnChange($event)"
+              >
+                <ng-option *ngFor="let column of columns" [value]="column.id">
+                  {{ column.name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group col-5 px-3 select-all-stat" *ngIf="filterStatisticForm.get('columnName').value !=2">
+              <ng-select
+              #ngSelectComponentValues
+                [clearable]="false"
+                [multiple]="true"
+                [virtualScroll]="true"
+                [items]="filterStatisticForm.get('columnName').value ===1?appType:[]"
+                [closeOnSelect]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="{{'Dashboard.SelectOption' | translate}}"
+                formControlName="filterType"
+                class="form-control dashboardFiltertype custom-dashboard"
+                [ngClass]="{
+                  'is-invalid':
+                  filterStatisticForm.get('filterType').touched &&
+                  filterStatisticForm.get('filterType').invalid
+                }"
+                labelForId="filterType"
+                aria-describedby="filterType"
+                (change)="optionChange($event)"
+              >
+              <div *ngIf="filterStatisticForm.get('columnName').value ===1">
+                <ng-template ng-header-tmp let-items="items">
+                  <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="checkAll"  (change)="toggleCheckAll($event.currentTarget.checked)"/>
+                  Select All
+                  </ng-template>
+
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <input id="item-{{index}}"
+                  type="checkbox"
+                  name="item-{{index}}"
+                  [(ngModel)]="item$.selected"
+                  [ngModelOptions]="{standalone: true}"/> {{item.name}}
+              </ng-template>
+              </div>
+              </ng-select>
+            </div>
+            <div class="form-group col-5 select-all-stat"*ngIf="filterStatisticForm.get('columnName').value ===2">
+
+              <ng-select
+              #ngSelectComponentValues1
+              [clearable]="false"
+              [multiple]="true"
+              [virtualScroll]="true"
+              [items]="docType"
+              [closeOnSelect]="false"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{'Dashboard.SelectOption' | translate}}"
+              formControlName="filterType"
+              class="form-control dashboardFiltertype custom-dashboard "
+              [ngClass]="{
+                'is-invalid':
+                filterStatisticForm.get('filterType').touched &&
+                filterStatisticForm.get('filterType').invalid
+              }"
+              labelForId="filterType"
+              aria-describedby="filterType"
+              (change)="optionChange($event)"
+            >
+            <ng-template ng-header-tmp let-items="items">
+              <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="checkAll"  (change)="toggleCheckAll($event.currentTarget.checked)"/>
+              Select All
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+              <input id="item-{{index}}"
+              type="checkbox"
+              name="item-{{index}}"
+              [ngModel]="item$.selected"
+              [ngModelOptions]="{standalone: true}"/> {{item.name}}
+          </ng-template>
+            </ng-select>
+            </div>
+            <div class ="form-group col-1 m-0 p-0">
+
+            <button class="btn btn-sm back stat-search-ico p-0" style="margin-top: -1px !important; "
+            [disabled]="searchdisable()"
+            (click)="SearchStatistics()"
+            >
+              <a href="javascript:void(0)" class="stat-search-ico" title="Search"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <rect width="40" height="39" fill="var(--hayya-primary)"/>
+                  <path d="M25.6128 20L16.9031 14.8038V25.1962L25.6128 20Z" fill="white"/>
+                  </svg>
+
+                <span class="sr-only">Search</span></a
+              >
+            </button>
+            </div>
+            <div class ="form-group col-1 m-0 pl-3" *ngIf="clearButton()"  style="margin-top:-1px !important; padding-left: 12px !important;">
+              <button class="btn btn-sm back p-0"  (click)="clearFilter()">
+                <a href="javascript:void(0)" class="stat-search-ico" title="Clear"
+                  >
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" fill="white"/>
+                    <rect x="0.5" y="0.5" width="39" height="39" stroke="#252525" stroke-opacity="0.2"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M28.2871 13.243C28.6761 13.243 29 13.566 29 13.977V14.357C29 14.758 28.6761 15.0909 28.2871 15.0909H11.7139C11.3239 15.0909 11 14.758 11 14.357V13.977C11 13.566 11.3239 13.243 11.7139 13.243H14.6296C15.2218 13.243 15.7373 12.822 15.8705 12.228L16.0232 11.546C16.2605 10.617 17.0415 10 17.9353 10H22.0647C22.9488 10 23.7385 10.617 23.967 11.497L24.1304 12.227C24.2627 12.822 24.7781 13.243 25.3714 13.243H28.2871ZM26.8058 27.134C27.1102 24.2971 27.6432 17.5571 27.6432 17.4891C27.6626 17.2831 27.5955 17.0881 27.4623 16.9311C27.3193 16.7841 27.1384 16.6971 26.9391 16.6971H13.0685C12.8682 16.6971 12.6776 16.7841 12.5453 16.9311C12.4111 17.0881 12.3449 17.2831 12.3547 17.4891C12.3565 17.5016 12.3756 17.739 12.4076 18.1359C12.5496 19.8992 12.9452 24.8102 13.2008 27.134C13.3817 28.846 14.505 29.922 16.1321 29.961C17.3876 29.99 18.6811 30 20.0038 30C21.2496 30 22.5149 29.99 23.8094 29.961C25.4929 29.932 26.6152 28.875 26.8058 27.134Z" fill="#FFBF00"/>
+                    </svg>
+
+                  <span class="sr-only">Clear</span></a
+                >
+              </button>
+              </div>
+
+
+
+            <!-- <div class ="form-group col-1"></div> -->
+          </div>
+        </form>
+      </div>
+    </div>
+              <div class="tab-content" id="pills-tabContent p-3">
+              <!-- 1st card -->
+              <div class="tab-pane fade show active" id="pills-current" role="tabpanel" aria-labelledby="pills-current-tab">
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbpink">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                          </svg>
+
+                          <span class="number">{{ generalStatistics?.totalApplication | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TodayApplications' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbred">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                          <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                          <g clip-path="url(#clip0_3265_7304)">
+                          <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                          <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_3265_7304">
+                          <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                          </clipPath>
+                          </defs>
+                          </svg>
+
+                          <span class="number">{{ generalStatistics?.todaysCardPrinted | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TNCP' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbblue">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                          </svg>
+                          <span class="number">{{ generalStatistics?.todaysCardCollected | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TNCC' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbpink">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                          </svg>
+
+                          <span class="number">{{ generalStatistics?.today_Home_Delivery | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.ToHome' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbpink">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                          </svg>
+
+                          <span class="number">{{ generalStatistics?.totalNoOfApplications | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TotalApplications' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbred">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                          <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                          <g clip-path="url(#clip0_3265_7304)">
+                          <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                          <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_3265_7304">
+                          <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                          </clipPath>
+                          </defs>
+                          </svg>
+                          <span class="number">{{ generalStatistics?.total_Application_Printed | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TotNCP' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbblue">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                          </svg>
+                          <span class="number">{{ generalStatistics?.total_Collected_by_Fan | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TotalCards' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbpink">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                          </svg>
+
+                          <span class="number">{{ generalStatistics?.total_Home_Delivery | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TotalHome' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                </div>
+              </div> <!-- 2nd card -->
+              <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+                <div class="row">
+
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbpink">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                          </svg>
+
+                          <span class="number">{{ statistics?.totalApplication | number : fractionSize}}</span>
+                        </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TodayApplications' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbred">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                          <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                          <g clip-path="url(#clip0_3265_7304)">
+                          <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                          <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_3265_7304">
+                          <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                          </clipPath>
+                          </defs>
+                          </svg>
+
+                          <span class="number">{{ statistics?.todaysCardPrinted | number : fractionSize}}</span>
+                        </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TNCP' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbblue">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                          </svg>
+                          <span class="number">{{ statistics?.todaysCardCollected | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TNCC' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbpink">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                          </svg>
+
+                          <span class="number">{{ statistics?.today_Home_Delivery | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.ToHome' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbpink">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                          </svg>
+
+                          <span class="number">{{ statistics?.totalNoOfApplications | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TotalApplications' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbred">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                          <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                          <g clip-path="url(#clip0_3265_7304)">
+                          <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                          <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                          <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                          <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_3265_7304">
+                          <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                          </clipPath>
+                          </defs>
+                          </svg>
+                          <span class="number">{{ statistics?.total_Application_Printed | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TotNCP' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbblue">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                          </svg>
+                          <span class="number">{{ statistics?.total_Collected_by_Fan | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TotalCards' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+                    <div class="dashboard-statistics-div dbpink">
+
+                      <div class="body-statistics">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                          </svg>
+
+                          <span class="number">{{ statistics?.total_Home_Delivery | number : fractionSize}}</span>
+                      </div>
+                      <h5 class="title-statistics">
+                        {{ 'Dashboard.TotalHome' | translate }}
+                      </h5>
+                    </div>
+                  </div>
+
+                </div>
+              </div> <!-- 3nd card -->
+
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-8" *ngIf="!isServiceCenter">
+          <div class="row" style="justify-content: space-between;">
+            <h4 class="statistics font-18 font-600">
+              {{ 'Dashboard.Statistics' | translate }}
+            </h4>
+
+
+            <div class="bulk-group-filter p-0  col-10 ">
+              <form [formGroup]="filterStatisticForm" (ngSubmit)="filterColumn()">
+                <div class="row stat-row">
+                  <div class="form-group col-5 pl-0" style="padding: 0 !important;">
+                    <div class="row">
+                      <div class="col-lg-9">
+                      </div>
+                    </div>
+                    <ng-select
+                    #ngSelectComponentOption
+                      [virtualScroll]="false"
+                      [clearable]="false"
+                        bindLabel="name"
+                      bindValue="id"
+                      placeholder="{{'Dashboard.SelectType' | translate}}"
+                      formControlName="columnName"
+                      class="form-control custom-dashboard"
+                      [ngClass]="{
+                        'is-invalid':
+                        filterStatisticForm.get('columnName').touched &&
+                        filterStatisticForm.get('columnName').invalid
+                      }"
+                      labelForId="columnName"
+                      aria-describedby="columnName"
+                      (change)="columnChange($event)"
+                    >
+                      <ng-option *ngFor="let column of columns" [value]="column.id">
+                        {{ column.name }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-5 px-3 select-all-stat" *ngIf="filterStatisticForm.get('columnName').value !=2">
+                    <ng-select
+                    #ngSelectComponentValues
+                      [virtualScroll]="true"
+                      [clearable]="false"
+                      [multiple]="true"
+                      [virtualScroll]="true"
+                      [items]="filterStatisticForm.get('columnName').value ===1?appType:[]"
+                      [closeOnSelect]="false"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="{{'Dashboard.SelectOption' | translate}}"
+                      formControlName="filterType"
+                      class="form-control dashboardFiltertype custom-dashboard"
+                      [ngClass]="{
+                        'is-invalid':
+                        filterStatisticForm.get('filterType').touched &&
+                        filterStatisticForm.get('filterType').invalid,
+                        'disable-arrow':
+                        filterStatisticForm.get('columnName').invalid
+                      }"
+                      labelForId="filterType"
+                      aria-describedby="filterType"
+                      (change)="optionChange($event)"
+                    >
+                    <div *ngIf="filterStatisticForm.get('columnName').value ===1">
+                      <ng-template ng-header-tmp let-items="items">
+                        <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="checkAll"  (change)="toggleCheckAll($event.currentTarget.checked)"/>
+                        Select All
+                        </ng-template>
+
+                      <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                        <input id="item-{{index}}"
+                        type="checkbox"
+                        name="item-{{index}}"
+                        [(ngModel)]="item$.selected"
+                        [ngModelOptions]="{standalone: true}"/> {{item.name}}
+                    </ng-template>
+                    </div>
+                    </ng-select>
+                  </div>
+                  <div class="form-group col-5 select-all-stat"*ngIf="filterStatisticForm.get('columnName').value ===2">
+
+                    <ng-select
+                    #ngSelectComponentValues1
+                    [virtualScroll]="true"
+                    [clearable]="false"
+                    [multiple]="true"
+                    [virtualScroll]="true"
+                    [items]="docType"
+                    [closeOnSelect]="false"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="{{'Dashboard.SelectOption' | translate}}"
+                    formControlName="filterType"
+                    class="form-control dashboardFiltertype custom-dashboard "
+                    [ngClass]="{
+                      'is-invalid':
+                      filterStatisticForm.get('filterType').touched &&
+                      filterStatisticForm.get('filterType').invalid
+                    }"
+                    labelForId="filterType"
+                    aria-describedby="filterType"
+                    (change)="optionChange($event)"
+                  >
+                  <ng-template ng-header-tmp let-items="items">
+                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="checkAll"  (change)="toggleCheckAll($event.currentTarget.checked)"/>
+                    Select All
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}"
+                    type="checkbox"
+                    name="item-{{index}}"
+                    [ngModel]="item$.selected"
+                    [ngModelOptions]="{standalone: true}"/> {{item.name}}
+                </ng-template>
+                  </ng-select>
+                  </div>
+                  <div class ="form-group  m-0 p-0">
+
+                  <button class="btn btn-sm back stat-search-ico p-0" style="margin-top: -1px !important; "
+                  [disabled]="searchdisable()"
+                  (click)="SearchStatistics()">
+                    <a href="javascript:void(0)" class="stat-search-ico" title="Search"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="39" fill="var(--hayya-primary)"/>
+                        <path d="M25.6128 20L16.9031 14.8038V25.1962L25.6128 20Z" fill="white"/>
+                        </svg>
+
+                      <span class="sr-only">Search</span></a
+                    >
+                  </button>
+                  </div>
+                  <div class ="form-group m-0 pl-3" *ngIf="clearButton()"  style="margin-top:-1px !important; padding-left: 12px !important; margin-right: 0px !important;">
+                    <button class="btn btn-sm back p-0"  (click)="clearFilter()">
+                      <a href="javascript:void(0)" class="stat-search-ico" title="Clear"
+                        >
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="40" height="40" fill="white"/>
+                          <rect x="0.5" y="0.5" width="39" height="39" stroke="#252525" stroke-opacity="0.2"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M28.2871 13.243C28.6761 13.243 29 13.566 29 13.977V14.357C29 14.758 28.6761 15.0909 28.2871 15.0909H11.7139C11.3239 15.0909 11 14.758 11 14.357V13.977C11 13.566 11.3239 13.243 11.7139 13.243H14.6296C15.2218 13.243 15.7373 12.822 15.8705 12.228L16.0232 11.546C16.2605 10.617 17.0415 10 17.9353 10H22.0647C22.9488 10 23.7385 10.617 23.967 11.497L24.1304 12.227C24.2627 12.822 24.7781 13.243 25.3714 13.243H28.2871ZM26.8058 27.134C27.1102 24.2971 27.6432 17.5571 27.6432 17.4891C27.6626 17.2831 27.5955 17.0881 27.4623 16.9311C27.3193 16.7841 27.1384 16.6971 26.9391 16.6971H13.0685C12.8682 16.6971 12.6776 16.7841 12.5453 16.9311C12.4111 17.0881 12.3449 17.2831 12.3547 17.4891C12.3565 17.5016 12.3756 17.739 12.4076 18.1359C12.5496 19.8992 12.9452 24.8102 13.2008 27.134C13.3817 28.846 14.505 29.922 16.1321 29.961C17.3876 29.99 18.6811 30 20.0038 30C21.2496 30 22.5149 29.99 23.8094 29.961C25.4929 29.932 26.6152 28.875 26.8058 27.134Z" fill="#FFBF00"/>
+                          </svg>
+
+                        <span class="sr-only">Clear</span></a
+                      >
+                    </button>
+                    </div>
+
+
+
+                  <!-- <div class ="form-group col-1"></div> -->
+                </div>
+              </form>
+            </div>
+            </div>
+        <div class="row">
+
+          <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+            <div class="dashboard-statistics-div dbpink">
+
+              <div class="body-statistics">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                  </svg>
+
+                <span class="number">{{ statistics?.totalApplication | number : fractionSize}}</span>
+              </div>
+              <h5 class="title-statistics">
+                {{ 'Dashboard.TodayApplications' | translate }}
+              </h5>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3 ">
+            <div class="dashboard-statistics-div dbred">
+
+              <div class="body-statistics">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                  <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                  <g clip-path="url(#clip0_3265_7304)">
+                  <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                  <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                  <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                  <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                  <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                  <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                  <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                  <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                  <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                  <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                  </g>
+                  <defs>
+                  <clipPath id="clip0_3265_7304">
+                  <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                  </clipPath>
+                  </defs>
+                  </svg>
+
+
+                <!-- <span class="number">{{ statistics?.totalcardsIssues }}</span> -->
+                <span class="number">{{ statistics?.todaysCardPrinted | number : fractionSize}}</span>
+
+              </div>
+              <h5 class="title-statistics">
+                {{ 'Dashboard.TNCP' | translate }}
+                <!-- Today's Number of Cards Printed -->
+              </h5>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3 ">
+            <div class="dashboard-statistics-div dbblue">
+
+              <div class="body-statistics">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                  </svg>
+
+
+                <span class="number">{{ statistics?.today_Ready_for_Collection | number : fractionSize}}</span>
+              </div>
+              <h5 class="title-statistics">
+                <!-- {{ 'Dashboard.TodReady' | translate }} -->
+                Today's Cards Ready to be Collected
+              </h5>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mt-3 mb-3">
+            <div class="dashboard-statistics-div dbpink">
+
+              <div class="body-statistics">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                  </svg>
+
+                  <span class="number">{{ statistics?.todaysCardCollected | number : fractionSize}}</span>
+              </div>
+              <h5 class="title-statistics">
+                <!-- {{ 'Dashboard.TodReady' | translate }} -->
+                Today's Number of Cards Collected
+              </h5>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-3 ">
+            <div class="dashboard-statistics-div dbpink">
+
+              <div class="body-statistics">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                  </svg>
+
+
+                <span class="number">{{
+                  statistics?.totalNoOfApplications | number : fractionSize
+                }}</span>
+              </div>
+              <h5 class="title-statistics">
+                {{ 'Dashboard.TotalApplications' | translate }}
+              </h5>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-3 ">
+            <div class="dashboard-statistics-div dbred">
+
+              <div class="body-statistics">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.9938 39.3543C13.8669 34.3378 5.57414 26.5083 0.626392 19.9949C5.57426 13.4916 13.867 5.66234 19.9938 0.645979C27.059 6.4528 33.5427 12.9329 39.3534 19.9949C33.5453 27.0624 27.0614 33.5463 19.9938 39.3543Z" fill="#EEEDE2" stroke="var(--hayya-primary)"/>
+                  <path d="M12 15.0001H28.5V26.0001H18C15.1716 26.0001 13.7574 26.0001 12.8787 25.1214C12 24.2428 12 22.8285 12 20.0001V15.0001Z" fill="var(--hayya-primary)"/>
+                  <g clip-path="url(#clip0_3265_7304)">
+                  <path d="M16.4069 19.6904V20.0474L15.8083 20.6514L15.0496 20.6541V19.6904H16.4069Z" fill="#EEEDE2"/>
+                  <path d="M16.9498 20.2334V21.5907H15.0496V20.9256L15.9223 20.9229L16.605 20.2334H16.9498Z" fill="#EEEDE2"/>
+                  <path d="M16.4069 19.0757V19.4191H15.0496V18.45H15.7906L16.4069 19.0757Z" fill="#EEEDE2"/>
+                  <path d="M16.9498 17.5188V18.8761H16.5914L15.9033 18.1784H15.0496V17.5188H16.9498Z" fill="#EEEDE2"/>
+                  <path d="M19.1214 17.5188V18.1825L18.2337 18.1852L17.551 18.8761H17.2212V17.5188H19.1214Z" fill="#EEEDE2"/>
+                  <path d="M19.1214 18.454V19.419H17.7642V19.0458L18.3464 18.4567L19.1214 18.454Z" fill="#EEEDE2"/>
+                  <path d="M19.1214 19.6904V20.6582H18.3654L17.7642 20.0488V19.6904H19.1214Z" fill="#EEEDE2"/>
+                  <path d="M19.1214 20.9297V21.5907H17.2212V20.2334H17.5646L18.2514 20.9297H19.1214Z" fill="#EEEDE2"/>
+                  <path d="M17.764 18.8761H16.4067V20.2334H17.764V18.8761Z" fill="#EEEDE2"/>
+                  <path d="M19.1227 18.4526H19.1213V18.1812L19.1227 18.4526Z" fill="#1D1D1B"/>
+                  </g>
+                  <defs>
+                  <clipPath id="clip0_3265_7304">
+                  <rect width="4.07323" height="4.07187" fill="white" transform="translate(15.0496 17.5188)"/>
+                  </clipPath>
+                  </defs>
+                  </svg>
+
+                <span class="number">{{ statistics?.total_Application_Printed | number : fractionSize}}</span>
+
+              </div>
+              <h5 class="title-statistics">
+                {{ 'Dashboard.TotNCP' | translate }}
+              </h5>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-3 ">
+            <div class="dashboard-statistics-div dbblue">
+
+              <div class="body-statistics">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9406 13.8459L22.9412 14.3457C24.7777 14.4896 25.9908 15.741 25.9927 17.66L26 23.2772C26.0026 25.3695 24.6882 26.6568 22.5812 26.6602L17.4346 26.6668C15.3408 26.6695 14.0099 25.3515 14.0072 23.2532L14 17.702C13.9974 15.7703 15.1677 14.5222 17.0041 14.3537L17.0035 13.8539C17.0028 13.5607 17.22 13.3402 17.5096 13.3402C17.7992 13.3395 18.0165 13.5594 18.0171 13.8526L18.0178 14.319L21.9276 14.3137L21.9269 13.8472C21.9263 13.5541 22.1435 13.3342 22.4331 13.3335C22.7161 13.3328 22.9399 13.5527 22.9406 13.8459ZM15.0143 17.9079L24.9797 17.8945V17.6613C24.9514 16.2287 24.2327 15.4771 22.9426 15.3651L22.9432 15.8782C22.9432 16.1647 22.7201 16.392 22.437 16.392C22.1474 16.3926 21.9296 16.1661 21.9296 15.8796L21.9289 15.3398L18.0191 15.3452L18.0197 15.8842C18.0197 16.1714 17.8032 16.398 17.5136 16.398C17.224 16.3986 17.0061 16.1727 17.0061 15.8856L17.0054 15.3725C15.7219 15.5011 15.0117 16.2554 15.0137 17.7006L15.0143 17.9079ZM22.1599 20.9364V20.9437C22.1665 21.2502 22.4166 21.4827 22.7201 21.4761C23.0163 21.4688 23.2526 21.2149 23.246 20.9084C23.2322 20.6152 22.9946 20.376 22.699 20.3766C22.3962 20.3833 22.1593 20.6298 22.1599 20.9364ZM22.7036 23.9282C22.4008 23.9215 22.1566 23.669 22.156 23.3625C22.1494 23.056 22.3923 22.8021 22.6951 22.7948H22.7017C23.011 22.7948 23.2618 23.0473 23.2618 23.3605C23.2625 23.6737 23.0123 23.9275 22.7036 23.9282ZM19.4481 20.947C19.4612 21.2535 19.712 21.4927 20.0148 21.4794C20.311 21.4654 20.5473 21.2122 20.5341 20.9057C20.5269 20.6059 20.2834 20.3726 19.9872 20.3733C19.6844 20.3866 19.4474 20.6405 19.4481 20.947ZM20.0174 23.8982C19.7147 23.9115 19.4645 23.6723 19.4507 23.3658C19.4507 23.0593 19.687 22.8061 19.9898 22.7921C20.286 22.7914 20.5302 23.0246 20.5368 23.3238C20.5506 23.631 20.3136 23.8842 20.0174 23.8982ZM16.7362 20.9703C16.7494 21.2769 17.0002 21.5167 17.3029 21.5027C17.5991 21.4894 17.8354 21.2355 17.8216 20.929C17.815 20.6292 17.5715 20.396 17.2746 20.3966C16.9719 20.41 16.7356 20.6638 16.7362 20.9703ZM17.3056 23.9015C17.0028 23.9155 16.7527 23.6757 16.7389 23.3691C16.7382 23.0626 16.9752 22.8088 17.2779 22.7954C17.5741 22.7948 17.8183 23.028 17.8249 23.3278C17.8387 23.6343 17.6024 23.8882 17.3056 23.9015Z" fill="#00CFB7"/>
+                  </svg>
+
+
+                <span class="number">{{ statistics?.total_Ready_for_Collection | number : fractionSize}}</span>
+
+              </div>
+              <h5 class="title-statistics">
+                <!-- {{ 'Dashboard.TotReady' | translate }} -->
+                Total Cards Ready to be Collected
+              </h5>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-3">
+            <div class="dashboard-statistics-div dbpink">
+
+              <div class="body-statistics">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 19.9947C5.03664 13.2756 13.7313 5.09103 19.9945 0.00012207C27.3138 5.98039 34.0158 12.6787 40 19.9947C34.0185 27.3165 27.3163 34.0187 19.9945 40.0001C13.7313 34.9092 5.03664 26.7247 0 19.9947Z" fill="#EEEDE2"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2059 13.3337H22.7933C24.8526 13.3337 25.9993 14.5204 25.9993 16.5537V23.4404C25.9993 25.5071 24.8526 26.6671 22.7933 26.6671H17.2059C15.1793 26.6671 13.9993 25.5071 13.9993 23.4404V16.5537C13.9993 14.5204 15.1793 13.3337 17.2059 13.3337ZM17.3859 16.4404V16.4337H19.3786C19.6659 16.4337 19.8993 16.6671 19.8993 16.9531C19.8993 17.2471 19.6659 17.4804 19.3786 17.4804H17.3859C17.0986 17.4804 16.8659 17.2471 16.8659 16.9604C16.8659 16.6737 17.0986 16.4404 17.3859 16.4404ZM17.3859 20.4937H22.6126C22.8993 20.4937 23.1326 20.2604 23.1326 19.9737C23.1326 19.6871 22.8993 19.4531 22.6126 19.4531H17.3859C17.0986 19.4531 16.8659 19.6871 16.8659 19.9737C16.8659 20.2604 17.0986 20.4937 17.3859 20.4937ZM17.3859 23.5404H22.6126C22.8786 23.5137 23.0793 23.2864 23.0793 23.0204C23.0793 22.7471 22.8786 22.5204 22.6126 22.4937H17.3859C17.1859 22.4737 16.9926 22.5671 16.8859 22.7404C16.7793 22.9071 16.7793 23.1271 16.8859 23.3004C16.9926 23.4671 17.1859 23.5671 17.3859 23.5404Z" fill="#550065"/>
+                  </svg>
+
+                  <span class="number">{{ statistics?.total_Collected_by_Fan | number : fractionSize}}</span>
+
+                </div>
+                <h5 class="title-statistics">
+                  <!-- {{ 'Dashboard.TotReady' | translate }} -->
+                  Total Number of Cards Collected
+                </h5>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-events">
+    <h4 class="font-18 font-600">{{ 'Dashboard.EventTitle' | translate }}</h4>
+
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-6 mt-2" *ngFor="let obj of events" >
+        <div class="outer" [ngClass]="selectedEvent?.code === obj?.code ? 'selected-event':''">
+          <div class="logo-background" [style.background-color]="obj.colorCode">
+            <div class="logo-center-align">
+            <!-- <img [src]="obj.imageUrl" /> -->
+          </div>
+          </div>
+
+          <div class="event-info">
+            <div class="event-info-inner">
+              <span
+                >Hayya
+                 <!-- - ({{ obj.name }}) -->
+                </span>
+                <br/>
+                <span>                {{ obj.startDate | date: 'MMMM d, y' }} to
+                {{ obj.endDate | date: 'MMMM d, y'  }}</span
+              >
+            </div>
+            <div class="button-dashboard"     >
+            <img src="/assets/images/linker.png" alt="Select Event"/>
+                        <button
+              class="btn btn-info"
+              (click)="setEvent(obj)"
+            >
+              {{ (selectedEvent?.code === obj?.code) ? ('Dashboard.Selected' | translate): ('Dashboard.Select' | translate)}}
+              <!-- <span class="click-arrow" *ngIf="selectedEvent?.code !== obj?.code"
+                ><svg
+                  width="10.902"
+                  height="11.453"
+                  viewBox="0 0 10.902 11.453"
+                >
+                  <g id="arrow-right" transform="translate(0.85 1.202)">
+                    <line
+                      id="Line_249"
+                      data-name="Line 249"
+                      x2="9.202"
+                      transform="translate(0 4.601)"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.7"
+                    />
+                    <path
+                      id="Path_928"
+                      data-name="Path 928"
+                      d="M12,5l4.525,4.525L12,14.049"
+                      transform="translate(-7.323 -5)"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.7"
+                    />
+                  </g></svg
+              ></span> -->
+            </button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<fan-id-printer-setup *ngIf="isServiceCenter && terminal.isPrintingEnabled"
+  (printerSelected)="onPrinterSelected($event)"
+></fan-id-printer-setup>
+
+<fan-id-knowledge-base-fab
+  *ngIf="!isServiceCenter && selectedEvent"
+  [fabState]="fabState$ | async"
+></fan-id-knowledge-base-fab>

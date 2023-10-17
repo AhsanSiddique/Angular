@@ -1,0 +1,46 @@
+<div *ngFor="let step of steps" class="stepper-container">
+  <div class="step" [ngClass]="[step.state]">
+    <div class="arrow">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="57.996"
+        height="16.828"
+        viewBox="0 0 57.996 16.828"
+      >
+        <defs>
+          <style>
+            .cls-1 {
+              fill: none;
+              stroke: #999fa8;
+              stroke-linecap: round;
+              stroke-linejoin: round;
+              stroke-width: 2px;
+            }
+          </style>
+        </defs>
+        <g id="Group_6323" transform="translate(17268.996 -17570.586)">
+          <g id="arrow-right" transform="translate(-17231 17567)">
+            <path
+              id="Line_308"
+              d="M0 0L55.996 0"
+              class="cls-1"
+              transform="translate(-36.996 12)"
+            />
+            <path id="Path_3179" d="M12 5l7 7-7 7" class="cls-1" />
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="wrapper">
+      <div class="number">{{ step.id }}</div>
+      <div class="title">
+        {{
+          translateKey
+            ? (translateKey + '.' + step.title | translate)
+            : step.title
+        }}
+      </div>
+    </div>
+  </div>
+</div>

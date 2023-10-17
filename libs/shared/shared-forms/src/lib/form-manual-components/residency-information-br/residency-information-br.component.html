@@ -1,0 +1,127 @@
+<form autocomplete="off" class="row residency-information align-items-center" [formGroup]="formGroup">
+  <ng-container *ngIf="{u: af.user_category.value ?? {}} as vm">
+    <!-- visa common fields -->
+    <ng-container>
+      <div class="w-100"></div>
+      <ng-container *ngFor="let field of residencyFields">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="field.type === 'select' && field.subType === 'country'">
+          <label [for]="field.controlName">{{ field.label }}</label>
+          <ng-select
+            [items]="field.controlName === 'country_residence' ? (residenceCountryList$ | async) : (metadata$ | async)?.countries"
+            bindLabel="name"
+            bindValue="code"
+            [virtualScroll]="false"
+            [clearable]="false"
+            [placeholder]="field.placeholder"
+            [formControlName]="field.controlName"
+            class="form-control" [ngClass]="{
+              'is-invalid': f[field.controlName].touched && f[field.controlName].invalid
+            }" [labelForId]="field.controlName" aria-describedby="{{ field.controlName }}"
+            [searchFn]="nationalitySearchFn"
+          >
+            <ng-template ng-label-tmp let-country="item">
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-template>
+            <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+              <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+              <span class="mx-1">
+                {{ country.name }}
+              </span>
+            </ng-template>
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="f[field.controlName].touched && f[field.controlName].invalid">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="field.type === 'radio'">
+          <label class="mb-3">{{ field.label }}</label>
+          <div class="common-radio radio-group">
+            <div class="radio-btn" *ngFor="let option of field.options">
+              <input type="radio" class="d-none" formControlName="{{ field.controlName }}"
+                id="{{ field.controlName + option.value }}" [value]="option.value"
+              />
+              <label for="{{ field.controlName + option.value }}">
+                <span class="radio"></span>
+                <span>
+                  {{ option.label }}
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="field.type === 'previous_nationality'">
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngIf="f.has_previous_nationality.value === 'YES'">
+            <label [for]="field.controlName">{{ field.label }}</label>
+            <ng-select
+              [items]="(metadata$ | async)?.countries"
+              bindLabel="name"
+              bindValue="code"
+              [virtualScroll]="false"
+              [clearable]="false"
+              [placeholder]="field.placeholder"
+              [formControlName]="field.controlName"
+              class="form-control" [ngClass]="{
+                'is-invalid': f[field.controlName].touched && f[field.controlName].invalid
+              }" [labelForId]="field.controlName" aria-describedby="{{ field.controlName }}"
+              [searchFn]="nationalitySearchFn"
+            >
+              <ng-template ng-label-tmp let-country="item">
+                <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+                <span class="mx-1">
+                  {{ country.name }}
+                </span>
+              </ng-template>
+              <ng-template ng-option-tmp let-country="item" let-search="searchTerm" let-index="index">
+                <span class="flag-icon flag-icon-{{ country.code | lowercase }}"></span>
+                <span class="mx-1">
+                  {{ country.name }}
+                </span>
+              </ng-template>
+            </ng-select>
+            <div class="invalid-feedback" *ngIf="f[field.controlName].touched && f[field.controlName].invalid">
+              {{ 'Common.EnterTheDetails' | translate }}
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <!-- job title -->
+      <!-- <ng-container>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="job_title">Job Title<sup>*</sup></label>
+          <ng-select
+            [items]="jobTitles$ | async"
+            bindLabel="name"
+            bindValue="code"
+            [virtualScroll]="true" [clearable]="false"
+            [multiple]="false" [closeOnSelect]="true"
+            [placeholder]="'Select Job Title'" formControlName="job_title"
+            class="form-control" [ngClass]="{
+              'is-invalid': f.job_title.touched && f.job_title.invalid
+            }" labelForId="job_title" aria-describedby="job_title"
+          >
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="f.job_title.touched && f.job_title.invalid">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container> -->
+
+      <!-- other job title -->
+      <!-- <ng-container *ngIf="f.job_title.value === 'OTHR'">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="job_title_other">Other Job Title</label>
+          <input type="text" [mask]="'S*'" formControlName="job_title_other" name="job_title_other"
+            [placeholder]="'Other Job Title'" id="job_title_other" class="form-control" [ngClass]="{
+              'is-invalid': f.job_title_other.touched && f.job_title_other.invalid
+            }" />
+          <div class="invalid-feedback" *ngIf="f.job_title_other.touched  && f.job_title_other.invalid">
+            {{ 'Common.EnterTheDetails' | translate }}
+          </div>
+        </div>
+      </ng-container> -->
+    </ng-container>
+  </ng-container>
+</form>

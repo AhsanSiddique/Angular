@@ -1,0 +1,453 @@
+<div class="applicant-details container-fluid">
+  <header class="row">
+    <div class="title d-flex align-items-center w-100">
+      <fan-id-back-arrow></fan-id-back-arrow>
+      <div>
+        <h4 class="mb-0">
+          {{ 'ApplicantDetails.ApplicantDetails' | translate }}
+        </h4>
+      </div>
+      <div class="applicant-details-actions">
+        <fan-id-entry-permit-history
+          [filter]="entrypermit_history_filter"
+          [applicant_data]="applicant_data"
+        ></fan-id-entry-permit-history>
+        <button class="btn btn-primary btn-caret-8 btn-grid" (click)="openDetails()">
+          <span>{{ 'ApplicationHistory.ViewApplicationHistory' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <ng-container *ngIf="{ b2bVisaType: b2bVisaType$ | async } as vbm">
+    <main class="row">
+      <fan-id-fieldset-wrapper
+        [title]="'ApplicantDetails.ApplicationInformation' | translate"
+        titleDisabled="true"
+      >
+        <fan-id-application-details
+          [applicant_data]="applicant_data"
+          (openCard)="openCardDetails()"
+        ></fan-id-application-details>
+      </fan-id-fieldset-wrapper>
+
+      <fan-id-fieldset-wrapper
+        *ngIf="!isServiceCenter && (isAccreditation$ | async)"
+        title="Accreditation Details"
+        titleDisabled="true"
+      >
+        <fan-id-accreditation-details
+          [applicant_data]="applicant_data"
+        ></fan-id-accreditation-details>
+      </fan-id-fieldset-wrapper>
+
+      <fan-id-fieldset-wrapper
+        [title]="'ApplicantDetails.DocumentInformation' | translate"
+        titleDisabled="true"
+      >
+        <fan-id-document-details
+          [applicant_data]="applicant_data"
+          [viewDocument]="viewDocumentsPermission?.value?.read || allPermission"
+          [showICAO]="isServiceCenter"
+          [icao_data]="icao_data"
+        ></fan-id-document-details>
+      </fan-id-fieldset-wrapper>
+
+      <ng-container *ngIf="{ applicationType: applicationType$ | async } as vm">
+        <fan-id-fieldset-wrapper
+          *ngIf="
+            (isServiceCenter && (vm.applicationType === 'VISA' || applicant_data?.customerCategoryCode === 'NHWM')) ||
+            (!isServiceCenter && vbm.b2bVisaType === 'VISA')
+          "
+          title="Residency Information"
+          titleDisabled="true"
+        >
+          <fan-id-residency-details
+            [applicant_data]="applicant_data"
+          ></fan-id-residency-details>
+        </fan-id-fieldset-wrapper>
+
+        <fan-id-fieldset-wrapper
+          *ngIf="isServiceCenter && vm.applicationType === 'VISA' && applicant_data?.customerCategoryCode !== 'GCCN'"
+          title="Accommodation Information"
+          titleDisabled="true"
+        >
+          <fan-id-accommodation-details
+            [applicant_data]="applicant_data"
+          ></fan-id-accommodation-details>
+        </fan-id-fieldset-wrapper>
+      </ng-container>
+
+      <ng-container *ngIf="!isServiceCenter && vbm.b2bVisaType === 'CONFERENCE'">
+        <fan-id-fieldset-wrapper
+          title="Residency Information"
+          titleDisabled="true"
+        >
+          <fan-id-residency-details-br
+            [applicant_data]="applicant_data"
+          ></fan-id-residency-details-br>
+        </fan-id-fieldset-wrapper>
+      </ng-container>
+
+      <fan-id-fieldset-wrapper
+        [title]="'ApplicantDetails.PersonalInformation' | translate"
+        titleDisabled="true"
+      >
+        <fan-id-personal-details *ngIf="eventTournamentType === 2"
+          [applicant_data]="applicant_data"
+        ></fan-id-personal-details>
+
+        <fan-id-personal-details-local *ngIf="eventTournamentType === 1"
+          [applicant_data]="applicant_data"
+        ></fan-id-personal-details-local>
+      </fan-id-fieldset-wrapper>
+
+      <ng-container *ngIf="!isChildApplication">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs"
+          style="padding: 0 1rem;">
+          <li [ngbNavItem]="1" class="text-center">
+            <a ngbNavLink class="h4" style="font-size: 1.3rem;font-weight: bold;">
+              Dependant Details</a>
+            <img *ngIf="active === 1" src="/assets/icons/Union.svg" alt="Bootstrap" />
+            <ng-template ngbNavContent>
+              <section>
+              </section>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2" class="text-center">
+            <a ngbNavLink class="pl-0 pr-0 h4" style="font-size: 1.3rem;font-weight: bold;">
+              Hayya with Me</a>
+            <img *ngIf="active === 2" src="/assets/icons/Union.svg" alt="Bootstrap" />
+            <ng-template ngbNavContent>
+              <section>
+              </section>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3" class="text-center">
+            <a ngbNavLink class="pl-0 pr-0 h4" style="font-size: 1.3rem;font-weight: bold;">
+              Hayya with Me 2023</a>
+            <img *ngIf="active === 3" src="/assets/icons/Union.svg" alt="Bootstrap" />
+            <ng-template ngbNavContent>
+              <section>
+              </section>
+            </ng-template>
+          </li>
+        </ul>
+
+        <fan-id-fieldset-wrapper
+          *ngIf="active === 1"
+          titleDisabled="true"
+          style="margin-bottom: 0;"
+        >
+          <ng-container *ngIf="(dependentList$ | async).length; else emptyList">
+            <div *ngFor="let dependent of dependentList | paginate: { itemsPerPage: 1,
+              currentPage: dependentPage, totalItems: dependentList.length }">
+              <fan-id-dependent-details
+                [applicant_data]="dependent"
+              >
+              </fan-id-dependent-details>
+            </div>
+
+            <div class="d-flex justify-content-center mt-1">
+              <ngb-pagination [(page)]="dependentPage" [pageSize]="1" [collectionSize]="dependentList.length">
+                <ng-template ngbPaginationFirst>First</ng-template>
+                <ng-template ngbPaginationLast>Last</ng-template>
+                <ng-template ngbPaginationPrevious>Prev</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+                <ng-template ngbPaginationEllipsis>...</ng-template>
+                <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+              </ngb-pagination>
+            </div>
+          </ng-container>
+        </fan-id-fieldset-wrapper>
+
+        <fan-id-fieldset-wrapper
+          *ngIf="active === 2"
+          titleDisabled="true"
+          style="margin-bottom: 0;"
+        >
+          <ng-container *ngIf="(hayyaWithMeList$ | async).length; else emptyList">
+            <div *ngFor="let hayya of this.hayyaWithMeList | paginate: { itemsPerPage: 1,
+              currentPage: hayyaWithMePage, totalItems: this.hayyaWithMeList.length }">
+              <fan-id-dependent-details
+                [applicant_data]="hayya"
+              >
+              </fan-id-dependent-details>
+            </div>
+
+            <div class="d-flex justify-content-center mt-1">
+              <ngb-pagination [(page)]="hayyaWithMePage" [pageSize]="1" [collectionSize]="hayyaWithMeList.length">
+                <ng-template ngbPaginationFirst>First</ng-template>
+                <ng-template ngbPaginationLast>Last</ng-template>
+                <ng-template ngbPaginationPrevious>Prev</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+                <ng-template ngbPaginationEllipsis>...</ng-template>
+                <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+              </ngb-pagination>
+            </div>
+          </ng-container>
+        </fan-id-fieldset-wrapper>
+
+        <fan-id-fieldset-wrapper
+          *ngIf="active === 3"
+          titleDisabled="true"
+          style="margin-bottom: 0;"
+        >
+          <ng-container *ngIf="(hayyaWithMe2023List$ | async).length; else emptyList">
+            <div *ngFor="let hayya of this.hayyaWithMe2023List | paginate: { itemsPerPage: 1,
+              currentPage: hayyaWithMe2023Page, totalItems: this.hayyaWithMe2023List.length }">
+              <fan-id-dependent-details
+                [applicant_data]="hayya"
+              >
+              </fan-id-dependent-details>
+            </div>
+
+            <div class="d-flex justify-content-center mt-1">
+              <ngb-pagination [(page)]="hayyaWithMe2023Page" [pageSize]="1" [collectionSize]="hayyaWithMe2023List.length">
+                <ng-template ngbPaginationFirst>First</ng-template>
+                <ng-template ngbPaginationLast>Last</ng-template>
+                <ng-template ngbPaginationPrevious>Prev</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+                <ng-template ngbPaginationEllipsis>...</ng-template>
+                <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+              </ngb-pagination>
+            </div>
+          </ng-container>
+        </fan-id-fieldset-wrapper>
+      </ng-container>
+
+      <ng-container *ngIf="!isServiceCenter && vbm.b2bVisaType === 'CONFERENCE' || vbm.b2bVisaType === 'VISA'">
+        <fan-id-fieldset-wrapper
+          title="Contact Information"
+          titleDisabled="true"
+        >
+          <fan-id-contact-details-br
+            [applicant_data]="applicant_data"
+          ></fan-id-contact-details-br>
+        </fan-id-fieldset-wrapper>
+      </ng-container>
+
+      <fan-id-fieldset-wrapper
+        *ngIf="!isServiceCenter"
+        title="Organization Group Accommodation Details"
+        titleDisabled="true"
+      >
+        <fan-id-org-accommodation-details
+          [applicant_data]="applicant_data"
+        ></fan-id-org-accommodation-details>
+      </fan-id-fieldset-wrapper>
+
+      <fan-id-fieldset-wrapper
+        *ngIf="isServiceCenter"
+        title="Visa Details"
+        titleDisabled="true"
+      >
+        <fan-id-visa-details
+          [applicant_data]="applicant_data"
+        ></fan-id-visa-details>
+      </fan-id-fieldset-wrapper>
+
+      <fan-id-fieldset-wrapper
+        *ngIf="isServiceCenter"
+        title="Payment Details"
+        titleDisabled="true"
+      >
+        <fan-id-payment-details
+          [applicant_data]="applicant_data"
+        ></fan-id-payment-details>
+      </fan-id-fieldset-wrapper>
+
+      <!-- <fan-id-fieldset-wrapper [title]="'ApplicantDetails.Action' | translate" *ngIf="REASONS.length">
+        <div class="action-container">
+          <form class="row m-0" [formGroup]="actionForm">
+            <div class="form-group">
+              <label>{{ 'ApplicantDetails.SelectReasons' | translate }}</label>
+              <div class="radio-group">
+                <div class="radio-btn" *ngFor="let reason of REASONS; index as i">
+                  <input
+                    type="radio"
+                    class="d-none"
+                    formControlName="reason"
+                    id="reason-{{ i }}"
+                    [value]="i"
+                  />
+                  <label for="reason-{{ i }}">
+                    <span class="radio">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14.425"
+                        height="10.954"
+                        viewBox="0 0 14.425 10.954"
+                      >
+                        <path
+                          d="M12.973 24.766a1.062 1.062 0 1 0-1.614 1.381l2.817 3.287.807-.69-.808.693a1.065 1.065 0 0 0 1.5.115 1.1 1.1 0 0 0 .084-.08l9.431-8.778a1.062 1.062 0 1 0-1.447-1.555l-8.675 8.073-2.1-2.446z"
+                          transform="translate(-11.104 -18.854)"
+                        />
+                      </svg>
+                    </span>
+                    <span>
+                      {{
+                        'ApplicantListAction.' + (reason | removewhitespace)
+                          | translate
+                      }}
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </fan-id-fieldset-wrapper> -->
+    </main>
+  </ng-container>
+
+  <!-- <div class="footer-actions mt-5" *ngIf="REASONS.length">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="show_cancel_modal = true"
+    >
+      <span>{{ 'ApplicantDetails.Cancel' | translate }}</span>
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary btn-caret-8 px-5"
+      [disabled]="actionForm.invalid"
+      (click)="submitForm()"
+    >
+      {{ 'ApplicantDetails.Next' | translate }}
+    </button>
+  </div> -->
+  <fan-id-modal-wrapper
+    *ngIf="show_cancel_modal"
+    [title]="'Common.Alert' | translate"
+    (closeThis)="show_cancel_modal = false"
+  >
+    <div class="cancel-modal-body">
+      <p>{{ 'Common.AreYouSureCancelProcess' | translate }}</p>
+      <button type="button" class="btn btn-primary btn-caret-8" (click)="redirectToList()">
+        {{ 'Common.YesProceed' | translate }}
+      </button>
+    </div>
+  </fan-id-modal-wrapper>
+</div>
+
+<fan-id-submit-and-card-detail
+  *ngIf="card_details_open"
+  [type]="'cardDetail'"
+  [status_switch_visible]="isServiceCenter"
+  [cardDetails]="cardDetails"
+  (closeThis)="card_details_open = false"
+>
+</fan-id-submit-and-card-detail>
+
+<fan-id-submit-and-card-detail
+  *ngIf="confirm_submit_open"
+  [type]="'submit'"
+  (closeThis)="redirectToListFromModal($event)"
+>
+</fan-id-submit-and-card-detail>
+
+<fan-id-loader
+  *ngIf="loading"
+  [text]="'Common.Fetching' | translate"
+></fan-id-loader>
+
+<fan-id-common-error-modal
+*ngIf="applicant_error"
+head_error_message='CommonError.Error'
+[error_message]="applicant_error"
+(closeThis)="redirectToList()">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+*ngIf="card_details_error"
+head_error_message="CommonError.Error"
+[error_message]="card_details_error"
+buttontext="Common.Close"
+(closeThis)="closeCardError()">
+</fan-id-common-error-modal>
+
+<fan-id-common-error-modal
+*ngIf="error_dialog_open"
+[head_error_message] ="'CardReplacement.CardReplacementRequestFailed'"
+[error_message]="error_message"
+buttontext="Common.Close"
+(closeThis)="this.error_dialog_open = false">
+</fan-id-common-error-modal>
+
+<!--Cancel Application Start-->
+<fan-id-modal-wrapper
+  *ngIf="show_cancel_app_modal"
+  [title]="'AllApplicantsList.Ca' | translate"
+  (closeThis)="show_cancel_app_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'AllApplicantsList.Astcta' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="CancelApplication()">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="cancel_application_error"
+  [head_error_message]="'AllApplicantsList.Acf'"
+  [error_message]="cancelErrorMessage"
+  buttontext="Common.Close"
+  (closeThis)="cancel_application_error = false"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="cancel_application_success"
+  head_success_message='AllApplicantsList.Acs'
+  buttontext="Common.Ok"
+  (closeThis)="cancel_application_success=false;this.redirectToList()"
+></fan-id-common-success-modal>
+<!--Cancel Application End-->
+
+<!--Delete Application Start-->
+<fan-id-modal-wrapper
+  *ngIf="show_delete_draft_modal"
+  [title]="'Common.Delete' | translate"
+  (closeThis)="show_delete_draft_modal = false"
+>
+  <div class="cancel-modal-body">
+    <p>{{ 'Common.AreYouSureDeleteApplication' | translate }}</p>
+    <button type="button" class="btn btn-primary btn-caret-8" (click)="deleteDraft(false)">
+      {{ 'Common.YesProceed' | translate }}
+    </button>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="delete_draft_error"
+  [head_error_message]="'AllApplicantsList.DraftDeleteFailed'"
+  [error_message]="cancelErrorMessage"
+  buttontext="Common.Close"
+  (closeThis)="delete_draft_error = false"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="delete_draft_success"
+  head_success_message='AllApplicantsList.DraftDeletedSuccessfully'
+  buttontext="Common.Ok"
+  (closeThis)="delete_draft_success=false;this.redirectToList()"
+></fan-id-common-success-modal>
+<!--Delete Application End-->
+
+<!-- Action Validation Alert -->
+<fan-id-common-error-modal
+  *ngIf="show_action_alert"
+  [head_error_message]="'Common.Alert'"
+  [error_message]="action_alert_message"
+  buttontext="Common.Close"
+  (closeThis)="closeActionValidationAlert()"
+></fan-id-common-error-modal>
+<!-- Action Validation Alert -->
+
+<ng-template #emptyList>
+  <div class="d-flex justify-content-center align-items-center" style="height: 140px;">
+    <p class="m-0" style="font-size: 1.25rem;">No Data Found</p>
+  </div>
+</ng-template>

@@ -1,0 +1,35 @@
+::ng-deep td.dataTables_empty {
+  display: none !important;
+}
+
+.no-data-available {
+  text-align: center;
+}
+
+.form-control.is-invalid,
+.form-control:invalid {
+  background-image: initial;
+}
+
+.date-inner-addon {
+  position: relative;
+}
+
+/* style icon */
+.date-inner-addon .bi {
+  position: absolute;
+}
+
+/* align icon */
+.date-right-addon .bi {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer !important;
+  transform: translateY(-2px);
+}
+
+/* add padding  */
+.date-right-addon input {
+  padding-right: 30px;
+}

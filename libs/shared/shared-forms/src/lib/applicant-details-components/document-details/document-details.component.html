@@ -1,0 +1,179 @@
+<div class="document-information">
+  <div class="row inner-card m-0">
+    <div class="image-col" fanIdDisableRightclick>
+      <div class="image-wrap">
+        <img
+          alt="user icon"
+          [src]="applicant_data?.user_image_url | secureImage | async"
+          onerror="this.src='assets/icons/user_pic.svg'"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="row fields-row">
+        <div class="col">
+          <fan-id-readonly-input
+            label="Document Type"
+            id="document_type"
+            [value]="applicant_data?.document_type"
+            placeholder="Document Type"
+            translateKey="ApplicantDetails"
+          ></fan-id-readonly-input>
+          <button class="btn btn-link view-document-btn"
+            *ngIf="eventTournamentType === 2 && this.viewDocument && applicant_data?.document_type !== 'QID'"
+           (click)="downloadDocument(applicant_data?.doc_front_image, true)">
+            <span class="view-document-btn__icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 17.402 18.985"
+              >
+                <defs>
+                  <style>
+                    .cls-2 {
+                      fill: #08d0b9;
+                    }
+                  </style>
+                </defs>
+                <g id="copy" transform="translate(-1)">
+                  <path
+                    id="Path_3175"
+                    d="M3.373 5.34a3.762 3.762 0 0 1 3.758-3.758h7.225A2.171 2.171 0 0 0 12.273 0h-9.1A2.177 2.177 0 0 0 1 2.175v12.262a2.177 2.177 0 0 0 2.175 2.175h.2z"
+                    class="cls-2"
+                  />
+                  <path
+                    id="Path_3176"
+                    d="M17.273 4h-9.1A2.177 2.177 0 0 0 6 6.175v11.47a2.177 2.177 0 0 0 2.175 2.175h9.1a2.177 2.177 0 0 0 2.175-2.175V6.175A2.177 2.177 0 0 0 17.273 4zM15.69 17.448H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-2.769H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187z"
+                    class="cls-2"
+                    transform="translate(-1.045 -.836)"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span>{{ 'ApplicantDetails.ViewDocument' | translate }}</span>
+          </button>
+          <button class="btn btn-link view-document-btn"
+          *ngIf="eventTournamentType === 2 && applicant_data?.applicationTypeCode !== 'QRC' && applicant_data?.accommodationPic"
+          (click)="downloadDocument(applicant_data?.accommodationPic)">
+            <span class="view-document-btn__icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 17.402 18.985"
+              >
+                <defs>
+                  <style>
+                    .cls-2 {
+                      fill: #08d0b9;
+                    }
+                  </style>
+                </defs>
+                <g id="copy" transform="translate(-1)">
+                  <path
+                    id="Path_3175"
+                    d="M3.373 5.34a3.762 3.762 0 0 1 3.758-3.758h7.225A2.171 2.171 0 0 0 12.273 0h-9.1A2.177 2.177 0 0 0 1 2.175v12.262a2.177 2.177 0 0 0 2.175 2.175h.2z"
+                    class="cls-2"
+                  />
+                  <path
+                    id="Path_3176"
+                    d="M17.273 4h-9.1A2.177 2.177 0 0 0 6 6.175v11.47a2.177 2.177 0 0 0 2.175 2.175h9.1a2.177 2.177 0 0 0 2.175-2.175V6.175A2.177 2.177 0 0 0 17.273 4zM15.69 17.448H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-2.769H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187zm0-3.164H9.758a.593.593 0 0 1 0-1.187h5.932a.593.593 0 1 1 0 1.187z"
+                    class="cls-2"
+                    transform="translate(-1.045 -.836)"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span style="white-space: nowrap;">{{ 'ApplicantDetails.ViewProofOfAccommodation' | translate }}</span>
+          </button>
+        </div>
+        <div class="col">
+          <fan-id-readonly-input
+            label="Document Number"
+            id="document_number"
+            [value]="applicant_data?.document_number"
+            placeholder="Document Number"
+            translateKey="ApplicantDetails"
+          ></fan-id-readonly-input>
+        </div>
+        <div class="col">
+          <fan-id-readonly-input
+            label="Expiry Date"
+            id="expiry_date"
+            [value]="applicant_data?.expiry_date"
+            placeholder="Expiry Date"
+            translateKey="ApplicantDetails"
+          ></fan-id-readonly-input>
+        </div>
+        <div class="col" *ngIf="eventTournamentType === 2">
+          <label for="issuing_country" class="disabled-label">
+            {{ 'ApplicantDetails.IssuingCountry' | translate }}
+          </label>
+          <div id="issuing_country" class="form-control disabled-text d-flex align-items-center">
+            <span class="flag-icon flag-icon-{{ applicant_data?.issuing_country_code | lowercase }}"></span>
+            <span class="mx-1"> {{ applicant_data?.issuing_country }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 mt-5" *ngIf="showICAO">
+      <ng-template *ngTemplateOutlet="IcaoTableTemplate"></ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template #IcaoTableTemplate>
+  <div class="show-icao__icao">
+    <table
+      class="row-border fan-id-datatable w-100"
+      aria-describedby="icao results"
+    >
+      <thead>
+        <tr>
+          <th>Applicant Photo Guidelines</th>
+          <th>Acceptable Threshold</th>
+          <th>Actual Value</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of icao_data?.icaoAndOcrError?.icao; let i = index">
+          <tr [hidden]="i > 1 && !icao_expanded">
+            <td>{{ item?.message }}</td>
+            <td>{{ item?.criteria }}</td>
+            <td>{{ (item?.score | number : '1.2') ?? 'N/A' }}</td>
+            <td [attr.data-status]="item?.Status" *ngIf="item?.Status !== '-1'">{{ +(item?.Status) ? 'Pass' : 'Fail' }}</td>
+            <td *ngIf="item?.Status === '-1'">N/A</td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="icao_data?.icaoAndOcrError?.icao?.length > 2">
+          <tr *ngIf="!icao_expanded" class="toggle-collapse" (click)="icao_expanded = !icao_expanded">
+            <td colspan="4">
+              <div class="collapse-btn">
+                <span class="collapse-icon" [class.collapsed]="!icao_expanded"></span>
+                <span class="collapse-text">
+                  {{ icao_expanded ? 'Hide' : 'Show more' }}
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr [hidden]="!icao_expanded" class="toggle-collapse" (click)="collapseICAOTable()">
+            <td colspan="4">
+              <div class="collapse-btn">
+                <span class="collapse-icon" [class.collapsed]="!icao_expanded"></span>
+                <span class="collapse-text">
+                  {{ icao_expanded ? 'Hide' : 'Show more' }}
+                </span>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      <tfoot hidden></tfoot>
+    </table>
+  </div>
+</ng-template>
+
+<fan-id-image-modal
+  *ngIf="showImageModal"
+  fanIdDisableRightclick
+  [imageSrc]="documentImageSrc"
+  (closeThis)="closeImageModal()"
+></fan-id-image-modal>

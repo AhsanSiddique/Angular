@@ -1,0 +1,119 @@
+<div class="personal-information">
+  <div class="row">
+    <div class="col">
+      <fan-id-readonly-input
+        label="Ticket Reference Number"
+        id="ticket_reference_number"
+        [value]="applicant_data?.ticket_reference_number"
+        placeholder="Ticket Reference Number"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <fan-id-readonly-input
+        label="First Name"
+        id="firstname"
+        [value]="applicant_data?.firstname"
+        placeholder="First Name"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Last Name"
+        id="lastname"
+        [value]="applicant_data?.lastname"
+        placeholder="Last Name"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <label for="nationality" class="disabled-text">
+        {{ 'ApplicantDetails.Nationality' | translate }}
+      </label>
+      <div id="nationality" class="form-control disabled-text" style="padding: 0.6rem 0.8rem !important" >
+        <span class="flag-icon flag-icon-{{ applicant_data?.nationality_code | lowercase }}"></span>
+        <span class="mx-1"> {{ applicant_data?.nationality }} </span>
+      </div>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Date of Birth"
+        id="dateofbirth"
+        [value]="applicant_data?.dateofbirth"
+        placeholder="Date of Birth"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <fan-id-readonly-input
+        label="Gender"
+        id="gender"
+        [value]="applicant_data?.gender"
+        placeholder="Gender"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col field-group">
+      <div>
+        <label for="country_code" class="disabled-text">
+          {{ 'ApplicantDetails.CountryCode' | translate }}
+        </label>
+        <!-- <input
+          id="country_code"
+          type="text"
+          [value]="applicant_data?.country_code"
+          style="background-color: #fff !important"
+          class="form-control disabled-text"
+          readonly
+          disabled
+        /> -->
+        <div id="country_code" class="form-control disabled-text" style="padding: 0.6rem 0.8rem !important" >
+          <span class="flag-icon flag-icon-{{ phoneFalgcode | lowercase }}"></span>
+          <span class="mx-1"> {{ applicant_data?.country_code }} </span>
+        </div>
+      </div>
+
+      <div>
+        <label for="mobile_number" class="disabled-text">
+          {{ 'ApplicantDetails.MobileNumber' | translate }}
+        </label>
+        <input
+          id="mobile"
+          type="text"
+          [value]="applicant_data?.mobile"
+          class="form-control disabled-text"
+          readonly
+          disabled
+        />
+      </div>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Email Address"
+        id="email"
+        [value]="applicant_data?.email"
+        placeholder="Email Address"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Medical Information"
+        id="medical"
+        [value]="applicant_data?.medical"
+        placeholder="Medical Information"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+  </div>
+</div>

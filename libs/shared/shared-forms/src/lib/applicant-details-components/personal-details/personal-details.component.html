@@ -1,0 +1,473 @@
+<div class="personal-information">
+  <div class="row" *ngIf="TICKET_HOLDERS.includes(applicant_data?.fanid_category_code)">
+    <div class="col">
+      <fan-id-readonly-input
+        label="Ticket Application Number"
+        id="ticket_application_number"
+        [value]="applicant_data?.order_id"
+        placeholder="Ticket Application Number"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Match Hospitality"
+        id="match_hospitality"
+        [value]="applicant_data?.matchHospitality"
+        placeholder="Match Hospitality"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+
+  <div class="row" *ngIf="VOUCHER_HOLDERS.includes(applicant_data?.fanid_category_code)">
+    <div class="col">
+      <fan-id-readonly-input
+        label="Voucher Code"
+        id="voucher_code"
+        [value]="applicant_data?.voucher_code"
+        placeholder="Voucher Code"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+
+  <div class="row" *ngIf="applicant_data?.isAccreditation">
+    <div class="col">
+      <fan-id-readonly-input
+        label="Personal Title"
+        id="personalTitle"
+        [value]="applicant_data?.title ?? 'NA'"
+        placeholder="Personal Title"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Personal Title English"
+        id="personalTitleEnglish"
+        [value]="applicant_data?.titleEN ?? 'NA'"
+        placeholder="Personal Title English"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Personal Title Arabic"
+        id="personalTitleArabic"
+        [value]="applicant_data?.titleAR ?? 'NA'"
+        placeholder="Personal Title Arabic"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col"></div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <fan-id-readonly-input
+        label="First Name"
+        id="firstname"
+        [value]="applicant_data?.firstname"
+        placeholder="First Name"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+
+    <div class="col">
+      <fan-id-readonly-input
+        label="Second Name"
+        id="secondname"
+        [value]="applicant_data?.secondname"
+        placeholder="Second Name"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+
+    <div class="col">
+      <fan-id-readonly-input
+        label="Third Name"
+        id="thirdname"
+        [value]="applicant_data?.thirdname"
+        placeholder="Third Name"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+
+    <div class="col">
+      <fan-id-readonly-input
+        label="Fourth Name"
+        id="fourthname"
+        [value]="applicant_data?.fourthname"
+        placeholder="Fourth Name"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isNationalityArab">
+    <div class="col">
+      <fan-id-readonly-input
+        label="Last Name"
+        id="lastname"
+        [value]="applicant_data?.lastname"
+        placeholder="Last Name"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <label for="nationality" class="disabled-label">
+        {{ 'ApplicantDetails.Nationality' | translate }}
+      </label>
+      <div id="nationality" class="form-control disabled-text d-flex align-items-center">
+        <span class="flag-icon flag-icon-{{ applicant_data?.nationality_code | lowercase }}"></span>
+        <span class="mx-1"> {{ applicant_data?.nationality }} </span>
+      </div>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Date of Birth"
+        id="dateofbirth"
+        [value]="applicant_data?.dateofbirth"
+        placeholder="Date of Birth"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Gender"
+        id="gender"
+        [value]="applicant_data?.gender"
+        placeholder="Gender"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isNationalityArab">
+    <div class="col">
+      <fan-id-readonly-input
+        label="Last Name"
+        id="lastname"
+        [value]="applicant_data?.lastname"
+        placeholder="Last Name"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="الاسم الأول العربي"
+        id="firstArabicName"
+        [value]="applicant_data?.firstArabicName"
+        placeholder="الاسم الاول"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="الاسم الثاني العربي"
+        id="secondArabicName"
+        [value]="applicant_data?.secondArabicName"
+        placeholder="اسم الاوسط الاول"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="الاسم الثالث العربي"
+        id="thirdArabicName"
+        [value]="applicant_data?.thirdArabicName"
+        placeholder="الاسم الاوسط الثاني"
+      ></fan-id-readonly-input>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isNationalityArab">
+    <div class="col">
+      <fan-id-readonly-input
+        label="الاسم الرابع العربي"
+        id="forthArabicName"
+        [value]="applicant_data?.forthArabicName"
+        placeholder="اسم الاوسط الثالث "
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="الاسم الأخير العربي"
+        id="fifthArabicName"
+        [value]="applicant_data?.fifthArabicName"
+        placeholder=" اسم الاوسط الرابع "
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <label for="nationality" class="disabled-label">
+        {{ 'ApplicantDetails.Nationality' | translate }}
+      </label>
+      <div id="nationality" class="form-control disabled-text d-flex align-items-center">
+        <span class="flag-icon flag-icon-{{ applicant_data?.nationality_code | lowercase }}"></span>
+        <span class="mx-1"> {{ applicant_data?.nationality }} </span>
+      </div>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Date of Birth"
+        id="dateofbirth"
+        [value]="applicant_data?.dateofbirth"
+        placeholder="Date of Birth"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isNationalityArab">
+    <div class="col">
+      <fan-id-readonly-input
+        label="Gender"
+        id="gender"
+        [value]="applicant_data?.gender"
+        placeholder="Gender"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <ng-container *ngIf="isServiceCenter">
+      <div class="col field-group">
+        <div>
+          <label for="country_code" class="disabled-label">
+            {{ 'ApplicantDetails.CountryCode' | translate }}
+          </label>
+          <div id="country_code" class="form-control disabled-text d-flex align-items-center">
+            <span class="flag-icon flag-icon-{{ applicant_data?.phoneCountryCode | lowercase }}"></span>
+            <span class="mx-1"> {{ applicant_data?.country_code }} </span>
+          </div>
+        </div>
+
+        <div>
+          <label for="mobile_number" class="disabled-label">
+            {{ 'ApplicantDetails.MobileNumber' | translate }}
+          </label>
+          <input
+            id="mobile"
+            type="text"
+            [value]="applicant_data?.mobile"
+            class="form-control disabled-text"
+            readonly
+            disabled
+          />
+        </div>
+      </div>
+    </ng-container>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Email Address"
+        id="email"
+        [value]="applicant_data?.email"
+        placeholder="Email Address"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="User Category"
+        id="user_category"
+        [value]="applicant_data?.user_category"
+        placeholder="User Category"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <ng-container *ngIf="!isServiceCenter">
+      <div class="col">
+        <fan-id-readonly-input
+          label="Fan Type"
+          id="fantype"
+          [value]="applicant_data?.fanIdTypeName"
+          placeholder="Fan Type"
+        ></fan-id-readonly-input>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="row" *ngIf="!isNationalityArab">
+    <ng-container *ngIf="isServiceCenter">
+      <div class="col field-group">
+        <div>
+          <label for="country_code" class="disabled-label">
+            {{ 'ApplicantDetails.CountryCode' | translate }}
+          </label>
+          <div id="country_code" class="form-control disabled-text d-flex align-items-center">
+            <span class="flag-icon flag-icon-{{ applicant_data?.phoneCountryCode | lowercase }}"></span>
+            <span class="mx-1"> {{ applicant_data?.country_code }} </span>
+          </div>
+        </div>
+
+        <div>
+          <label for="mobile_number" class="disabled-label">
+            {{ 'ApplicantDetails.MobileNumber' | translate }}
+          </label>
+          <input
+            id="mobile"
+            type="text"
+            [value]="applicant_data?.mobile"
+            class="form-control disabled-text"
+            readonly
+            disabled
+          />
+        </div>
+      </div>
+    </ng-container>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Email Address"
+        id="email"
+        [value]="applicant_data?.email"
+        placeholder="Email Address"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div class="col">
+      <fan-id-readonly-input
+        label="User Category"
+        id="user_category"
+        [value]="applicant_data?.user_category"
+        placeholder="User Category"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <ng-container *ngIf="isServiceCenter">
+      <div class="col" *ngIf="isDocumentPassport">
+        <fan-id-readonly-input
+          label="Passport Category"
+          id="lastname"
+          [value]="applicant_data?.docSubType"
+          placeholder="Passport Category"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col" *ngIf="!isDocumentPassport">
+        <fan-id-readonly-input
+          label="Fan Type"
+          id="fantype"
+          [value]="applicant_data?.fanIdTypeName"
+          placeholder="Fan Type"
+        ></fan-id-readonly-input>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isServiceCenter">
+      <div class="col">
+        <fan-id-readonly-input
+          label="Fan Type"
+          id="fantype"
+          [value]="applicant_data?.fanIdTypeName"
+          placeholder="Fan Type"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col"></div>
+    </ng-container>
+  </div>
+
+  <div class="row" *ngIf="isServiceCenter && isNationalityArab">
+    <ng-container *ngIf="isDocumentPassport">
+      <div class="col">
+        <fan-id-readonly-input
+          label="Passport Category"
+          id="lastname"
+          [value]="applicant_data?.docSubType"
+          placeholder="Passport Category"
+          translateKey="ApplicantDetails"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col">
+        <fan-id-readonly-input
+          label="Emergency Contact Name"
+          id="contactname"
+          [value]="applicant_data?.emergencyContactOneFullName"
+          placeholder="Emergency Contact Name"
+          translateKey="PersonalInformation"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col field-group">
+        <div>
+          <label for="contactcode" class="disabled-label">
+            {{ 'ApplicantDetails.CountryCode' | translate }}
+          </label>
+          <div id="contactcode" class="form-control disabled-text d-flex align-items-center">
+            <span class="flag-icon flag-icon-{{ applicant_data?.emergencyContactOnePhoneCountryCode | lowercase }}"></span>
+            <span class="mx-1"> {{ applicant_data?.emergencyContactOnePhoneAreaCode }} </span>
+          </div>
+        </div>
+
+        <div>
+          <label for="contactnumber" class="disabled-label">
+            {{ 'PersonalInformation.EmergencyContact' | translate }}
+          </label>
+          <input
+            id="contactnumber"
+            type="text"
+            [value]="applicant_data?.emergencyContactOnePhone"
+            class="form-control disabled-text"
+            readonly
+            disabled
+          />
+        </div>
+      </div>
+    </ng-container>
+    <div class="col">
+      <fan-id-readonly-input
+        label="Fan Type"
+        id="fantype"
+        [value]="applicant_data?.fanIdTypeName"
+        placeholder="Fan Type"
+      ></fan-id-readonly-input>
+    </div>
+    <ng-container *ngIf="!isDocumentPassport">
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </ng-container>
+  </div>
+
+  <div class="row" *ngIf="isServiceCenter && !isNationalityArab">
+    <ng-container *ngIf="isDocumentPassport">
+      <div class="col">
+        <fan-id-readonly-input
+          label="Emergency Contact Name"
+          id="contactname"
+          [value]="applicant_data?.emergencyContactOneFullName"
+          placeholder="Emergency Contact Name"
+          translateKey="PersonalInformation"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col field-group">
+        <div>
+          <label for="contactcode" class="disabled-label">
+            {{ 'ApplicantDetails.CountryCode' | translate }}
+          </label>
+          <div id="contactcode" class="form-control disabled-text d-flex align-items-center">
+            <span class="flag-icon flag-icon-{{ applicant_data?.emergencyContactOnePhoneCountryCode | lowercase }}"></span>
+            <span class="mx-1"> {{ applicant_data?.emergencyContactOnePhoneAreaCode }} </span>
+          </div>
+        </div>
+
+        <div>
+          <label for="contactnumber" class="disabled-label">
+            {{ 'PersonalInformation.EmergencyContact' | translate }}
+          </label>
+          <input
+            id="contactnumber"
+            type="text"
+            [value]="applicant_data?.emergencyContactOnePhone"
+            class="form-control disabled-text"
+            readonly
+            disabled
+          />
+        </div>
+      </div>
+      <div class="col">
+        <fan-id-readonly-input
+          label="Fan Type"
+          id="fantype"
+          [value]="applicant_data?.fanIdTypeName"
+          placeholder="Fan Type"
+        ></fan-id-readonly-input>
+      </div>
+      <div class="col"></div>
+    </ng-container>
+  </div>
+</div>

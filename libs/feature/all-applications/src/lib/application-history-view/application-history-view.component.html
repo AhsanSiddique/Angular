@@ -1,0 +1,1235 @@
+<div class="applicant-details container-fluid">
+  <header class="row">
+    <div class="title d-flex align-items-center w-100">
+      <fan-id-back-arrow></fan-id-back-arrow>
+      <div>
+        <h4 class="mb-0">
+          {{ 'ApplicationHistory.ApplicationHistory' | translate }}
+        </h4>
+      </div>
+    </div>
+  </header>
+  <main>
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink  class="pl-0"
+          >
+          {{ 'ApplicationHistory.ApplicationHistory' | translate }}</a
+        >
+        <img *ngIf="active ===1" src="/assets/icons/Union.svg"
+        alt="Bootstrap" />
+        <ng-template ngbNavContent>
+          <section class="">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="registration-details">
+                  <div class="fan-card">
+                    <div class="table-responsive" *ngIf="dtOptions">
+                      <table
+                        datatable
+                        [dtOptions]="dtOptions"
+                        id="importdatatable"
+                        class="row-border fan-id-datatable"
+                        aria-describedby="Application History"
+                      >
+                        <thead>
+                          <tr>
+                            <th>
+                              {{
+                                'ApplicationHistory.ApplicationDate' | translate
+                              }}
+                            </th>
+                            <th>
+                              {{
+                                'ApplicationHistory.ApplicationNumber'
+                                  | translate
+                              }}
+                            </th>
+                            <th>
+                              {{
+                                'ApplicationHistory.ApplicationStatus'
+                                  | translate
+                              }}
+                            </th>
+                            <th>
+                              Entry Reference Number
+                            </th>
+                            <th>
+                              {{
+                                'ApplicationHistory.FanIDCardStatus' | translate
+                              }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.FirstName' | translate }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.SecondName' | translate }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.ThirdName' | translate }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.FourthName' | translate }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.LastName' | translate }}
+                            </th>
+                            <th>First Arabic Name</th>
+                            <th>Second Arabic Name</th>
+                            <th>Third Arabic Name</th>
+                            <th>Fourth Arabic Name</th>
+                            <th>Last Arabic Name</th>
+                            <ng-container *ngIf="isServiceCenter">
+                              <th>
+                                {{ 'ApplicationHistory.CountryCode' | translate }}
+                              </th>
+                              <th>
+                                {{ 'ApplicationHistory.MobileNumber' | translate }}
+                              </th>
+                            </ng-container>
+                            <th>
+                              {{ 'ApplicationHistory.DocumentType' | translate }}
+                            </th>
+                            <th>
+                              {{
+                                'ApplicationHistory.DocumentNumber' | translate
+                              }}
+                            </th>
+                            <ng-container *ngIf="isServiceCenter">
+                              <th>Ticket Application Number</th>
+                              <th>Ticket Ref. Number</th>
+                              <th>Voucher Code</th>
+                              <th>Match Hospitality</th>
+                            </ng-container>
+                            <th>
+                              {{
+                                'ApplicationHistory.SubmissionType' | translate
+                              }}
+                            </th>
+                            <th>
+                              {{
+                                'ApplicationHistory.NumberDependent' | translate
+                              }}
+                            </th>
+                            <!-- <th>
+                              {{
+                                'ApplicationHistory.PreferredCollectionPoint'
+                                  | translate
+                              }}
+                            </th> -->
+                            <!-- <th>
+                              {{
+                                'ApplicationHistory.RegistrationServiceCenter'
+                                  | translate
+                              }}
+                            </th> -->
+                            <th>
+                              {{ 'ApplicationHistory.Nationality' | translate }}
+                            </th>
+                            <th>Country of Residency</th>
+                            <th>Profession</th>
+                            <th>
+                              {{ 'ApplicationHistory.FanIDCategory' | translate }}
+                            </th>
+                            <th>Applicant Category</th>
+
+                            <th>
+                              {{
+                                'ApplicationHistory.DocumentSubCategory'
+                                  | translate
+                              }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.DateofBirth' | translate }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.IssuingCountry' | translate }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.ExpiryDate' | translate }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.Gender' | translate }}
+                            </th>
+
+                            <th>
+                              {{ 'ApplicationHistory.EmailAddress' | translate }}
+                            </th>
+
+                            <ng-container *ngIf="isServiceCenter">
+                              <th>
+                                {{
+                                  'ApplicationHistory.EmergencyContactFullName'
+                                    | translate
+                                }}
+                              </th>
+
+                              <th>
+                                {{
+                                  'ApplicationHistory.EmergencyContactCountryCode'
+                                    | translate
+                                }}
+                              </th>
+
+                              <th>
+                                {{
+                                  'ApplicationHistory.EmergencyContactMobileNumber'
+                                    | translate
+                                }}
+                              </th>
+                              <th>
+                                Entry Visa Status
+                              </th>
+                            </ng-container>
+                            <th>Created By</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container
+                            *ngIf="applicationHistoryList?.length && !loading"
+                          >
+                            <tr *ngFor="let data of applicationHistoryList">
+                              <ng-container *ngIf="{isLatest: data?.customerCardApplicationHistory?.isFromCustomerCardApplication} as vm">
+                                <td style="direction: ltr" *ngIf="!vm.isLatest">
+                                  {{
+                                   data?.customerCardApplicationHistory?.system_ModifiedOn == null
+                                      ?  (data?.customerCardApplicationHistory
+                                      ?.system_CreatedOn + 'Z'
+                                      | date: 'dd-MM-yyyy hh:mm:ss a')
+                                      : (data?.customerCardApplicationHistory?.system_ModifiedOn + 'Z'
+                                      | date: 'dd-MM-yyyy hh:mm:ss a')
+                                  }}
+                                </td>
+                                <td style="direction: ltr" *ngIf="vm.isLatest">Latest Record</td>
+                              </ng-container>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'applicationNo'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.applicationNo
+                                }}
+                              </td>
+                              <td>
+                                <div
+                                  class="status-tag"
+                                  [ngClass]="{
+                                    'status-approved':
+                                      data?.customerCardApplicationHistory
+                                        ?.applicationStatus === 2,
+                                    'status-rejected':
+                                      data?.customerCardApplicationHistory
+                                        ?.applicationStatus === 3,
+                                    'status-under-review': [1, 9,12].includes(
+                                      data?.customerCardApplicationHistory
+                                        ?.applicationStatus
+                                    ),
+                                    'status-more-info': [4, 5,13].includes(
+                                      data?.customerCardApplicationHistory
+                                        ?.applicationStatus
+                                    ),
+                                    'status-draft':
+                                      data?.customerCardApplicationHistory
+                                        ?.applicationStatus === 0,
+                                    'status-cn-approved':
+                                       data?.customerCardApplicationHistory
+                                        ?.applicationStatus === 7,
+                                    'status-cancelled': data?.customerCardApplicationHistory
+                                        ?.applicationStatus === 6,
+                                        'status-pending-payment':  data?.customerCardApplicationHistory
+                                        ?.applicationStatus === 10,
+                          'status-pending-ticket-verification': data?.customerCardApplicationHistory
+                          ?.applicationStatus === 11
+                                  }"
+                                >
+                                  {{ data?.customerCardApplicationHistory?.applicationStatus_Name | setApplicationStatus : data?.customerCardApplicationHistory?.applicationStatus }}
+                                </div>
+                              </td>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'fanIdNo'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory?.fanIdNo
+                                }}
+                              </td>
+                              <td>
+                                <div
+                                  class="card-status-tag"
+                                  [ngClass]="{
+                                    'card-queue':
+                                      data?.customerCardApplicationHistory
+                                        ?.cardStatus === 12,
+                                    'card-printed':
+                                      data?.customerCardApplicationHistory
+                                        ?.cardStatus === 2,
+                                    'card-pending':
+                                      data?.customerCardApplicationHistory
+                                        ?.printingStatus !== 2 &&
+                                      data?.customerCardApplicationHistory
+                                        ?.cardStatus === 1,
+                                    'card-delivery': [3, 4].includes(
+                                      data?.customerCardApplicationHistory
+                                        ?.cardStatus
+                                    ),
+                                    'card-collected': [5, 6].includes(
+                                      data?.customerCardApplicationHistory
+                                        ?.cardStatus
+                                    ),
+                                    'card-home-delivery':
+                                      data?.customerCardApplicationHistory
+                                        ?.cardStatus === 10,
+                                    'card-collection-qpr':
+                                      data?.customerCardApplicationHistory
+                                        ?.cardStatus === 11
+                                  }"
+                                >
+                                  <!-- {{
+                                    data?.customerCardApplicationHistory
+                                      ?.printingStatus === 2
+                                      ? 'In the Printing Queue'
+                                      : data?.customerCardApplicationHistory
+                                          ?.cardStatus_Name
+                                  }} -->
+                                  {{ data?.customerCardApplicationHistory?.cardStatus_Name}}
+                                </div>
+                              </td>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'firstName'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.firstName
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'secondName'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.secondName
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'thirdName'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.thirdName
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'fourthName'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.fourthName
+                                }}
+                              </td>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'lastName'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory?.lastName
+                                }}
+                              </td>
+                              <td class="arabic-align"
+                              [ngStyle]="
+                                checkChanges(
+                                  data?.differenceProperties,
+                                  'firstArabicName'
+                                ) === true
+                                  ? { color: '#0000ff' }
+                                  : { color: '#081c3b' }
+                              "
+                            >
+                              {{
+                                data?.customerCardApplicationHistory?.firstArabicName
+                              }}
+                            </td>
+                            <td class="arabic-align"
+                            [ngStyle]="
+                              checkChanges(
+                                data?.differenceProperties,
+                                'secondArabicName'
+                              ) === true
+                                ? { color: '#0000ff' }
+                                : { color: '#081c3b' }
+                            "
+                          >
+                            {{
+                              data?.customerCardApplicationHistory?.secondArabicName
+                            }}
+                          </td>
+                          <td class="arabic-align"
+                          [ngStyle]="
+                            checkChanges(
+                              data?.differenceProperties,
+                              'thirdArabicName'
+                            ) === true
+                              ? { color: '#0000ff' }
+                              : { color: '#081c3b' }
+                          "
+                        >
+                          {{
+                            data?.customerCardApplicationHistory?.thirdArabicName
+                          }}
+                        </td>
+                        <td class="arabic-align"
+                        [ngStyle]="
+                          checkChanges(
+                            data?.differenceProperties,
+                            'forthArabicName'
+                          ) === true
+                            ? { color: '#0000ff' }
+                            : { color: '#081c3b' }
+                        "
+                      >
+                        {{
+                          data?.customerCardApplicationHistory?.forthArabicName
+                        }}
+                      </td>
+                      <td class="arabic-align"
+                      [ngStyle]="
+                        checkChanges(
+                          data?.differenceProperties,
+                          'fifthArabicName'
+                        ) === true
+                          ? { color: '#0000ff' }
+                          : { color: '#081c3b' }
+                      "
+                    >
+                      {{
+                        data?.customerCardApplicationHistory?.fifthArabicName
+                      }}
+                    </td>
+
+                              <td *ngIf="isServiceCenter"
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'phoneAreaCode'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.phoneAreaCode
+                                }}
+                              </td>
+                              <td *ngIf="isServiceCenter"
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'phone'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory?.phone
+                                }}
+                              </td>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'docType_Name'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.docType_Name
+                                }}
+                              </td>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'documentIdNo'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.documentIdNo
+                                }}
+                              </td>
+                              <ng-container *ngIf="isServiceCenter">
+                                <td
+                                  [ngStyle]="
+                                    checkChanges(
+                                      data?.differenceProperties,
+                                      'ticketOrderId'
+                                    ) === true
+                                      ? { color: '#0000ff' }
+                                      : { color: '#081c3b' }
+                                  "
+                                >
+                                  {{
+                                    data?.customerCardApplicationHistory
+                                      ?.ticketOrderId
+                                  }}
+                                </td>
+                                <td
+                                  [ngStyle]="
+                                    checkChanges(
+                                      data?.differenceProperties,
+                                      'refTicketNo'
+                                    ) === true
+                                      ? { color: '#0000ff' }
+                                      : { color: '#081c3b' }
+                                  "
+                                >
+                                  {{
+                                    data?.customerCardApplicationHistory
+                                      ?.refTicketNo
+                                  }}
+                                </td>
+                                <td
+                                  [ngStyle]="
+                                    checkChanges(
+                                      data?.differenceProperties,
+                                      'voucherCode'
+                                    ) === true
+                                      ? { color: '#0000ff' }
+                                      : { color: '#081c3b' }
+                                  "
+                                >
+                                  {{
+                                    data?.customerCardApplicationHistory
+                                      ?.voucherCode
+                                  }}
+                                </td>
+                                <td
+                                  [ngStyle]="
+                                    checkChanges(
+                                      data?.differenceProperties,
+                                      'matchHospitality'
+                                    ) === true
+                                      ? { color: '#0000ff' }
+                                      : { color: '#081c3b' }
+                                  "
+                                >
+                                  {{
+                                    data?.customerCardApplicationHistory
+                                      ?.matchHospitality
+                                  }}
+                                </td>
+                              </ng-container>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'submissionType_Name'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.submissionType_Name
+                                }}
+                              </td>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'isChildApplication'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.isChildApplication === false
+                                    ? data?.customerCardApplicationHistory
+                                        ?.dependentCount
+                                    : 'Is A Dependent'
+                                }}
+                              </td>
+                              <!-- <td
+                                [title]="
+                                  data?.customerCardApplicationHistory
+                                    ?.serviceCenter_Name
+                                "
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'serviceCenter_Name'
+                                  ) === true
+                                    ? { color: 'red' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.serviceCenter_Name
+                                }}
+                              </td> -->
+                              <!-- <td
+                                [title]="
+                                  data?.customerCardApplicationHistory
+                                    ?.regServiceCenter_Name
+                                "
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'regServiceCenter_Name'
+                                  ) === true
+                                    ? { color: 'red' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.regServiceCenter_Name
+                                }}
+                              </td> -->
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'nationality_Name'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.nationality_Name
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'currentResidentCountry_Name'
+                                  ) === true
+                                  ? { color: '#0000ff' }
+                                  : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.currentResidentCountry_Name ?? 'N/A'
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'profession_Name'
+                                  ) === true
+                                  ? { color: '#0000ff' }
+                                  : { color: '#081c3b' }
+                                "
+                              >
+                                {{ data?.customerCardApplicationHistory?.refProfession_Code === 'OTHR' ?
+                                  (data?.customerCardApplicationHistory?.otherProfession ?? 'N/A') :
+                                  (data?.customerCardApplicationHistory?.profession_Name ?? 'N/A')
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'customerCategory_Name'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.customerCategory_Name
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'regUserCategory_Name'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.regUserCategory_Name
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'docSubType'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.docSubType
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'dateofBirth'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory?.dateofBirth == null
+                                    ? data?.customerCardApplicationHistory?.dateofBirth
+                                    : (data?.customerCardApplicationHistory?.dateofBirth + 'Z'
+                                      | date: 'dd-MM-yyyy')
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'docIssuingAuthority_Nationality'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.docIssuingAuthority_Nationality
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'docExpiryDate'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory?.docExpiryDate == null
+                                    ? data?.customerCardApplicationHistory?.docExpiryDate
+                                    : (data?.customerCardApplicationHistory?.docExpiryDate + 'Z'
+                                      | date: 'dd-MM-yyyy')
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'gender_Name'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.gender_Name
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'email'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory?.email
+                                }}
+                              </td>
+
+                              <ng-container *ngIf="isServiceCenter">
+                                <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'emergencyContactOneFullName'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.emergencyContactOneFullName
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'emergencyContactOnePhoneAreaCode'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.emergencyContactOnePhoneAreaCode
+                                }}
+                              </td>
+
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'emergencyContactOnePhone'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.emergencyContactOnePhone
+                                }}
+                              </td>
+                              <td  >
+                               <div *ngIf=" data?.customerCardApplicationHistory
+                               ?.visaStatus !== null"
+                                class="card-status-tag"
+                              [ngClass]="{
+                                'card-queue':
+                                  data?.customerCardApplicationHistory
+                                    ?.visaStatus === 1,
+                                'card-printed':
+                                  data?.customerCardApplicationHistory
+                                    ?.visaStatus === 3,
+                                'card-pending':
+                                  data?.customerCardApplicationHistory
+                                    ?.visaStatus == 8 ,
+                                'card-delivery': [9].includes(
+                                  data?.customerCardApplicationHistory
+                                    ?.visaStatus
+                                ),
+                                'card-collected': ![1,3,8,9].includes(
+                                  data?.customerCardApplicationHistory
+                                    ?.visaStatus
+
+                                )}" >
+                                {{ data?.customerCardApplicationHistory?.visaStatus_Name }}
+                                </div>
+                              </td>
+                              </ng-container>
+                              <td
+                                [ngStyle]="
+                                  checkChanges(
+                                    data?.differenceProperties,
+                                    'system_CreatedBy'
+                                  ) === true
+                                    ? { color: '#0000ff' }
+                                    : { color: '#081c3b' }
+                                "
+                              >
+                                {{
+                                  data?.customerCardApplicationHistory
+                                    ?.system_CreatedBy
+                                }}
+                              </td>
+                            </tr>
+                          </ng-container>
+                          <tr *ngIf="loading">
+                            <td colspan="3" class="text-center">Loading...</td>
+                          </tr>
+                          <tr
+                            *ngIf="!applicationHistoryList?.length && !loading"
+                          >
+                            <td colspan="30" class="text-center">No Data</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="d-flex justify-content-center mt-3">
+                        <ngb-pagination
+                          [(page)]="applicationHistoryListPage"
+                          [pageSize]="globalPageSize"
+                          [collectionSize]="applicationHistoryListTotal"
+                          (pageChange)="onApplicationHistoryPageChange($event)"
+                        >
+                          <ng-template ngbPaginationFirst>First</ng-template>
+                          <ng-template ngbPaginationLast>Last</ng-template>
+                          <ng-template ngbPaginationPrevious>Prev</ng-template>
+                          <ng-template ngbPaginationNext>Next</ng-template>
+                          <ng-template ngbPaginationEllipsis>...</ng-template>
+                          <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                        </ngb-pagination>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink class="pl-0"
+          >
+          {{ 'ApplicationHistory.ApplicationStatus' | translate }}</a
+        >
+        <img *ngIf="active ===2" src="/assets/icons/Union.svg"
+        alt="Bootstrap" />
+        <ng-template ngbNavContent>
+          <section class="">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="registration-details">
+                  <div class="fan-card">
+                    <div class="table-responsive" *ngIf="dtOptions">
+                      <table
+                        datatable
+                        [dtOptions]="dtOptions"
+                        id="importdatatablestatus"
+                        class="row-border fan-id-datatable"
+                        aria-describedby="Application Status"
+                      >
+                        <thead>
+                          <tr>
+                            <!-- <th>
+                              {{ 'ApplicationHistory.ID' | translate }}
+                            </th> -->
+                            <th>
+                              {{ 'ApplicationHistory.CreatedDate' | translate }}
+                            </th>
+                            <th>
+                              {{
+                                'ApplicationHistory.ApplicationStatus'
+                                  | translate
+                              }}
+                            </th>
+                            <th>
+                              {{
+                                'ApplicationHistory.StatusDescription'
+                                  | translate
+                              }}
+                            </th>
+                            <th>
+                              {{ 'ApplicationHistory.UpdatedBy' | translate }}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container
+                            *ngIf="applicationStatusList?.length && !loading"
+                          >
+                            <tr *ngFor="let data of applicationStatusList">
+                              <!-- <td>{{ data?.id }}</td> -->
+                              <td style="width:35%">
+                                {{
+                                  data?.system_CreatedOn == null
+                                    ? data?.system_CreatedOn
+                                    : (data?.system_CreatedOn + 'Z'
+                                      | date: 'dd-MM-yyyy hh:mm:ss a')
+                                }}
+                              </td>
+                              <td style="width:20%">
+                                <div
+                                  class="status-tag"
+                                  [ngClass]="{
+                                    'status-rejected': data.status === 3,
+                                    'status-approved': data.status === 2,
+                                    'status-under-review': [1, 9,12].includes(data.status),
+                                    'status-more-info': [4, 5,13].includes(
+                                      data.status
+                                    ),
+                                    'status-draft': data.status === 0,
+                                    'status-cn-approved': data.status === 7,
+                                    'status-cancelled': data.status === 6,
+                                    'status-pending-payment':  data.status === 10,
+                                    'status-pending-ticket-verification': data?.status === 11
+                                  }"
+                                 >
+                                  {{ data?.status_Name | setApplicationStatus : data.status }}
+                                </div>
+                              </td>
+                              <td style="width:45%">{{ data?.statusDescription }}</td>
+                              <td>{{ data?.system_CreatedBy }}</td>
+                            </tr>
+                          </ng-container>
+                          <tr *ngIf="loading">
+                            <td colspan="3" class="text-center">Loading...</td>
+                          </tr>
+                          <tr
+                            *ngIf="!applicationStatusList?.length && !loading"
+                          >
+                            <td colspan="10" class="text-center">No Data</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="d-flex justify-content-center mt-3">
+                        <ngb-pagination
+                          [(page)]="applicationStatusListPage"
+                          [pageSize]="globalPageSize"
+                          [collectionSize]="applicationStatusListTotal"
+                          (pageChange)="onApplicationStatusPageChange($event)"
+                        >
+                          <ng-template ngbPaginationFirst>First</ng-template>
+                          <ng-template ngbPaginationLast>Last</ng-template>
+                          <ng-template ngbPaginationPrevious>Prev</ng-template>
+                          <ng-template ngbPaginationNext>Next</ng-template>
+                          <ng-template ngbPaginationEllipsis>...</ng-template>
+                          <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                        </ngb-pagination>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink class="pl-0"
+          >
+          {{ 'ApplicationHistory.ApplicationAction' | translate }}</a
+        >
+        <img *ngIf="active ===3" src="/assets/icons/Union.svg"
+        alt="Bootstrap" />
+        <ng-template ngbNavContent>
+          <section class="">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="registration-details">
+                  <div class="fan-card">
+                    <div class="table-responsive" *ngIf="dtOptions">
+                      <table
+                        datatable
+                        [dtOptions]="dtOptions"
+                        id="importdatatableaction"
+                        class="row-border fan-id-datatable"
+                        aria-describedby="Application Action"
+                      >
+                        <thead>
+                          <tr>
+                            <!-- <th>
+                              {{ 'ApplicationHistory.ID' | translate }}
+                            </th> -->
+                            <th>
+                              {{ 'ApplicationHistory.CreatedDate' | translate }}
+                            </th>
+                            <th>
+                              {{ 'ApplicationHistory.Action' | translate }}
+                            </th>
+                            <th>
+                              Channel
+                            </th>
+
+                            <!-- <th>
+                              {{ 'ApplicationHistory.CreatedBy' | translate }}
+                            </th> -->
+                            <!-- <th>
+                              {{ 'ApplicationHistory.UpdatedDate' | translate }}
+                            </th> -->
+                            <th>
+                              {{ 'ApplicationHistory.UpdatedBy' | translate }}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container
+                            *ngIf="applicationActionsList?.length && !loading"
+                          >
+                            <tr *ngFor="let data of applicationActionsList">
+                              <!-- <td>{{ data?.id }}</td> -->
+                              <td style="width:35%">
+                                {{
+                                  data?.system_CreatedOn == null
+                                    ? data?.system_CreatedOn
+                                    : (data?.system_CreatedOn + 'Z'
+                                      | date: 'dd-MM-yyyy hh:mm:ss a')
+                                }}
+                              </td>
+                              <td>
+                                <div
+                                  class="status-tag"
+                                  [ngClass]="{
+                                    'status-rejected': data.actionType === 3,
+                                    'status-approved': data.actionType === 2,
+                                    'status-under-review': [1, 6, 8].includes(data.actionType),
+                                    'status-more-info': [4, 5, 10, 7].includes(
+                                      data.actionType
+                                    ),
+                                    'status-draft': data.actionType === 0,
+                                    'status-cancelled': data.actionType === 9,
+                                    'status-update-address':[11,13,15].includes(data.actionType)
+                                  }"
+                                >
+                                  {{ data?.actionType_Name }}
+                                </div>
+                              </td>
+                              <!-- channel showing column conditioally start-->
+
+                              <td *ngIf=" data?.channel === 16" style="width:45%">
+                               Hayya Portal
+                              </td>
+                              <td *ngIf=" data?.channel === 2" style="width:45%">
+                                {{
+                                data?.customerCardApplicationAction_RefSerivceCenter_Code_Name ?
+                                  (data?.customerCardApplicationAction_RefSerivceCenter_Code_Name + ' (Service Center)') : 'Service Center'
+                                }}
+                              </td>
+                              <td *ngIf=" data?.channel === 1" style="width:45%">
+                                Back Office
+                              </td>
+                              <td *ngIf=" data?.channel === 8" style="width:45%">
+                                Organization Group Registration
+                              </td>
+                              <td *ngIf=" data?.channel === 32" style="width:45%">
+                                Mobile
+                              </td>
+                              <td *ngIf=" data?.channel === 64" style="width:45%">
+                                IFES
+                              </td>
+                               <!-- channel showing column conditioally start-->
+
+<!--
+                              <td>{{ data?.system_CreatedBy }}</td> -->
+                              <!-- <td>
+                                {{
+                                  data?.system_ModifiedOn == null
+                                    ? data?.system_ModifiedOn
+                                    : (data?.system_ModifiedOn + 'Z'
+                                      | date: 'dd-MM-yyyy hh:mm:ss a')
+                                }}
+                              </td> -->
+
+                              <td>{{ data?.system_CreatedBy }}</td>
+                            </tr>
+                          </ng-container>
+                          <tr *ngIf="loading">
+                            <td colspan="3" class="text-center">Loading...</td>
+                          </tr>
+                          <tr
+                            *ngIf="!applicationActionsList?.length && !loading"
+                          >
+                            <td colspan="10" class="text-center">No Data</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="d-flex justify-content-center mt-3">
+                        <ngb-pagination
+                          [(page)]="applicationActionsListPage"
+                          [pageSize]="globalPageSize"
+                          [collectionSize]="applicationActionsListTotal"
+                          (pageChange)="onApplicationActionPageChange($event)"
+                        >
+                          <ng-template ngbPaginationFirst>First</ng-template>
+                          <ng-template ngbPaginationLast>Last</ng-template>
+                          <ng-template ngbPaginationPrevious>Prev</ng-template>
+                          <ng-template ngbPaginationNext>Next</ng-template>
+                          <ng-template ngbPaginationEllipsis>...</ng-template>
+                          <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                        </ngb-pagination>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </main>
+</div>

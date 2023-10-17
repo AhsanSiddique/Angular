@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+    <defs>
+        <linearGradient id="linear-gradient" x1=".134" x2=".926" y1=".078" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#f57172"/>
+            <stop offset="1" stop-color="#f14d4e"/>
+        </linearGradient>
+        <style>
+            .cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_5921" transform="translate(-1171 -477)">
+        <rect id="Rectangle_2576" width="45" height="45" fill="url(#linear-gradient)" rx="7" transform="translate(1171 477)"/>
+        <g id="caret-down" transform="translate(1188 507.374)">
+            <path id="Path_25" d="M11.754 64.175a.719.719 0 0 0-.526-.222H.749a.719.719 0 0 0-.526.222.735.735 0 0 0 0 1.053l5.239 5.239a.734.734 0 0 0 1.053 0l5.239-5.239a.734.734 0 0 0 0-1.053z" class="cls-2" transform="translate(0 -63.953)"/>
+        </g>
+        <g id="caret-down-2" transform="translate(1188 484.89)">
+            <path id="Path_25-2" d="M11.753 70.467a.719.719 0 0 1-.526.222H.749a.719.719 0 0 1-.526-.222.735.735 0 0 1 0-1.053l5.239-5.239a.734.734 0 0 1 1.053 0l5.239 5.239a.734.734 0 0 1 0 1.053z" class="cls-2" transform="translate(0 -63.953)"/>
+        </g>
+        <path id="Line_267" fill="none" stroke="#fff" stroke-dasharray="3" stroke-linecap="round" stroke-width="0.5px" d="M0 0L33 0" opacity="0.98" transform="translate(1177.5 499.5)"/>
+    </g>
+</svg>

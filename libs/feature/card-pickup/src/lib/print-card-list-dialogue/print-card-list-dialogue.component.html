@@ -1,0 +1,165 @@
+<div class="loader">
+  <div class="loader-content" [ngStyle]="{height:cardPrintList.length<2?'350px':''}">
+    <div class="submitPane">
+      <div class="paneHeader">
+        <h4 class="font-20 text-center">
+          {{ 'CardPickup.CardPrintingList' | translate }}
+        </h4>
+        <div class="modalpane-closebtn">
+          <img
+            src="/assets/icons/close 001.svg"
+            style="width: 32px"
+            alt="close icon"
+            (click)="closeThis.emit()"
+          />
+        </div>
+      </div>
+      <div class="card-replacement-paneBody">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="registration-details">
+              <div class="fan-card mb-0">
+                <div class="table-responsive" [ngStyle]="{height:cardPrintList.length>1? '270px':'200px'}">
+                  <table
+                    id="importdatatable"
+                    class="row-border fan-id-datatable w-100"
+                    style="border-bottom: 1px solid #eaeaea !important;
+                    border-right: 1px solid #eaeaea !important;"
+                    aria-describedby="printCardList"
+                  >
+                    <thead>
+                      <tr>
+                        <th scope="col" style="width:67px">
+                          <div class="roundcheck ml-2">
+                            <input
+                              type="checkbox"
+                              id="checkAll"
+                              name="checkall"
+                              (change)="checkAll($event)"
+                            />
+                            <label class="m-0" for="checkAll"></label>
+                          </div>
+                        </th>
+                        <th scope="col">
+                          {{ 'CardPickup.FirstName' | translate }}
+                        </th>
+                        <th scope="col">
+                          {{ 'CardPickup.LastName' | translate }}
+                        </th>
+                        <th scope="col">
+                          Document Number
+                        </th>
+                        <th scope="col">
+                          Applicant Type
+                        </th>
+                        <!-- <th scope="col" style="width:30%">
+                          Reprint Reason
+                        </th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="cardPrintList">
+                        <tr *ngFor="let data of cardPrintList; let i = index">
+                          <td>
+                            <div class="form-check pl-0 pt-4 ml-2">
+                              <div class="roundcheck">
+                                <input
+                                  type="checkbox"
+                                  [id]="'check' + data?.id"
+                                  (change)="addtoPrint($event, data)"
+                                  #checkboxes
+                                />
+                                <label [for]="'check' + data?.id"></label>
+                              </div>
+                            </div>
+                          </td>
+                          <td>{{ data?.firstName }}</td>
+                          <td>{{ data?.lastName }}</td>
+                          <td>{{ data?.QID }}</td>
+                          <!-- <td>
+                            <div
+                        class="p-1 status-tag"
+                        [ngClass]="{
+                          'status-approved': data?.applicationStatus === 2,
+                          'status-rejected': data?.applicationStatus === 3,
+                          'status-under-review': [1,9].includes(data?.applicationStatus),
+                          'status-more-info':  [4,5].includes(data?.applicationStatus),
+                          'status-draft': data?.applicationStatus === 0,
+                          'status-cancelled': data?.applicationStatus === 6,
+                          'status-cn-approved': data?.applicationStatus === 7
+                        }"
+                      >
+                        {{ data?.applicationStatus_Name | setApplicationStatus : data?.applicationStatus }}
+                      </div>
+                          </td> -->
+
+                          <td>{{ data?.CardHolderType }}</td>
+                          <!-- <td>
+                            <b *ngIf="data?.cardStatus !==2">First Print</b>
+                            <ng-select *ngIf="data?.cardStatus ===2"
+                              [virtualScroll]="true"
+                              [clearable]="false"
+                              bindLabel="name"
+                              bindValue="id"
+                              placeholder="Select Reason"
+                              formControlName="reprintReason-{{i}}"
+                              class="form-control mt-0"
+                              labelForId="reprintReason-{{i}}"
+                              aria-describedby="reprintReason-{{i}}"
+                              (change)="ReasonSelection($event,i,data.id)"
+                              [dropdownPosition] = "'auto'"
+                            >
+                            <div style="position:fixed">
+                              <ng-option *ngFor="let reason of REASONS" [value]="reason.reasonId">
+                                {{ reason.label }}
+                              </ng-option>
+                            </div>
+                            </ng-select>
+                          </td> -->
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="paneFooter mt-3">
+        <!-- <button
+        type="button"
+        class="btn btn-secondary mr-2"
+        (click)="closeThis.emit()"
+      >
+        <span>{{ 'CardReplacement.Close' | translate }}</span>
+      </button> -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-caret-8"
+          (click)="showPrintDialogue()"
+          [disabled]="disableProceed()"
+        >
+          {{ 'CardPickup.Proceed' | translate }}
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="loader-backdrop"></div>
+<fan-id-print-card-dialogue
+  *ngIf="showPrintCardDialog"
+  [cardsToPrint]="showPrintCard"
+  [userData] = "usersDataArray"
+  (closeThis)="closePrintCardDialogue()"
+  (showIssue)="showIssueInitiateDialog($event)"
+  (showPrint)="showPrintedInitiateDialog($event)"
+></fan-id-print-card-dialogue>
+<fan-id-common-dialogue
+  *ngIf="showCommonDialog"
+  [Body]="common.body"
+  [Header]="common.header"
+  (closeThis)="closeCommonDialog($event)"
+>
+</fan-id-common-dialogue>

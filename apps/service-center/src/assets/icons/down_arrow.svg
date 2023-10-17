@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="23" viewBox="0 0 45 23">
+    <defs>
+        <linearGradient id="fcksuzxywa" x1=".134" x2=".926" y1=".922" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#f57172"/>
+            <stop offset="1" stop-color="#f14d4e"/>
+        </linearGradient>
+    </defs>
+    <path fill="url(#fcksuzxywa)" d="M2 0h41a2 2 0 0 1 2 2v14a7 7 0 0 1-7 7H7a7 7 0 0 1-7-7V2a2 2 0 0 1 2-2z"/>
+    <g>
+        <path fill="#fff" d="M11.753 64.175a.719.719 0 0 0-.526-.222H.749a.719.719 0 0 0-.526.222.735.735 0 0 0 0 1.053l5.239 5.239a.734.734 0 0 0 1.053 0l5.239-5.239a.734.734 0 0 0 0-1.053z" transform="translate(17 8.374) translate(0 -63.953)"/>
+    </g>
+</svg>

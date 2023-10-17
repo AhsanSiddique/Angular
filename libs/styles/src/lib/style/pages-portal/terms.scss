@@ -1,0 +1,35 @@
+.tnc{
+  margin-left: -15px;
+  background-color: #FFF8E8;
+  height: fit-content;
+  .icon-banner{
+      background-image: url('/assets/icons/Amir2022_RGB_BPBurgundyfaq.png');
+      width: 100%;
+      height: 429px;
+      position: relative;
+  }
+  .title{
+      font-style: normal;
+      font-weight: bold;
+      color:#E2D8C0;
+
+  }
+  .divider-1{
+      background-image: url('/assets/icons/Amir2022_RGB_BPDesert Sun 3.png');
+      width: 100%;
+      height:8px;
+  }
+  .divider-2{
+      background-image: url('/assets/img/Amir2022_RGB_BPDesert_Sun_2.png');
+      width: 100%;
+      height:8px;
+  }
+  .container{
+      max-width: 776px;
+  }
+  p{
+    font-size: 22px;
+    line-height: 2rem;
+    font-weight: 400;
+  }
+}

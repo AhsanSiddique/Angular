@@ -1,0 +1,120 @@
+<div class="dashboard-status container">
+    <div class="profile-details row align-items-center">
+        <div class="col-md-12 profile-detail align-items-center">
+            <div class="row fan-detail">
+                <div class="col-md-8 fan-profile-details">
+                    <div class="fan-details row">
+                        <img class="fan-img" *ngIf="cardStatusData?.userProfilePic" [src]="cardStatusData?.userProfilePic"
+                          width="40" height="40" style="border-radius: 50%;" alt="Profile picture" />
+                        <p class="fan-name">{{cardStatusData.firstName}} {{cardStatusData.lastName}}</p>
+                    </div>
+                    <div class="welcome-msg row">
+                        <p>
+                            {{ 'DashboardStatus.WelcomeMsg' | translate }}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 fan-id-details">
+                    <div class="row id-details">
+                        <div class="col id-header">
+                            <p class="mb-0">
+                                {{ 'DashboardStatus.FanIDDetails.Header' | translate }}
+                            </p>
+                        </div>
+                        <div class="col id">
+                            <p>
+                                <!-- {{ 'DashboardStatus.FanIDDetails.ID' | translate }} -->
+                                {{cardStatusData.fanIdNo}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fan-app-status row align-items-center">
+        <div class="col-md-9 app-status-header">
+            <div class="row">
+                <div class="status-header col-12">
+                    <p>{{ 'DashboardStatus.StatusHeader' | translate }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 px-md-0 app-status-content">
+            <div class="status-flow row">
+                <div class="col status-flow-chart">
+
+                    <div class="status-flow-1 row">
+                        <div class="status-icon icon col-md-2 pl-0">
+                            <img src="/assets/icons/Group1.svg" alt="Status icon" />
+                        </div>
+                        <div class="status col-md-10 pl-0">
+                            <p class="success status-name">
+                                {{ 'DashboardStatus.Status.FirstStage.Success' | translate }}</p>
+                            <!-- <p class="status-date">
+                                 {{ 'June 6, 2021' | translate }}
+                                {{cardStatusData.applicationStatus_Name}}
+                            </p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col status-flow-chart">
+
+                    <div class="status-flow-1 row">
+                        <div class="status-icon col-md-2">
+                            <img *ngIf=" (cardStatusData.applicationStatus != 3 && cardStatusData.applicationStatus != 2) "
+                            src="/assets/icons/Group2.svg" alt="Status icon" />
+                            <img *ngIf="cardStatusData.applicationStatus == 2 " src="/assets/icons/Group1.svg" alt="Status icon" />
+                            <img *ngIf="cardStatusData.applicationStatus == 3 " src="/assets/icons/processappreject.png" alt="Status icon" />
+                        </div>
+                        <div class="status col-md-10">
+                            <p class="processing status-name"
+                            [ngClass]="{'rejected': cardStatusData.applicationStatus == 3,
+                            'processing': (cardStatusData.applicationStatus != 3 && cardStatusData.applicationStatus != 2),
+                            'success':cardStatusData.applicationStatus == 2}">
+                            {{ cardStatusData.applicationStatus == 2 ?
+                                ('DashboardStatus.Status.SecondStage.Success' | translate) :
+                                ('DashboardStatus.Status.SecondStage.Processing' | translate)}}
+                        </p>
+                            <p class="status-date">
+                                <!-- {{ 'DashboardStatus.StatusDate.ProcessingDate' | translate }} -->
+                                {{cardStatusData.applicationStatus_Name}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col status-flow-chart">
+
+                    <div class="status-flow-1 row">
+                        <div class="status-icon col-md-2">
+                            <img  *ngIf="cardStatusData.applicationStatus != 2 "
+                             src="/assets/icons/Vector.svg" alt="Status icon" />
+
+                            <img *ngIf=" (cardStatusData.cardStatus == 1 && cardStatusData.applicationStatus == 2) "
+                            src="/assets/icons/Group2.svg" alt="Status icon" />
+                            <img *ngIf="cardStatusData.cardStatus != 1 && cardStatusData.applicationStatus == 2" src="/assets/icons/Group1.svg" alt="Status icon" />
+                        </div>
+                        <div class="status col-md-10">
+                            <p class=" status-name"
+                            [ngClass] = "{'pending':cardStatusData.applicationStatus != 2,
+                            'processing':(cardStatusData.cardStatus == 1 && cardStatusData.applicationStatus == 2),
+                            'success':(cardStatusData.cardStatus != 1 && cardStatusData.applicationStatus == 2)
+                            }"
+                            >
+
+                                {{cardStatusData.cardStatus == 1?
+                                    ('DashboardStatus.Status.ThirdStage.Pending' | translate):
+                                    ('DashboardStatus.Status.ThirdStage.Success' | translate)}}</p>
+                            <p class="status-date">
+                                <!-- {{ 'DashboardStatus.StatusDate.PendingMessage' | translate }} -->
+                                {{cardStatusData.cardStatus_Name}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

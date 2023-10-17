@@ -1,0 +1,79 @@
+bulk-view-details-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      gap: 0.25rem;
+      width: fit-content;
+    }
+  }
+  
+  .fa-file-export {
+    background-image: url('/assets/icons/file-export-solid.svg');
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    filter: invert(1);
+  }
+
+  
+  
+  ::ng-deep td.dataTables_empty {
+    display: none !important;
+  }
+  .no-data-available{
+    text-align: center;
+  }
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+  
+    // Hide the browser's default checkbox
+    .checkbox-input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+  
+    // Create a custom checkbox
+    .checkbox-border {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      width: 20px;
+      height: 20px;
+  
+      margin-right: 20px;
+      border: 1px solid #cbcbcb;
+  
+      border-radius: 3px;
+  
+      .checkbox-filling {
+        width: 10px;
+        height: 10px;
+  
+        border-radius: 1px;
+        background: #009866;
+      }
+    }
+  }
+  
+
+  .right-al{
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }

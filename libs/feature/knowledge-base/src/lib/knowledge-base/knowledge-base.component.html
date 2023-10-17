@@ -1,0 +1,90 @@
+<div class="kb">
+
+  <div class="ml-4">
+    <!-- <div class="page-title pt-4 pb-4" style="padding-left: 7px;">
+      <h4 class="w-100 mb-0">Knowledge Base</h4>
+
+    </div> -->
+    <div class="row">
+      <div class="kb-card" *ngFor="let item of kbInitData;let i = index">
+        <div class="kb-body kb-bg-3" >
+          <!-- <img src="/assets/images/kb-image.png" alt="Knowledge Base Image"> -->
+          <div class="div-align" >
+          <h4 class="Qatar2022">{{item?.name}}</h4>
+          <svg width="215" height="7" viewBox="0 0 215 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M120.523 3.20833L119.294 1.79664L117.81 3.5L119.294 5.19168L120.523 3.79167H215V3.20833H120.523ZM107.5 3.5L110.571 7L113.643 3.5L110.571 0L107.5 3.5ZM100.63 3.20833H0V3.79167H100.62L101.859 5.19168L103.343 3.5L101.859 1.79664L100.63 3.20833Z" fill="#FF004C"/>
+            </svg>
+            <h6>{{item?.description}}</h6>
+
+        </div>
+        <div class="button-dashboard"     >
+          <svg width="58" height="12" viewBox="0 0 58 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 50px;">
+            <rect width="8.62154" height="8.62154" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 57.6 6)" fill="var(--hayya-primary)"/>
+            <rect width="7.36821" height="7.36821" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 31.0179 6)" fill="var(--hayya-primary)"/>
+            <rect width="4.34243" height="4.34243" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 6.23657 6)" fill="var(--hayya-primary)"/>
+            </svg>
+                                  <button (click)="downloadPdf(item)"
+            class="btn btn-info"
+          >
+              Download
+          </button>
+
+      </div>
+      </div>
+    </div>
+      <div class="kb-card">
+        <div class="kb-body kb-bg-4">
+          <!-- <img src="/assets/images/kb-image.png" alt="Knowledge Base Image"> -->
+          <div class="div-align" >
+            <h4 class="Qatar2022">Photo Upload</h4>
+            <svg width="215" height="7" viewBox="0 0 215 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M120.523 3.20833L119.294 1.79664L117.81 3.5L119.294 5.19168L120.523 3.79167H215V3.20833H120.523ZM107.5 3.5L110.571 7L113.643 3.5L110.571 0L107.5 3.5ZM100.63 3.20833H0V3.79167H100.62L101.859 5.19168L103.343 3.5L101.859 1.79664L100.63 3.20833Z" fill="#FF004C"/>
+              </svg>
+              <h6>Instruction Guide</h6>
+
+          </div>
+          <div class="button-dashboard"     >
+            <svg width="58" height="12" viewBox="0 0 58 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 50px;">
+              <rect width="8.62154" height="8.62154" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 57.6 6)" fill="var(--hayya-primary)"/>
+              <rect width="7.36821" height="7.36821" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 31.0179 6)" fill="var(--hayya-primary)"/>
+              <rect width="4.34243" height="4.34243" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 6.23657 6)" fill="var(--hayya-primary)"/>
+              </svg>
+                                    <button  (click)="showInstructions=true"
+              class="btn btn-info"
+            >
+                Read More
+            </button>
+        </div>
+      </div>
+      </div>
+      <div class="kb-card" *ngFor="let item of kbData;let i = index">
+        <div class="kb-body"  [class]="'kb-bg-' + (i)%5" >
+          <!-- <img src="/assets/images/kb-image.png" alt="Knowledge Base Image"> -->
+          <div class="div-align" >
+          <h4 class="Qatar2022">{{item?.name}}</h4>
+          <svg width="215" height="7" viewBox="0 0 215 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M120.523 3.20833L119.294 1.79664L117.81 3.5L119.294 5.19168L120.523 3.79167H215V3.20833H120.523ZM107.5 3.5L110.571 7L113.643 3.5L110.571 0L107.5 3.5ZM100.63 3.20833H0V3.79167H100.62L101.859 5.19168L103.343 3.5L101.859 1.79664L100.63 3.20833Z" fill="#FF004C"/>
+            </svg>
+            <h6>{{item?.description}}</h6>
+
+        </div>
+        <div class="button-dashboard"     >
+          <svg width="58" height="12" viewBox="0 0 58 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 50px;">
+            <rect width="8.62154" height="8.62154" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 57.6 6)" fill="var(--hayya-primary)"/>
+            <rect width="7.36821" height="7.36821" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 31.0179 6)" fill="var(--hayya-primary)"/>
+            <rect width="4.34243" height="4.34243" transform="matrix(-0.718108 -0.695932 -0.718108 0.695932 6.23657 6)" fill="var(--hayya-primary)"/>
+            </svg>
+            <button (click)="downloadPdf(item)"
+            class="btn btn-info"
+          >
+              Download
+          </button>
+
+      </div>
+      </div>
+    </div>
+
+  </div>
+<fan-id-upload-instructions *ngIf="showInstructions" (close)="close()"></fan-id-upload-instructions>
+
+</div>

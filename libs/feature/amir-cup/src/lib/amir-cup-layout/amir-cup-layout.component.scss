@@ -1,0 +1,23 @@
+fan-id-amir-cup-cookie-consent {
+  position: fixed;
+  bottom: 20px;
+  z-index: 10;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media only screen and (max-width:576px){
+   .amir-cup-cookie-consent {
+    padding: 20px !important;
+      
+      .consent-action{
+        display: flex !important;
+        align-items: center;
+       justify-content: center;
+        padding-bottom: 20px !important;
+        button {
+          width: 125px !important;
+        }
+      }
+    }
+  
+  }

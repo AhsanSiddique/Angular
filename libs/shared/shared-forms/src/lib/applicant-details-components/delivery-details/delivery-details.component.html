@@ -1,0 +1,38 @@
+<div class="delivery-information">
+  <div class="row">
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Delivery Type"
+        id="delivery_type"
+        [value]="applicant_data?.delivery_type"
+        placeholder="Delivery Type"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div
+      class="col col-xl-3 col-lg-4 col-md-6 col-sm-12"
+      *ngIf="(applicant_data?.delivery_type_code | lowercase) === 'scp'"
+    >
+      <fan-id-readonly-input
+        label="Select Service Centre"
+        id="service_centre"
+        [value]="applicant_data?.service_centre"
+        placeholder="Select Service Centre"
+        translateKey="ApplicantDetails"
+      ></fan-id-readonly-input>
+    </div>
+    <div
+      class="col col-xl-4 col-lg-5 col-md-6 col-sm-12"
+      *ngIf="(applicant_data?.delivery_type_code | lowercase) === 'dta'"
+    >
+      <div class="delivery-address">
+        <p class="title">
+          {{ 'ApplicantDetails.Organizationaddress' | translate }}
+        </p>
+        <p class="address-line">
+          {{ applicant_data?.delivery_address }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

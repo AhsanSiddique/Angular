@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "VVIP"
+  },
+  {
+    "id": 2,
+    "name": "Visitor"
+  },
+  {
+    "id": 3,
+    "name": "Volunteer"
+  },
+  {
+    "id": 4,
+    "name": "Media"
+  },
+  {
+    "id": 5,
+    "name": "Sponsor"
+  }
+]

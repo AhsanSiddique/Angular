@@ -1,0 +1,127 @@
+<div class="bulk-groups" style="margin: 0">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="registration-details mt-4">
+        <div class="fan-card">
+          <div class="table-responsive" *ngIf="dtOptions">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              id="carddetails-datatable"
+              class="row-border fan-id-datatable"
+              aria-describedby="Hayya Card Details Table"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    {{ 'SubmitAndCardDetails.Date' | translate }}
+                  </th>
+                  <th>
+                    {{ 'SubmitAndCardDetails.srlNo' | translate }}
+                  </th>
+                  <th>
+                    {{ 'SubmitAndCardDetails.CardStatus' | translate }}
+                  </th>
+                  <th>
+                    {{ 'SubmitAndCardDetails.Terminal' | translate }}
+                  </th>
+                  <th>
+                    {{ 'SubmitAndCardDetails.UserName' | translate }}
+                  </th>
+                  <th>
+                    {{ 'SubmitAndCardDetails.Reason' | translate }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody [class.d-none]="!card_details_modal?.length">
+                <ng-container *ngIf="card_details_modal">
+                  <tr *ngFor="let card of card_details_modal">
+                    <td>
+                      <!-- <div>
+                {{ card.system_CreatedOn + 'Z' | date: 'dd-MM-yyyy' }}
+                </div>
+                <div>
+                {{ card.system_CreatedOn + 'Z' | date: 'hh:mm:ss a' }}
+                </div> -->
+                      {{
+                        card.system_CreatedOn + 'Z'
+                          | date: 'dd-MM-yyyy hh:mm:ss a'
+                      }}
+                    </td>
+                    <td>
+                      <div class="card-detail-number">
+                        <span class="text-center"
+                          ><strong>{{ card.cardSerialNo }}</strong></span
+                        >
+                        <span class="text-center">{{
+                          !card.status ? '' : card.cardStatus_Name
+                        }}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="card-detail-action">
+                        <div
+                          class="card-detail-status-change"
+                          *ngIf="card.isCardActive"
+                        >
+                          <h6
+                            style="color: #30d595 !important; font-size: 13px"
+                          >
+                            {{
+                              'SubmitAndCardDetails.Enabled' | translate
+                            }}
+                            &nbsp;
+                          </h6>
+                        </div>
+                        <div
+                          class="card-detail-status-change"
+                          *ngIf="!card.isCardActive"
+                        >
+                          <h6
+                            style="color: #999fa8 !important ; font-size: 13px"
+                          >
+                            {{
+                              'SubmitAndCardDetails.Disabled' | translate
+                            }}
+                            &nbsp;
+                          </h6>
+                        </div>
+                        <div class="card-detail-staus-switch">
+                          <label class="switch">
+                            <input
+                              type="checkbox"
+                              [checked]="card.isCardActive"
+                              (change)="checkStatus(card.id)"
+                              [disabled]="i > 0"
+                            />
+                            <span class="slider"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ card.terminal }}</td>
+                    <td>{{ card.system_CreatedBy }}</td>
+                    <td style="white-space: pre-wrap">{{ card.reason }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+              <tfoot [hidden]="card_details_modal?.length">
+                <tr>
+                  <td
+                    colspan="6"
+                    style="border: none !important"
+                    class="text-center"
+                  >
+                    No Data
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            <!-- <fan-id-dt-goto *ngIf="card_details_modal?.length" class="goto-page" (_go)="gotoPage($event)"></fan-id-dt-goto> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

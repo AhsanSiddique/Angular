@@ -1,0 +1,13 @@
+.instruction_header {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+fan-id-color-card {
+  width: 300px;
+}
+
+.instructions-card .downloads {
+  display: flex;
+  gap: 2rem;
+}

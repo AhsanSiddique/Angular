@@ -1,0 +1,57 @@
+<div class="mform">
+	<div class="form-section">
+		<div class="row justify-content-center mb-4">
+			<div class="col-md-12">
+				<h4 class="mb-3"> {{ 'MFPFour.title' | translate }}</h4>
+				<p class="sub-title">
+					{{ 'MFPFour.sub-title' | translate }}
+				</p>
+			</div>
+		</div>
+		<div class="row justify-content-center mb-3">
+			<div class="col-12 col-md-6 pl-0">
+				<!-- <h5 class="text-primary">00:20</h5> -->
+				<countdown #cd [config]="timerConfig" (event)="handleCountdown($event)"></countdown>
+			</div>
+		</div>
+		<div class="col-md-12 py-3">
+			<div class="row justify-content-center mb-4">
+				<div class="col-12 col-md-6 pl-0">
+					<label class="upperlabel" for="" *ngIf="SmsOtpCode"> {{ 'MFPFour.phoneotp' | translate }}</label>
+					<input type="text" class="form-control" maxlength="4" mask="0{4}" [class.has-label]="SmsOtpCode" [placeholder]="'MFPFour.entersmsotp' | translate" [(ngModel)]="SmsOtpCode" (ngModelChange)="resetOtpSendStatus()">
+					<img class="position-absolute top-10 right-25" *ngIf="sms_otp_valid" src="assets/images/green_check_clear.svg" alt="">
+				</div>
+			</div>
+
+			<div class="row justify-content-center mb-1" *ngIf="resend_otp_success">
+				<div class="col-12 col-md-6 pl-0 text-danger">
+					{{ 'MFPFour.ResendOtpMessage' | translate }}
+				</div>
+			</div>
+
+			<div class="row justify-content-center mb-3">
+				<div class="col-12 col-md-6 pl-0">
+					<a (click)="sendsmsandemailotp()" [class.link-disabled]="!enable_resend_otp" class="btn btn-link text-primary"> {{ 'MFPFour.resendotp' | translate }}</a>
+				</div>
+			</div>
+			<div *ngIf="otperror" class="error-feedback m-2">
+				{{ 'MFPFour.otperror' | translate }}
+			</div>
+			<div class="row justify-content-center mb-3">
+				<div class="col-6 col-md-2  pl-0">
+					<button (click)="onSubmitData()" type="button" class="btn btn-primary btn-block m-auto" [class.disabled-btn]="!all_otp_valid" [disabled]="!all_otp_valid">
+						{{ 'Common.submit' | translate }}
+					</button>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-12 col-md-4 pl-0">
+					<button routerLink="/registration/two" class="longbtn p-3">
+						{{ 'MFPFour.change' | translate }} <span class="redtext"> {{ 'MFPFour.mobile' | translate }}</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

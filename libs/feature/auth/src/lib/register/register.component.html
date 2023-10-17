@@ -1,0 +1,549 @@
+<div class="row mt-3">
+  <div class="col-lg-12 register">
+    <div class="card">
+      <div class="login-validation" *ngIf="showInvalidError">
+        <span>{{ showError | translate }} </span>
+      </div>
+      <form [formGroup]="form">
+        <div class="sr-only">
+          <input type="hidden" formControlName="userName" />
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="firstname">{{
+                'Profile.FirstName' | translate
+              }}</label>
+              <input
+                type="text"
+                class="text-area fl-name form-control"
+                formControlName="firstName"
+                name="firstName"
+                id="firstName"
+                maxlength="20" pattern="[a-zA-ZÀ-ÿ ]*"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('firstName').touched &&
+                    form.get('firstName').invalid,
+                    'read-only-text':addReadOnlyStyle,
+                  hasValue: this.form.get('firstName').value
+                }"
+                [placeholder]="'ManualStep2.EnterFirstName' | translate"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('firstName').errors?.required"
+              >
+                {{ 'Profile.FirstNameRequired' | translate }}
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('firstName').errors?.pattern"
+              >
+                {{ 'Profile.FirstNamePattern' | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="lastname">
+                {{ 'Profile.LastName' | translate }}</label
+              >
+              <input
+                type="text"
+                class="text-area fl-name form-control"
+                formControlName="lastName"
+                name="lastname"
+                id="lastname"
+                maxlength="20" pattern="[a-zA-ZÀ-ÿ ]*"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('lastName').touched &&
+                    form.get('lastName').invalid,
+                    'read-only-text':addReadOnlyStyle,
+                  hasValue: this.form.get('lastName').value
+
+                }"
+                [placeholder]="'ManualStep2.EnterLastName' | translate"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('lastName').errors?.required"
+              >
+                {{ 'Profile.LastNameRequired' | translate }}
+              </div>
+
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('lastName').errors?.pattern"
+              >
+                {{ 'Profile.LastNamePattern' | translate }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" *ngIf="!isServiceCenter">
+            <div class="form-group">
+              <label class="read-only" for="organizationname">{{
+                'Profile.OrganizationName' | translate
+              }}</label>
+              <input
+                type="text"
+                class="text-area read-only read-only-text form-control"
+                readonly
+                formControlName="organizationName"
+              />
+            </div>
+          </div>
+
+          <div [ngClass]="isServiceCenter ? 'col-md-12' : 'col-md-6'">
+            <div class="form-group">
+              <label class="read-only" for="email">{{
+                'Profile.Email' | translate
+              }}</label>
+              <input
+                type="text"
+                class="text-area read-only read-only-text form-control"
+                readonly
+                formControlName="email"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="inputPasswordNew">{{
+                'ResetPassword.Password' | translate
+              }}</label>
+              <div
+                class="input-password display-pass"
+                data-tooltip="atleast 8 charecter"
+              >
+                <input
+                  name="newPassword"
+                  [type]="passvisibility ? 'text' : 'password'"
+                  data-popover="right"
+                  class="form-control pwVisibility"
+                  formControlName="newPassword"
+                  [ngClass]="{
+                    'is-invalid':
+                      form.get('newPassword').touched &&
+                      form.get('newPassword').invalid,
+                    hasValue: this.form.get('newPassword').value
+                  }"
+                  id="inputPasswordNew"
+                  required=""
+                  [placeholder]="'ResetPassword.EnterNewPassword' | translate"
+                  maxlength="64"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="form.get('newPassword').errors?.required"
+                >
+                  {{ 'ResetPassword.PasswordRequired' | translate }}
+                </div>
+
+                <div class="error-text">
+                  <div class="error-placement">
+                    <em
+                      [ngClass]="
+                        form.controls['newPassword'].hasError('required') ||
+                        form.controls['newPassword'].hasError('minLength')
+                          ? 'invalid-ico'
+                          : 'valid-ico'
+                      "
+                    ></em>
+                    {{ 'PasswordValidation.Characters8' | translate }}
+                  </div>
+                  <div class="error-placement">
+                    <em
+                      [ngClass]="
+                        form.controls['newPassword'].hasError('required') ||
+                        form.controls['newPassword'].hasError('hasCapitalCase')
+                          ? 'invalid-ico'
+                          : 'valid-ico'
+                      "
+                    ></em>
+                    {{ 'PasswordValidation.UpperCase' | translate }}
+                  </div>
+                  <div class="error-placement">
+                    <em
+                      [ngClass]="
+                        form.controls['newPassword'].hasError('required') ||
+                        form.controls['newPassword'].hasError('hasSmallCase')
+                          ? 'invalid-ico'
+                          : 'valid-ico'
+                      "
+                    ></em>
+                    {{ 'PasswordValidation.LowerCase' | translate }}
+                  </div>
+                  <div class="error-placement">
+                    <em
+                      [ngClass]="
+                        form.controls['newPassword'].hasError('required') ||
+                        form.controls['newPassword'].hasError('hasNumber')
+                          ? 'invalid-ico'
+                          : 'valid-ico'
+                      "
+                    ></em>
+                    {{ 'PasswordValidation.Number' | translate }}
+                  </div>
+                  <div class="error-placement">
+                    <em
+                      [ngClass]="
+                        form.controls['newPassword'].hasError('required') ||
+                        form.controls['newPassword'].hasError(
+                          'hasSpecialCharacters'
+                        )
+                          ? 'invalid-ico'
+                          : 'valid-ico'
+                      "
+                    ></em>
+                    {{ 'PasswordValidation.SpecialCharacter' | translate }}
+                  </div>
+                </div>
+                <div
+                  class="input-password-append"
+                  *ngIf="this.form.get('newPassword').value"
+                  (click)="passvisibility = !passvisibility"
+                >
+                  <div class="input-password-text">
+                    <span *ngIf="passvisibility">
+                      <svg
+                        width="19.297"
+                        height="13.436"
+                        viewBox="0 0 19.297 13.436"
+                      >
+                        <g
+                          id="noun_Eye_1542295"
+                          transform="translate(-2.218 -6.159)"
+                        >
+                          <path
+                            id="Path_3057"
+                            data-name="Path 3057"
+                            d="M21.214,11.91C16.742,5.9,12.092,6.149,11.867,6.165,11.64,6.149,6.99,5.9,2.519,11.91a1.856,1.856,0,0,0-.3.967h0a1.843,1.843,0,0,0,.3.966c4.471,6.008,9.121,5.761,9.348,5.745.225.016,4.875.263,9.348-5.745a1.839,1.839,0,0,0,.3-.966h0A1.845,1.845,0,0,0,21.214,11.91ZM11.867,17.5a4.424,4.424,0,0,1-4.194-4.62,4.423,4.423,0,0,1,4.194-4.62,4.421,4.421,0,0,1,4.193,4.62A4.422,4.422,0,0,1,11.867,17.5Zm1.9-4.95a1.686,1.686,0,0,1-1.6-1.761,1.887,1.887,0,0,1,.18-.793,2.5,2.5,0,0,0-.479-.05A2.808,2.808,0,0,0,9.2,12.877a2.808,2.808,0,0,0,2.662,2.933,2.808,2.808,0,0,0,2.662-2.933,3.066,3.066,0,0,0-.046-.527A1.467,1.467,0,0,1,13.764,12.548Z"
+                            transform="translate(0 0)"
+                            fill="#999fa8"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                    <span *ngIf="!passvisibility">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19.293"
+                        height="17.242"
+                        viewBox="0 0 19.293 17.242"
+                      >
+                        <g
+                          id="Group_5711"
+                          data-name="Group 5711"
+                          transform="translate(-1495.186 -591.662)"
+                        >
+                          <path
+                            id="Subtraction_1"
+                            data-name="Subtraction 1"
+                            d="M22409.693,6360.68a8.5,8.5,0,0,1-3.416-.841,15.138,15.138,0,0,1-5.742-4.9s0,0,0-.01l0-.006a1.7,1.7,0,0,1,0-1.915.046.046,0,0,0,.008-.014,17.228,17.228,0,0,1,3.492-3.568l2.223,2.223a4.972,4.972,0,0,0-.564,2.316,4.425,4.425,0,0,0,4.191,4.62,3.911,3.911,0,0,0,2.443-.864l1.8,1.8a8.885,8.885,0,0,1-4.062,1.159c-.1,0-.16,0-.182,0h-.01C22409.848,6360.676,22409.787,6360.68,22409.693,6360.68Zm7.219-3.16h0l-2.883-2.883a5.2,5.2,0,0,0,.045-.674,4.428,4.428,0,0,0-4.2-4.619,3.846,3.846,0,0,0-1.006.134l-1.738-1.74a7.938,7.938,0,0,1,2.557-.493c.121,0,.186.005.188.005s.066-.005.188-.005a8.5,8.5,0,0,1,3.42.841,15.123,15.123,0,0,1,5.74,4.9s0,0,0,.01l0,.006a1.7,1.7,0,0,1,0,1.905l-.006.012-.006.01a18.537,18.537,0,0,1-2.312,2.587Zm-7.035-.626a2.81,2.81,0,0,1-2.662-2.932,3.183,3.183,0,0,1,.209-1.141l3.719,3.719A2.43,2.43,0,0,1,22409.877,6356.893Z"
+                            transform="translate(-20905.047 -5753.46)"
+                            fill="#999fa8"
+                          />
+                          <rect
+                            id="Rectangle_2789"
+                            data-name="Rectangle 2789"
+                            width="2.384"
+                            height="22"
+                            rx="1.192"
+                            transform="translate(1495.893 593.348) rotate(-45)"
+                            fill="#999fa8"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="inputPasswordNewVerify">{{
+                'ResetPassword.ConfirmNewPassword' | translate
+              }}</label>
+              <div class="input-password">
+                <input
+                  name="confirmPassword"
+                  [type]="confirmpassvisibility ? 'text' : 'password'"
+                  class="form-control pwVisibility"
+                  formControlName="confirmPassword"
+                  [ngClass]="{
+                    'is-invalid':
+                      (form.get('confirmPassword').touched &&
+                        form.get('confirmPassword').invalid) ||
+                      form.hasError('notSame'),
+                    hasValue: this.form.get('confirmPassword').value
+                  }"
+                  id="inputPasswordNewVerify"
+                  required=""
+                  [placeholder]="'ResetPassword.ConfirmNewPassword' | translate"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="form.get('confirmPassword').errors?.required"
+                >
+                  <div>
+                    {{ 'ResetPassword.ConfirmPasswordRequired' | translate }}
+                  </div>
+                </div>
+                <div
+                  class="comparePass"
+                  *ngIf="
+                    form.hasError('notSame') &&
+                    (form.get('confirmPassword').dirty ||
+                      form.get('confirmPassword').touched)
+                  "
+                >
+                  {{ 'ResetPassword.PasswordMatch' | translate }}
+                </div>
+                <div
+                  class="input-password-append"
+                  *ngIf="this.form.get('confirmPassword').value"
+                  (click)="confirmpassvisibility = !confirmpassvisibility"
+                >
+                  <div class="input-password-text">
+                    <span *ngIf="confirmpassvisibility">
+                      <svg
+                        width="19.297"
+                        height="13.436"
+                        viewBox="0 0 19.297 13.436"
+                      >
+                        <g
+                          id="noun_Eye_1542295"
+                          transform="translate(-2.218 -6.159)"
+                        >
+                          <path
+                            id="Path_3057"
+                            data-name="Path 3057"
+                            d="M21.214,11.91C16.742,5.9,12.092,6.149,11.867,6.165,11.64,6.149,6.99,5.9,2.519,11.91a1.856,1.856,0,0,0-.3.967h0a1.843,1.843,0,0,0,.3.966c4.471,6.008,9.121,5.761,9.348,5.745.225.016,4.875.263,9.348-5.745a1.839,1.839,0,0,0,.3-.966h0A1.845,1.845,0,0,0,21.214,11.91ZM11.867,17.5a4.424,4.424,0,0,1-4.194-4.62,4.423,4.423,0,0,1,4.194-4.62,4.421,4.421,0,0,1,4.193,4.62A4.422,4.422,0,0,1,11.867,17.5Zm1.9-4.95a1.686,1.686,0,0,1-1.6-1.761,1.887,1.887,0,0,1,.18-.793,2.5,2.5,0,0,0-.479-.05A2.808,2.808,0,0,0,9.2,12.877a2.808,2.808,0,0,0,2.662,2.933,2.808,2.808,0,0,0,2.662-2.933,3.066,3.066,0,0,0-.046-.527A1.467,1.467,0,0,1,13.764,12.548Z"
+                            transform="translate(0 0)"
+                            fill="#999fa8"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                    <span *ngIf="!confirmpassvisibility">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19.293"
+                        height="17.242"
+                        viewBox="0 0 19.293 17.242"
+                      >
+                        <g
+                          id="Group_5711"
+                          data-name="Group 5711"
+                          transform="translate(-1495.186 -591.662)"
+                        >
+                          <path
+                            id="Subtraction_1"
+                            data-name="Subtraction 1"
+                            d="M22409.693,6360.68a8.5,8.5,0,0,1-3.416-.841,15.138,15.138,0,0,1-5.742-4.9s0,0,0-.01l0-.006a1.7,1.7,0,0,1,0-1.915.046.046,0,0,0,.008-.014,17.228,17.228,0,0,1,3.492-3.568l2.223,2.223a4.972,4.972,0,0,0-.564,2.316,4.425,4.425,0,0,0,4.191,4.62,3.911,3.911,0,0,0,2.443-.864l1.8,1.8a8.885,8.885,0,0,1-4.062,1.159c-.1,0-.16,0-.182,0h-.01C22409.848,6360.676,22409.787,6360.68,22409.693,6360.68Zm7.219-3.16h0l-2.883-2.883a5.2,5.2,0,0,0,.045-.674,4.428,4.428,0,0,0-4.2-4.619,3.846,3.846,0,0,0-1.006.134l-1.738-1.74a7.938,7.938,0,0,1,2.557-.493c.121,0,.186.005.188.005s.066-.005.188-.005a8.5,8.5,0,0,1,3.42.841,15.123,15.123,0,0,1,5.74,4.9s0,0,0,.01l0,.006a1.7,1.7,0,0,1,0,1.905l-.006.012-.006.01a18.537,18.537,0,0,1-2.312,2.587Zm-7.035-.626a2.81,2.81,0,0,1-2.662-2.932,3.183,3.183,0,0,1,.209-1.141l3.719,3.719A2.43,2.43,0,0,1,22409.877,6356.893Z"
+                            transform="translate(-20905.047 -5753.46)"
+                            fill="#999fa8"
+                          />
+                          <rect
+                            id="Rectangle_2789"
+                            data-name="Rectangle 2789"
+                            width="2.384"
+                            height="22"
+                            rx="1.192"
+                            transform="translate(1495.893 593.348) rotate(-45)"
+                            fill="#999fa8"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="verfiedPass"
+                  *ngIf="
+                    !form.get('confirmPassword').invalid &&
+                    !form.hasError('notSame')
+                  "
+                >
+                  <svg
+                    id="Component_4_2"
+                    data-name="Component 4 – 2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15.885"
+                    height="12.506"
+                    viewBox="0 0 15.885 12.506"
+                  >
+                    <path
+                      id="Path_687"
+                      data-name="Path 687"
+                      d="M13.162,25.6a1.141,1.141,0,0,0-1.649-.133,1.244,1.244,0,0,0-.128,1.709l3.1,3.753.889-.788-.89.791a1.144,1.144,0,0,0,1.653.132,1.234,1.234,0,0,0,.092-.091L26.617,20.955a1.245,1.245,0,0,0,.06-1.714,1.141,1.141,0,0,0-1.653-.062L15.471,28.4,13.162,25.6Z"
+                      transform="translate(-11.104 -18.854)"
+                      fill="#30d595"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group terms-check">
+            <div class="radio-group">
+              <div class="radio-btn">
+                <input
+                  type="checkbox"
+                  class="d-none"
+                  formControlName="check"
+                  id="terms"
+                />
+                <label for="terms" class="border-0">
+                  <span class="radio"></span>
+                  <span>
+                    I have read and accept the Hayya
+                    <a
+                      target="_blank"
+                      href="https://www.qatar2022.qa/en/terms-of-use"
+                    >
+                    Terms & Conditions,
+                    </a> the
+                    <a
+                    target="_blank"
+                    href="https://www.qatar2022.qa/en/privacy"
+                  >
+                  Privacy
+                  </a> and
+                  <a
+                  target="_blank"
+                  href="https://www.qatar2022.qa/en/cookie-policy"
+                >
+                Cookie Policies
+                </a>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-6">
+            <label for="firstname">{{
+              'ManualStep2.MobileNumber' | translate
+            }}</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <ng-select
+                  [virtualScroll]="false"
+                  [clearable]="false"
+                  bindLabel="name"
+                  bindValue="id"
+                  [placeholder]="'+974'"
+                  formControlName="phonecode"
+                  class="form-control"
+                  aria-describedby="phonecode"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      form.get('phonecode').touched &&
+                      form.get('phonecode').invalid
+                  }"
+                >
+                  <ng-option
+                    *ngFor="let phonecode of dailingCodeList"
+                    [value]="phonecode.id"
+                  >
+                    <span
+                      class="flag-icon flag-icon-{{
+                        phonecode.code | lowercase
+                      }}"
+                    ></span>
+                    <span class="mx-1"> {{ phonecode.dialingCode }} </span>
+                  </ng-option>
+                </ng-select>
+              </div>
+              <input
+                type="number"
+                class="text-area fl-name form-control"
+                formControlName="phoneNumber"
+                name="phoneNumber"
+                id="phoneNumber"
+                [ngClass]="{
+                  'is-invalid':
+                    form.get('phoneNumber').touched &&
+                    form.get('phoneNumber').invalid,
+                  hasValue: this.form.get('phoneNumber').value
+                }"
+                [placeholder]="'ManualStep2.EnterMobileNumber' | translate"
+              />
+
+               </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="form.get('phoneNumber').errors?.required"
+              >
+                {{ 'ManualStep2.EnterMobileNumber' | translate }}
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-8">
+            <div class="form-group"></div>
+          </div> -->
+          <!-- <div class="col-12 fields-combo">
+            <label for="mobile">{{ 'ManualStep2.MobileNumber' | translate }}<sup>*</sup></label>
+            <div class="input-group">
+
+
+              <input type="text" mask="0*" formControlName="mobile" name="mobile"
+                [placeholder]="'ManualStep2.EnterMobileNumber' | translate" id="mobile" class="form-control" [ngClass]="{
+                  'is-invalid': form.get('mobile').touched  && form.get('mobile').invalid
+                }"
+              />
+              <div class="invalid-feedback"
+                *ngIf=" form.get('mobile')">
+                {{ 'ErrorMessage.PhoneInUse' | translate }}
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="login-validation" *ngIf="showLoginError != ''">
+          <span>{{ showLoginError | translate }} </span>
+        </div>
+        <div style="display: flex;justify-content: flex-end; margin-top: 10px;">
+
+
+          <button
+            type="button"
+            class="btn btn-secondary mr-2"
+            (click)="cancel()"
+          >
+            <span> {{ 'Common.Cancel' | translate }}</span>
+          </button>
+          <button
+          type="submit"
+          class="btn btn-primary btn-sm btn-submit"
+          [disabled]="!form.valid || form.get('check').value ==false"
+          (click)="signup()"
+        >
+          {{ 'SignUp.SignUp' | translate }}
+        </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<fan-id-common-error-modal
+  *ngIf="error_dialog_open"
+  [head_error_message]="'SignUp.SubmitFailed'"
+  [error_message]="error_message"
+  buttontext="Common.Close"
+  (closeThis)="this.error_dialog_open = false"
+>
+</fan-id-common-error-modal>
+
+<fan-id-common-dialogue
+  *ngIf="showCommonDialog"
+  [Body]="'Please click close to proceed to login'"
+  [Header]="'SignUp.UserSuccess'"
+  (closeThis)="redirectToLogin()"
+>
+</fan-id-common-dialogue>

@@ -1,0 +1,57 @@
+.nav-tabs {
+  border-bottom: 1px solid #fff;
+  gap: 1rem;
+
+  .nav-link {
+    border-color: transparent;
+    color: #B3B3B3;
+    border-radius: 10px;
+
+    &.active {
+      color: var(--hayya-primary);
+      border-radius: 10px;
+    }
+  }
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  border-color: transparent;
+  border-radius: 10px;
+}
+
+:host {
+  display: block;
+}
+
+::ng-deep td.dataTables_empty {
+  display: none !important;
+}
+.no-data-available{
+  text-align: center;
+}
+
+.nav-item {
+  min-width: 131px;
+  text-align: center !important;
+}
+
+.card-history {
+  &__container {
+    margin: 0 5% 2% 5%;
+
+    header {
+      padding-bottom: 1.5rem;
+
+      .title {
+        padding: 0;
+        padding-right: 54px;
+
+        h4 {
+          font-size: 1.2rem;
+          color: var(--hayya-primary);
+        }
+      }
+    }
+  }
+}

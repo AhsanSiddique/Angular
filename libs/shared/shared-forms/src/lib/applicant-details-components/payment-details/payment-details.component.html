@@ -1,0 +1,22 @@
+<ng-container *ngIf="{ data: paymentDetails$ | async } as vm">
+  <div class="row" style="row-gap: 1rem;">
+    <!-- Amount -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Amount"
+        id="amount"
+        [value]="vm.data?.amount ?? 'NA'"
+        placeholder="Amount"
+      ></fan-id-readonly-input>
+    </div>
+    <!-- Transaction ID -->
+    <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <fan-id-readonly-input
+        label="Transaction ID"
+        id="transactionId"
+        [value]="vm.data?.transactionId ?? 'NA'"
+        placeholder="Transaction ID"
+      ></fan-id-readonly-input>
+    </div>
+  </div>
+</ng-container>

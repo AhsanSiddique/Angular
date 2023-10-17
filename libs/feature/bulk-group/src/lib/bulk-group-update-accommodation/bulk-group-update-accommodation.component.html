@@ -1,0 +1,53 @@
+<fan-id-modal-wrapper
+  *ngIf="!update_success && !update_error"
+  title="Update Group Accommodation Details"
+  (closeThis)="_close.emit()"
+>
+  <div class="bulk-group-update-accommodation row">
+    <form autocomplete="off" class="col-12 py-4 px-5" [formGroup]="updateForm">
+      <div class="form-group mb-0">
+        <label for="accommodation_details" class="d-none">Organization Group Accommodation Details<sup>*</sup></label>
+        <textarea name="accommodation_details" rows="5" class="form-control accommodation_details"
+          id="accommodation_details" formControlName="accommodation_details" aria-describedby="accommodation details"
+          [class.is-invalid]="uf.accommodation_details.touched && uf.accommodation_details.invalid"
+          placeholder="Please indicate where this group will be staying in Qatar"
+        ></textarea>
+        <div class="invalid-feedback" *ngIf="uf.accommodation_details.errors?.required">
+          Please indicate where this group will be staying in Qatar
+        </div>
+        <div class="invalid-feedback" *ngIf="uf.accommodation_details.errors?.maxLines">
+          Maximum of {{uf.accommodation_details.errors?.maxLines}} lines are allowed
+        </div>
+        <div class="invalid-feedback" *ngIf="uf.accommodation_details.errors?.maxlength">
+          Maximum of {{uf.accommodation_details.errors?.maxlength.requiredLength}} characters are allowed
+        </div>
+      </div>
+      <div class="form-group mb-0 d-flex justify-content-center mt-4">
+        <button type="reset" class="btn btn-secondary mr-2" (click)="_close.emit()">
+          <span>{{ 'Common.Cancel' | translate }}</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-caret-8"
+          [disabled]="updateForm.invalid"
+          (click)="submitForm()"
+        >
+          {{ 'Common.Submit' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="update_error"
+  head_error_message="Unable to update the details"
+  [error_message]="error_message"
+  buttontext="Common.Close"
+  (closeThis)="_close.emit()"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="update_success"
+  head_success_message='Organization Accommodation Details Updated Successfully'
+  buttontext="Common.Ok"
+  (closeThis)="_close.emit(true)"
+></fan-id-common-success-modal>

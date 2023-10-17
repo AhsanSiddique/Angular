@@ -1,0 +1,123 @@
+<button class="btn btn-primary btn-caret-8 btn-grid" (click)="open()">
+  <span>{{ 'EntryPermitHistory.EntryPermitHistory' | translate }}</span>
+</button>
+
+<fan-id-modal-wrapper [ngClass]="{'d-none':showpdfModal}" *ngIf="_open"
+  [title]="'EntryPermitHistory.EntryPermitDetails' | translate" (closeThis)="close()"
+  [config]="{ maxWidth: '100%' }"
+>
+  <div class="entrypermit-history-container" style="min-width: 650px !important">
+    <form [formGroup]="permitResendForm" (ngSubmit)="resendEmail()" *ngIf="permitHistoryList?.length">
+      <div class="row">
+        <!-- <div class="form-check mt-3 col-4">
+          <div class="roundcheck">
+            <input type="checkbox" id="entryPermitToOtheremail" [(ngModel)]="entryPermit_checked"
+              (change)="onEntryPermitSendEmailChange(entryPermit_checked)" [ngModelOptions]="{ standalone: true }" />
+            <label for="entryPermitToOtheremail"></label>
+            <span class="roundcheckLabel">&nbsp; &nbsp;{{ 'EntryPermitHistory.SendToSecondaryEmail' | translate }}</span>
+          </div>
+
+        </div> -->
+        <div class="col-4" *ngIf="!entryPermit_checked"></div>
+        <div class="col-4" *ngIf="entryPermit_checked">
+          <input type="text" class="text-area" name="permitResendEmail" formControlName="permitResendEmail" placeholder="{{
+        'EntryPermitHistory.EnterEmailAddress' | translate
+      }}" id="permitResendEmail" class="form-control" [ngClass]="{
+        'is-invalid':
+        permitResendForm.get('permitResendEmail').touched &&
+        permitResendForm.get('permitResendEmail').invalid
+      }"
+      maxlength="60"
+      />
+        </div>
+        <div class="col-12 ml-3" style="display: flex;justify-content: flex-end;" [class.d-none]="!resendEmailVisible">
+          <button [disabled]="entryPermit_checked && permitResendForm.invalid" type="submit"
+            class="btn btn-primary btn-sm" style="width: 153.72px !important;
+            height: 3rem !important;
+            margin: 20px;
+            margin-top: 0px;
+            ">
+            {{ 'EntryPermitHistory.Resend' | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="tableSroll">
+      <table id="entrypermit-history-table" class="fan-id-datatable w-100" style="border-bottom: 1px solid #eaeaea !important;
+        border-right: 1px solid #eaeaea !important;" aria-describedby="entry visa history">
+        <thead>
+          <tr>
+            <th>
+              {{ 'EntryPermitHistory.ID' | translate }}
+            </th>
+            <th>
+              {{ 'EntryPermitHistory.Date' | translate }}
+            </th>
+            <th>
+              {{ 'EntryPermitHistory.SendStatus' | translate }}
+            </th>
+            <th>
+              {{ 'EntryPermitHistory.PermitStatus' | translate }}
+            </th>
+            <th>Date of Last Entry</th>
+            <th>Duration</th>
+            <th>Issue Date</th>
+            <th>
+              {{ 'EntryPermitHistory.Preview' | translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="permitHistoryList?.length && !loading">
+            <tr *ngFor="let data of permitHistoryList; index as i">
+              <td>{{ data?.id }}</td>
+              <td>{{ data?.system_CreatedOn + 'Z' | date: 'dd-MM-yyyy hh:mm:ss a' }}</td>
+              <td>
+                {{ data?.isSent }}
+              </td>
+              <td [ngStyle]="{'color':data?.isActive ? '#30d595' :'#f34a4b'}">
+                {{ data?.isActive ? 'Valid' : 'Invalid' }}
+              </td>
+              <td>{{ applicant_data?.visaLastEntryDate + 'Z' | date: 'dd-MM-yyyy hh:mm:ss a' }}</td>
+              <td>{{ applicant_data?.visaDuration }} days</td>
+              <td>{{ applicant_data?.visaIssuedDate + 'Z' | date: 'dd-MM-yyyy hh:mm:ss a' }}</td>
+              <td>
+                <button *ngIf="i === 0" class="btn btn-link view-document-btn" (click)="showEntryPermitPreview()">
+                  <span>{{ 'View' | translate }}</span>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="loading">
+            <td colspan="8" class="text-center">Loading...</td>
+          </tr>
+          <tr *ngIf="!permitHistoryList?.length && !loading">
+            <td colspan="8" class="text-center">No Data</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</fan-id-modal-wrapper>
+
+<fan-id-common-error-modal
+  *ngIf="email_error"
+  [head_error_message]="'EntryPermitHistory.EmailSendError'"
+  [error_message]="email_error"
+  buttontext="Common.Close"
+  (closeThis)="closeEmailSendError()"
+></fan-id-common-error-modal>
+
+<fan-id-common-success-modal
+  *ngIf="email_success"
+  head_success_message='EntryPermitHistory.EmailSendSuccess'
+  buttontext="Common.Ok"
+  (closeThis)="closeEmailSendSuccess()"
+></fan-id-common-success-modal>
+<fan-id-pdf-modal
+  *ngIf="showpdfModal"
+  fanIdDisableRightclick
+  [pdfSrc]="documentpdfSrc"
+  [isDownloadable]="true"
+  (closeThis)="closepdfModal()"
+></fan-id-pdf-modal>

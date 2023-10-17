@@ -1,0 +1,481 @@
+<div class="row faq-container pl-0 p-0">
+  <div class="faq">
+    <div class="icon-banner">
+      <div class="container">
+        <img src="/assets/images/AMIRCUP2021_49_Final_Land_WB_RGB-02 1.png" class="title_image">
+        <h1 class="title">{{'Faq.Title' | translate}}</h1>
+
+      </div>
+    </div>
+    <!-- <div>
+      <input type="text" style="position:absolute" type="text"/>
+  </div> -->
+    <!-- <div class="divider-1"></div> -->
+    <div class="pl-0 pr-0">
+      <div class="col-lg-12 col-md-6 col-sm-3 mx-auto faqsection">
+        <img src="/assets/icons/faq_cate_left.png" class="faq_cate_left mb-3">
+        <label for="category" class="faqcate m-4"> {{'Faq.FAQCategories' | translate}} </label>
+        <img src="/assets/icons/faq_cate_right.png" class="faq_cate_right mb-3">
+      </div>
+    </div>
+    <div class="faqSectionMain">
+      <div class="row m-0 p-0 card-row" #myDiv>
+
+          <div class="card faqCard">
+            <div class="card-body " [ngClass]="{ 'generalFaqSelect':generalFaqBoolean,'generalFaq':!generalFaqBoolean }"
+              (click)="changeSelectClass(1)" id="generalFaqId">
+              <img *ngIf="generalFaqBoolean" src="/assets/icons/generalFaq.png" class="mb-3">
+              <img *ngIf="!generalFaqBoolean" src="/assets/icons/generalFaqIconMaroon.png" class="mb-3">
+              <p class="card-text generalFaqText">{{'Faq.GeneralFAQ' | translate}}</p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+          </div>
+
+
+          <div class="card faqCard">
+            <div class="card-body "
+              [ngClass]="{ 'stadiumAccessFaqSelect':stadiumAccessFaqBoolean,'stadiumAccessFaq':!stadiumAccessFaqBoolean }"
+              (click)="changeSelectClass(2)">
+              <img *ngIf="!stadiumAccessFaqBoolean" src="/assets/icons/StadiumAccessfaq.png" class="mb-3">
+              <img *ngIf="stadiumAccessFaqBoolean" src="/assets/icons/StadiumAccessWhite.png" class="mb-3">
+              <p class="card-text SAFaqText">{{'Faq.StadiumAccess' | translate}}</p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+          </div>
+
+
+          <div class="card faqCard">
+            <div class="card-body " [ngClass]="{ 'metroFaqSelect':metroFaqBoolean,'metroFaq':!metroFaqBoolean }"
+              (click)="changeSelectClass(3)">
+              <img *ngIf="!metroFaqBoolean" src="/assets/icons/metrofaq.png" class="mb-3">
+              <img *ngIf="metroFaqBoolean" src="/assets/icons/Metro & Tram white.png" class="mb-3">
+
+              <p class="card-text metroFaqText">{{'Faq.Metro' | translate}}</p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+          </div>
+
+      </div>
+    </div>
+    <div class="faqitemssection m-0">
+
+      <!-- Questions About General -->
+
+      <div *ngIf="generalFaqBoolean" class="accordion" id="accordionExample">
+        <div class="card mb-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> -->
+              <strong>{{'Faq.GeneralFAQs.AccoHead1' | translate}}</strong>
+              <!-- </button> -->
+              <button *ngIf="!accord1" type="button" class="close" data-target="#collapseOne" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',1)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord1" type="button" class="close" data-target="#collapseOne" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',1)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+
+          </div>
+
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para1' | translate}}
+                <a href="https://www.ac21.qa" target="_blank" class="text-decoraton">(https://www.ac21.qa)</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead2' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord2" type="button" class="close" data-target="#collapseTwo" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',2)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord2" type="button" class="close" data-target="#collapseTwo" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',2)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para2' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead3' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord3" type="button" class="close" data-target="#collapseThree" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',3)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord3" type="button" class="close" data-target="#collapseThree" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',3)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para3' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead4' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord4" type="button" class="close" data-target="#collapse4" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',4)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord4" type="button" class="close" data-target="#collapse4" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',4)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionExample">
+            <div class="card-body para">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para4' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead5' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord5" type="button" class="close" data-target="#collapse5" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',5)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord5" type="button" class="close" data-target="#collapse5" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',5)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para5' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead6' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord6" type="button" class="close" data-target="#collapse6" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',6)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord6" type="button" class="close" data-target="#collapse6" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',6)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">{{'Faq.GeneralFAQs.Para6' | translate}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead7' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord7" type="button" class="close" data-target="#collapse7" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',7)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord7" type="button" class="close" data-target="#collapse7" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',7)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para7' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead8' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord8" type="button" class="close" data-target="#collapse8" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',8)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord8" type="button" class="close" data-target="#collapse5" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',8)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse8" class="collapse" aria-labelledby="heading8" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para8' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead9' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord9" type="button" class="close" data-target="#collapse9" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',9)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord9" type="button" class="close" data-target="#collapse9" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',9)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para13' | translate}}
+                <br>
+
+                {{'Faq.GeneralFAQs.Para21' | translate}}
+                <br>
+                {{'Faq.GeneralFAQs.Para14' | translate}}
+                <a href="https://tickets.qfa.qa" target="_blank" class="text-decoraton">{{'Faq.GeneralFAQs.Para15' | translate}}</a>
+                {{'Faq.GeneralFAQs.Para16' | translate}}
+                <a href="https://ac21.qa" target="_blank" class="text-decoraton">{{'Faq.GeneralFAQs.Para17' | translate}}</a>
+                {{'Faq.GeneralFAQs.Para18' | translate}}
+                <br>
+
+                {{'Faq.GeneralFAQs.Para21' | translate}}
+                <br>
+                {{'Faq.GeneralFAQs.Para19' | translate}}
+
+
+                <a href="https://goo.gl/maps/TzFXsW5sUmdCthKL7" target="_blank" class="text-decoraton">{{'Faq.GeneralFAQs.Para20' | translate}}</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead10' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord10" type="button" class="close" data-target="#collapse10" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',10)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord10" type="button" class="close" data-target="#collapse10" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',10)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse10" class="collapse" aria-labelledby="heading10" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                 {{'Faq.GeneralFAQs.Para10'| translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead11' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord11" type="button" class="close" data-target="#collapse11" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',11)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord11" type="button" class="close" data-target="#collapse11" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',11)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para11' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.GeneralFAQs.AccoHead12' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord12" type="button" class="close" data-target="#collapse12" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',12)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord12" type="button" class="close" data-target="#collapse12" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',12)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.GeneralFAQs.Para12' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questions About Stadium Access -->
+
+      <div *ngIf="stadiumAccessFaqBoolean" class="accordion" id="accordionExample">
+        <div class="card mb-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseThree"> -->
+              <strong> {{'Faq.StadiumAccessFQAs.AccoHead13' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord13" type="button" class="close" data-target="#collapseOne" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',13)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord13" type="button" class="close" data-target="#collapseOne" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',13)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              {{'Faq.StadiumAccessFQAs.Para13' | translate}}
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> -->
+              <strong>{{'Faq.StadiumAccessFQAs.AccoHead14' | translate}}</strong>
+              <!-- </button> -->
+              <button *ngIf="!accord14" type="button" class="close" data-target="#collapseTwo" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',14)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord14" type="button" class="close" data-target="#collapseTwo" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',14)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+
+          </div>
+
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.StadiumAccessFQAs.Para14' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="metroFaqBoolean" class="accordion" id="accordionExample">
+        <div class="card mb-3">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> -->
+              <strong> {{'Faq.metroFaqBoolean.AccoHead15' | translate}} </strong>
+              <!-- </button> -->
+              <button *ngIf="!accord15" type="button" class="close" data-target="#collapseOne" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',15)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord15" type="button" class="close" data-target="#collapseOne" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',15)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.metroFaqBoolean.Para15' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <!-- <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> -->
+              <strong>{{'Faq.metroFaqBoolean.AccoHead16' | translate}}</strong>
+              <!-- </button> -->
+              <button *ngIf="!accord16" type="button" class="close" data-target="#collapseTwo" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('plus',16)"><img src="/assets/icons/plusfaq.png"
+                  alt="Close"></button>
+              <button *ngIf="accord16" type="button" class="close" data-target="#collapseTwo" data-toggle="collapse"
+                aria-label="Close" (click)="accordFivePlusMinus('minus',16)"><img src="/assets/icons/minusfaq.png"
+                  alt="Close"></button>
+
+            </h5>
+
+          </div>
+
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+              <p class="card-text">
+                {{'Faq.metroFaqBoolean.Para16' | translate}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="need-help-btn-div p-5">
+        <button type="button" class="btn btn-primary help-btn" (click)="redirectToContactUs()">
+          {{'Faq.Help' | translate}}
+        </button>
+      </div>
+      <!-- <p class="pb-2">{{'Tnc.Para1' | translate}}</p>
+      <p class="pt-2 mb-0">{{'Tnc.Para2' | translate}}</p>
+      <p class="mb-0">{{'Tnc.Para3' | translate}}</p>
+      <p class="mb-5">{{'Tnc.Para4' | translate}}</p>
+      <p class="pt-3">{{'Tnc.Para5' | translate}}</p>
+      <p class="pt-3 pb-2">{{'Tnc.Para6' | translate}}</p>
+      <p class="pt-3 pb-2">{{'Tnc.Para7' | translate}}</p>
+      <p class="pt-3 pb-2">{{'Tnc.Para8' | translate}}</p>
+      <p class="pt-3 pb-2">{{'Tnc.Para9' | translate}}</p> -->
+    </div>
+
+    <!-- <div class="divider-2"></div> -->
+  </div>
+</div>

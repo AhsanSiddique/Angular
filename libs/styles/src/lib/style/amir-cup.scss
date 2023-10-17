@@ -1,0 +1,180 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+$dark-gold: #C18E33;
+$light-gold: #D49E3D;
+$white:#ffffff;
+$maroon:#6B0927;
+$light-maroon: #8A1539;
+$dark-maroon: #950037;
+$footer-left: #881938;
+$footer-right:#731431;
+$yellow: #E0A123;
+$light-yellow: #E2D8C0;
+$button-bg: #FCBE0B;
+$title: #E5D9BF;
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins/_breakpoints.scss';
+
+$basecolor:#E0A123;
+$seccolor:var(--hayya-primary);
+$black:#000;
+
+//Devices
+$extrasmall:  320px;
+$small: 480px;
+$tablet: 768px;
+$medium: 992px;
+$large: 1200px;
+
+@mixin application_padding($prop) {
+  #{$prop}: 0px 168px;
+   @media (#{$small}) {
+     #{$prop}: 0px 20px;
+   }
+   @media (min-width : $small) {
+    #{$prop}: 0px 20px;
+  }
+  @media (min-width : $extrasmall) {
+    #{$prop}: 0px 20px;
+  }
+  @media (min-width : $medium) {
+    #{$prop}: 0px 40px;
+  }
+  @media (min-width : $tablet) {
+    #{$prop}: 0px 40px;
+  }
+  @media (min-width : $large) {
+    #{$prop}: 0px calc((100vw - 1180px) / 2 );
+  }
+  // @media (#{$mobile_size}) {
+  //   #{$prop}: 0px 20px;
+  // }
+}
+
+@mixin individual_padding($prop) {
+  #{$prop}: 168px;
+   @media (#{$small}) {
+     #{$prop}:  20px;
+   }
+   @media (min-width : $small) {
+    #{$prop}:  20px;
+  }
+  @media (min-width : $extrasmall) {
+    #{$prop}:  20px;
+  }
+  @media (min-width : $medium) {
+    #{$prop}:  40px;
+  }
+  @media (min-width : $tablet) {
+    #{$prop}:  40px;
+  }
+  @media (min-width : $large) {
+    #{$prop}:  calc((100vw - 1180px) / 2 );
+  }
+
+}
+
+html body {
+  margin: 0px;
+  font-family: 'Azer', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  overflow-x: hidden;
+  background: #FFF8E8;
+
+}
+::-webkit-scrollbar {
+  width: 5px;
+  border: 5px solid #8A1539;
+}
+::-webkit-scrollbar-thumb {
+background:#FCBE0B;
+border-radius: 2px;
+}
+.pad-left30{
+  padding-left: 30%;
+}
+
+.pad-right30{
+  padding-right: 30%;
+}
+
+ul.reset {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+.input-group{
+  .form-control{
+      padding: 1.5rem 0.75rem;
+      border-radius: 10px;
+      font-size: 18px;
+      &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: #BFBFBF !important;
+          opacity: 1 !important; /* Firefox */
+      }
+      &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+          color: #BFBFBF !important;
+      }
+      &::-moz-placeholder { /* Firefox 19+ */
+          color: #BFBFBF !important;
+      }
+      &:-ms-input-placeholder { /* IE 10+ */
+          color: #BFBFBF !important;
+      }
+      &:-moz-placeholder { /* Firefox 18- */
+          color: #BFBFBF !important;
+      }
+  }
+  .form-control:focus{
+      border-color: $basecolor;
+      box-shadow: 0 0 0 0.2rem rgba(224,161,35,0.3);
+  }
+}
+
+.btn-primary{
+  background: $seccolor;
+  color: $white;
+  border-color: $seccolor;
+  font-size: 18px;
+  border-radius: 10px;
+  &:hover, &:focus, &:active, .active, .active:focus{
+      background-color: $basecolor !important;
+      border-color: $basecolor !important;
+      box-shadow: 0 0 0 0.2rem rgba(224,161,35,0.3) !important;
+  }
+}
+
+.btn-outline-primary{
+  color:$black;
+  border-color: $seccolor;
+  font-size: 18px;
+  border-radius: 10px;
+  &:hover, &:focus, &:active, .active, .active:focus{
+      border-color: $basecolor !important;
+      box-shadow: 0 0 0 0.2rem rgba(224,161,35,0.3) !important;
+  }
+}
+@import './pages-portal/header.scss';
+@import './pages-portal/language.scss';
+@import './pages-portal/footer.scss';
+@import './pages/amir-tnc.scss';
+@import './pages-portal/RTL.scss';
+@import './pages/profilepage.scss';
+@import './pages/application-status.scss';
+@import './pages-portal/homepage.scss';
+@import './pages-portal/buttons.scss';
+@import './pages-portal/whatisfanid.scss';
+@import './pages-portal/terms.scss';
+@import './pages-portal/multi-form.scss';
+@import './components/dropdown.scss';
+@import './pages-portal/footer-register.scss';
+@import './pages-portal/register-sidebar.scss';
+@import './pages-portal/register-header.scss';
+@import './pages-portal/faq.scss'
+

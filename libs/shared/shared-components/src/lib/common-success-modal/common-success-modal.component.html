@@ -1,0 +1,39 @@
+<div class="modalpane-wrapper">
+  <!-- <div class="modalpane-header">
+    <img src="/assets/icons/Group 6786.svg" style="width: 45px;" alt="success icon" />
+  </div> -->
+
+  <div class="modalpane-body">
+    <div class="modalpane-header">
+      <img
+        src="/assets/icons/Group 6786.svg"
+        style="width: 74px"
+        alt="success icon"
+      />
+    </div>
+
+    <h4 class="text-center font-24 h4-head">
+      {{ head_success_message | translate }}
+    </h4>
+    <p
+      *ngIf="success_message"
+      class="text-center font-16"
+      style="padding: 1rem 0 0; font-style: normal; font-weight: normal"
+    >
+      {{ success_message | translate }}
+    </p>
+    <p *ngIf="note" class="text-center font-16">
+      {{ note }}
+    </p>
+    <div class="modalpane-footer">
+      <button
+        class="btn btn-primary btn-caret-8"
+        (click)="close()"
+        style=" margin-bottom: 1.5rem"
+      >
+        {{ buttontext | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modalpane-backdrop"></div>

@@ -1,0 +1,102 @@
+<fan-id-modal-wrapper  [title]="title | translate"
+(closeThis)="closeThis.emit('close')">
+
+  <div class="all-applications-export container-fluid">
+    <form class="form-row" [formGroup]="exportForm">
+      <div class="col-6 my-2">
+        <label for="applicationDateBegin">
+          {{ translateKey + '.StartDate' | translate }}
+        </label>
+        <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+          <input type="text" formControlName="applicationDateBegin" name="applicationDateBegin"
+            [placeholder]="translateKey + '.StartDate' | translate" id="applicationDateBegin" ngbDatepicker #d="ngbDatepicker"
+            class="w-100 form-control" [class.is-invalid]="
+              ef.applicationDateBegin.touched && ef.applicationDateBegin.invalid
+            " readonly
+            [minDate]="{ day: 1, month: 3, year: 2022 }"
+            [maxDate]="dateToday"
+            />
+            <svg (click)="d.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="bi bi-calendar d-block d-sm-block"
+          >
+            <path
+              d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+              fill="#00CFB7" />
+          </svg>
+        </div>
+        <fan-id-form-field-error [field_control]="ef.applicationDateBegin"></fan-id-form-field-error>
+      </div>
+      <div class="col-6 my-2">
+        <label for="applicationDateEnd">
+          {{ translateKey + '.EndDate' | translate }}
+        </label>
+        <div class="date-inner-addon date-right-addon" data-date-format="mm-dd-yyyy">
+          <input type="text" formControlName="applicationDateEnd" name="applicationDateEnd"
+            [placeholder]="translateKey + '.EndDate' | translate" id="applicationDateEnd"
+            ngbDatepicker #ed="ngbDatepicker"
+            class="w-100 form-control" [class.is-invalid]="
+              ef.applicationDateEnd.touched && ef.applicationDateEnd.invalid
+            "
+            [class.is-disabled]="!ef.applicationDateBegin.value"
+            readonly
+            [minDate]="ef.applicationDateBegin.value"
+            [maxDate]="dateToday"
+            />
+          <svg [class.is-disabled]="!ef.applicationDateBegin.value" (click)="ed.toggle()" width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-calendar d-block d-sm-block"
+        >
+          <path
+            d="M18 2.046h-3V.044h-2v2.002H5V.044H3v2.002H0v18.016h18V2.046ZM16 18.06H2V7.05h14v11.01ZM4 9.052h5v5.004H4V9.052Z"
+            fill="#00CFB7" />
+        </svg>
+        </div>
+        <fan-id-form-field-error [field_control]="ef.applicationDateEnd"></fan-id-form-field-error>
+      </div>
+      <!-- <div class="col-6 my-2" *ngIf="!userAgent"></div> -->
+      <div class="col-6 my-2" *ngIf="userAgent">
+        <label for="organization_name">{{
+          'AllApplicationsExport.Organization' | translate
+          }}</label>
+
+        <ng-select [items]="organizationList" bindLabel="name" bindValue="organizationId"
+          [virtualScroll]="true" [clearable]="false"
+          [placeholder]="'AllApplicationsExport.SelectOrganization' | translate"
+          formControlName="organization_Name" class="form-control"
+          [ngClass]="{
+            'is-invalid': ef.organization_Name.touched && ef.organization_Name.invalid
+          }" labelForId="organization_name" aria-describedby="organization_name"
+          (change)="organizationChange($event)"></ng-select>
+        <div class="invalid-feedback" *ngIf="ef.organization_Name.touched && ef.organization_Name.invalid">
+          {{ 'Common.EnterTheDetails' | translate }}
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label for="bulkGroup_Name">Voucher Group</label>
+
+        <ng-select [items]="voucherGroupList" bindLabel="bulkGroupName" bindValue="bulkGroupName"
+          [virtualScroll]="true" [clearable]="false"
+          [placeholder]="'Select Voucher Group'"
+          formControlName="bulkGroup_Name" class="form-control"
+          [ngClass]="{
+            'is-invalid': ef.bulkGroup_Name.touched && ef.bulkGroup_Name.invalid
+          }" labelForId="bulkGroup_Name" aria-describedby="bulkGroup_Name"></ng-select>
+        <div class="invalid-feedback" *ngIf="ef.bulkGroup_Name.touched && ef.bulkGroup_Name.invalid">
+          {{ 'Common.EnterTheDetails' | translate }}
+        </div>
+      </div>
+    </form>
+    <div class="row all-applications-export-actions" style="gap: 1rem;">
+      <button type="button" class="btn btn-secondary"
+      (click)="closeThis.emit('close')"
+      >
+      <span>{{ 'Common.Close' | translate }}</span>
+    </button>
+    <button type="submit" class="btn btn-primary btn-caret-8"
+      (click)="generateExcel()"
+      [disabled]="exportForm.invalid"
+    >
+      <span>{{ 'Common.Download' | translate }}</span>
+    </button>
+    </div>
+  </div>
+</fan-id-modal-wrapper>
